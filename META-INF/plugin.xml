@@ -38,5 +38,6 @@
 
   <extensions defaultExtensionNs="com.intellij">
       <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
+      <lang.parserDefinition language="Simple" implementationClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition"/>
   </extensions>
 </idea-plugin>
