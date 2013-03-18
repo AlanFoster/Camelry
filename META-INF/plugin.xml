@@ -44,5 +44,11 @@
         <!-- Tooling -->
         <completion.contributor language="Simple"
                                 implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.autocomplete.SimpleCompletitionContributor"/>
+        <lang.syntaxHighlighterFactory key="Simple"
+                                       implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
+
+        <languageInjector
+                implementation="me.alanfoster.intellij.camel.simple.language.tooling.languageinjector.SimpleLanguageInjector"/>
+
     </extensions>
 </idea-plugin>
