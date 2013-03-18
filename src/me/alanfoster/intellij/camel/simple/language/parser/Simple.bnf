@@ -20,6 +20,6 @@
 
 }
 
-simpleFile ::= (expression|CRLF)*
+simpleFile ::= (expression|CRLF|number)*
 
 expression ::= functionStart identifier functionEnd

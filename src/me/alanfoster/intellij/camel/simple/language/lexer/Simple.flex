@@ -35,6 +35,7 @@ import me.alanfoster.intellij.camel.simple.language.psi.SimpleTypes;
 FUNCTION_START="${"
 IDENTIFIER=[:jletter:] [:jletterdigit:]*
 FUNCTION_END="}"
+NUMBER=[0-9]+
 
 CRLF= \n|\r|\r\n
 WHITE_SPACE=[\ \t\f]
@@ -45,6 +46,8 @@ WHITE_SPACE=[\ \t\f]
 %%
 
 <YYINITIAL> {FUNCTION_START} { yybegin(FUNCTION_STATE); return SimpleTypes.FUNCTIONSTART; }
+
+<YYINITIAL> {NUMBER} { return SimpleTypes.NUMBER; }
 
 <FUNCTION_STATE> {IDENTIFIER} { return SimpleTypes.IDENTIFIER; }
 
