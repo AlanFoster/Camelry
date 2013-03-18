@@ -1,0 +1,25 @@
+//
+// The BNF Grammar for Apache Camel's Simple notation
+// @See https://github.com/JetBrains/Grammar-Kit
+//
+
+{
+  parserClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParser"
+  StubParserClass="me.alanfoster.intellij.camel.simple.parser.GeneratedParserUtilBase"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Simple"
+  psiImplClassSuffix="Impl"
+  psiPackage="me.alanfoster.intellij.camel.simple.language.psi"
+  psiImplPackage="me.alanfoster.intellij.camel.simple.language.impl"
+
+  elementTypeHolderClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleTypes"
+  elementTypeClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleElementType"
+  tokenTypeClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleTokenType"
+
+}
+
+simpleFile ::= (expression|CRLF)*
+
+expression ::= functionStart identifier functionEnd
