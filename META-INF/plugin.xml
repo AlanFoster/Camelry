@@ -37,6 +37,6 @@
   </actions>
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+      <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
   </extensions>
 </idea-plugin>
