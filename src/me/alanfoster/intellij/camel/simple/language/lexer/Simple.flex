@@ -48,7 +48,7 @@ WHITE_SPACE=[\ \t\f]
 
 <FUNCTION_STATE> {IDENTIFIER} { return SimpleTypes.IDENTIFIER; }
 
-<YYINITIAL> {FUNCTION_END} { yybegin(YYINITIAL); return SimpleTypes.FUNCTIONSTART; }
+<FUNCTION_STATE> {FUNCTION_END} { yybegin(YYINITIAL); return SimpleTypes.FUNCTIONEND; }
 
 {CRLF} { return SimpleTypes.CRLF; }
 

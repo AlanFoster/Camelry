@@ -1,8 +1,9 @@
-package me.alanfoster.intellij.camel.simple.language.psi
-import com.intellij.psi.tree.IElementType
-import me.alanfoster.intellij.camel.simple.language.SimpleLanguage
-import org.jetbrains.annotations.NonNls
-import org.jetbrains.annotations.NotNull
+package me.alanfoster.intellij.camel.simple.language.psi;
+
+import com.intellij.psi.tree.IElementType;
+import me.alanfoster.intellij.camel.simple.language.SimpleLanguage;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents a leaf in a tree
@@ -12,6 +13,6 @@ import org.jetbrains.annotations.NotNull
  */
 class SimpleTokenType extends IElementType {
     SimpleTokenType(@NotNull @NonNls String debugName) {
-        super(debugName, SimpleLanguage.INSTANCE)
+        super(debugName, SimpleLanguage.INSTANCE);
     }
 }
