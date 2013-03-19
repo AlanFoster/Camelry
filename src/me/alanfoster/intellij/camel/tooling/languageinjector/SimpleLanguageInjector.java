@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.simple.language.tooling.languageinjector;
+package me.alanfoster.intellij.camel.tooling.languageinjector;
 
 import com.intellij.lang.Language;
 import com.intellij.openapi.util.TextRange;

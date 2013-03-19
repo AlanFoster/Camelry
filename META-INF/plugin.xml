@@ -41,14 +41,19 @@
         <lang.parserDefinition language="Simple"
                                implementationClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition"/>
 
-        <!-- Tooling -->
+        <!--
+            Tooling
+        -->
+
+        <!-- Simple Language Related -->
         <completion.contributor language="Simple"
                                 implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.autocomplete.SimpleCompletitionContributor"/>
         <lang.syntaxHighlighterFactory key="Simple"
                                        implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
 
+        <!-- Blueprint/Spring Related -->
         <languageInjector
-                implementation="me.alanfoster.intellij.camel.simple.language.tooling.languageinjector.SimpleLanguageInjector"/>
+                implementation="me.alanfoster.intellij.camel.tooling.languageinjector.SimpleLanguageInjector"/>
 
     </extensions>
 </idea-plugin>
