@@ -1,5 +1,6 @@
 package me.alanfoster.intellij.camel.simple.language.tooling.languageinjector;
 
+import com.intellij.lang.Language;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.InjectedLanguagePlaces;
 import com.intellij.psi.LanguageInjector;
@@ -34,6 +35,16 @@ public class SimpleLanguageInjector implements LanguageInjector {
                 TextRange expressionTextRange = TextRange.from(0, psiLanguageInjectionHost.getTextLength());
                 injectedLanguagePlaces.addPlace(SimpleLanguage.INSTANCE, expressionTextRange, null, null);
             }
+
+            if(xmlTagParentLocalName != null && xmlTagParentLocalName.equals("xpath")){
+                // Find the XPath language
+                Language xpathLanguage = Language.findLanguageByID("XPath");
+
+                TextRange xmlTextRange = psiLanguageInjectionHost.getTextRange();
+                TextRange expressionTextRange = TextRange.from(0, psiLanguageInjectionHost.getTextLength());
+                injectedLanguagePlaces.addPlace(xpathLanguage, expressionTextRange, null, null);
+            }
         }
     }
+
 }
