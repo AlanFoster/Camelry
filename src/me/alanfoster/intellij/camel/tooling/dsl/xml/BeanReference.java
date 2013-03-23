@@ -10,7 +10,7 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.*;
 import com.intellij.psi.search.FileTypeIndex;
-import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomManager;
@@ -68,12 +68,12 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
             System.out.println("Matched the following bean : " + bean.getId().getStringValue());
 
             variants.add(
-                    LookupElementBuilder.create(bean.getXmlTag())
+                    LookupElementBuilder.create(bean.getId().getXmlTag())
                             .withIcon(CamelIcons.CAMEL)
-                            .withTypeText(bean.getId().getStringValue())
-                            .withLookupString(bean.getId().getStringValue())
-                            .withTailText(bean.getId().getStringValue())
                             .withPresentableText(bean.getId().getStringValue())
+                            .withTailText("(" + bean.getClassAttribute().getStringValue() + ")")
+                            .withTypeText("bean")
+                            //.withLookupString(bean.getId().getStringValue())
             );
         }
 
@@ -86,12 +86,17 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME,
                 XmlFileType.INSTANCE,
                 // TODO Research Scope further!
-                GlobalSearchScope.projectScope(project));
+                ProjectScope.getContentScope(project));
 
         for (VirtualFile virtualFile : virtualFiles) {
 
-            // Cheat for now and only match the blueprint.xml file
-            if (virtualFile.getPresentableUrl().endsWith("blueprint.xml")) {
+            // TODO Is there a nicer way to do this??
+            // Match only blueprint files
+            final VirtualFile parentFile = virtualFile.getParent();
+            boolean isBlueprintXmlFile = parentFile != null &&
+                    parentFile.getPresentableUrl().endsWith("resources\\OSGI-INF\\blueprint");
+
+            if (isBlueprintXmlFile) {
                 final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
 
                 final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);

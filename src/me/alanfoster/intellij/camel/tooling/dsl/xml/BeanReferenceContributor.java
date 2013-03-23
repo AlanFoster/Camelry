@@ -24,6 +24,9 @@ public class BeanReferenceContributor extends PsiReferenceContributor {
         //XmlAttributeValuePattern beanRefPattern = xmlAttributeValue().withLocalName("bean-ref")
         //        .withSuperParent(1, xmlTag().withLocalName("bean"));
 
+        //xmlAttributeValue().withLocalName("bean-ref")
+        //.withSuperParent(1, withDom(domElement(Bean.class)))
+
         registrar.registerReferenceProvider(PlatformPatterns.psiElement(XmlAttribute.class),
                 new PsiReferenceProvider() {
                     @NotNull
@@ -34,12 +37,12 @@ public class BeanReferenceContributor extends PsiReferenceContributor {
                         String attributeName = xmlAttribute.getLocalName();
                         String parentElementName = xmlAttribute.getParent().getLocalName();
 
-                        if("bean-ref".equals(attributeName) && "bean".equals(parentElementName)) {
+                        if ("ref".equals(attributeName) && "bean".equals(parentElementName)) {
                             String beanName = xmlAttribute.getDisplayValue();
 
                             final XmlAttributeValue valueElement = xmlAttribute.getValueElement();
 
-                            return new PsiReference[] { new BeanReference(valueElement, new TextRange(1, valueElement.getTextLength() -1))};
+                            return new PsiReference[]{new BeanReference(valueElement, new TextRange(1, valueElement.getTextLength() - 1))};
                             //return new PsiReference[]{new BeanReference(psiElement, new TextRange("bean-ref=\"".length() + 1, xmlAttribute.getTextLength()))};
                         }
 
