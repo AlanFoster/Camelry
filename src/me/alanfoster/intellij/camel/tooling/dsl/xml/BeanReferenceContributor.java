@@ -1,12 +1,15 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
 import com.intellij.openapi.util.TextRange;
-import com.intellij.patterns.PlatformPatterns;
+import com.intellij.patterns.XmlNamedElementPattern;
 import com.intellij.psi.*;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.util.ProcessingContext;
 import org.jetbrains.annotations.NotNull;
+
+import static com.intellij.patterns.XmlPatterns.xmlAttribute;
+import static com.intellij.patterns.XmlPatterns.xmlTag;
 
 
 /**
@@ -18,37 +21,27 @@ public class BeanReferenceContributor extends PsiReferenceContributor {
     public void registerReferenceProviders(PsiReferenceRegistrar registrar) {
 
         // Attempt to match the following
-        //  <bean bean-ref="bean-name" />
+        //  <bean ref="bean-name" />
         // for auto completion
-
-        //XmlAttributeValuePattern beanRefPattern = xmlAttributeValue().withLocalName("bean-ref")
-        //        .withSuperParent(1, xmlTag().withLocalName("bean"));
 
         //xmlAttributeValue().withLocalName("bean-ref")
         //.withSuperParent(1, withDom(domElement(Bean.class)))
 
-        registrar.registerReferenceProvider(PlatformPatterns.psiElement(XmlAttribute.class),
+        final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
+                .withSuperParent(1, xmlTag().withLocalName("bean"));
+
+        registrar.registerReferenceProvider(beanRefPattern,
                 new PsiReferenceProvider() {
                     @NotNull
                     @Override
                     public PsiReference[] getReferencesByElement(@NotNull PsiElement psiElement,
                                                                  @NotNull ProcessingContext context) {
                         XmlAttribute xmlAttribute = (XmlAttribute) psiElement;
-                        String attributeName = xmlAttribute.getLocalName();
-                        String parentElementName = xmlAttribute.getParent().getLocalName();
+                        XmlAttributeValue valueElement = xmlAttribute.getValueElement();
 
-                        if ("ref".equals(attributeName) && "bean".equals(parentElementName)) {
-                            String beanName = xmlAttribute.getDisplayValue();
+                        TextRange valueTextRange = valueElement.getValueTextRange();
 
-                            final XmlAttributeValue valueElement = xmlAttribute.getValueElement();
-
-                            return new PsiReference[]{new BeanReference(valueElement, new TextRange(1, valueElement.getTextLength() - 1))};
-                            //return new PsiReference[]{new BeanReference(psiElement, new TextRange("bean-ref=\"".length() + 1, xmlAttribute.getTextLength()))};
-                        }
-
-                        return PsiReference.EMPTY_ARRAY;
-
-                        //return CommonReferenceProviderTypes.PROPERTIES_FILE_KEY_PROVIDER.getProvider().getReferencesByElement(psiElement, context);
+                        return new PsiReference[]{new BeanReference(valueElement, new TextRange(1, valueElement.getTextLength() - 1))};
                     }
                 });
     }

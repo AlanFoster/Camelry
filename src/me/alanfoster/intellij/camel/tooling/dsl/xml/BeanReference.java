@@ -61,14 +61,14 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
         List<LookupElement> variants = new ArrayList<LookupElement>();
 
-        final List<Bean> beans = findBeans(project);
+        final List<Bean> beans = BeanReference.findBeans(project);
 
         for (Bean bean : beans) {
 
             System.out.println("Matched the following bean : " + bean.getId().getStringValue());
 
             variants.add(
-                    LookupElementBuilder.create(bean.getId().getXmlTag())
+                    LookupElementBuilder.create(bean.getId().getXmlAttributeValue().getValue())
                             .withIcon(CamelIcons.CAMEL)
                             .withPresentableText(bean.getId().getStringValue())
                             .withTailText("(" + bean.getClassAttribute().getStringValue() + ")")
@@ -80,7 +80,7 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
         return variants.toArray();
     }
 
-    private List<Bean> findBeans(Project project) {
+    public static List<Bean> findBeans(Project project) {
         //Collection<FileType> foo = FileBasedIndex.getInstance().getAllKeys(FileTypeIndex.NAME, project);
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME,
@@ -98,11 +98,9 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
             if (isBlueprintXmlFile) {
                 final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
-
                 final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
 
                 XmlFile xmlFile = (XmlFile) cachedPsiFile;
-                // final XmlTag[] xmlTags = xmlFile.getDocument().getRootTag().findSubTags("bean", null);
 
                 final DomManager domManager = DomManager.getDomManager(project);
                 Blueprint root = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
@@ -115,5 +113,16 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
         return Collections.EMPTY_LIST;
     }
 
+
+    public static List<Bean> findBeans(Project project, String id) {
+        List<Bean> allBeans = findBeans(project);
+        List<Bean> matchingBeans = new ArrayList(allBeans.size());
+        for (Bean bean : allBeans) {
+            if (id.equals(bean.getId().getStringValue())) {
+                matchingBeans.add(bean);
+            }
+        }
+        return matchingBeans;
+    }
 
 }

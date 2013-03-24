@@ -63,5 +63,7 @@
 
         <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription" />
 
+        <codeInsight.lineMarkerProvider language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanLineMarkerProvider"/>
+
     </extensions>
 </idea-plugin>
