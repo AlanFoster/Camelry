@@ -1,5 +1,6 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericAttributeValue;
@@ -12,15 +13,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface Bean extends DomElement {
     /**
-     * This attribute id must be unique, hence the @NameValue
-     * @see com.intellij.util.xml.NameValue
+     * {@link http://devnet.jetbrains.com/message/5270329#5270329}
      */
-    // TODO How do I actually wire up NameValue to validate? :)
-    @NameValue
+   // @NameValue
     @Attribute("id")
-    GenericAttributeValue<String> getId();
+    GenericAttributeValue<PsiClass> getId();
 
     @Attribute("class")
     @NotNull
-    GenericAttributeValue<String> getClassAttribute();
+    GenericAttributeValue<PsiClass> getClassAttribute();
+
+
 }

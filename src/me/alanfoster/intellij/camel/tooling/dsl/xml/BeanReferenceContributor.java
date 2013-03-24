@@ -41,7 +41,7 @@ public class BeanReferenceContributor extends PsiReferenceContributor {
 
                         TextRange valueTextRange = valueElement.getValueTextRange();
 
-                        return new PsiReference[]{new BeanReference(valueElement, new TextRange(1, valueElement.getTextLength() - 1))};
+                        return new PsiReference[]{new BeanReference(valueElement, new TextRange(1, 1 + valueElement.getValue().length()))};
                     }
                 });
     }

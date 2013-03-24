@@ -34,7 +34,6 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
         final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
                 .withSuperParent(1, xmlTag().withLocalName("bean"));
 
-
         if (beanRefPattern.accepts(element)) {
             XmlAttribute xmlRefAttribute = (XmlAttribute) element;
             String xmlRefValueString = xmlRefAttribute.getValueElement().getValue();
@@ -48,7 +47,7 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
                 NavigationGutterIconBuilder<PsiElement> builder =
                         NavigationGutterIconBuilder.create(CamelIcons.CAMEL)
                                 .setTargets(matchingBeanIdValue)
-                                .setTooltipText("Navigate to a simple property");
+                                .setTooltipText("Navigate to Bean Declaration");
                 result.add(builder.createLineMarkerInfo(element));
             }
 

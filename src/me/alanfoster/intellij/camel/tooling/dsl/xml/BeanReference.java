@@ -66,14 +66,14 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
         for (Bean bean : beans) {
 
             System.out.println("Matched the following bean : " + bean.getId().getStringValue());
+            // DomTarget.getTarget(bean.getId()
 
             variants.add(
-                    LookupElementBuilder.create(bean.getId().getXmlAttributeValue().getValue())
+                    LookupElementBuilder.create(bean.getId().getXmlAttribute().getValueElement(), bean.getId().getStringValue())
                             .withIcon(CamelIcons.CAMEL)
                             .withPresentableText(bean.getId().getStringValue())
                             .withTailText("(" + bean.getClassAttribute().getStringValue() + ")")
                             .withTypeText("bean")
-                            //.withLookupString(bean.getId().getStringValue())
             );
         }
 
