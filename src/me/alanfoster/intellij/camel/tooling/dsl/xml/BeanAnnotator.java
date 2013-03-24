@@ -18,6 +18,9 @@ import static com.intellij.patterns.XmlPatterns.xmlAttribute;
 import static com.intellij.patterns.XmlPatterns.xmlTag;
 
 /**
+ * Register the bean Annotator which will highlight a reference id as wrong if it can't find it
+ * Or say mark it matching a bean, and provide a text annotation when hovered over
+ *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
@@ -29,7 +32,7 @@ public class BeanAnnotator implements Annotator {
         final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
                 .withSuperParent(1, xmlTag().withLocalName("bean"));
 
-        if(beanRefPattern.accepts(element)) {
+        if (beanRefPattern.accepts(element)) {
             XmlAttribute xmlAttribute = (XmlAttribute) element;
             final XmlAttributeValue valueElement = xmlAttribute.getValueElement();
             String beanName = valueElement.getValue();
@@ -39,7 +42,7 @@ public class BeanAnnotator implements Annotator {
 
             List<Bean> beans = BeanReference.findBeans(project, beanName);
 
-            if(beans.size() == 1) {
+            if (beans.size() == 1) {
                 final String beanClassValue = beans.get(0).getClassAttribute().getStringValue();
                 Annotation annotation = holder.createInfoAnnotation(valueTextRange, "Class : " + beanClassValue);
                 annotation.setTextAttributes(SyntaxHighlighterColors.KEYWORD);

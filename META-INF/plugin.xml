@@ -75,6 +75,10 @@
         <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator" />
 
 
+        <!--
+            Register a gotoDeclarationHandler which allows for ctrl+clicking tokens to go to a declaration
+        -->
+        <gotoDeclarationHandler implementation="me.alanfoster.intellij.camel.simple.language.psi.BeanGotoDeclarationHandler" />
 
     </extensions>
 </idea-plugin>
