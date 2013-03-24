@@ -9,6 +9,5 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 public interface Blueprint extends DomElement {
-   // List<Bean> getBeanDeclarations();
     List<Bean> getBeans();
 }

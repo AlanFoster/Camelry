@@ -2,25 +2,17 @@ package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.*;
-import com.intellij.psi.search.FileTypeIndex;
-import com.intellij.psi.search.ProjectScope;
-import com.intellij.psi.xml.XmlFile;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.xml.DomManager;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiPolyVariantReference;
+import com.intellij.psi.PsiReferenceBase;
+import com.intellij.psi.ResolveResult;
 import me.alanfoster.intellij.camel.icons.CamelIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,7 +53,7 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
         List<LookupElement> variants = new ArrayList<LookupElement>();
 
-        final List<Bean> beans = BeanReference.findBeans(project);
+        final List<Bean> beans = BeanHelper.findBeans(project);
 
         for (Bean bean : beans) {
 
@@ -79,50 +71,4 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
         return variants.toArray();
     }
-
-    public static List<Bean> findBeans(Project project) {
-        //Collection<FileType> foo = FileBasedIndex.getInstance().getAllKeys(FileTypeIndex.NAME, project);
-
-        Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME,
-                XmlFileType.INSTANCE,
-                // TODO Research Scope further!
-                ProjectScope.getContentScope(project));
-
-        for (VirtualFile virtualFile : virtualFiles) {
-
-            // TODO Is there a nicer way to do this??
-            // Match only blueprint files
-            final VirtualFile parentFile = virtualFile.getParent();
-            boolean isBlueprintXmlFile = parentFile != null &&
-                    parentFile.getPresentableUrl().endsWith("resources\\OSGI-INF\\blueprint");
-
-            if (isBlueprintXmlFile) {
-                final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
-                final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
-
-                XmlFile xmlFile = (XmlFile) cachedPsiFile;
-
-                final DomManager domManager = DomManager.getDomManager(project);
-                Blueprint root = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
-                List<Bean> foundBeans = root.getBeans();
-
-                return foundBeans;
-            }
-        }
-
-        return Collections.EMPTY_LIST;
-    }
-
-
-    public static List<Bean> findBeans(Project project, String id) {
-        List<Bean> allBeans = findBeans(project);
-        List<Bean> matchingBeans = new ArrayList(allBeans.size());
-        for (Bean bean : allBeans) {
-            if (id.equals(bean.getId().getStringValue())) {
-                matchingBeans.add(bean);
-            }
-        }
-        return matchingBeans;
-    }
-
 }

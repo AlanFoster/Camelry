@@ -40,7 +40,7 @@ public class BeanAnnotator implements Annotator {
             TextRange valueTextRange = valueElement.getValueTextRange();
             Project project = element.getProject();
 
-            List<Bean> beans = BeanReference.findBeans(project, beanName);
+            List<Bean> beans = BeanHelper.findBeans(project, beanName);
 
             if (beans.size() == 1) {
                 final String beanClassValue = beans.get(0).getClassAttribute().getStringValue();

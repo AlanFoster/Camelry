@@ -39,7 +39,7 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
             String xmlRefValueString = xmlRefAttribute.getValueElement().getValue();
 
             Project project = element.getProject();
-            final List<Bean> matchingBeans = BeanReference.findBeans(project, xmlRefValueString);
+            final List<Bean> matchingBeans = BeanHelper.findBeans(project, xmlRefValueString);
 
             if (matchingBeans.size() > 0) {
                 XmlAttributeValue matchingBeanIdValue = matchingBeans.get(0).getId().getXmlAttributeValue();
