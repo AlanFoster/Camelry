@@ -57,13 +57,24 @@
 
         <!-- A contributor will resolve references for us, allowing us to pair elements together
              This means we can provide automatic completion/renaming etc -->
-        <psi.referenceContributor implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanReferenceContributor"/>
-
-        <lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
-
+       <!-- <psi.referenceContributor implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanReferenceContributor"/>
+-->
+        <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
+-->
         <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription" />
 
+        <!--
+            Creates gutter icons, which can be clicked to link to a referenced element
+        -->
         <codeInsight.lineMarkerProvider language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanLineMarkerProvider"/>
+
+        <!--
+            Register the bean Annotator which will highlight a reference id as wrong if it can't find it
+			Or say mark it matching a bean, and provide a text annotation when hovered over 
+        -->
+        <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator" />
+
+
 
     </extensions>
 </idea-plugin>
