@@ -1,6 +1,10 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
+import com.intellij.openapi.util.Iconable;
 import com.intellij.util.xml.DomFileDescription;
+import me.alanfoster.intellij.camel.icons.CamelIcons;
+
+import javax.swing.*;
 
 /**
  * Wires up a DomFileDescription, so that you can use it with the DOMManager.
@@ -17,5 +21,10 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint> {
         super(Blueprint.class, "blueprint",
                 // List all of the possible namespaces that the root blueprint node can be under
                 "http://www.osgi.org/xmlns/blueprint/v1.0.0");
+    }
+
+    @Override
+    public Icon getFileIcon(@Iconable.IconFlags int flags) {
+        return CamelIcons.CAMEL;
     }
 }

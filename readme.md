@@ -41,3 +41,4 @@ It would be nice to work on the following
 - Improve [Camel Simple](http://camel.apache.org/simple.html) notation support
 - Allow language injection for [Bean Binding](http://camel.apache.org/bean-binding.html) annotations
 - Add the same level of support to the Java DSL
+- Add bean handling support for `<method bean="id" method="method" />`
