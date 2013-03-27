@@ -14,5 +14,6 @@ import javax.swing.*;
  * @version 1.0.0-SNAPSHOT
  */
 public class CamelIcons {
-    public static final Icon CAMEL = IconLoader.getIcon("/me/alanfoster/intellij/camel/icons/camel.png");
+    public static final String CAMEL_STRING = "/me/alanfoster/intellij/camel/icons/camel.png";
+    public static final Icon CAMEL = IconLoader.getIcon(CAMEL_STRING);
 }
