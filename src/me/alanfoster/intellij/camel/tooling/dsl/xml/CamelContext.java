@@ -1,8 +1,6 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
-import com.intellij.util.xml.Attribute;
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.GenericAttributeValue;
+import com.intellij.util.xml.*;
 
 import java.util.List;
 
@@ -11,7 +9,7 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 //@Namespace(value = "http://camel.apache.org/schema/blueprint")
-public interface Context extends DomElement {
+public interface CamelContext extends DomElement {
     @Attribute("id")
     GenericAttributeValue<String> getId();
     List<Route> getRoutes();
