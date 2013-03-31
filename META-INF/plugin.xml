@@ -1,5 +1,5 @@
 <idea-plugin version="2">
-    <id>me.alanfoster.intellij.camel.id</id>
+    <id>me.alanfoster.intellij.camel</id>
     <name>Blueprint And Camel Support</name>
     <version>1.0</version>
     <vendor url="http://www.alanfoster.me">Alan Foster</vendor>
@@ -34,7 +34,18 @@
     </project-components>
 
     <actions>
-        <!-- Add your actions here -->
+		<!--
+			Creates an item on the context menu to allow the user
+			to create a new Camel related file
+		-->
+        <action id="Camel.CreateBlueprintXmlFile"
+                class="me.alanfoster.intellij.camel.tooling.dsl.xml.CreateCamelFile"
+                text="Camel Blueprint"
+                description="Creates a Blueprint Camel File"
+                icon="/me/alanfoster/intellij/camel/icons/camel.png"
+                >
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
     </actions>
 
     <extensions defaultExtensionNs="com.intellij">
