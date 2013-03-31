@@ -1,9 +1,7 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
-import com.intellij.ide.presentation.Presentation;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.intellij.camel.icons.CamelIcons;
 
 /**
  * @author Alan Foster
@@ -17,11 +15,11 @@ public interface Method extends DomElement {
     @Resolve
     @NameValue
     @Attribute("bean")
-    @Required
+    @Required(nonEmpty = true, value = true)
     GenericAttributeValue<Bean> getBean();
 
     @Attribute("method")
-    @Required
+    @Required(nonEmpty = true, value = true)
     @Convert(MethodResolver.class)
     GenericAttributeValue<PsiMethod> getMethod();
 }

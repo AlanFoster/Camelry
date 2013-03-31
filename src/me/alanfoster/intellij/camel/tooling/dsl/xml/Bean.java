@@ -12,11 +12,11 @@ public interface Bean extends DomElement {
     @NameValue
     @Attribute("id")
     @NotNull
-    @Required
+    @Required(nonEmpty = true, value = true)
     GenericAttributeValue<String> getId();
 
     @Attribute("class")
     @NotNull
-    @Required
+    @Required(nonEmpty = true, value = true)
     GenericAttributeValue<PsiClass> getClassAttribute();
 }
