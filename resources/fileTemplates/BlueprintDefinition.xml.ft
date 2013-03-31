@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Starter Blueprint Camel Definition ${NAME}
+-->
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xsi:schemaLocation="
+    http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+    http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <!-- Basic Bean Definitions-->
+    <!--
+        <bean id="foo" class="foo.bar.Baz">
+            <property name="simpleProperty" value="Hello World" />
+            <property
+        </bean>
+    -->
+
+    <!-- Osgi Service Related -->
+    <!--
+        Exposing Services :
+        ...
+
+        References to Services :
+        <reference id="referenceId" availability="optional" interface="foo.bar.IBaz"/>
+    -->
+
+    <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+        <route>
+            <from uri="direct:route"/>
+
+            <log message="Hello World!" />
+        </route>
+    </camelContext>
+
+</blueprint>

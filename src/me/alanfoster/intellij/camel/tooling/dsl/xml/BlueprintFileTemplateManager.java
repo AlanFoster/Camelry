@@ -18,12 +18,13 @@ import me.alanfoster.intellij.camel.icons.CamelIcons;
  * @see <a href="http://devnet.jetbrains.com/message/5316246">http://devnet.jetbrains.com/message/5316246</a>
  */
 public class BlueprintFileTemplateManager implements FileTemplateGroupDescriptorFactory {
-    public static final String BLUEPRINT_DEFINITION_FILE = "BlueprintDefinition";
-    public static final String BLUEPRINT_TEST_FILE = "BlueprintTest";
+    public static final String BLUEPRINT_DEFINITION_FILE = "BlueprintDefinition.xml";
+    public static final String BLUEPRINT_TEST_FILE = "BlueprintTest.java";
 
     @Override
     public FileTemplateGroupDescriptor getFileTemplatesDescriptor() {
         final FileTemplateGroupDescriptor group = new FileTemplateGroupDescriptor("CamelBlueprint", CamelIcons.CAMEL);
+
         group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_DEFINITION_FILE, CamelIcons.CAMEL));
         group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_TEST_FILE, CamelIcons.CAMEL));
 

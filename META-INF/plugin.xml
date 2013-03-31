@@ -52,7 +52,6 @@
         <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
         <lang.parserDefinition language="Simple"
                                implementationClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition"/>
-
         <!--
             Tooling
         -->
@@ -73,7 +72,10 @@
 
         <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
 -->
-        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription"/>
+<!--        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription"/>-->
+
+        <!-- #parse("File Header.java") -->
+        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileTemplateManager" />
 
         <!--
             Creates gutter icons, which can be clicked to link to a referenced element
