@@ -1,7 +1,35 @@
 #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
 
-public class ${NAME} {
-    public void Test() {
+import org.junit.Test;
+import org.apache.camel.test.junit4.CamelTestSupport;
 
+#parse("File Header.java")
+public class ${NAME} extends CamelBlueprintTestSupport{
+
+    /**
+     * override this method and return the location of
+     * your Blueprint XML file to be used for testing
+     */
+    @Override
+    protected String getBlueprintDescriptor() {
+        return "/OSGI-INF/blueprint/blueprint.xml";
     }
+
+    /**
+     * here we have regular Junit @Test method
+     * Note, make sure to follow this order of 'expect, send, assert'
+     * Otherwise your tests will not work as expected
+     */
+    @Test
+    public void testRoute() throws Exception {
+        // set mock expectations
+        getMockEndpoint("mock:result").expectedMessageCount(1);
+
+        // send a message
+        template.sendBody("direct:start", "Hello World");
+
+        // assert mocks
+        assertMockEndpointsSatisfied();
+    }
+
 }
