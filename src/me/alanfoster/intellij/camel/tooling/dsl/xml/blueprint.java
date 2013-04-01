@@ -1,6 +1,9 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
-import com.intellij.util.xml.*;
+import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.JavaNameStrategy;
+import com.intellij.util.xml.NameStrategy;
+import com.intellij.util.xml.Required;
 
 import java.util.List;
 
@@ -12,7 +15,6 @@ import java.util.List;
 public interface Blueprint extends DomElement {
     @Required
     List<Bean> getBeans();
-    // TODO This doesn't seem to handle 'CamelContext' as the name, is this camel case related?
     @Required
     CamelContext getCamelContext();
 }

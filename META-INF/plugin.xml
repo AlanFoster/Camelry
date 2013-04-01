@@ -7,7 +7,7 @@
     <description><![CDATA[
         <p>An IntelliJ plugin to make both Apache Blueprint and Apache Camel development work easier.</p>
         <p>For further details see <a href="https://github.com/AlanFoster/intellij-plugin-test"/>Github Project</a></p>
-    ]]>
+        ]]>
     </description>
 
 
@@ -34,10 +34,10 @@
     </project-components>
 
     <actions>
-		<!--
-			Creates an item on the context menu to allow the user
-			to create a new Camel related file
-		-->
+        <!--
+            Creates an item on the context menu to allow the user
+            to create a new Camel related file
+        -->
         <action id="Camel.CreateBlueprintXmlFile"
                 class="me.alanfoster.intellij.camel.tooling.dsl.xml.CreateCamelFile"
                 text="Camel Blueprint"
@@ -63,19 +63,19 @@
                                        implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
 
         <!-- Blueprint/Spring Related -->
-<!--        <languageInjector
-                implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>-->
+        <!--        <languageInjector
+                        implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>-->
 
         <!-- A contributor will resolve references for us, allowing us to pair elements together
              This means we can provide automatic completion/renaming etc -->
-<!--        <psi.referenceContributor implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanReferenceContributor"/>-->
+        <!--        <psi.referenceContributor implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanReferenceContributor"/>-->
 
         <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
 -->
-<!--        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription"/>-->
 
-        <!-- #parse("File Header.java") -->
-        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileTemplateManager" />
+        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription"/>
+
+        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileTemplateManager"/>
 
         <!--
             Creates gutter icons, which can be clicked to link to a referenced element
@@ -87,15 +87,15 @@
             Register the bean Annotator which will highlight a reference id as wrong if it can't find it
 			Or say mark it matching a bean, and provide a text annotation when hovered over 
         -->
-<!--        <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator"/>-->
+        <!--        <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator"/>-->
 
 
         <!--
             Register a gotoDeclarationHandler which allows for ctrl+clicking tokens to go to a declaration
         -->
-<!--        <gotoDeclarationHandler
-                implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
--->
+        <!--        <gotoDeclarationHandler
+                        implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
+        -->
 
     </extensions>
 </idea-plugin>

@@ -16,7 +16,7 @@ import javax.swing.*;
  * @version 1.0.0-SNAPSHOT
  * @see http://confluence.jetbrains.com/display/IDEADEV/Accessing+XML+through+IntelliJ+IDEA+DOM
  */
-public class BlueprintFileDescription extends DomFileDescription<Blueprint> {
+public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
     public BlueprintFileDescription() {
         super(Blueprint.class, "blueprint",
                 // List all of the possible namespaces that the root blueprint node can be under
@@ -27,4 +27,14 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint> {
     public Icon getFileIcon(@Iconable.IconFlags int flags) {
         return CamelIcons.CAMEL;
     }
+
+   /* @Override
+    public DomElementsAnnotator createAnnotator() {
+        return this;
+    }*/
+
+    /*@Override
+    public void annotate(DomElement element, DomElementAnnotationHolder holder) {
+       
+    }*/
 }
