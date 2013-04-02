@@ -1,0 +1,5 @@
+SimplePsiFile{}(0,7)
+  SimpleExpressionImpl(EXPRESSION)(0,7)
+    PsiElement(functionStart)('${')(0,2)
+    PsiElement(identifier)('body')(2,6)
+    PsiElement(functionEnd)('}')(6,7)
