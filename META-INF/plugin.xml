@@ -63,8 +63,8 @@
                                        implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
 
         <!-- Blueprint/Spring Related -->
-        <!--        <languageInjector
-                        implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>-->
+        <languageInjector
+                implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>
 
         <!-- A contributor will resolve references for us, allowing us to pair elements together
              This means we can provide automatic completion/renaming etc -->

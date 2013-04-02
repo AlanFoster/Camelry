@@ -1,6 +1,7 @@
 package me.alanfoster.intellij.camel.tooling.dsl.xml;
 
 import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.SubTagList;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ import java.util.List;
 public interface Route extends DomElement {
     From getFrom();
     List<To> getTos();
-    List<Method> getMethods();
+    @SubTagList("setBody")
+    List<SetBody> getSetBodys();
 }
