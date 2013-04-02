@@ -2,8 +2,8 @@ package me.alanfoster.intellij.camel.simple.language.tooling.highlighter;
 
 import com.intellij.lexer.FlexAdapter;
 import com.intellij.lexer.Lexer;
+import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.HighlighterColors;
-import com.intellij.openapi.editor.SyntaxHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.editor.markup.TextAttributes;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
     public static final TextAttributesKey BRACKET = TextAttributesKey.createTextAttributesKey(
             "SIMPLE_BRACE",
-            SyntaxHighlighterColors.BRACES
+            DefaultLanguageHighlighterColors.BRACES
     );
 
     public static final TextAttributesKey NUMBER = TextAttributesKey.createTextAttributesKey(
@@ -35,7 +35,7 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
 
     public static final TextAttributesKey STRING = TextAttributesKey.createTextAttributesKey(
             "SIMPLE_STRING",
-            SyntaxHighlighterColors.STRING
+            DefaultLanguageHighlighterColors.STRING
     );
 
     public static final TextAttributesKey ERROR = TextAttributesKey.createTextAttributesKey(
@@ -54,9 +54,28 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
         elementTypeAttributeKeyMap.put(SimpleTypes.IDENTIFIER, HighlighterColors.TEXT);
         elementTypeAttributeKeyMap.put(SimpleTypes.NUMBER, NUMBER);
 
-        elementTypeAttributeKeyMap.put(SimpleTypes.FUNCTIONSTART, SyntaxHighlighterColors.BRACES);
-        elementTypeAttributeKeyMap.put(SimpleTypes.FUNCTIONEND, SyntaxHighlighterColors.BRACES);
+        elementTypeAttributeKeyMap.put(SimpleTypes.FUNCTION_START, DefaultLanguageHighlighterColors.BRACES);
+        elementTypeAttributeKeyMap.put(SimpleTypes.FUNCTION_END, DefaultLanguageHighlighterColors.BRACES);
 
+        elementTypeAttributeKeyMap.put(SimpleTypes.LEFTSQUARE, DefaultLanguageHighlighterColors.BRACKETS);
+        elementTypeAttributeKeyMap.put(SimpleTypes.RIGHTSQUARE, DefaultLanguageHighlighterColors.BRACKETS);
+        elementTypeAttributeKeyMap.put(SimpleTypes.DOT, HighlighterColors.TEXT);
+
+        // Operators
+        elementTypeAttributeKeyMap.put(SimpleTypes.EQUALS_EQUALS, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+        elementTypeAttributeKeyMap.put(SimpleTypes.NOT_EQUALS, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+
+        elementTypeAttributeKeyMap.put(SimpleTypes.GREATER, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+        elementTypeAttributeKeyMap.put(SimpleTypes.GREATER_OR_EQUAL, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+
+        elementTypeAttributeKeyMap.put(SimpleTypes.LESS, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+        elementTypeAttributeKeyMap.put(SimpleTypes.LESS_OR_EQUAL, DefaultLanguageHighlighterColors.OPERATION_SIGN);
+
+        // Reserved words
+        elementTypeAttributeKeyMap.put(SimpleTypes.TRUE, DefaultLanguageHighlighterColors.CONSTANT);
+        elementTypeAttributeKeyMap.put(SimpleTypes.FALSE, DefaultLanguageHighlighterColors.CONSTANT);
+
+        // Fall through cases
         elementTypeAttributeKeyMap.put(SimpleTypes.CRLF, HighlighterColors.TEXT);
         elementTypeAttributeKeyMap.put(TokenType.BAD_CHARACTER, ERROR);
     }

@@ -1,7 +1,15 @@
-//
-// The BNF Grammar for Apache Camel's Simple notation
-// @See https://github.com/JetBrains/Grammar-Kit
-//
+/*
+ * The BNF Grammar for Apache Camel's Simple notation
+ * @See https://github.com/JetBrains/Grammar-Kit
+
+ */
+
+// Notes
+// Not currently supported
+// String interpolation
+// - "Hello ${in.header.name} this is ${in.header.me} speaking"
+// - Elvis operator "${foo?.bar?.baz}"
+
 
 {
   parserClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParser"
@@ -20,6 +28,35 @@
 
 }
 
-simpleFile ::= (expression|CRLF|number)*
+simpleFile ::= (item_)*
 
-expression ::= functionStart identifier functionEnd
+private item_ ::=
+    equality_expression
+    | relational_expression
+    | expression
+    | literal
+    // Just catch everything else as being valid in the simple language
+    | single_character
+    | CRLF
+
+equality_expression ::= expression equality_operator expression
+relational_expression ::= expression relational_operator expression
+
+equality_operator ::= EQUALS_EQUALS | NOT_EQUALS
+relational_operator ::= GREATER_OR_EQUAL | GREATER | LESS_OR_EQUAL | LESS
+
+expression ::= camel_expression | literal
+
+camel_expression ::= function_start camel_expression_body function_end
+camel_expression_body ::= identifier (member_access)*
+
+member_access ::= LEFTSQUARE identifier RIGHTSQUARE
+        | DOT identifier
+
+literal ::= numeric_literal | string_literal | boolean_literal
+numeric_literal ::= NUMBER
+string_literal ::= APOSTROPHE single_string_characters? APOSTROPHE
+boolean_literal ::= TRUE | FALSE
+
+// Note, single_string_characters should be /[^']+/
+single_string_characters ::= single_character*

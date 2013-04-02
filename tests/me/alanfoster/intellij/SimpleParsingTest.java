@@ -39,5 +39,4 @@ public class SimpleParsingTest extends ParsingTestCase {
     protected boolean includeRanges() {
         return true;
     }
-
 }
