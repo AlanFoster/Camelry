@@ -9,7 +9,8 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0.0-SNAPSHOT
  */
 public interface Bean extends DomElement {
-    @NameValue
+    // TODO deal with id @Scope
+    @NameValue(unique = true)
     @Attribute("id")
     @NotNull
     @Required(nonEmpty = true, value = true)

@@ -27,6 +27,7 @@ public class BeanReferenceContributor extends PsiReferenceContributor {
         //xmlAttributeValue().withLocalName("bean-ref")
         //.withSuperParent(1, withDom(domElement(Bean.class)))
 
+        // TODO 'bean' can also be supported within the <method /> element
         final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
                 .withSuperParent(1, xmlTag().withLocalName("bean"));
 

@@ -54,10 +54,9 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
 
                 String componentClassName = properties.getProperty("class");
 
-                final PsiClass aClass = JavaPsiFacade.getInstance(project).findClass(componentClassName, GlobalSearchScope.allScope(project));
+                final PsiClass componentClass = JavaPsiFacade.getInstance(project).findClass(componentClassName, GlobalSearchScope.allScope(project));
 
-                return aClass;
-
+                return componentClass;
             } catch (IOException e) {
                 // TODO Wireup a logger...
                 e.printStackTrace();
@@ -80,9 +79,9 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
         return Collections.EMPTY_LIST;
     }
 
-
     @Nullable
     private ComponentDefinition getComponentDefinition(String componentString) {
+        @SuppressWarnings("*")
         final Pattern compile = Pattern.compile("^(?<componentName>\\w+):(.+)$");
         final Matcher matcher = compile.matcher(componentString);
         if (matcher.matches()) {

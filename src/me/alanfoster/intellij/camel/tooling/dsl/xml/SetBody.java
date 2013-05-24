@@ -15,5 +15,6 @@ import com.intellij.util.xml.DomElement;
  * @version 1.0.0-SNAPSHOT
  */
 public interface SetBody extends DomElement {
+    Expression getExpression();
     Method getMethod();
 }

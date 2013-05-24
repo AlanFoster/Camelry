@@ -18,6 +18,12 @@ public interface Method extends DomElement {
     @Required(nonEmpty = true, value = true)
     GenericAttributeValue<Bean> getBean();
 
+    @Resolve
+    @NameValue
+    @Attribute("ref")
+    @Required(nonEmpty = true, value = true)
+    GenericAttributeValue<Bean> getRef();
+
     @Attribute("method")
     @Required(nonEmpty = true, value = true)
     @Convert(MethodResolver.class)
