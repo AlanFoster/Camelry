@@ -43,7 +43,7 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
             new TextAttributes(Color.red, null, null, null, Font.BOLD)
     );
 
-    private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[]{ERROR};
+    private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[]{STRING};
     //new TextAttributesKey[0];
 
     private static final Map<IElementType, TextAttributesKey> elementTypeAttributeKeyMap;
@@ -51,6 +51,11 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
     static {
         elementTypeAttributeKeyMap = new HashMap<IElementType, TextAttributesKey>();
 
+        // Non-simple, ie just normal text
+        elementTypeAttributeKeyMap.put(SimpleTypes.NON_SIMPLE, DefaultLanguageHighlighterColors.STRING);
+        elementTypeAttributeKeyMap.put(SimpleTypes.SINGLE_CHARACTER, DefaultLanguageHighlighterColors.STRING);
+
+        // Simple
         elementTypeAttributeKeyMap.put(SimpleTypes.IDENTIFIER, HighlighterColors.TEXT);
         elementTypeAttributeKeyMap.put(SimpleTypes.NUMBER, NUMBER);
 
@@ -76,6 +81,7 @@ public class SimpleSyntaxHighlighter extends SyntaxHighlighterBase {
         elementTypeAttributeKeyMap.put(SimpleTypes.FALSE, DefaultLanguageHighlighterColors.CONSTANT);
 
         // Fall through cases
+        elementTypeAttributeKeyMap.put(TokenType.WHITE_SPACE, DefaultLanguageHighlighterColors.CONSTANT);
         elementTypeAttributeKeyMap.put(SimpleTypes.CRLF, HighlighterColors.TEXT);
         elementTypeAttributeKeyMap.put(TokenType.BAD_CHARACTER, ERROR);
     }

@@ -53,7 +53,7 @@ WHITE_SPACE=[\ \t\f]
 <YYINITIAL> "false" { return SimpleTypes.FALSE; }
 
 <YYINITIAL> {FUNCTION_START} { return SimpleTypes.FUNCTION_START; }
-<YYINITIAL> {IDENTIFIER} { return SimpleTypes.IDENTIFIER; }
+// <YYINITIAL> {IDENTIFIER} { return SimpleTypes.IDENTIFIER; }
 <YYINITIAL> {FUNCTION_END} {  return SimpleTypes.FUNCTION_END; }
 
 <YYINITIAL> {NUMBER} { return SimpleTypes.NUMBER; }
@@ -67,15 +67,22 @@ WHITE_SPACE=[\ \t\f]
 <YYINITIAL> "<=" { return SimpleTypes.LESS_OR_EQUAL; }
 <YYINITIAL> "<" { return SimpleTypes.LESS; }
 
+<YYINITIAL> "+" { return SimpleTypes.PLUS; }
+<YYINITIAL> "-" { return SimpleTypes.MINUS; }
+<YYINITIAL> "/" { return SimpleTypes.DIVIDE; }
+<YYINITIAL> "*" { return SimpleTypes.MULTIPLY; }
+
+// TODO Functions
+
 // Punctuation
 <YYINITIAL> "[" { return SimpleTypes.LEFTSQUARE; }
 <YYINITIAL> "]" { return SimpleTypes.RIGHTSQUARE; }
 <YYINITIAL> "." { return SimpleTypes.DOT; }
 <YYINITIAL> "'" { return SimpleTypes.APOSTROPHE; }
+<YYINITIAL> "\"" { return SimpleTypes.SPEECHMARK; }
 
 // Strings
 <YYINITIAL> [:jletter:] { return SimpleTypes.SINGLE_CHARACTER; }
-
 
 {CRLF} { return SimpleTypes.CRLF; }
 

@@ -25,38 +25,68 @@
   elementTypeHolderClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleTypes"
   elementTypeClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleElementType"
   tokenTypeClass="me.alanfoster.intellij.camel.simple.language.psi.SimpleTokenType"
-
 }
 
-simpleFile ::= (item_)*
+
+simpleFile ::= item_*
 
 private item_ ::=
-    equality_expression
-    | relational_expression
-    | expression
-    | literal
-    // Just catch everything else as being valid in the simple language
-    | single_character
+     simple
+    | non_simple
     | CRLF
 
-equality_expression ::= expression equality_operator expression
-relational_expression ::= expression relational_operator expression
+// Non-Simple, ie anything goes
+// TODO is there a '.' notation to match all?
+non_simple ::= (SINGLE_CHARACTER | NUMBER | APOSTROPHE)+
 
-equality_operator ::= EQUALS_EQUALS | NOT_EQUALS
+// Simple functions - Always preceded with the function start operator - in this case only '${' is supported
+simple ::=
+        equality_expression
+        | string_expression
+        | relational_expression
+        | simple_expression
+
+// Expressions
+equality_expression ::= simple_expression equality_operator right_hand_side
+relational_expression ::= simple_expression relational_operator right_hand_side
+string_expression ::= simple_expression string_operator right_hand_side
+
+right_hand_side ::= simple_expression | literal
+
+simple_expression ::= FUNCTION_START simple_expression_body FUNCTION_END
+
+simple_expression_body ::= identifier (member_access)*
+member_access ::= LEFTSQUARE member_access_key RIGHTSQUARE
+        | DOT identifier
+member_access_key ::=
+    "last" | "last" MINUS number
+    identifier | string_literal | numeric_literal
+
+// Operators
+equality_operator ::= NOT_EQUALS | EQUALS_EQUALS
+
+string_operator ::=
+    CONTAINS_NOT | CONTAINS
+    | REGEX_NOT | REGEX
+    | NOT_IN | IN
+    | NOT_IS | IS
+    | NOT_RANGE | RANGE
+
 relational_operator ::= GREATER_OR_EQUAL | GREATER | LESS_OR_EQUAL | LESS
 
-expression ::= camel_expression | literal
+math_operator ::= PLUS | MINUS | MULTIPLY | DIVIDE
 
-camel_expression ::= function_start camel_expression_body function_end
-camel_expression_body ::= identifier (member_access)*
+identifier ::= SINGLE_CHARACTER (SINGLE_CHARACTER | NUMBER)*
 
-member_access ::= LEFTSQUARE identifier RIGHTSQUARE
-        | DOT identifier
-
+// Literals
 literal ::= numeric_literal | string_literal | boolean_literal
 numeric_literal ::= NUMBER
-string_literal ::= APOSTROPHE single_string_characters? APOSTROPHE
+string_literal ::=
+    SPEECHMARK single_string_characters SPEECHMARK
+    | APOSTROPHE single_string_characters APOSTROPHE
+
 boolean_literal ::= TRUE | FALSE
 
 // Note, single_string_characters should be /[^']+/
-single_string_characters ::= single_character*
+// TODO Should our lexer give us this instead of the parser?
+single_string_characters ::= (SINGLE_CHARACTER | NUMBER)*
