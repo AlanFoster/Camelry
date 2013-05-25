@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;

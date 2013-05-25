@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
 import com.intellij.ide.fileTemplates.FileTemplateDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptor;
@@ -14,7 +14,7 @@ import me.alanfoster.intellij.camel.icons.CamelIcons;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see CreateCamelFile
+ * @see me.alanfoster.intellij.camel.tooling.dsl.dom.CreateCamelFile
  * @see <a href="http://devnet.jetbrains.com/message/5316246">http://devnet.jetbrains.com/message/5316246</a>
  */
 public class BlueprintFileTemplateManager implements FileTemplateGroupDescriptorFactory {

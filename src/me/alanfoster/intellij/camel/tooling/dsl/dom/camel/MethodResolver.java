@@ -1,9 +1,10 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.camel;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.converters.AbstractMethodParams;
 import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,6 +27,7 @@ import java.util.Set;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
+// TODO This is very similar to PropertyResolver
 public class MethodResolver extends AbstractMethodResolveConverter<Method> {
 
     public MethodResolver() {
@@ -42,7 +44,7 @@ public class MethodResolver extends AbstractMethodResolveConverter<Method> {
     @NotNull
     @Override
     protected Collection<PsiClass> getPsiClasses(Method parent, ConvertContext context) {
-        final Bean beanReference = parent.getBean().getValue();
+        final BlueprintBean beanReference = parent.getBean().getValue();
         if (beanReference != null) {
             PsiClass beanClass = beanReference.getClassAttribute().getValue();
             if (beanClass != null) {

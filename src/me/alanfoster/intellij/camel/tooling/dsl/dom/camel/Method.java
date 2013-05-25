@@ -1,7 +1,8 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.camel;
 
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 
 /**
  * @author Alan Foster
@@ -16,13 +17,13 @@ public interface Method extends DomElement {
     @NameValue
     @Attribute("bean")
     @Required(nonEmpty = true, value = true)
-    GenericAttributeValue<Bean> getBean();
+    GenericAttributeValue<BlueprintBean> getBean();
 
     @Resolve
     @NameValue
     @Attribute("ref")
     @Required(nonEmpty = true, value = true)
-    GenericAttributeValue<Bean> getRef();
+    GenericAttributeValue<BlueprintBean> getRef();
 
     @Attribute("method")
     @Required(nonEmpty = true, value = true)

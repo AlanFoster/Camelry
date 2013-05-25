@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.camel;
 
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.Stubbed;
@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see Blueprint
+ * @see me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.Blueprint
  * @see CamelContext
  */
 @Stubbed

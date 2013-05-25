@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.codeInsight.navigation.actions.GotoDeclarationHandlerBase;
 import com.intellij.openapi.actionSystem.DataContext;
@@ -10,6 +10,7 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.psi.xml.XmlTag;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -55,10 +56,10 @@ public class BeanGotoDeclarationHandler extends GotoDeclarationHandlerBase {
 
             String beanId = xmlTag.getAttributeValue("ref");
 
-            List<Bean> beans = BeanHelper.findBeans(project, beanId);
+            List<BlueprintBean> beans = BeanHelper.findBeans(project, beanId);
 
             if(beans.size() == 1) {
-                Bean bean = beans.get(0);
+                BlueprintBean bean = beans.get(0);
 
                 String className = bean.getClassAttribute().getStringValue();
 
@@ -93,9 +94,9 @@ public class BeanGotoDeclarationHandler extends GotoDeclarationHandlerBase {
             XmlAttributeValue attributeValue = (XmlAttributeValue) parent;
             final String value = attributeValue.getValue();
 
-            List<Bean> beans = BeanHelper.findBeans(project, value);
+            List<BlueprintBean> beans = BeanHelper.findBeans(project, value);
             if (beans.size() == 1) {
-                Bean bean = beans.get(0);
+                BlueprintBean bean = beans.get(0);
                 return bean.getId().getXmlAttributeValue();
             }
         }

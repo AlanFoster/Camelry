@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
@@ -9,6 +9,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import me.alanfoster.intellij.camel.icons.CamelIcons;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -39,7 +40,7 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
             String xmlRefValueString = xmlRefAttribute.getValueElement().getValue();
 
             Project project = element.getProject();
-            final List<Bean> matchingBeans = BeanHelper.findBeans(project, xmlRefValueString);
+            final List<BlueprintBean> matchingBeans = BeanHelper.findBeans(project, xmlRefValueString);
 
             if (matchingBeans.size() > 0) {
                 XmlAttributeValue matchingBeanIdValue = matchingBeans.get(0).getId().getXmlAttributeValue();

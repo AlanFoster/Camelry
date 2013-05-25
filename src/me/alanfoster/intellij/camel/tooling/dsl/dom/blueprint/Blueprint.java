@@ -1,6 +1,7 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
 import com.intellij.util.xml.*;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.camel.CamelContext;
 
 import java.util.List;
 
@@ -11,9 +12,13 @@ import java.util.List;
 //@Stubbed
 @NameStrategy(value = JavaNameStrategy.class)
 public interface Blueprint extends DomElement {
+
     @SubTagList(value = "bean")
     @Required
-    List<Bean> getBeans();
+    List<BlueprintBean> getBeans();
+
+    // Represents the osgi <cm:property-placeholder /> element
+    PropertyPlaceholder getPropertyPlaceHolder();
 
     @Required
     CamelContext getCamelContext();

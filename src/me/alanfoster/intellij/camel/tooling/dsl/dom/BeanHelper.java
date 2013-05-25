@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.editor.Document;
@@ -14,6 +14,8 @@ import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomManager;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.Blueprint;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -28,7 +30,7 @@ import java.util.List;
  */
 public class BeanHelper {
 
-    public static List<Bean> findBeans(Project project) {
+    public static List<BlueprintBean> findBeans(Project project) {
         //Collection<FileType> foo = FileBasedIndex.getInstance().getAllKeys(FileTypeIndex.NAME, project);
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(FileTypeIndex.NAME,
@@ -52,7 +54,7 @@ public class BeanHelper {
 
                 final DomManager domManager = DomManager.getDomManager(project);
                 Blueprint root = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
-                List<Bean> foundBeans = root.getBeans();
+                List<BlueprintBean> foundBeans = root.getBeans();
 
                 return foundBeans;
             }
@@ -62,10 +64,10 @@ public class BeanHelper {
     }
 
 
-    public static List<Bean> findBeans(Project project, String id) {
-        List<Bean> allBeans = findBeans(project);
-        List<Bean> matchingBeans = new ArrayList(allBeans.size());
-        for (Bean bean : allBeans) {
+    public static List<BlueprintBean> findBeans(Project project, String id) {
+        List<BlueprintBean> allBeans = findBeans(project);
+        List<BlueprintBean> matchingBeans = new ArrayList(allBeans.size());
+        for (BlueprintBean bean : allBeans) {
             if (id.equals(bean.getId().getStringValue())) {
                 matchingBeans.add(bean);
             }

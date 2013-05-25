@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.lang.refactoring.RefactoringSupportProvider;
 import com.intellij.psi.PsiElement;

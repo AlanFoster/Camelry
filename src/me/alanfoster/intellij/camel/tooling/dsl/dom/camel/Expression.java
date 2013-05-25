@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.camel;
 
 import com.intellij.util.xml.DomElement;
 
@@ -15,7 +15,4 @@ public interface Expression extends DomElement {
      * @return The string value
      */
     String getValue();
-
-
-
 }

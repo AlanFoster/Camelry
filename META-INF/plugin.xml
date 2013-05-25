@@ -39,7 +39,7 @@
             to create a new Camel related file
         -->
         <action id="Camel.CreateBlueprintXmlFile"
-                class="me.alanfoster.intellij.camel.tooling.dsl.xml.CreateCamelFile"
+                class="me.alanfoster.intellij.camel.tooling.dsl.dom.CreateCamelFile"
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
                 icon="/me/alanfoster/intellij/camel/icons/camel.png"
@@ -73,15 +73,15 @@
         <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
 -->
 
-        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileDescription"/>
+        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintFileDescription"/>
 
-        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BlueprintFileTemplateManager"/>
+        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintFileTemplateManager"/>
 
         <!--
             Creates gutter icons, which can be clicked to link to a referenced element
         -->
         <codeInsight.lineMarkerProvider language="XML"
-                                        implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanLineMarkerProvider"/>
+                                        implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.BeanLineMarkerProvider"/>
 
         <!--
             Register the bean Annotator which will highlight a reference id as wrong if it can't find it

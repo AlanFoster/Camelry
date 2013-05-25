@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
@@ -9,6 +9,7 @@ import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.ResolveResult;
 import me.alanfoster.intellij.camel.icons.CamelIcons;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,6 +21,9 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
+    public BeanReference(){
+        super(null, null);
+    }
 
     public BeanReference(@NotNull PsiElement psiElement, TextRange textRange) {
         super(psiElement, textRange);
@@ -53,9 +57,9 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
         List<LookupElement> variants = new ArrayList<LookupElement>();
 
-        final List<Bean> beans = BeanHelper.findBeans(project);
+        final List<BlueprintBean> beans = BeanHelper.findBeans(project);
 
-        for (Bean bean : beans) {
+        for (BlueprintBean bean : beans) {
 
             System.out.println("Matched the following bean : " + bean.getId().getStringValue());
             // DomTarget.getTarget(bean.getId()

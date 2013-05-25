@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.lang.annotation.Annotation;
 import com.intellij.lang.annotation.AnnotationHolder;
@@ -10,6 +10,7 @@ import com.intellij.patterns.XmlNamedElementPattern;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
+import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,7 +41,7 @@ public class BeanAnnotator implements Annotator {
             TextRange valueTextRange = valueElement.getValueTextRange();
             Project project = element.getProject();
 
-            List<Bean> beans = BeanHelper.findBeans(project, beanName);
+            List<BlueprintBean> beans = BeanHelper.findBeans(project, beanName);
 
             if (beans.size() == 1) {
                 final String beanClassValue = beans.get(0).getClassAttribute().getStringValue();

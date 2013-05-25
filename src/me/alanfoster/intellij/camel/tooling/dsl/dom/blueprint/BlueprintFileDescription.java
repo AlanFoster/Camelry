@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
 import com.intellij.openapi.util.Iconable;
 import com.intellij.util.xml.DomFileDescription;
@@ -17,10 +17,17 @@ import javax.swing.*;
  * @see http://confluence.jetbrains.com/display/IDEADEV/Accessing+XML+through+IntelliJ+IDEA+DOM
  */
 public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
+    private static final String ROOT_ELEMENT_NAME = "blueprint";
+
+    /**
+     * The list of all possible namespaces that the root element node can be under.
+     */
+    private static final String[] ROOT_ELEMENT_POSSIBLE_NAMESPACES = new String[] {
+        "http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    };
+
     public BlueprintFileDescription() {
-        super(Blueprint.class, "blueprint",
-                // List all of the possible namespaces that the root blueprint node can be under
-                "http://www.osgi.org/xmlns/blueprint/v1.0.0");
+        super(Blueprint.class, ROOT_ELEMENT_NAME, ROOT_ELEMENT_POSSIBLE_NAMESPACES);
     }
 
     @Override

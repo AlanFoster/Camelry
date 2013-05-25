@@ -1,14 +1,16 @@
-package me.alanfoster.intellij.camel.tooling.dsl.xml;
+package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public interface Bean extends DomElement {
+public interface BlueprintBean extends DomElement {
     // TODO deal with id @Scope
     @NameValue(unique = true)
     @Attribute("id")
@@ -20,4 +22,13 @@ public interface Bean extends DomElement {
     @NotNull
     @Required(nonEmpty = true, value = true)
     GenericAttributeValue<PsiClass> getClassAttribute();
+
+    @SubTagList("property")
+    @NotNull
+    List<BeanProperty> getBeanProperties();
+
+    @SubTagList("argument")
+    @NotNull
+    List<BeanArgument> getBeanArguments();
+
 }
