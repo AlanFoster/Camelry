@@ -1,5 +1,6 @@
 #if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
 
+import org.apache.camel.test.blueprint.CamelBlueprintTestSupport;
 import org.junit.Test;
 import org.apache.camel.test.junit4.CamelTestSupport;
 
