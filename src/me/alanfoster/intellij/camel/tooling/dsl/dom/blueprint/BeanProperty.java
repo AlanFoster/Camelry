@@ -1,9 +1,6 @@
 package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
-import com.intellij.util.xml.Attribute;
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.GenericAttributeValue;
-import com.intellij.util.xml.Required;
+import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,7 +25,7 @@ public interface BeanProperty extends DomElement {
     @Attribute("name")
     @NotNull
     @Required(nonEmpty = true, value = true)
-    //@Convert(BeanPropertyResolver.class)
+    @Referencing(BeanPropertyResolver.class)
     GenericAttributeValue<String> getName();
 
     @Attribute("value")
