@@ -14,9 +14,19 @@ Currently Supports
 
 Here some some screenshots from the video :
 
-![File Creation](/documentation/screenshots/CreateNew.png "Optional title")
-![Intellisense](/documentation/screenshots/IntelliSense.png "Optional title")
-![Language Injection](/documentation/screenshots/LanguageSupport.png "Optional title")
+#####File Creation
+![File Creation](/documentation/screenshots/CreateNew.png "File Creation")
+#####Bean Intellisense
+![Intellisense](/documentation/screenshots/IntelliSense.png "Intellisense")
+#####Language Injection
+![Language Injection](/documentation/screenshots/LanguageInjection.png "Language Injection")
+
+The currently injected langauges are :
+     
+* [XPath](http://camel.apache.org/xpath.html)
+* [JavaScript](http://camel.apache.org/javascript.html)
+* [Groovy](http://camel.apache.org/groovy.html)
+* [Simple](http://camel.apache.org/simple.html) 
 
 Note, the [Simple](http://camel.apache.org/simple.html) language support is currently very rudimentary and requires a lot of work :)
 
