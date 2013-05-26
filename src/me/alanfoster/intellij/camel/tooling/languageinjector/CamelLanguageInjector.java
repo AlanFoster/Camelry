@@ -24,10 +24,12 @@ public class CamelLanguageInjector implements LanguageInjector {
         boolean isLanguageInjected =
                 // Attempt to match an xml element with a parent node which has a local name
                 // of simple, IE <simple>${simple-expression}</simple>
+                // TODO Simple can also be used within the log component
                 tryInjectLanguage("simple", "Simple", psiLanguageInjectionHost, injectedLanguagePlaces)
                         || tryInjectLanguage("xpath", "XPath", psiLanguageInjectionHost, injectedLanguagePlaces)
                         || tryInjectLanguage("javaScript", "JavaScript", psiLanguageInjectionHost, injectedLanguagePlaces)
                         || tryInjectLanguage("groovy", "Groovy", psiLanguageInjectionHost, injectedLanguagePlaces);
+
     }
 
     /**
