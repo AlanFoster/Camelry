@@ -7,13 +7,16 @@ both Apache Blueprint and Apache Camel.
 Note, there is *currently* no planned support for Spring-DM (as it is deprecated). However, the Camel XML DSL
 will be re-usable, so it is defintely a possibility in the future.
 
-
 Currently Supports
 ------------------
 
-Here is a quick video showing the initial support added for Apache Blueprint + Camel
+[Here](http://www.youtube.com/watch?v=ttiXWpA_UWQ) is a quick video showing the initial support added for Apache Blueprint + Camel
 
-[![Prototype Plugin Demonstration](http://img.youtube.com/vi/ttiXWpA_UWQ/0.jpg)](http://www.youtube.com/watch?v=ttiXWpA_UWQ)
+Here some some screenshots from the video :
+
+![File Creation](/documentation/screenshots/CreateNew.png "Optional title")
+![Intellisense](/documentation/screenshots/IntelliSense.png "Optional title")
+![Language Injection](/documentation/screenshots/LanguageSupport.png "Optional title")
 
 Note, the [Simple](http://camel.apache.org/simple.html) language support is currently very rudimentary and requires a lot of work :)
 
