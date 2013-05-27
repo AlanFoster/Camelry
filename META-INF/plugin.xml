@@ -6,7 +6,7 @@
 
     <description><![CDATA[
         <p>An IntelliJ plugin to make both Apache Blueprint and Apache Camel development work easier.</p>
-        <p>For further details see <a href="https://github.com/AlanFoster/intellij-plugin-test"/>Github Project</a></p>
+        <p>For further details see <a href="https://github.com/AlanFoster/Blueprint-Camel-Plugin"/>Github Project</a></p>
         ]]>
     </description>
 
@@ -96,6 +96,11 @@
         <!--        <gotoDeclarationHandler
                         implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
         -->
+
+
+    <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                        displayName="blueprintcamelplugin"
+                        implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintDOMInspection" />
 
     </extensions>
 </idea-plugin>
