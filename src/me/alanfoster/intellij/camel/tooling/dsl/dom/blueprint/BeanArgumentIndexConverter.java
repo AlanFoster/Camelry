@@ -93,7 +93,7 @@ public class BeanArgumentIndexConverter implements CustomReferenceConverter<Inte
         @NotNull
         @Override
         public String getUnresolvedMessagePattern() {
-            return "No Matching result for Blueprint";
+            return "No public constructor index found for this value";
         }
     }
 }

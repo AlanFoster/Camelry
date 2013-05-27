@@ -14,12 +14,10 @@ import java.util.List;
 public interface Blueprint extends DomElement {
 
     @SubTagList(value = "bean")
-    @Required
     List<BlueprintBean> getBeans();
 
     // Represents the osgi <cm:property-placeholder /> element
     PropertyPlaceholder getPropertyPlaceHolder();
 
-    @Required
     CamelContext getCamelContext();
 }

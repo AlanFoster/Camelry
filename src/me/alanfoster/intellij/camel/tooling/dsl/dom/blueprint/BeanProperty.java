@@ -20,16 +20,10 @@ import org.jetbrains.annotations.NotNull;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-// TODO Support more than just key/value pairs, and support map/list etc too
-public interface BeanProperty extends DomElement {
+public interface BeanProperty extends BlueprintInjectionElement {
     @Attribute("name")
     @NotNull
     @Required(nonEmpty = true, value = true)
     @Referencing(BeanPropertyResolver.class)
     GenericAttributeValue<String> getName();
-
-    @Attribute("value")
-    @NotNull
-    @Required(nonEmpty = true, value = true)
-    GenericAttributeValue<String> getValue();
 }

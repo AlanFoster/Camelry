@@ -19,15 +19,9 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0.0-SNAPSHOT
  */
 // TODO This element will have similar methods to the BlueprintProperty class
-public interface BeanArgument extends DomElement {
-    @Attribute("value")
-    @NotNull
-    @Required(nonEmpty = true, value = true)
-    GenericAttributeValue<String> getValue();
-
+public interface BeanArgument extends BlueprintInjectionElement {
     @Attribute("index")
     @NotNull
-    @Required(nonEmpty = true, value = true)
     @Referencing(BeanArgumentIndexConverter.class)
     GenericAttributeValue<Integer> getIndex();
 }

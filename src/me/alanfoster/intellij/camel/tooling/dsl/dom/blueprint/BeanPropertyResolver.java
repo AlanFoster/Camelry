@@ -1,5 +1,6 @@
 package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
+import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
 import com.intellij.psi.*;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.CustomReferenceConverter;
@@ -30,7 +31,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
         return new PsiReference[] { reference };
     }
 
-    private static class PsiElementPsiReferenceBase extends PsiReferenceBase<PsiElement> {
+    private static class PsiElementPsiReferenceBase extends PsiReferenceBase<PsiElement> implements EmptyResolveMessageProvider {
         private static final String SETTER_PREFIX = "set";
         private final GenericDomValue<String> propertyWrapper;
         private final ConvertContext convertContext;
@@ -109,6 +110,12 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
 
             PsiClass beanClass = bean.getClassAttribute().getValue();
             return beanClass;
+        }
+
+        @NotNull
+        @Override
+        public String getUnresolvedMessagePattern() {
+            return "No public setter found for this value";
         }
     }
 }

@@ -1,6 +1,7 @@
 package me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint;
 
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +19,21 @@ public interface BlueprintBean extends DomElement {
     @Required(nonEmpty = true, value = true)
     GenericAttributeValue<String> getId();
 
+    @Attribute("init-method")
+    @NotNull
+    @Convert(BlueprintBeanMethodProvider.class)
+    GenericAttributeValue<PsiMethod> getInitMethod();
+
+    @Attribute("destroy-method")
+    @NotNull
+    @Convert(BlueprintBeanMethodProvider.class)
+    GenericAttributeValue<PsiMethod> getDestroyMethod();
+
+    @Attribute("factory-method")
+    @NotNull
+    @Convert(BlueprintBeanMethodProvider.class)
+    GenericAttributeValue<PsiMethod> getFactoryMethod();
+
     @Attribute("class")
     @NotNull
     @Required(nonEmpty = true, value = true)
@@ -30,5 +46,4 @@ public interface BlueprintBean extends DomElement {
     @SubTagList("argument")
     @NotNull
     List<BeanArgument> getBeanArguments();
-
 }

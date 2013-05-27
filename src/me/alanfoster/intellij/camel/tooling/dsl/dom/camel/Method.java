@@ -16,13 +16,11 @@ public interface Method extends DomElement {
     @Resolve
     @NameValue
     @Attribute("bean")
-    @Required(nonEmpty = true, value = true)
     GenericAttributeValue<BlueprintBean> getBean();
 
     @Resolve
     @NameValue
     @Attribute("ref")
-    @Required(nonEmpty = true, value = true)
     GenericAttributeValue<BlueprintBean> getRef();
 
     @Attribute("method")
