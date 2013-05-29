@@ -2,21 +2,10 @@ package me.alanfoster.intellij.camel.tooling.dsl.dom;
 
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;
-import com.intellij.codeInsight.navigation.NavigationGutterIconBuilder;
-import com.intellij.openapi.project.Project;
-import com.intellij.patterns.XmlNamedElementPattern;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlAttributeValue;
-import me.alanfoster.intellij.camel.icons.CamelIcons;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.List;
-
-import static com.intellij.patterns.XmlPatterns.xmlAttribute;
-import static com.intellij.patterns.XmlPatterns.xmlTag;
 
 /**
  * Marks the gutter line with a bean icon when a bean reference is
@@ -29,10 +18,11 @@ import static com.intellij.patterns.XmlPatterns.xmlTag;
  */
 public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
+    // TODO I believe we can register a Presentation handler to do this for us now?
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element,
                                             Collection<? super RelatedItemLineMarkerInfo> result) {
-        final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
+        /*final XmlNamedElementPattern beanRefPattern = xmlAttribute().withLocalName("ref")
                 .withSuperParent(1, xmlTag().withLocalName("bean"));
 
         if (beanRefPattern.accepts(element)) {
@@ -52,6 +42,6 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
                 result.add(builder.createLineMarkerInfo(element));
             }
 
-        }
+        }*/
     }
 }

@@ -16,7 +16,11 @@ public interface Method extends DomElement {
     @Resolve
     @NameValue
     @Attribute("bean")
-    GenericAttributeValue<BlueprintBean> getBean();
+    @DeprecatedAttribute(
+            reason = "The 'bean' attribute is deprecated. You should make use of the 'ref' attribute instead",
+            newName = "ref"
+    )
+    GenericAttributeValue<BlueprintBean> getBeanReference();
 
     @Resolve
     @NameValue

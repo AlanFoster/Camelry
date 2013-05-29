@@ -97,10 +97,15 @@
                         implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
         -->
 
+        <!-- Basic checker for Required, duplicate names etc -->
+        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                            displayName="blueprintcamelplugin"
+                            implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintDOMInspection" />
 
-    <localInspection language="XML" enabledByDefault="true" level="ERROR"
-                        displayName="blueprintcamelplugin"
-                        implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintDOMInspection" />
+        <!-- Custom checker for Deprecated elements which are no longer supported by camel -->
+        <localInspection language="XML" enabledByDefault="true" level="WARNING"
+                         displayName="blueprintcamelplugindeprecated"
+                         implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.DeprecatedAttribtueChecker" />
 
     </extensions>
 </idea-plugin>

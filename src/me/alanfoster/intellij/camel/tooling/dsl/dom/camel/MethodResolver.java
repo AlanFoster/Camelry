@@ -2,6 +2,7 @@ package me.alanfoster.intellij.camel.tooling.dsl.dom.camel;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.ConvertContext;
+import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.converters.AbstractMethodParams;
 import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
 import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
@@ -44,7 +45,7 @@ public class MethodResolver extends AbstractMethodResolveConverter<Method> {
     @NotNull
     @Override
     protected Collection<PsiClass> getPsiClasses(Method parent, ConvertContext context) {
-        final BlueprintBean beanReference = parent.getBean().getValue();
+        final BlueprintBean beanReference = getBeanReference(parent);
         if (beanReference != null) {
             PsiClass beanClass = beanReference.getClassAttribute().getValue();
             if (beanClass != null) {
@@ -53,6 +54,16 @@ public class MethodResolver extends AbstractMethodResolveConverter<Method> {
         }
         return Collections.EMPTY_LIST;
     }
+
+    // TODO I believe we can provide an abstract class which implements the Method interface and provide a concrete implementation for this method. This would be nice to do!
+    private BlueprintBean getBeanReference(Method parent) {
+        // The BlueprintBean reference can be in one of two places, either the 'ref' attribute or 'bean' (deprecated) attribute
+        GenericAttributeValue<BlueprintBean> blueprintBeanWrapper =
+                (parent.getRef().exists() ? parent.getRef(): parent.getBeanReference());
+
+        return blueprintBeanWrapper.getValue();
+    }
+
 
     /**
      * No method arguments can be specified in camel, so this
