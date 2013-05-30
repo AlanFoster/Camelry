@@ -1,7 +1,7 @@
 package me.alanfoster.intellij.camel.simple.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import me.alanfoster.intellij.camel.icons.CamelIcons;
+import me.alanfoster.intellij.icons.CamelIcons;
 import me.alanfoster.intellij.camel.simple.language.SimpleLanguage;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;

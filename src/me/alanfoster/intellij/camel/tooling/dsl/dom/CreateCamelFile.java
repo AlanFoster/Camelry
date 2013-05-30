@@ -5,8 +5,8 @@ import com.intellij.ide.actions.CreateFileFromTemplateDialog;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
-import me.alanfoster.intellij.camel.icons.CamelIcons;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintFileTemplateManager;
+import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager;
 
 /**
  * Adds the option to create a new camel related file in the

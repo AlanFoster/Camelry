@@ -2,7 +2,7 @@
     <id>me.alanfoster.intellij.camel</id>
     <name>Blueprint And Camel Support</name>
     <version>1.0</version>
-    <vendor url="http://www.alanfoster.me">Alan Foster</vendor>
+    <vendor url="http://www.alanfoster.me/">Alan Foster</vendor>
 
     <description><![CDATA[
         <p>An IntelliJ plugin to make both Apache Blueprint and Apache Camel development work easier.</p>
@@ -12,7 +12,7 @@
 
 
     <change-notes><![CDATA[
-        <p>For further details see <a href="https://github.com/AlanFoster/intellij-plugin-test"/>Github Project</a>
+        <p>For further details see <a href="https://github.com/AlanFoster/Blueprint-Camel-Plugin"/>Github Project</a>
     ]]>
     </change-notes>
 
@@ -73,9 +73,17 @@
         <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
 -->
 
-        <dom.fileDescription implementation="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintFileDescription"/>
 
-        <fileTemplateGroup implementation="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintFileTemplateManager"/>
+        <!--
+            Register the Blueprint DOM file description
+        -->
+        <dom.fileDescription implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileDescription"/>
+
+        <!--
+            Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
+            a new generic blueprint/camel file
+        -->
+        <fileTemplateGroup implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager"/>
 
         <!--
             Creates gutter icons, which can be clicked to link to a referenced element
@@ -85,7 +93,7 @@
 
         <!--
             Register the bean Annotator which will highlight a reference id as wrong if it can't find it
-			Or say mark it matching a bean, and provide a text annotation when hovered over 
+			Or say mark it matching a bean, and provide a text annotation when hovered over
         -->
         <!--        <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator"/>-->
 
@@ -100,12 +108,19 @@
         <!-- Basic checker for Required, duplicate names etc -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
                             displayName="blueprintcamelplugin"
-                            implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintDOMInspection" />
+                            implementationClass="me.alanfoster.intellij.blueprint.dom.BlueprintDOMInspection" />
 
         <!-- Custom checker for Deprecated elements which are no longer supported by camel -->
         <localInspection language="XML" enabledByDefault="true" level="WARNING"
                          displayName="blueprintcamelplugindeprecated"
-                         implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.DeprecatedAttribtueChecker" />
+                         implementationClass="me.alanfoster.intellij.blueprint.dom.DeprecatedAttribtueChecker" />
 
+        <!-- Allow for dom references across multiple files -->
+		<!-- TODO - How do we register this? -->
+
+        <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
+        <projectService
+                serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
+                serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager" />
     </extensions>
 </idea-plugin>

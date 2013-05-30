@@ -14,8 +14,8 @@ import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomManager;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.Blueprint;
+import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
+import me.alanfoster.intellij.blueprint.dom.Blueprint;
 
 import java.util.ArrayList;
 import java.util.Collection;

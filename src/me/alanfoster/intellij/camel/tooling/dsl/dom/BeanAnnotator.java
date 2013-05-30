@@ -10,7 +10,7 @@ import com.intellij.patterns.XmlNamedElementPattern;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
+import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

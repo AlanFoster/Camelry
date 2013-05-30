@@ -8,8 +8,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.ResolveResult;
-import me.alanfoster.intellij.camel.icons.CamelIcons;
-import me.alanfoster.intellij.camel.tooling.dsl.dom.blueprint.BlueprintBean;
+import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
