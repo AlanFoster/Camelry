@@ -4,30 +4,31 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
 import me.alanfoster.intellij.blueprint.converters.BlueprintBeanConverter;
 import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
-import me.alanfoster.intellij.camel.converters.MethodMethodConverter;
+import me.alanfoster.intellij.camel.converters.CamelBeanMethodConverter;
 
 /**
+ * Represents the basic Bean element within a camel route.
+ *
+ * Example xml :
+ * <pre>
+ *     {@code
+ *       <bean ref="foo" method="bar"/>
+ *      }
+ * </pre>
+ *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-//@Presentation(icon = CamelIcons.CAMEL_STRING)
-public interface Method extends DomElement {
-    @NameValue
-    @Attribute("bean")
-    @DeprecatedAttribute(
-            reason = "The 'bean' attribute is deprecated. You should make use of the 'ref' attribute instead",
-            newName = "ref"
-    )
-    @Convert(BlueprintBeanConverter.class)
-    GenericAttributeValue<BlueprintBean> getBeanReference();
-
+public interface CamelBean extends DomElement {
     @NameValue
     @Attribute("ref")
+    @Required(nonEmpty = true, value = true)
     @Convert(BlueprintBeanConverter.class)
     GenericAttributeValue<BlueprintBean> getRef();
 
     @Attribute("method")
     @Required(nonEmpty = true, value = true)
-    @Convert(MethodMethodConverter.class)
+    @Convert(CamelBeanMethodConverter.class)
     GenericAttributeValue<PsiMethod> getMethod();
+
 }

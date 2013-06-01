@@ -1,6 +1,7 @@
 package me.alanfoster.intellij.camel.dom;
 
 import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.Required;
 import com.intellij.util.xml.Stubbed;
 import com.intellij.util.xml.SubTagList;
 
@@ -17,9 +18,9 @@ import java.util.List;
 @Stubbed
 public interface Route extends DomElement {
     /**
-     * The Root from element in a camel route. There should only be one of these per route.
-     * @return
+     * The from element in a camel route. There should be one of these per route.
      */
+    @Required
     From getFrom();
 
     List<To> getTos();
@@ -29,4 +30,7 @@ public interface Route extends DomElement {
 
     @SubTagList("setHeader")
     List<SetHeader> getSetHeaders();
+
+    @SubTagList("bean")
+    List<CamelBean> getCamelBeans();
 }

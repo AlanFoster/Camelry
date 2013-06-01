@@ -24,15 +24,19 @@ import java.util.Set;
  * PsiClass returned on the overriden class (IE, this class)
  *
  * To use this, on a DomElement you will need to add it using the annotation
+ * <pre>
+ *     {@code
  *     @Convert(MethodResolver.class)
+ *      }
+ * </pre>
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
 // TODO This is very similar to PropertyResolver
-public class MethodConverter extends AbstractMethodResolveConverter<Method> {
+public class MethodMethodConverter extends AbstractMethodResolveConverter<Method> {
 
-    public MethodConverter() {
+    public MethodMethodConverter() {
         super(Method.class);
     }
 
