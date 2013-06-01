@@ -2,7 +2,6 @@ package me.alanfoster.intellij.blueprint.model;
 
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
 import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +17,7 @@ import java.util.Set;
  */
 public abstract class IBlueprintManager {
 
-    public static IBlueprintManager getInstance(@NotNull final Project project) {
+    public static IBlueprintManager getInstance() {
         return ServiceManager.getService(IBlueprintManager.class);
     }
 

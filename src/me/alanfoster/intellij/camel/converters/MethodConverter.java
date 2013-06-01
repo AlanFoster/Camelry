@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.dom;
+package me.alanfoster.intellij.camel.converters;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.ConvertContext;
@@ -6,6 +6,7 @@ import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.converters.AbstractMethodParams;
 import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
 import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
+import me.alanfoster.intellij.camel.dom.Method;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,9 +30,9 @@ import java.util.Set;
  * @version 1.0.0-SNAPSHOT
  */
 // TODO This is very similar to PropertyResolver
-public class MethodResolver extends AbstractMethodResolveConverter<Method> {
+public class MethodConverter extends AbstractMethodResolveConverter<Method> {
 
-    public MethodResolver() {
+    public MethodConverter() {
         super(Method.class);
     }
 

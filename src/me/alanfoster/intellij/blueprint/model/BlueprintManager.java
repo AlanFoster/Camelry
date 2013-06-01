@@ -14,8 +14,12 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomManager;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author Alan Foster
@@ -23,8 +27,10 @@ import java.util.*;
  */
 public class BlueprintManager extends IBlueprintManager {
 
-    public BlueprintManager(){
+    // TODO Possibly singly instantiate this ModelFactory via a component
+    private BlueprintModelFactory _blueprintModelFactory;
 
+    public BlueprintManager() {
     }
 
     @NotNull
@@ -69,21 +75,17 @@ public class BlueprintManager extends IBlueprintManager {
         return files;
     }
 
-    @NotNull
+    @Nullable
     @Override
     public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
-        // TODO This would be a helpful method to add in the future
-        List<IBlueprintDomModel> domModels = new ArrayList<IBlueprintDomModel>();
-        /*final DomManager domManager = DomManager.getDomManager(module.getProject());
-        for(XmlFile xmlFile : getAllBlueprintConfigFiles(module)) {
+         return getBlueprintModelFactory(module).computeAllModels(module);
+    }
 
-
-         //   domModels.add(domManager.getFileElement(xmlFile, Blueprint.class).get)
+    @NotNull
+    public BlueprintModelFactory getBlueprintModelFactory(Module module) {
+        if(_blueprintModelFactory == null) {
+            _blueprintModelFactory = new BlueprintModelFactory(module.getProject());
         }
-        final DomManager domManager = DomManager.getDomManager(project);
-        Blueprint root = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
-        List<BlueprintBean> foundBeans = root.getBeans();
-        return null;  //To change body of implemented methods use File | Settings | File Templates.*/
-        return domModels;
+        return _blueprintModelFactory;
     }
 }

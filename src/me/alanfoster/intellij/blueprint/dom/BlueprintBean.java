@@ -12,7 +12,7 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 public interface BlueprintBean extends DomElement {
-    // TODO deal with id @Scope
+    // TODO Are we supposed to implement our own @NameValue resolver too, now that we have changed the Scope to include external models?
     @NameValue(unique = true)
     @Attribute("id")
     @NotNull

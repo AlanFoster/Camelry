@@ -119,7 +119,7 @@
 		<!-- TODO - How do we register this? -->
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
-        <projectService
+        <applicationService
                 serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
                 serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager" />
     </extensions>
