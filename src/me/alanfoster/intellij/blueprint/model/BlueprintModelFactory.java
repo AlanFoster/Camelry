@@ -32,7 +32,10 @@ public class BlueprintModelFactory extends DomModelFactory<Blueprint, IBlueprint
 
         List<IBlueprintDomModel> models = new ArrayList<IBlueprintDomModel>();
 
-        models.add(new BlueprintDomModel(createMergedModelRoot(xmlFiles), xmlFiles));
+        final DomFileElement<Blueprint> mergedModelRoot = createMergedModelRoot(xmlFiles);
+        if(mergedModelRoot != null) {
+            models.add(new BlueprintDomModel(mergedModelRoot, xmlFiles));
+        }
 
         return models;
     }

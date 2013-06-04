@@ -65,6 +65,7 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
     }
 
     // TODO Place this into either the blueprint model or BlueprintManager
+    @NotNull
     public List<BlueprintBean> getAllBlueprintBeans(@NotNull Module module) {
         List<BlueprintBean> allBeans = new ArrayList<BlueprintBean>();
 
@@ -72,7 +73,7 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
         final List<IBlueprintDomModel> blueprintModels = blueprintManager.getAllBlueprintModels(module);
 
         // There should be a single merged file
-        if(blueprintModels.size() == 0) return null;
+        if(blueprintModels.size() == 0) return allBeans;
         IBlueprintDomModel model = blueprintModels.get(0);
         for(DomFileElement<Blueprint> domFile : model.getRoots()) {
             Blueprint blueprint = domFile.getRootElement();

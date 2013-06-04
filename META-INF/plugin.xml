@@ -42,7 +42,7 @@
                 class="me.alanfoster.intellij.camel.tooling.dsl.dom.CreateCamelFile"
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
-                icon="/me/alanfoster/intellij/camel/icons/camel.png"
+                icon="/me/alanfoster/intellij/icons/camel.png"
                 >
             <add-to-group group-id="NewGroup" anchor="last"/>
         </action>
