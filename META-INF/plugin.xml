@@ -106,6 +106,7 @@
         -->
 
         <!-- Basic checker for Required, duplicate names etc -->
+        <!-- TODO Group these inspections properly -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
                             displayName="blueprintcamelplugin"
                             implementationClass="me.alanfoster.intellij.blueprint.dom.BlueprintDOMInspection" />
@@ -115,12 +116,20 @@
                          displayName="blueprintcamelplugindeprecated"
                          implementationClass="me.alanfoster.intellij.blueprint.dom.DeprecatedAttribtueChecker" />
 
-        <!-- Allow for dom references across multiple files -->
-		<!-- TODO - How do we register this? -->
-
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
                 serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
                 serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager" />
+
+        <!--
+            Register the  Karaf Features File DOM file description
+            Which will wire up all of the magic for a karaf features file
+        -->
+        <dom.fileDescription implementation="me.alanfoster.intellij.karaf.dom.KarafFeaturesFileDescription"/>
+
+        <!-- Basic checker for Required, duplicate names etc -->
+        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                         displayName="blueprintcamelplugin"
+                         implementationClass="me.alanfoster.intellij.karaf.dom.KarafDomValidation" />
     </extensions>
 </idea-plugin>

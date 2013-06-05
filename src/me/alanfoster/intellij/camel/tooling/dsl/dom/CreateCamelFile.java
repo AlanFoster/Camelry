@@ -5,7 +5,7 @@ import com.intellij.ide.actions.CreateFileFromTemplateDialog;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
-import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.icons.PluginIcons;
 import me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager;
 
 /**
@@ -27,14 +27,14 @@ public class CreateCamelFile extends CreateFileFromTemplateAction {
     public CreateCamelFile() {
         super("Create a camel file",
               "Create a new camel file",
-               CamelIcons.CAMEL);
+               PluginIcons.CAMEL);
     }
 
     @Override
     protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
         builder.setTitle("Create new Camel File")
-                .addKind("Blueprint Definition", CamelIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_DEFINITION_FILE)
-                .addKind("Blueprint Test File", CamelIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_TEST_FILE);
+                .addKind("Blueprint Definition", PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_DEFINITION_FILE)
+                .addKind("Blueprint Test File", PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_TEST_FILE);
     }
 
     @Override

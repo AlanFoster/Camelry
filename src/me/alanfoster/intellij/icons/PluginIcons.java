@@ -13,7 +13,10 @@ import javax.swing.*;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public class CamelIcons {
-    public static final String CAMEL_STRING = "/me/alanfoster/intellij/icons/camel.png";
+public class PluginIcons {
+    public static final String CAMEL_STRING = "/me/alanfoster/intellij/icons/camel_16x16.png";
     public static final Icon CAMEL = IconLoader.getIcon(CAMEL_STRING);
+
+    public static final String KARAF_STRING = "/me/alanfoster/intellij/icons/karaf_16x16.png";
+    public static final Icon KARAF = IconLoader.getIcon(KARAF_STRING);
 }

@@ -2,7 +2,7 @@ package me.alanfoster.intellij.blueprint.dom;
 
 import com.intellij.openapi.util.Iconable;
 import com.intellij.util.xml.DomFileDescription;
-import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.icons.PluginIcons;
 
 import javax.swing.*;
 
@@ -30,6 +30,6 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
 
     @Override
     public Icon getFileIcon(@Iconable.IconFlags int flags) {
-        return CamelIcons.CAMEL;
+        return PluginIcons.CAMEL;
     }
 }

@@ -2,6 +2,7 @@ package me.alanfoster.intellij.blueprint.dom;
 
 import com.intellij.util.xml.*;
 import me.alanfoster.intellij.camel.dom.CamelContext;
+import org.jetbrains.annotations.NonNls;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 //@Stubbed
 @NameStrategy(value = JavaNameStrategy.class)
 public interface Blueprint extends DomElement {
+    @NonNls
     public static final String ROOT_ELEMENT_NAME = "blueprint";
 
     @SubTagList(value = "bean")

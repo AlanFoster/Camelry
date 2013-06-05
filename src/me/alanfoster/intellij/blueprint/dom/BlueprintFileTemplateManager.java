@@ -3,7 +3,7 @@ package me.alanfoster.intellij.blueprint.dom;
 import com.intellij.ide.fileTemplates.FileTemplateDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplateGroupDescriptorFactory;
-import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.icons.PluginIcons;
 
 /**
  * Registers the File Templates of blueprint/camel so that they
@@ -23,10 +23,10 @@ public class BlueprintFileTemplateManager implements FileTemplateGroupDescriptor
 
     @Override
     public FileTemplateGroupDescriptor getFileTemplatesDescriptor() {
-        final FileTemplateGroupDescriptor group = new FileTemplateGroupDescriptor("CamelBlueprint", CamelIcons.CAMEL);
+        final FileTemplateGroupDescriptor group = new FileTemplateGroupDescriptor("CamelBlueprint", PluginIcons.CAMEL);
 
-        group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_DEFINITION_FILE, CamelIcons.CAMEL));
-        group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_TEST_FILE, CamelIcons.CAMEL));
+        group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_DEFINITION_FILE, PluginIcons.CAMEL));
+        group.addTemplate(new FileTemplateDescriptor(BLUEPRINT_TEST_FILE, PluginIcons.CAMEL));
 
         return group;
     }

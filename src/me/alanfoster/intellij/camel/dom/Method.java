@@ -10,7 +10,7 @@ import me.alanfoster.intellij.camel.converters.MethodMethodConverter;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-//@Presentation(icon = CamelIcons.CAMEL_STRING)
+//@Presentation(icon = PluginIcons.CAMEL_STRING)
 public interface Method extends DomElement {
     @NameValue
     @Attribute("bean")

@@ -36,7 +36,7 @@ public class BeanLineMarkerProvider extends RelatedItemLineMarkerProvider {
                 XmlAttributeValue matchingBeanIdValue = matchingBeans.get(0).getId().getXmlAttributeValue();
 
                 NavigationGutterIconBuilder<PsiElement> builder =
-                        NavigationGutterIconBuilder.create(CamelIcons.CAMEL)
+                        NavigationGutterIconBuilder.create(PluginIcons.CAMEL)
                                 .setTargets(matchingBeanIdValue)
                                 .setTooltipText("Navigate to Bean Declaration");
                 result.add(builder.createLineMarkerInfo(element));

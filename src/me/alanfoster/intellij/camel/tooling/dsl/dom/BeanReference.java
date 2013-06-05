@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.ResolveResult;
-import me.alanfoster.intellij.icons.CamelIcons;
+import me.alanfoster.intellij.icons.PluginIcons;
 import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -66,7 +66,7 @@ public class BeanReference extends PsiReferenceBase<PsiElement> implements PsiPo
 
             variants.add(
                     LookupElementBuilder.create(bean.getId().getXmlAttribute().getValueElement(), bean.getId().getStringValue())
-                            .withIcon(CamelIcons.CAMEL)
+                            .withIcon(PluginIcons.CAMEL)
                             .withPresentableText(bean.getId().getStringValue())
                             .withTailText("(" + bean.getClassAttribute().getStringValue() + ")")
                             .withTypeText("bean")
