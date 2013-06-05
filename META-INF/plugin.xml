@@ -105,21 +105,25 @@
                         implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
         -->
 
+
+        <!--
+            Blueprint inspection elements
+        -->
+
         <!-- Basic checker for Required, duplicate names etc -->
-        <!-- TODO Group these inspections properly -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
-                            displayName="blueprintcamelplugin"
-                            implementationClass="me.alanfoster.intellij.blueprint.dom.BlueprintDOMInspection" />
+                         groupName="Blueprint and Camel Support" displayName="Blueprint File Validation"
+                         implementationClass="me.alanfoster.intellij.blueprint.inspectors.BlueprintDOMInspection"/>
 
         <!-- Custom checker for Deprecated elements which are no longer supported by camel -->
         <localInspection language="XML" enabledByDefault="true" level="WARNING"
-                         displayName="blueprintcamelplugindeprecated"
-                         implementationClass="me.alanfoster.intellij.blueprint.dom.DeprecatedAttribtueChecker" />
+                         groupName="Blueprint and Camel Support" displayName="Deprecated Attributes"
+                         implementationClass="me.alanfoster.intellij.blueprint.inspectors.DeprecatedAttribtueChecker"/>
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
                 serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
-                serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager" />
+                serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager"/>
 
         <!--
             Register the  Karaf Features File DOM file description
@@ -129,7 +133,7 @@
 
         <!-- Basic checker for Required, duplicate names etc -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
-                         displayName="blueprintcamelplugin"
-                         implementationClass="me.alanfoster.intellij.karaf.dom.KarafDomValidation" />
+                         groupName="Blueprint and Camel Support" displayName="Karaf Feature File Validation"
+                         implementationClass="me.alanfoster.intellij.karaf.dom.KarafDomValidation"/>
     </extensions>
 </idea-plugin>

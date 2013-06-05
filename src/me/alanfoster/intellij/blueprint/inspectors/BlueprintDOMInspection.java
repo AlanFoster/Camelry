@@ -1,6 +1,7 @@
-package me.alanfoster.intellij.blueprint.dom;
+package me.alanfoster.intellij.blueprint.inspectors;
 
 import com.intellij.util.xml.highlighting.BasicDomElementsInspection;
+import me.alanfoster.intellij.blueprint.dom.Blueprint;
 
 /**
  * @author Alan Foster
