@@ -20,8 +20,10 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * BlueprintBean converter. This class should resolve any BlueprintBean definitions
+ * BlueprintBean converter. This class will resolve all BlueprintBean definitions
  * across the same OSGI-INF module.
+ *
+ * To resolve blueprint beans which extend extend the Throwable class  see {@link ThrowableBlueprintBeanConverter}
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT

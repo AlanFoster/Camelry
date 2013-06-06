@@ -33,4 +33,7 @@ public interface Route extends DomElement {
 
     @SubTagList("bean")
     List<CamelBean> getCamelBeans();
+
+    @SubTagList("throwException")
+    List<ThrowException> getThrowExceptions();
 }

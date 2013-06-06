@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
+// TODO Check out DomCustomAnnotationChecker, which seems to provide some of the below functionality - for example in ExtendsClassChecker
 public class DeprecatedAttribtueChecker extends DomElementsInspection<Blueprint> {
 
     public DeprecatedAttribtueChecker() {
