@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>me.alanfoster.intellij.camel</id>
     <name>Blueprint And Camel Support</name>
-    <version>1.0</version>
+    <version>0.1</version>
     <vendor url="http://www.alanfoster.me/">Alan Foster</vendor>
 
     <description><![CDATA[
