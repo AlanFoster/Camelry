@@ -4,6 +4,7 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
 import me.alanfoster.intellij.blueprint.converters.BlueprintBeanConverter;
 import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
+import me.alanfoster.intellij.blueprint.inspectors.DeprecatedAttribute;
 import me.alanfoster.intellij.camel.converters.MethodMethodConverter;
 
 /**

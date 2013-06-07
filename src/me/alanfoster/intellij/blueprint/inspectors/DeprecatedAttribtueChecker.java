@@ -10,7 +10,6 @@ import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementsInspection;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
 import me.alanfoster.intellij.blueprint.dom.Blueprint;
-import me.alanfoster.intellij.camel.dom.DeprecatedAttribute;
 import org.jetbrains.annotations.NotNull;
 
 /**

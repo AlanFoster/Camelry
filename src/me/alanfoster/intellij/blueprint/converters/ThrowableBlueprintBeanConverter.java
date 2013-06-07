@@ -26,17 +26,15 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
     @NotNull
     @Override
     public Collection<? extends BlueprintBean> getVariants(final ConvertContext context) {
+        // TODO Research if intellij uses LRU cache or such, or should i be maintaining such things myself
+        final Project project = context.getProject();
+        final PsiClass throwablePsiClass = getPsiClass(THROWABLE_QUALIFIED_NAME, project);
         return ContainerUtil.filter(super.getVariants(context), new Condition<BlueprintBean>() {
             @Override
             public boolean value(BlueprintBean blueprintBean) {
-
                 final PsiClass psiClass = blueprintBean.getClassAttribute().getValue();
 
-                final Project project = context.getProject();
-                final PsiClass throwableClass = JavaPsiFacade.getInstance(project)
-                        .findClass(THROWABLE_QUALIFIED_NAME, GlobalSearchScope.allScope(project));
-
-                return hasSuper(psiClass, throwableClass);
+                return hasSuper(psiClass, throwablePsiClass);
             }
         });
     }
@@ -48,12 +46,23 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
      * @param parent The parent to test for
      * @return true if the child extends the parent class
      */
-    private boolean hasSuper(@Nullable PsiClass child, PsiClass parent) {
+    public static boolean hasSuper(@Nullable PsiClass child, PsiClass parent) {
         if(child == null) {
             return false;
         }
 
         return child.equals(parent) || hasSuper(child.getSuperClass(), parent);
+    }
+
+    public static PsiClass getPsiClass(@NotNull Class<?> clazz, Project project) {
+        return getPsiClass(clazz.getName(), project);
+    }
+
+    public static PsiClass getPsiClass(String qualifiedName, Project project) {
+        final PsiClass psiClass = JavaPsiFacade.getInstance(project)
+                .findClass(THROWABLE_QUALIFIED_NAME, GlobalSearchScope.allScope(project));
+
+        return psiClass;
     }
 
 }

@@ -18,6 +18,10 @@ Here are some of the currently supported features
 ![File Creation](/documentation/screenshots/CreateNew.png "File Creation")
 #####Bean Intellisense
 ![Intellisense](/documentation/screenshots/IntelliSense.png "Intellisense")
+#####Karaf Features Support
+![Language Injection](/documentation/screenshots/KarafFeatures.png "Karaf Features Support")
+#####Reference Validation
+![Reference Validation](/documentation/screenshots/BeanReferenceValidation.png "Bean Reference Validation")
 #####Language Injection
 ![Language Injection](/documentation/screenshots/LanguageInjection.png "Language Injection")
 
@@ -29,9 +33,6 @@ The currently injected langauges are :
 * [Simple](http://camel.apache.org/simple.html) 
 
 Note, the [Simple](http://camel.apache.org/simple.html) language support is currently very rudimentary and requires a lot of work :)
-
-#####Karaf Features Support
-![Language Injection](/documentation/screenshots/KarafFeatures.png "Karaf Features Support")
 
 Future plans
 ------------

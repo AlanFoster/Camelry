@@ -43,7 +43,6 @@
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
                 icon="/me/alanfoster/intellij/icons/camel_16x16.png"
-                foo="potato"
                 >
             <add-to-group group-id="NewGroup" anchor="last"/>
         </action>
@@ -120,6 +119,9 @@
         <localInspection language="XML" enabledByDefault="true" level="WARNING"
                          groupName="Blueprint and Camel Support" displayName="Deprecated Attributes"
                          implementationClass="me.alanfoster.intellij.blueprint.inspectors.DeprecatedAttribtueChecker"/>
+
+        <dom.customAnnotationChecker
+                implementation="me.alanfoster.intellij.blueprint.inspectors.BlueprintBeanRefExtendsChecker" />
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService

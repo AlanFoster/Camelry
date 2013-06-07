@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.camel.dom;
+package me.alanfoster.intellij.blueprint.inspectors;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
