@@ -48,6 +48,8 @@
         </action>
     </actions>
 
+    <!-- TODO investigate xml.elementDescriptorProvider  -->
+
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
         <lang.parserDefinition language="Simple"
@@ -122,6 +124,23 @@
 
         <dom.customAnnotationChecker
                 implementation="me.alanfoster.intellij.blueprint.inspectors.BlueprintBeanRefExtendsChecker" />
+
+        <!-- Blueprint Injection Language -->
+
+        <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.InjectionParserDefinition" />
+
+        <languageInjector implementation="me.alanfoster.intellij.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
+
+        <fileTypeFactory implementation="me.alanfoster.intellij.blueprint.language.file.InjectionFileTypeFactory"/>
+
+
+        <psi.referenceContributor
+                implementation="me.alanfoster.intellij.blueprint.language.contributors.InjectionPsiReferenceContributor" />
+
+        <!--        <completion.contributor
+                        language="BlueprintInjectionLanguage"
+                        implementationClass="me.alanfoster.intellij.blueprint.language.InjectionReferenceContributor" />-->
+
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService

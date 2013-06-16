@@ -35,7 +35,7 @@ public class BlueprintManager extends IBlueprintManager {
 
     @NotNull
     @Override
-    public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull final Module module) {
+    public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull final Project project) {
         //final ModuleRootManager rootManager = ModuleRootManager.getInstance(module);
        // PsiManager psiManager = PsiManager.getInstance(module.getProject());
 
@@ -43,14 +43,13 @@ public class BlueprintManager extends IBlueprintManager {
 
         Set<XmlFile> files = new HashSet<XmlFile>();
 
-        Project project = module.getProject();
         final DomManager domManager = DomManager.getDomManager(project);
 
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
                 FileTypeIndex.NAME, XmlFileType.INSTANCE,
                 // TODO Research Scope further!
-                ProjectScope.getContentScope(module.getProject()));
+                ProjectScope.getContentScope(project));
 
         for (VirtualFile virtualFile : virtualFiles) {
 
@@ -78,13 +77,13 @@ public class BlueprintManager extends IBlueprintManager {
     @Nullable
     @Override
     public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
-         return getBlueprintModelFactory(module).computeAllModels(module);
+         return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
     }
 
     @NotNull
-    public BlueprintModelFactory getBlueprintModelFactory(Module module) {
+    public BlueprintModelFactory getBlueprintModelFactory(@NotNull Project project) {
         if(_blueprintModelFactory == null) {
-            _blueprintModelFactory = new BlueprintModelFactory(module.getProject());
+            _blueprintModelFactory = new BlueprintModelFactory(project);
         }
         return _blueprintModelFactory;
     }

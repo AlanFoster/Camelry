@@ -19,4 +19,7 @@ public class PluginIcons {
 
     public static final String KARAF_STRING = "/me/alanfoster/intellij/icons/karaf_16x16.png";
     public static final Icon KARAF = IconLoader.getIcon(KARAF_STRING);
+
+    public static final String BLUEPRINT_STRING = "/me/alanfoster/intellij/icons/blueprint_16x16.png";
+    public static final Icon BLUEPRINT = IconLoader.getIcon(BLUEPRINT_STRING);
 }
