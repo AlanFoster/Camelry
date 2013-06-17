@@ -58,7 +58,7 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
         final Property property = ContainerUtil.find(defaultProperties, new Condition<Property>() {
             @Override
             public boolean value(Property property) {
-                return propertyName.equals(property.getName().getRawText());
+                return propertyName.equals(property.getName().getXmlAttributeValue().getValue());
             }
         });
 
@@ -81,7 +81,7 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
                 resultSet.add(
                         LookupElementBuilder.create(name.getXmlAttribute())
                                 .withIcon(PluginIcons.BLUEPRINT)
-                                .withLookupString(name.getXmlAttributeValue().getText())
+                                .withPresentableText(name.getXmlAttributeValue().getValue())
                 );
             }
         }
