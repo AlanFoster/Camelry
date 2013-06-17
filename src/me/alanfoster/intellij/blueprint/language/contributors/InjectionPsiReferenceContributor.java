@@ -19,29 +19,11 @@ public class InjectionPsiReferenceContributor extends PsiReferenceContributor {
         registrar.registerReferenceProvider(pattern, new PsiReferenceProvider() {
             @NotNull
             @Override
-            public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
-              // Method never triggered
-             return PsiReference.EMPTY_ARRAY;
+            public PsiReference[] getReferencesByElement(@NotNull PsiElement element,
+                                                         @NotNull ProcessingContext context) {
+                return new PsiReference[]{new InjectionPsiReference(element)};
             }
         });
     }
 
-
-    // return new PsiReference[] { new InjectionPsiReference(null) };
-    /*
-       ElementPattern pattern =
-          xmlAttributeValue()
-                .withLocalName("value")
-                .withParent(
-                        xmlAttribute()
-                                .withLocalName("value")
-                                .withParent(
-                                        xmlTag()
-                                                .withLocalName(StandardPatterns.string().oneOf("property", "argument"))
-                                                .withParent(
-                                                        xmlTag()
-                                                                .withLocalName("bean")
-                                                )
-                                )
-                );*/
 }

@@ -1,6 +1,8 @@
 package me.alanfoster.intellij.blueprint.language.psi;
 
+import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import me.alanfoster.intellij.blueprint.language.InjectionTypes;
 
 /**
  * This util class will automatically be injected into generated PsiElements from
@@ -14,7 +16,7 @@ public class InjectionPsiImplUtil {
 
     // TODO - This isn't called yet
     public static String getName(InjectionPropertyDefinition element) {
-        return element.getText();
+        return element.getPropertyName();
     }
 
     // TODO - This isn't called yet
@@ -24,7 +26,26 @@ public class InjectionPsiImplUtil {
 
     // TODO - This isn't called yet
     public static PsiElement getNameIdentifier(InjectionPropertyDefinition element) {
-        return null;
+        return element.getPropertyElement();
     }
+
+    public static String getPropertyName(InjectionPropertyDefinition element) {
+        ASTNode propertyNameNode = element.getNode().findChildByType(InjectionTypes.PROPERTY_NAME);
+        if(propertyNameNode != null) {
+            return propertyNameNode.getText();
+        } else {
+            return null;
+        }
+    }
+
+    public static PsiElement getPropertyElement(InjectionPropertyDefinition element) {
+        ASTNode propertyNameNode = element.getNode().findChildByType(InjectionTypes.PROPERTY_NAME);
+        if(propertyNameNode != null) {
+            return propertyNameNode.getPsi();
+        } else {
+            return null;
+        }
+    }
+
 
 }

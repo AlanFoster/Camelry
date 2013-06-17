@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static me.alanfoster.intellij.blueprint.language.InjectionTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import me.alanfoster.intellij.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl;
 import me.alanfoster.intellij.blueprint.language.psi.*;
 
-public class InjectionPropertyDefinitionImpl extends ASTWrapperPsiElement implements InjectionPropertyDefinition {
+public class InjectionPropertyDefinitionImpl extends BlueprintInjectionPropertyDefinitionImpl implements InjectionPropertyDefinition {
 
   public InjectionPropertyDefinitionImpl(ASTNode node) {
     super(node);
@@ -32,6 +32,14 @@ public class InjectionPropertyDefinitionImpl extends ASTWrapperPsiElement implem
 
   public PsiElement setName(String newName) {
     return InjectionPsiImplUtil.setName(this, newName);
+  }
+
+  public String getPropertyName() {
+    return InjectionPsiImplUtil.getPropertyName(this);
+  }
+
+  public PsiElement getPropertyElement() {
+    return InjectionPsiImplUtil.getPropertyElement(this);
   }
 
 }

@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElementVisitor;
 public class InjectionVisitor extends PsiElementVisitor {
 
   public void visitPropertyDefinition(@NotNull InjectionPropertyDefinition o) {
+    visitBlueprintInjectionPropertyDefinition(o);
+  }
+
+  public void visitBlueprintInjectionPropertyDefinition(@NotNull BlueprintInjectionPropertyDefinition o) {
     visitElement(o);
   }
 

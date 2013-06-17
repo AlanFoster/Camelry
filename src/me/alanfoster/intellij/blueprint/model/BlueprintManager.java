@@ -13,6 +13,8 @@ import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomManager;
+import me.alanfoster.intellij.blueprint.dom.Blueprint;
+import me.alanfoster.intellij.blueprint.dom.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,15 +38,7 @@ public class BlueprintManager extends IBlueprintManager {
     @NotNull
     @Override
     public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull final Project project) {
-        //final ModuleRootManager rootManager = ModuleRootManager.getInstance(module);
-       // PsiManager psiManager = PsiManager.getInstance(module.getProject());
-
-      /*  for(VirtualFile virtualFile : rootManager.getContentRoots() )*/
-
         Set<XmlFile> files = new HashSet<XmlFile>();
-
-        final DomManager domManager = DomManager.getDomManager(project);
-
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
                 FileTypeIndex.NAME, XmlFileType.INSTANCE,
@@ -61,7 +55,7 @@ public class BlueprintManager extends IBlueprintManager {
 
             if (isBlueprintXmlFile) {
                 final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
-                if(document != null) {
+                if (document != null) {
                     final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
 
                     XmlFile xmlFile = (XmlFile) cachedPsiFile;
@@ -77,12 +71,48 @@ public class BlueprintManager extends IBlueprintManager {
     @Nullable
     @Override
     public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
-         return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
+        return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
     }
+
+    @Nullable
+    @Override
+    public IBlueprintDomModel getMergedBlueprintModel(@NotNull Module module) {
+        final List<IBlueprintDomModel> blueprintModels = getAllBlueprintModels(module);
+        if (blueprintModels.size() == 0) return null;
+        IBlueprintDomModel model = blueprintModels.get(0);
+        return model;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @NotNull
+    @Override
+    public PropertyPlaceholder getPropertyPlaceHolder(@NotNull Project project) {
+        final Set<XmlFile> blueprintModels = IBlueprintManager.getInstance().getAllBlueprintConfigFiles(project);
+
+        // Find the required XmlFile which contains the property placeholder DomElement
+        final DomManager domManager = DomManager.getDomManager(project);
+        for (XmlFile xmlFile : blueprintModels) {
+            final Blueprint rootElement = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
+            if (rootElement == null) continue;
+
+            final PropertyPlaceholder propertyPlaceHolder = rootElement.getPropertyPlaceHolder();
+            if (propertyPlaceHolder != null
+                    && propertyPlaceHolder.isValid()
+                    && propertyPlaceHolder.exists()) {
+
+                return propertyPlaceHolder;
+            }
+        }
+
+        return null;
+    }
+
 
     @NotNull
     public BlueprintModelFactory getBlueprintModelFactory(@NotNull Project project) {
-        if(_blueprintModelFactory == null) {
+        if (_blueprintModelFactory == null) {
             _blueprintModelFactory = new BlueprintModelFactory(project);
         }
         return _blueprintModelFactory;

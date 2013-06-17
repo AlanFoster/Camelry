@@ -72,12 +72,14 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
         List<BlueprintBean> allBeans = new ArrayList<BlueprintBean>();
 
         final IBlueprintManager blueprintManager = IBlueprintManager.getInstance();
-        final List<IBlueprintDomModel> blueprintModels = blueprintManager.getAllBlueprintModels(module);
+        final IBlueprintDomModel mergedBlueprintModel = blueprintManager.getMergedBlueprintModel(module);
 
         // There should be a single merged file
-        if(blueprintModels.size() == 0) return allBeans;
-        IBlueprintDomModel model = blueprintModels.get(0);
-        for(DomFileElement<Blueprint> domFile : model.getRoots()) {
+        if(mergedBlueprintModel == null) {
+            return allBeans;
+        }
+
+        for(DomFileElement<Blueprint> domFile : mergedBlueprintModel.getRoots()) {
             Blueprint blueprint = domFile.getRootElement();
             allBeans.addAll(blueprint.getBeans());
         }

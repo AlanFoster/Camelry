@@ -1,9 +1,6 @@
 package me.alanfoster.intellij.blueprint.dom;
 
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.HyphenNameStrategy;
-import com.intellij.util.xml.NameStrategy;
-import com.intellij.util.xml.Namespace;
+import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -12,6 +9,7 @@ import org.jetbrains.annotations.NotNull;
  */
 @NameStrategy(value = HyphenNameStrategy.class)
 @Namespace("http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0")
+@Stubbed
 public interface PropertyPlaceholder extends DomElement {
     @NotNull
     DefaultProperties getDefaultProperties();

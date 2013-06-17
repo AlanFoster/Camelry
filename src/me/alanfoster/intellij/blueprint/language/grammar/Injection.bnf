@@ -26,4 +26,8 @@ injectionLanguage ::= item_
 
 private item_ ::= (TEXT | propertyDefinition | CRLF)
 
-propertyDefinition ::= FUNCTION_START PROPERTY_NAME FUNCTION_END {methods = [getName getNameIdentifier setName]}
+propertyDefinition ::= FUNCTION_START PROPERTY_NAME FUNCTION_END {
+    mixin="me.alanfoster.intellij.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl"
+    implements="me.alanfoster.intellij.blueprint.language.psi.BlueprintInjectionPropertyDefinition"
+    methods = [getName getNameIdentifier setName getPropertyName getPropertyElement]
+}
