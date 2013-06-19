@@ -86,7 +86,7 @@ public class BlueprintManager extends IBlueprintManager {
     /**
      * {@inheritDoc}
      */
-    @NotNull
+    @Nullable
     @Override
     public PropertyPlaceholder getPropertyPlaceHolder(@NotNull Project project) {
         final Set<XmlFile> blueprintModels = IBlueprintManager.getInstance().getAllBlueprintConfigFiles(project);
@@ -108,7 +108,6 @@ public class BlueprintManager extends IBlueprintManager {
 
         return null;
     }
-
 
     @NotNull
     public BlueprintModelFactory getBlueprintModelFactory(@NotNull Project project) {
