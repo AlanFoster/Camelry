@@ -1,4 +1,4 @@
-package me.alanfoster.intellij;
+package tests.me.alanfoster.intellij;
 
 import com.intellij.openapi.application.PathManager;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;

@@ -1,4 +1,4 @@
-package me.alanfoster.intellij;
+package tests.me.alanfoster.intellij;
 
 import com.intellij.testFramework.ParsingTestCase;
 import me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition;
