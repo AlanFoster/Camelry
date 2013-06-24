@@ -11,7 +11,9 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
+import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.indexing.FileBasedIndex;
+import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import me.alanfoster.intellij.blueprint.dom.Blueprint;
 import me.alanfoster.intellij.blueprint.dom.PropertyPlaceholder;
@@ -94,9 +96,9 @@ public class BlueprintManager extends IBlueprintManager {
         // Find the required XmlFile which contains the property placeholder DomElement
         final DomManager domManager = DomManager.getDomManager(project);
         for (XmlFile xmlFile : blueprintModels) {
-            final Blueprint rootElement = domManager.getFileElement(xmlFile, Blueprint.class).getRootElement();
-            if (rootElement == null) continue;
-
+            DomFileElement<Blueprint> fileElement = domManager.getFileElement(xmlFile, Blueprint.class);
+            if(fileElement == null) continue;
+            final Blueprint rootElement = fileElement.getRootElement();
             final PropertyPlaceholder propertyPlaceHolder = rootElement.getPropertyPlaceHolder();
             if (propertyPlaceHolder != null
                     && propertyPlaceHolder.isValid()

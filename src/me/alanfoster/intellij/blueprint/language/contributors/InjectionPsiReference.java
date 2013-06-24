@@ -6,12 +6,18 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.PsiReferenceBase;
+import com.intellij.psi.xml.XmlAttributeValue;
+import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.GenericAttributeValue;
 import me.alanfoster.intellij.blueprint.dom.DefaultProperties;
 import me.alanfoster.intellij.blueprint.dom.Property;
 import me.alanfoster.intellij.blueprint.dom.PropertyPlaceholder;
+import me.alanfoster.intellij.blueprint.language.file.InjectionFile;
+import me.alanfoster.intellij.blueprint.language.file.InjectionFileType;
 import me.alanfoster.intellij.blueprint.language.psi.InjectionPropertyDefinition;
 import me.alanfoster.intellij.blueprint.model.IBlueprintManager;
 import me.alanfoster.intellij.icons.PluginIcons;
@@ -32,10 +38,12 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
 
     private String propertyName;
 
+
     public InjectionPsiReference(PsiElement element) {
         super(element, IS_SOFT);
         setPropertyName(element);
         setRangeInElement(new TextRange(TEXT_RANGE_START, TEXT_RANGE_START + propertyName.length()));
+        System.out.println("Completed");
     }
 
     private String getPropertyName(PsiElement element) {
@@ -58,7 +66,8 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
         final Property property = ContainerUtil.find(defaultProperties, new Condition<Property>() {
             @Override
             public boolean value(Property property) {
-                return propertyName.equals(property.getName().getXmlAttributeValue().getValue());
+                final XmlAttributeValue xmlAttributeValue = property.getName().getXmlAttributeValue();
+                return xmlAttributeValue != null && propertyName.equals(xmlAttributeValue.getValue());
             }
         });
 
@@ -75,18 +84,39 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
 
         final DefaultProperties defaultProperties = propertyPlaceHolder.getDefaultProperties();
         List<LookupElement> resultSet = new ArrayList<LookupElement>();
+
+        // Loop through all property elements from the default property placeholder and add
+        // To the resultSet. There should only be cm:property-placeholder one per bundle.
         for(Property property : defaultProperties.getProperties()) {
             final GenericAttributeValue<String> name = property.getName();
             if(name.exists()) {
+                XmlAttributeValue xmlAttributeValue = name.getXmlAttributeValue();
+                if(xmlAttributeValue == null) continue;
+
+                String attributeValueString = xmlAttributeValue.getValue();
                 resultSet.add(
-                        LookupElementBuilder.create(name.getXmlAttribute())
+                        LookupElementBuilder.create(property, attributeValueString)
                                 .withIcon(PluginIcons.BLUEPRINT)
-                                .withPresentableText(name.getXmlAttributeValue().getValue())
+                                .withPresentableText(attributeValueString)
                 );
             }
         }
 
         return resultSet.toArray();
+    }
+
+    @Override
+    public PsiElement handleElementRename(String newElementName) throws IncorrectOperationException {
+        String newText = getRangeInElement().replace(myElement.getText(), newElementName);
+        PsiElement replacementElement = getReplacementElement(myElement.getProject(), myElement.getContainingFile(), newText);
+        return myElement.replace(replacementElement);
+    }
+
+    private PsiElement getReplacementElement(Project project, PsiFile psiFile, String newText)  {
+        String tempFileName = "__" + psiFile.getName();
+        InjectionFile fileFromText = (InjectionFile) PsiFileFactory.getInstance(project)
+                .createFileFromText(tempFileName, InjectionFileType.INSTANCE, newText);
+        return fileFromText.getFirstChild();
     }
 
 }
