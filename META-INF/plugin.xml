@@ -129,6 +129,8 @@
 
         <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.InjectionParserDefinition" />
 
+        <annotator language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.validators.ExistingPropertyReferenceAnnotator" />
+
         <languageInjector implementation="me.alanfoster.intellij.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
 
         <fileTypeFactory implementation="me.alanfoster.intellij.blueprint.language.file.InjectionFileTypeFactory"/>

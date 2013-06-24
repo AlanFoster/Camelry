@@ -43,7 +43,6 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
         super(element, IS_SOFT);
         setPropertyName(element);
         setRangeInElement(new TextRange(TEXT_RANGE_START, TEXT_RANGE_START + propertyName.length()));
-        System.out.println("Completed");
     }
 
     private String getPropertyName(PsiElement element) {
