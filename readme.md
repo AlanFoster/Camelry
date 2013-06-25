@@ -28,7 +28,6 @@ Currently the support for the Blueprint Injection Language includes
 * Rename Support
 * Error Highlighting
 
-![Intellisense](/documentation/screenshots/IntelliSense.png "Intellisense")
 #####Karaf Features Support
 ![Language Injection](/documentation/screenshots/KarafFeatures.png "Karaf Features Support")
 #####Reference Validation
