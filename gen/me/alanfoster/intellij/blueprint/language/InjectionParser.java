@@ -41,9 +41,20 @@ public class InjectionParser implements PsiParser {
   }
 
   /* ********************************************************** */
-  // item_
+  // item_*
   static boolean injectionLanguage(PsiBuilder builder_, int level_) {
-    return item_(builder_, level_ + 1);
+    if (!recursion_guard_(builder_, level_, "injectionLanguage")) return false;
+    int offset_ = builder_.getCurrentOffset();
+    while (true) {
+      if (!item_(builder_, level_ + 1)) break;
+      int next_offset_ = builder_.getCurrentOffset();
+      if (offset_ == next_offset_) {
+        empty_element_parsed_guard_(builder_, offset_, "injectionLanguage");
+        break;
+      }
+      offset_ = next_offset_;
+    }
+    return true;
   }
 
   /* ********************************************************** */

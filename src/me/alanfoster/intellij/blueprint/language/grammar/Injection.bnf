@@ -22,7 +22,7 @@
 
 // ${foo.bar.baz}
 
-injectionLanguage ::= item_
+injectionLanguage ::= item_*
 
 private item_ ::= (TEXT | propertyDefinition | CRLF)
 

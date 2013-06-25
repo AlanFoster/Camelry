@@ -37,6 +37,7 @@ Feature: Blueprint Bean Injection Language
     Then the following variants will be shown
       | Hello |
       | Foo   |
+  And there should be no annotation errors
 
   Scenario: A developer is warned when a reference does not exist
     When the user references a property that does not exist
