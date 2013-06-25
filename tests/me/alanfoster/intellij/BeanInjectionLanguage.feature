@@ -48,6 +48,29 @@ Feature: Blueprint Bean Injection Language
     </bean>
   """
 
+  Scenario: Renaming an element
+    Given the user has their caret at the following location
+    """
+    <bean class="foo.Helper" id="helper">
+        <property name="foo" value="${Hello} ${World<caret>}" />
+    </bean>
+  """
+    When the user renames the element to be 'NewName'
+    Then the new bean should now look like
+    """
+    <bean class="foo.Helper" id="helper">
+        <property name="foo" value="${Hello} ${NewName}" />
+    </bean>
+  """
+    And the property placeholder definition should now look like
+    """
+      <cm:property-placeholder id="placeholder" persistent-id="placeholder">
+        <cm:default-properties>
+            <cm:property name="Hello" value="hello" />
+            <cm:property name="NewName" value="world" />
+        </cm:default-properties>
+    </cm:property-placeholder>
+  """
 
   Scenario: Folding should automatically occur
     Given the following bean definition
