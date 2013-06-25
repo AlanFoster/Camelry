@@ -133,6 +133,8 @@
 
         <languageInjector implementation="me.alanfoster.intellij.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
 
+        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.InjectionFoldingBuilder" />
+
         <fileTypeFactory implementation="me.alanfoster.intellij.blueprint.language.file.InjectionFileTypeFactory"/>
 
 

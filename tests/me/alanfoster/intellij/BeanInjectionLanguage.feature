@@ -17,7 +17,7 @@ Feature: Blueprint Bean Injection Language
   Scenario: A developer invokes a simple completion
     Given the user has their caret at the following location
     """
-    <bean class="foo.Helper" id="potato">
+    <bean class="foo.Helper" id="helper">
         <property name="foo" value="${<caret>}" />
     </bean>
   """
@@ -29,7 +29,7 @@ Feature: Blueprint Bean Injection Language
   Scenario: A developer invokes intellisense with a more complex string
     Given the user has their caret at the following location
     """
-    <bean class="foo.Helper" id="potato">
+    <bean class="foo.Helper" id="helper">
         <property name="foo" value="${Hello} ${<caret>}" />
     </bean>
   """
@@ -37,13 +37,28 @@ Feature: Blueprint Bean Injection Language
     Then the following variants will be shown
       | Hello |
       | Foo   |
-  And there should be no annotation errors
+    And there should be no annotation errors
 
   Scenario: A developer is warned when a reference does not exist
     When the user references a property that does not exist
     Then the user will be shown the following error
     """
-    <bean class="foo.Helper" id="potato">
+    <bean class="foo.Helper" id="helper">
         <property name="foo" value="${<error descr="Unresolved Property">Foo</error>}" />
     </bean>
   """
+
+
+  Scenario: Folding should automatically occur
+    Given the following bean definition
+    """
+    <bean class="foo.Helper" id="helper">
+      <property name="foo" value="${Hello} ${World}! ${Foo}" />
+    </bean>
+  """
+    Then the folding should look like the following
+    """
+        <bean class="foo.Helper" id="helper">
+        <property name="foo" value="hello} world! ${<error descr="Unresolved Property">Foo</error>}" />
+    </bean>
+    """
