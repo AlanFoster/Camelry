@@ -33,33 +33,15 @@ public class InjectionFoldingBuilder extends FoldingBuilderEx {
     @NotNull
     @Override
     public FoldingDescriptor[] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quickFix) {
+        // We need to create a new folding group per call
         FoldingGroup foldingGroup = FoldingGroup.newGroup(BlueprintInjectionLanguage.BLUEPRINT_INJECTION_LANGUAGE);
 
         List<FoldingDescriptor> descriptors = new ArrayList<FoldingDescriptor>();
         Collection<InjectionPropertyDefinition> propertyDefinitions = PsiTreeUtil.findChildrenOfType(root, InjectionPropertyDefinition.class);
-        for(InjectionPropertyDefinition definition : propertyDefinitions) {
-            if(definition != null) {
-                Project project = definition.getProject();
-                // TODO is there an easy way to resolve to a DomElement?
-                // TODO Should this be placed this into the element call itself?
-                PsiElement reference = new InjectionPsiReference(definition).resolve();
-                if(!(reference instanceof XmlAttributeValue)) continue;
-                XmlAttribute attribute = (XmlAttribute) reference.getParent();
-                DomManager domManager = DomManager.getDomManager(project);
-                GenericAttributeValue domElement = domManager.getDomElement(attribute);
-                if(domElement == null) continue;
-                Property property = domElement.getParentOfType(Property.class, true);
-                if(property == null) continue;
-                final GenericAttributeValue<String> value = property.getValue();
-                if(!value.exists()) continue;
-                descriptors.add(new FoldingDescriptor(definition.getNode(), definition.getTextRange(), foldingGroup) {
-                    @Nullable
-                    @Override
-                    public String getPlaceholderText() {
-                        return value.getStringValue();
-                    }
-                });
-            }
+        for (InjectionPropertyDefinition definition : propertyDefinitions) {
+            Property property = definition.getReferencedProperty();
+            if (property == null) continue;
+            descriptors.add(new InjectionFoldingDescriptor(definition, property, foldingGroup));
         }
         return descriptors.toArray(new FoldingDescriptor[descriptors.size()]);
     }
@@ -73,5 +55,26 @@ public class InjectionFoldingBuilder extends FoldingBuilderEx {
     @Override
     public boolean isCollapsedByDefault(@NotNull ASTNode astNode) {
         return true;
+    }
+
+    /**
+     * Represents the basic folding descriptor used for a property place holder which
+     * simply returns the referenced property placeholder's value.
+     */
+    private static final class InjectionFoldingDescriptor extends FoldingDescriptor {
+        private final String propertyValue;
+
+        public InjectionFoldingDescriptor(@NotNull InjectionPropertyDefinition definition,
+                                          @NotNull Property reference,
+                                          @NotNull FoldingGroup foldingGroup) {
+            super(definition.getNode(), definition.getTextRange(), foldingGroup);
+            propertyValue = reference.getValue().getStringValue();
+        }
+
+        @Nullable
+        @Override
+        public String getPlaceholderText() {
+            return propertyValue;
+        }
     }
 }

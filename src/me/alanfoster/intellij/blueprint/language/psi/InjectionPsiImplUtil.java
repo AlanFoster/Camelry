@@ -1,8 +1,16 @@
 package me.alanfoster.intellij.blueprint.language.psi;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.xml.XmlAttribute;
+import com.intellij.psi.xml.XmlAttributeValue;
+import com.intellij.util.xml.DomManager;
+import com.intellij.util.xml.GenericAttributeValue;
+import me.alanfoster.intellij.blueprint.dom.Property;
 import me.alanfoster.intellij.blueprint.language.InjectionTypes;
+import me.alanfoster.intellij.blueprint.language.contributors.InjectionPsiReference;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * This util class will automatically be injected into generated PsiElements from
@@ -47,5 +55,16 @@ public class InjectionPsiImplUtil {
         }
     }
 
-
+    @Nullable
+    public static Property getReferencedProperty(InjectionPropertyDefinition element) {
+        Project project = element.getProject();
+        PsiElement reference = new InjectionPsiReference(element).resolve();
+        if(!(reference instanceof XmlAttributeValue)) return null;
+        XmlAttribute attribute = (XmlAttribute) reference.getParent();
+        DomManager domManager = DomManager.getDomManager(project);
+        GenericAttributeValue domElement = domManager.getDomElement(attribute);
+        if(domElement == null) return null;
+        Property property = domElement.getParentOfType(Property.class, true);
+        return property;
+    }
 }

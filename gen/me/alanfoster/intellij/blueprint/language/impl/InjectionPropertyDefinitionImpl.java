@@ -10,6 +10,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static me.alanfoster.intellij.blueprint.language.InjectionTypes.*;
 import me.alanfoster.intellij.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl;
 import me.alanfoster.intellij.blueprint.language.psi.*;
+import me.alanfoster.intellij.blueprint.dom.Property;
 
 public class InjectionPropertyDefinitionImpl extends BlueprintInjectionPropertyDefinitionImpl implements InjectionPropertyDefinition {
 
@@ -40,6 +41,11 @@ public class InjectionPropertyDefinitionImpl extends BlueprintInjectionPropertyD
 
   public PsiElement getPropertyElement() {
     return InjectionPsiImplUtil.getPropertyElement(this);
+  }
+
+  @Nullable
+  public Property getReferencedProperty() {
+    return InjectionPsiImplUtil.getReferencedProperty(this);
   }
 
 }
