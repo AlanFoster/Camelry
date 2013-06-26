@@ -19,7 +19,7 @@ Here are some of the currently supported features
 #####Bean Intellisense
 ![Intellisense](/documentation/screenshots/IntelliSense.png "Intellisense")
 #####Blueprint Injection Language
-![Blueprint Injection Language](/documentation/screenshots/BlueprintInjectionReferenceValidation.png "Blueprint Injection Language")
+![Blueprint Injection Language](/documentation/screenshots/BlueprintLanguageIntellisense.png "Blueprint Injection Language")
 
 Currently the support for the Blueprint Injection Language includes
 
