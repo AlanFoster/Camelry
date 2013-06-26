@@ -27,7 +27,7 @@ Getting it
 Currently this project is under development, and not officially released yet!
 
 We are currently aiming for a 0.1 release in the near future :)
-Click [here](../../issues?milestone=1&page=1&state=open) to see the remaining issues for the 0.1 milestone.
+GitHub currently tracks all of our [planned milestones](../../issues/milestones)
 
 Contributing
 ------------
@@ -48,5 +48,6 @@ Remember, all forms of contributions are most welcome!
 Future plans
 ------------
 
-All planned actions are available within the github issues section [here](../../issues).
+All planned actions are available within the GitHub issues section [here](../../issues).
+
 Be sure to send any additional feature requests or cool ideas our way :)
