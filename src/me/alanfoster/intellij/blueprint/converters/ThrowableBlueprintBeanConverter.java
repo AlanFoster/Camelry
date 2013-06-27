@@ -5,6 +5,7 @@ import com.intellij.openapi.util.Condition;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
 import me.alanfoster.intellij.blueprint.dom.BlueprintBean;
@@ -34,24 +35,9 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
             public boolean value(BlueprintBean blueprintBean) {
                 final PsiClass psiClass = blueprintBean.getClassAttribute().getValue();
 
-                return hasSuper(psiClass, throwablePsiClass);
+                return InheritanceUtil.isInheritorOrSelf(psiClass, throwablePsiClass, true);
             }
         });
-    }
-
-    /**
-     * Helper class that tests if a child is an instance of a parent
-     *
-     * @param child The child to test for
-     * @param parent The parent to test for
-     * @return true if the child extends the parent class
-     */
-    public static boolean hasSuper(@Nullable PsiClass child, PsiClass parent) {
-        if(child == null) {
-            return false;
-        }
-
-        return child.equals(parent) || hasSuper(child.getSuperClass(), parent);
     }
 
     public static PsiClass getPsiClass(@NotNull Class<?> clazz, Project project) {
