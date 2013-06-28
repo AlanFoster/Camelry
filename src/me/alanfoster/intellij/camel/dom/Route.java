@@ -1,9 +1,6 @@
 package me.alanfoster.intellij.camel.dom;
 
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.Required;
-import com.intellij.util.xml.Stubbed;
-import com.intellij.util.xml.SubTagList;
+import com.intellij.util.xml.*;
 
 import java.util.List;
 
@@ -17,6 +14,8 @@ import java.util.List;
  */
 @Stubbed
 public interface Route extends DomElement {
+    GenericAttributeValue<String> getId();
+
     /**
      * The from element in a camel route. There should be one of these per route.
      */
