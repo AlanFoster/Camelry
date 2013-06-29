@@ -1,4 +1,4 @@
-Blueprint + Camel IntelliJ Plugin
+Camelus - A Blueprint + Camel IntelliJ Plugin
 =================================
 
 This IntelliJ plugin is designed to improve the improve the development experience when working with

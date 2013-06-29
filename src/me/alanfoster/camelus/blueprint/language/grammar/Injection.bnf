@@ -1,0 +1,33 @@
+/*
+ * @see https://github.com/JetBrains/Grammar-Kit
+ */
+{
+  parserClass="me.alanfoster.camelus.blueprint.language.InjectionParser"
+  stubParserClass="GeneratedParserUtilBase"
+
+  implements="me.alanfoster.camelus.blueprint.language.psi.InjectionElement"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Injection"
+  psiImplClassSuffix="Impl"
+  psiPackage="me.alanfoster.camelus.blueprint.language.psi"
+  psiImplPackage="me.alanfoster.camelus.blueprint.language.impl"
+
+  psiImplUtilClass="me.alanfoster.camelus.blueprint.language.psi.InjectionPsiImplUtil"
+
+  elementTypeHolderClass="me.alanfoster.camelus.blueprint.language.InjectionTypes"
+  elementTypeClass="me.alanfoster.camelus.blueprint.language.psi.InjectionElementType"
+  tokenTypeClass="me.alanfoster.camelus.blueprint.language.psi.InjectionTokenType"
+}
+
+// ${foo.bar.baz}
+
+injectionLanguage ::= item_*
+
+private item_ ::= (TEXT | propertyDefinition | CRLF)
+
+propertyDefinition ::= FUNCTION_START PROPERTY_NAME FUNCTION_END {
+    mixin="me.alanfoster.camelus.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl"
+    implements="me.alanfoster.camelus.blueprint.language.psi.BlueprintInjectionPropertyDefinition"
+    methods = [getName getNameIdentifier setName getPropertyName getPropertyElement getReferencedProperty]
+}

@@ -1,17 +1,17 @@
 <idea-plugin version="2">
-    <id>me.alanfoster.intellij.camel</id>
-    <name>Blueprint And Camel Support</name>
+    <id>Camelus</id>
+    <name>Camelus</name>
     <version>0.1</version>
     <vendor url="https://github.com/AlanFoster">Alan Foster</vendor>
 
     <description><![CDATA[
-        <p>An IntelliJ plugin to make both Apache Blueprint and Apache Camel development work easier.</p>
-        <p>For further details see <a href="https://github.com/AlanFoster/Blueprint-Camel-Plugin"/>Github Project</a></p>
+        <p>This IntelliJ plugin is designed to improve the improve the development experience when working with Apache Blueprint, Apache karaf and Apache Camel.</p>
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelus"/>Github Project</a></p>
         ]]>
     </description>
 
     <change-notes><![CDATA[
-        <p>For further details see <a href="https://github.com/AlanFoster/Blueprint-Camel-Plugin"/>Github Project</a>
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelus"/>Github Project</a>
     ]]>
     </change-notes>
 
@@ -27,10 +27,10 @@
             to create a new Camel related file
         -->
         <action id="Camel.CreateBlueprintXmlFile"
-                class="me.alanfoster.intellij.camel.tooling.dsl.dom.CreateCamelFile"
+                class="me.alanfoster.camelus.camel.tooling.dsl.dom.CreateCamelFile"
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
-                icon="/me/alanfoster/intellij/icons/camel_16x16.png"
+                icon="/me/alanfoster/camelus/icons/camel_16x16.png"
                 >
             <add-to-group group-id="NewGroup" anchor="last"/>
         </action>
@@ -42,7 +42,7 @@
             Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
             a new generic blueprint/camel file
         -->
-        <fileTemplateGroup implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager"/>
+        <fileTemplateGroup implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileTemplateManager"/>
 
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -50,23 +50,23 @@
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
         <!-- Simple Language Related -->
-        <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
+        <fileTypeFactory implementation="me.alanfoster.camelus.camel.simple.file.SimpleFileTypeFactory"/>
         <lang.parserDefinition language="Simple"
-                               implementationClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition"/>
+                               implementationClass="me.alanfoster.camelus.camel.simple.language.parser.SimpleParserDefinition"/>
 
         <completion.contributor language="Simple"
-                                implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.autocomplete.SimpleCompletionContributor"/>
+                                implementationClass="me.alanfoster.camelus.camel.simple.language.tooling.autocomplete.SimpleCompletionContributor"/>
         <lang.syntaxHighlighterFactory key="Simple"
-                                       implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
+                                       implementationClass="me.alanfoster.camelus.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
 
         <languageInjector
-                implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>
+                implementation="me.alanfoster.camelus.camel.tooling.languageinjector.CamelLanguageInjector"/>
 
         <!--
             Refactoring support for Camel Routes
         -->
         <lang.refactoringSupport language="XML"
-                                 implementationClass="me.alanfoster.intellij.camel.actions.RouteRefactoringSupportProvider" />
+                                 implementationClass="me.alanfoster.camelus.camel.actions.RouteRefactoringSupportProvider" />
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Blueprint specific
@@ -76,7 +76,7 @@
         <!--
                Register the Blueprint DOM file description
            -->
-        <dom.fileDescription implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileDescription"/>
+        <dom.fileDescription implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileDescription"/>
 
         <!--
             Blueprint inspection elements
@@ -85,41 +85,41 @@
         <!-- Basic checker for Required, duplicate names etc -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
                          groupName="Blueprint and Camel Support" displayName="Blueprint File Validation"
-                         implementationClass="me.alanfoster.intellij.blueprint.inspectors.BlueprintDOMInspection"/>
+                         implementationClass="me.alanfoster.camelus.blueprint.inspectors.BlueprintDOMInspection"/>
 
         <!-- Custom checker for Deprecated elements which are no longer supported by camel -->
         <localInspection language="XML" enabledByDefault="true" level="WARNING"
                          groupName="Blueprint and Camel Support" displayName="Deprecated Attributes"
-                         implementationClass="me.alanfoster.intellij.blueprint.inspectors.DeprecatedAttribtueChecker"/>
+                         implementationClass="me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribtueChecker"/>
 
         <dom.customAnnotationChecker
-                implementation="me.alanfoster.intellij.blueprint.inspectors.BlueprintBeanRefExtendsChecker" />
+                implementation="me.alanfoster.camelus.blueprint.inspectors.BlueprintBeanRefExtendsChecker" />
 
         <!-- Blueprint Injection Language -->
 
-        <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.InjectionParserDefinition" />
+        <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelus.blueprint.language.InjectionParserDefinition" />
 
-        <annotator language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.validators.ExistingPropertyReferenceAnnotator" />
+        <annotator language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelus.blueprint.language.validators.ExistingPropertyReferenceAnnotator" />
 
-        <languageInjector implementation="me.alanfoster.intellij.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
+        <languageInjector implementation="me.alanfoster.camelus.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
 
-        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.support.InjectionFoldingBuilder" />
+        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelus.blueprint.language.support.InjectionFoldingBuilder" />
 
-        <fileTypeFactory implementation="me.alanfoster.intellij.blueprint.language.file.InjectionFileTypeFactory"/>
+        <fileTypeFactory implementation="me.alanfoster.camelus.blueprint.language.file.InjectionFileTypeFactory"/>
 
         <psi.referenceContributor
-                implementation="me.alanfoster.intellij.blueprint.language.contributors.InjectionPsiReferenceContributor" />
+                implementation="me.alanfoster.camelus.blueprint.language.contributors.InjectionPsiReferenceContributor" />
 
         <lang.syntaxHighlighterFactory key="BlueprintInjectionLanguage"
-                                       implementationClass="me.alanfoster.intellij.blueprint.language.highlight.InjectionHighlighterFactory"/>
+                                       implementationClass="me.alanfoster.camelus.blueprint.language.highlight.InjectionHighlighterFactory"/>
 
         <lang.braceMatcher language="BlueprintInjectionLanguage"
-                           implementationClass="me.alanfoster.intellij.blueprint.language.support.InjectionBraceMatcher" />
+                           implementationClass="me.alanfoster.camelus.blueprint.language.support.InjectionBraceMatcher" />
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
-                serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
-                serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager"/>
+                serviceInterface="me.alanfoster.camelus.blueprint.model.IBlueprintManager"
+                serviceImplementation="me.alanfoster.camelus.blueprint.model.BlueprintManager"/>
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Karaf specific
@@ -128,12 +128,12 @@
             Register the  Karaf Features File DOM file description
             Which will wire up all of the magic for a karaf features file
         -->
-        <dom.fileDescription implementation="me.alanfoster.intellij.karaf.dom.KarafFeaturesFileDescription"/>
+        <dom.fileDescription implementation="me.alanfoster.camelus.karaf.dom.KarafFeaturesFileDescription"/>
 
         <!-- Basic checker for Required, duplicate names etc -->
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
                          groupName="Blueprint and Camel Support" displayName="Karaf Feature File Validation"
-                         implementationClass="me.alanfoster.intellij.karaf.dom.KarafDomValidation"/>
+                         implementationClass="me.alanfoster.camelus.karaf.dom.KarafDomValidation"/>
 
     </extensions>
 
