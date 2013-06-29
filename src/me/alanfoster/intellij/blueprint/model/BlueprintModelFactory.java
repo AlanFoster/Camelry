@@ -29,7 +29,7 @@ public class BlueprintModelFactory extends DomModelFactory<Blueprint, IBlueprint
     protected List<IBlueprintDomModel> computeAllModels(@NotNull Module scope) {
         IBlueprintManager blueprintManager = IBlueprintManager.getInstance();
         final Project project = scope.getProject();
-        Set<XmlFile> xmlFiles = blueprintManager.getAllBlueprintConfigFiles(project);
+        Set<XmlFile> xmlFiles = blueprintManager.getModuleBlueprintConfigFiles(scope);
 
         List<IBlueprintDomModel> models = new ArrayList<IBlueprintDomModel>();
 

@@ -9,6 +9,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FileTypeIndex;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
@@ -39,13 +40,24 @@ public class BlueprintManager extends IBlueprintManager {
 
     @NotNull
     @Override
-    public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull final Project project) {
+    public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull Project project) {
+        Set<XmlFile> blueprintConfigFiles = getBlueprintConfigFiles(project, ProjectScope.getContentScope(project));
+        return blueprintConfigFiles;
+    }
+
+    @NotNull
+    @Override
+    public Set<XmlFile> getModuleBlueprintConfigFiles(@NotNull Module module) {
+        Set<XmlFile> blueprintConfigFiles = getBlueprintConfigFiles(module.getProject(), GlobalSearchScope.moduleScope(module));
+        return blueprintConfigFiles;
+    }
+
+    private Set<XmlFile> getBlueprintConfigFiles(@NotNull Project project, GlobalSearchScope scope) {
         Set<XmlFile> files = new HashSet<XmlFile>();
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
                 FileTypeIndex.NAME, XmlFileType.INSTANCE,
-                // TODO Research Scope further!
-                ProjectScope.getContentScope(project));
+                scope);
 
         for (VirtualFile virtualFile : virtualFiles) {
 
