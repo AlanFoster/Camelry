@@ -9,7 +9,6 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 @NameStrategy(value = HyphenNameStrategy.class)
-@Namespace("http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0")
 public interface DefaultProperties extends DomElement {
     @SubTagList("property")
     List<Property> getProperties();

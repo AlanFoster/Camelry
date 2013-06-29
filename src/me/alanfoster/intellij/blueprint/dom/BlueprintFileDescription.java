@@ -21,7 +21,9 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
      * The list of all possible namespaces that the root element node can be under.
      */
     private static final String[] ROOT_ELEMENT_POSSIBLE_NAMESPACES = new String[] {
-        "http://www.osgi.org/xmlns/blueprint/v1.0.0"
+        // TODO is there a preferred way to deal with different versions within plugins?
+        "http://www.osgi.org/xmlns/blueprint/v1.0.0",
+        "http://www.osgi.org/xmlns/blueprint/v1.1.0"
     };
 
     public BlueprintFileDescription() {

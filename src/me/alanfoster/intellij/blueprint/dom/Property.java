@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
  */
 // TODO Deal with more than just key/value pairs, and handle the List/Map notation etc
 @NameStrategy(value = JavaNameStrategy.class)
-@Namespace("http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0")
 public interface Property extends DomElement {
     @NotNull
     @Attribute("name")
