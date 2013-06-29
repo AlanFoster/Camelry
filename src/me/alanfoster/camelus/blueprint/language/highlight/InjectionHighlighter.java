@@ -26,11 +26,11 @@ public class InjectionHighlighter extends SyntaxHighlighterBase {
     static {
         elementTypeAttributeKeyMap = new HashMap<IElementType, TextAttributesKey>();
 
-        elementTypeAttributeKeyMap.put(InjectionTypes.FUNCTION_START, DefaultLanguageHighlighterColors.PARENTHESES);
-        elementTypeAttributeKeyMap.put(InjectionTypes.PROPERTY_NAME, DefaultLanguageHighlighterColors.IDENTIFIER);
-        elementTypeAttributeKeyMap.put(InjectionTypes.FUNCTION_END, DefaultLanguageHighlighterColors.PARENTHESES);
+        elementTypeAttributeKeyMap.put(InjectionTypes.FUNCTION_START, InjectionSyntaxHighlighterColors.FUNCTION_START);
+        elementTypeAttributeKeyMap.put(InjectionTypes.PROPERTY_NAME, InjectionSyntaxHighlighterColors.PROPERTY_NAME);
+        elementTypeAttributeKeyMap.put(InjectionTypes.FUNCTION_END, InjectionSyntaxHighlighterColors.FUNCTION_END);
+        elementTypeAttributeKeyMap.put(InjectionTypes.TEXT, InjectionSyntaxHighlighterColors.TEXT);
     }
-
 
     @NotNull
     @Override

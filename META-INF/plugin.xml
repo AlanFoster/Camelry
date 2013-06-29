@@ -116,6 +116,8 @@
         <lang.braceMatcher language="BlueprintInjectionLanguage"
                            implementationClass="me.alanfoster.camelus.blueprint.language.support.InjectionBraceMatcher" />
 
+        <colorSettingsPage implementation="me.alanfoster.camelus.blueprint.language.highlight.InjectionColorSettingsPage" />
+
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
                 serviceInterface="me.alanfoster.camelus.blueprint.model.IBlueprintManager"
