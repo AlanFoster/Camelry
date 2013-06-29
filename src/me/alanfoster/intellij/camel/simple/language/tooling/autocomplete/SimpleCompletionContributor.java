@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public class SimpleCompletitionContributor extends CompletionContributor {
+public class SimpleCompletionContributor extends CompletionContributor {
 
     private String[] VALID_IDENTIFIERS = new String[]{
             "camelId",
@@ -22,7 +22,7 @@ public class SimpleCompletitionContributor extends CompletionContributor {
             "in.body"
     };
 
-    public SimpleCompletitionContributor() {
+    public SimpleCompletionContributor() {
         completeIdentifiers();
     }
 

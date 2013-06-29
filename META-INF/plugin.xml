@@ -10,7 +10,6 @@
         ]]>
     </description>
 
-
     <change-notes><![CDATA[
         <p>For further details see <a href="https://github.com/AlanFoster/Blueprint-Camel-Plugin"/>Github Project</a>
     ]]>
@@ -19,19 +18,8 @@
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
     <idea-version since-build="107.105"/>
 
-    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
-
-    <application-components>
-        <!-- Add your application components here -->
-    </application-components>
-
-    <project-components>
-        <!-- Add your project components here -->
-    </project-components>
+    <application-components />
+    <project-components />
 
     <actions>
         <!--
@@ -48,23 +36,29 @@
         </action>
     </actions>
 
-    <!-- TODO investigate xml.elementDescriptorProvider  -->
-
+    <!-- TODO Find how to provide multiple external plugin configuration files -->
     <extensions defaultExtensionNs="com.intellij">
+        <!--
+            Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
+            a new generic blueprint/camel file
+        -->
+        <fileTemplateGroup implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager"/>
+
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Camel specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+        <!-- Simple Language Related -->
         <fileTypeFactory implementation="me.alanfoster.intellij.camel.simple.file.SimpleFileTypeFactory"/>
         <lang.parserDefinition language="Simple"
                                implementationClass="me.alanfoster.intellij.camel.simple.language.parser.SimpleParserDefinition"/>
-        <!--
-            Tooling
-        -->
 
-        <!-- Simple Language Related -->
         <completion.contributor language="Simple"
-                                implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.autocomplete.SimpleCompletitionContributor"/>
+                                implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.autocomplete.SimpleCompletionContributor"/>
         <lang.syntaxHighlighterFactory key="Simple"
                                        implementationClass="me.alanfoster.intellij.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
 
-        <!-- Blueprint/Spring Related -->
         <languageInjector
                 implementation="me.alanfoster.intellij.camel.tooling.languageinjector.CamelLanguageInjector"/>
 
@@ -74,45 +68,15 @@
         <lang.refactoringSupport language="XML"
                                  implementationClass="me.alanfoster.intellij.camel.actions.RouteRefactoringSupportProvider" />
 
-        <!-- A contributor will resolve references for us, allowing us to pair elements together
-             This means we can provide automatic completion/renaming etc -->
-        <!--        <psi.referenceContributor implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanReferenceContributor"/>-->
-
-        <!--<lang.refactoringSupport language="Simple" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.RefactorTest"/>
--->
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Blueprint specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
 
         <!--
-            Register the Blueprint DOM file description
-        -->
+               Register the Blueprint DOM file description
+           -->
         <dom.fileDescription implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileDescription"/>
-
-        <!--
-            Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
-            a new generic blueprint/camel file
-        -->
-        <fileTemplateGroup implementation="me.alanfoster.intellij.blueprint.dom.BlueprintFileTemplateManager"/>
-
-        <!--
-            Creates gutter icons, which can be clicked to link to a referenced element
-        -->
-        <codeInsight.lineMarkerProvider language="XML"
-                                        implementationClass="me.alanfoster.intellij.camel.tooling.dsl.dom.BeanLineMarkerProvider"/>
-
-        <!--
-            Register the bean Annotator which will highlight a reference id as wrong if it can't find it
-			Or say mark it matching a bean, and provide a text annotation when hovered over
-        -->
-        <!--        <annotator language="XML" implementationClass="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanAnnotator"/>-->
-
-
-        <!--
-            Register a gotoDeclarationHandler which allows for ctrl+clicking tokens to go to a declaration
-        -->
-        <!--        <gotoDeclarationHandler
-                        implementation="me.alanfoster.intellij.camel.tooling.dsl.xml.BeanGotoDeclarationHandler"/>
-        -->
-
 
         <!--
             Blueprint inspection elements
@@ -152,16 +116,14 @@
         <lang.braceMatcher language="BlueprintInjectionLanguage"
                            implementationClass="me.alanfoster.intellij.blueprint.language.support.InjectionBraceMatcher" />
 
-        <!--        <completion.contributor
-                        language="BlueprintInjectionLanguage"
-                        implementationClass="me.alanfoster.intellij.blueprint.language.InjectionReferenceContributor" />-->
-
-
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
                 serviceInterface="me.alanfoster.intellij.blueprint.model.IBlueprintManager"
                 serviceImplementation="me.alanfoster.intellij.blueprint.model.BlueprintManager"/>
 
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Karaf specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--
             Register the  Karaf Features File DOM file description
             Which will wire up all of the magic for a karaf features file
@@ -172,5 +134,8 @@
         <localInspection language="XML" enabledByDefault="true" level="ERROR"
                          groupName="Blueprint and Camel Support" displayName="Karaf Feature File Validation"
                          implementationClass="me.alanfoster.intellij.karaf.dom.KarafDomValidation"/>
+
     </extensions>
+
+
 </idea-plugin>
