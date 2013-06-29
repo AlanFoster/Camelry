@@ -6,6 +6,7 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.DomFileElement;
+import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.ResolvingConverter;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
 import me.alanfoster.camelus.blueprint.model.IBlueprintDomModel;
@@ -17,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,7 +38,8 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
     public BlueprintBean fromString(final @Nullable @NonNls String blueprintRefId,
                           final ConvertContext context) {
 
-        if(StringUtil.isEmpty(blueprintRefId)) return null;
+        // Extra `blueprintRefId == null` added to stop IntelliJ's null warning
+        if(StringUtil.isEmpty(blueprintRefId) || blueprintRefId == null) return null;
 
         final Module module = context.getModule();
         if(module == null) return null;
@@ -46,8 +49,8 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
         BlueprintBean matchingBlueprintBean =  ContainerUtil.find(blueprintBeans, new Condition<BlueprintBean>() {
                 @Override
                 public boolean value(BlueprintBean blueprintBean) {
-                return blueprintBean.getId().getStringValue().equals(blueprintRefId);
-            }
+                    return blueprintRefId.equals(blueprintBean.getId().getStringValue());
+                }
         });
 
         return matchingBlueprintBean;
@@ -63,7 +66,9 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
     @NotNull
     @Override
     public Collection<? extends BlueprintBean> getVariants(ConvertContext context) {
-        return getAllBlueprintBeans(context.getModule());
+        return (context == null || context.getModule() == null)
+                ? Collections.<BlueprintBean>emptyList()
+                : getAllBlueprintBeans(context.getModule());
     }
 
     // TODO Place this into either the blueprint model or BlueprintManager
