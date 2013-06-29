@@ -85,3 +85,8 @@ Feature: Blueprint Bean Injection Language
         <property name="foo" value="hello} world! ${<error descr="Unresolved Property">Foo</error>}" />
     </bean>
     """
+
+  Scenario: Multiple bundles with property placeholders should resolve correctly to the same bundle
+    Given there are two bundles with property placeholder information
+    When the user asks for completion
+    Then the following same bundle variants will be shown

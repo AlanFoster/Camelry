@@ -81,7 +81,7 @@ public class BlueprintManager extends IBlueprintManager {
         return files;
     }
 
-    @Nullable
+    @NotNull
     @Override
     public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
         return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
@@ -101,11 +101,11 @@ public class BlueprintManager extends IBlueprintManager {
      */
     @Nullable
     @Override
-    public PropertyPlaceholder getPropertyPlaceHolder(@NotNull Project project) {
-        final Set<XmlFile> blueprintModels = IBlueprintManager.getInstance().getAllBlueprintConfigFiles(project);
+    public PropertyPlaceholder getModulePropertyPlaceHolder(@NotNull Module module) {
+        final Set<XmlFile> blueprintModels = IBlueprintManager.getInstance().getModuleBlueprintConfigFiles(module);
 
         // Find the required XmlFile which contains the property placeholder DomElement
-        final DomManager domManager = DomManager.getDomManager(project);
+        final DomManager domManager = DomManager.getDomManager(module.getProject());
         for (XmlFile xmlFile : blueprintModels) {
             DomFileElement<Blueprint> fileElement = domManager.getFileElement(xmlFile, Blueprint.class);
             if(fileElement == null) continue;

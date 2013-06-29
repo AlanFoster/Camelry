@@ -2,6 +2,8 @@ package me.alanfoster.camelus.blueprint.language.contributors;
 
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.TextRange;
@@ -29,6 +31,9 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * PsiReference for the Blueprint Injection Language. Allows users to ctrl+click a property,
+ * rename elements, and get variants - i.e. intellisense with ctrl+space :)
+ *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
@@ -56,9 +61,7 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
     @Nullable
     @Override
     public PsiElement resolve() {
-        final Project project = myElement.getProject();
-        final PropertyPlaceholder propertyPlaceHolder = IBlueprintManager.getInstance().getPropertyPlaceHolder(project);
-
+        PropertyPlaceholder propertyPlaceHolder = getModulePropertyPlaceHolder(myElement);
         if(propertyPlaceHolder == null) return null;
 
         final List<Property> defaultProperties = propertyPlaceHolder.getDefaultProperties().getProperties();
@@ -76,9 +79,7 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
     @NotNull
     @Override
     public Object[] getVariants() {
-        final Project project = myElement.getProject();
-        final PropertyPlaceholder propertyPlaceHolder = IBlueprintManager.getInstance().getPropertyPlaceHolder(project);
-
+        PropertyPlaceholder propertyPlaceHolder = getModulePropertyPlaceHolder(myElement);
         if(propertyPlaceHolder == null) return Collections.EMPTY_LIST.toArray();
 
         final DefaultProperties defaultProperties = propertyPlaceHolder.getDefaultProperties();
@@ -102,6 +103,20 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
         }
 
         return resultSet.toArray();
+    }
+
+    /**
+     * Attempts to get the property placeholder for the given element within the element's module.
+     *
+     * @param psiElement
+     * @return The property placeholder if found.
+     */
+    @Nullable
+    private PropertyPlaceholder getModulePropertyPlaceHolder(PsiElement psiElement){
+        final Module module = ModuleUtil.findModuleForPsiElement(psiElement);
+        if(module == null) return null;
+        final PropertyPlaceholder propertyPlaceHolder = IBlueprintManager.getInstance().getModulePropertyPlaceHolder(module);
+        return propertyPlaceHolder;
     }
 
     @Override

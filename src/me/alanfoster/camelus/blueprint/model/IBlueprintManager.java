@@ -49,10 +49,10 @@ public abstract class IBlueprintManager {
      * Each Blueprint bundle is allowed one PropertyPlaceholder.
      * This property placeholder should have a unique PID.
      *
-     * @param project
+     * @param module the module to search for a property placeholder in
      * @return
      */
     @Nullable
-    public abstract PropertyPlaceholder getPropertyPlaceHolder(@NotNull Project project);
+    public abstract PropertyPlaceholder getModulePropertyPlaceHolder(@NotNull Module module);
 }
 
