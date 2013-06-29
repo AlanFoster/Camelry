@@ -1,4 +1,4 @@
-package me.alanfoster.intellij.blueprint.language;
+package me.alanfoster.intellij.blueprint.language.support;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilder;
@@ -15,6 +15,7 @@ import com.intellij.util.xml.DomManager;
 import com.intellij.util.xml.GenericAttributeValue;
 import me.alanfoster.intellij.blueprint.dom.Property;
 import me.alanfoster.intellij.blueprint.dom.PropertyPlaceholder;
+import me.alanfoster.intellij.blueprint.language.BlueprintInjectionLanguage;
 import me.alanfoster.intellij.blueprint.language.contributors.InjectionPsiReference;
 import me.alanfoster.intellij.blueprint.language.psi.InjectionPropertyDefinition;
 import org.apache.xmlbeans.impl.common.XMLNameHelper;

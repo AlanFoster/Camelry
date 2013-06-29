@@ -139,12 +139,18 @@
 
         <languageInjector implementation="me.alanfoster.intellij.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
 
-        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.InjectionFoldingBuilder" />
+        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.intellij.blueprint.language.support.InjectionFoldingBuilder" />
 
         <fileTypeFactory implementation="me.alanfoster.intellij.blueprint.language.file.InjectionFileTypeFactory"/>
 
         <psi.referenceContributor
                 implementation="me.alanfoster.intellij.blueprint.language.contributors.InjectionPsiReferenceContributor" />
+
+        <lang.syntaxHighlighterFactory key="BlueprintInjectionLanguage"
+                                       implementationClass="me.alanfoster.intellij.blueprint.language.highlight.InjectionHighlighterFactory"/>
+
+        <lang.braceMatcher language="BlueprintInjectionLanguage"
+                           implementationClass="me.alanfoster.intellij.blueprint.language.support.InjectionBraceMatcher" />
 
         <!--        <completion.contributor
                         language="BlueprintInjectionLanguage"
