@@ -7,12 +7,10 @@
  */
 package me.alanfoster.intellij.blueprint.language.lexer;
 
-
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
 import me.alanfoster.intellij.blueprint.language.InjectionTypes;
-
 
 /**
  * Below are the options and declarations which the lexer will use
@@ -38,8 +36,8 @@ CRLF= \n|\r|\r\n
 WHITE_SPACE=[\ \t\f]
 FUNCTION_START="${"
 FUNCTION_END="}"
-PROPERTY_NAME=[^:=}]+
-TEXT=[^:=${]+
+PROPERTY_NAME=[^}]+
+TEXT=[^${]+
 
 // define any custom states to use
 %state WAITING_PROPERTY_DEFINITION
