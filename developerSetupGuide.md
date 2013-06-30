@@ -54,7 +54,7 @@ Once your project has loaded you will need to add a new Plugin Configuratoin
 Here is an example of the Plugin Configuration used. You may find it useful to set specific JVM args, such as increasing
 Heap Size.
 
-![ConfigurationWindowSettings](/documentation/screenshots/ConfigurationWindowSettings.png "ConfigurationWindowSettings")
+![ConfigurationWindowSettings](/documentation/setup/ConfigurationWindowSettings.png "ConfigurationWindowSettings")
 
 You will now be able to run the plugin with Run/Debug mode
 
