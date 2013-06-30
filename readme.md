@@ -37,6 +37,7 @@ Contributing
 - Want to contribute some code?
     - Check out some of the [existing issues](../../issues), or create a new one for what you want to work on!
     - Create a fork, do your commits, send a pull request! Check out Github's great article on the [Fork & Pull model](https://help.github.com/articles/using-pull-requests)
+    - Read the [Developer setup guide](/developerSetupGuide.md)!
     - IntelliJ also offers some great great plugin development resources
         - [Plugin Development](http://confluence.jetbrains.com/display/IDEADEV/PluginDevelopment)
         - [Custom Language Support](http://confluence.jetbrains.com/display/IntelliJIDEA/Custom+Language+Support)
