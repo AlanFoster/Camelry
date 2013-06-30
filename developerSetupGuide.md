@@ -21,26 +21,26 @@ Once you have all of the required sources downloaded, it's time to fire up Intel
 
 Select the Import Project option from the Quick Start Menu
 
-![ImportProject](/documentation/screenshots/ImportProject.png "ImportProject")
+![ImportProject](/documentation/setup/ImportProject.png "ImportProject")
 
 ###### Step 2: Select Import Directory
 
 Point to the root directory of your Git clone.
 
-![ImportRootDirectory](/documentation/screenshots/ImportRootDirectory.png "ImportRootDirectory")
+![ImportRootDirectory](/documentation/setup/ImportRootDirectory.png "ImportRootDirectory")
 
 ###### Step 3: Import Project Type
 
 Select Create project from existing soruces.
 This will allow IntelliJ to make use of the existing project configuration file
 
-![ExistingSources](/documentation/screenshots/ExistingSources.png "ExistingSources")
+![ExistingSources](/documentation/setup/ExistingSources.png "ExistingSources")
 
 ###### Step 4: Select Project SDK
 
 Create a new Intellij IDEA SDK
 
-![IntelliJSDK](/documentation/screenshots/IntelliJSDK.png "IntelliJSDK")
+![IntelliJSDK](/documentation/setup/IntelliJSDK.png "IntelliJSDK")
 
 *Note* - You may find it useful to also download the IntelliJ community edition source code and update your SDK's
 sourcepath
@@ -49,7 +49,7 @@ sourcepath
 
 Once your project has loaded you will need to add a new Plugin Configuratoin
 
-![ConfigurationWindow](/documentation/screenshots/ConfigurationWindow.png "ConfigurationWindow")
+![ConfigurationWindow](/documentation/setup/ConfigurationWindow.png "ConfigurationWindow")
 
 Here is an example of the Plugin Configuration used. You may find it useful to set specific JVM args, such as increasing
 Heap Size.
@@ -58,7 +58,7 @@ Heap Size.
 
 You will now be able to run the plugin with Run/Debug mode
 
-![DebugMode](/documentation/screenshots/DebugMode.png "DebugMode")
+![DebugMode](/documentation/setup/DebugMode.png "DebugMode")
 
 Questions?
 ---------------------
