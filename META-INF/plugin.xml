@@ -18,7 +18,12 @@
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
     <idea-version since-build="107.105"/>
 
-    <application-components />
+    <application-components>
+        <component>
+            <implementation-class>me.alanfoster.camelus.configuration.CamelusConfigurationService</implementation-class>
+        </component>
+    </application-components>
+
     <project-components />
 
     <actions>
@@ -44,6 +49,8 @@
         -->
         <fileTemplateGroup implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileTemplateManager"/>
 
+        <!-- Configuration window -->
+        <applicationConfigurable implementation="me.alanfoster.camelus.configuration.CamelusConfigurationForm" />
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Camel specific
