@@ -34,3 +34,8 @@ The currently injected languages are :
 * [Simple](http://camel.apache.org/simple.html)
 
 Note, the [Simple](http://camel.apache.org/simple.html) language support is currently very rudimentary and requires a lot of work :)
+It is also now disabled by default to not cause issues during its early stages of life
+
+This configuration value can now be configured within the Settings menu - available with the shortcut *ctrl+alt+s*
+
+![Configuration Window](/documentation/screenshots/ConfigurationWindow.png "Configuration Window")
