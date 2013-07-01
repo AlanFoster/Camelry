@@ -2,7 +2,7 @@ package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.camel.tooling.dsl.dom.ComponentDefinitionReferenceConverter;
+import me.alanfoster.camelus.camel.converters.ComponentDefinitionReferenceConverter;
 
 /**
  * @author Alan Foster

@@ -14,7 +14,7 @@ import me.alanfoster.camelus.icons.PluginIcons;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see me.alanfoster.camelus.camel.tooling.dsl.dom.CreateCamelFile
+ * @see me.alanfoster.camelus.camel.tooling.CreateCamelFile
  * @see <a href="http://devnet.jetbrains.com/message/5316246">http://devnet.jetbrains.com/message/5316246</a>
  */
 public class BlueprintFileTemplateManager implements FileTemplateGroupDescriptorFactory {

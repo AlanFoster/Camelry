@@ -35,7 +35,6 @@ import static com.intellij.patterns.XmlPatterns.xmlAttributeValue;
 public class BlueprintInjectionLanguageInjector implements LanguageInjector {
     private static final Logger logger = Logger.getInstance(BlueprintInjectionLanguageInjector.class);
 
-
     @Override
     public void getLanguagesToInject(final @NotNull PsiLanguageInjectionHost psiLanguageInjectionHost,
                                      final @NotNull InjectedLanguagePlaces injectionPlacesRegistrar) {

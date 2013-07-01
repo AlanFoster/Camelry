@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.camel.tooling.dsl.dom;
+package me.alanfoster.camelus.camel.converters;
 
 /**
  * @author Alan Foster

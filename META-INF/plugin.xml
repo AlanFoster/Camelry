@@ -27,7 +27,7 @@
             to create a new Camel related file
         -->
         <action id="Camel.CreateBlueprintXmlFile"
-                class="me.alanfoster.camelus.camel.tooling.dsl.dom.CreateCamelFile"
+                class="me.alanfoster.camelus.camel.tooling.CreateCamelFile"
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
                 icon="/me/alanfoster/camelus/icons/camel_16x16.png"

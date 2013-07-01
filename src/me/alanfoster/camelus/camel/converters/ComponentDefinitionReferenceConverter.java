@@ -1,5 +1,6 @@
-package me.alanfoster.camelus.camel.tooling.dsl.dom;
+package me.alanfoster.camelus.camel.converters;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
@@ -25,6 +26,8 @@ import java.util.regex.Pattern;
  * @version 1.0.0-SNAPSHOT
  */
 public class ComponentDefinitionReferenceConverter extends ResolvingConverter<PsiClass> {
+    public static Logger logger = Logger.getInstance("me.alanfoster.camelus.camel.converters.ComponentDefinitionReferenceConverter");
+
     @Nullable
     @Override
     public PsiClass fromString(@Nullable @NonNls String string, ConvertContext context) {
@@ -58,8 +61,8 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
 
                 return componentClass;
             } catch (IOException e) {
-                // TODO Wireup a logger...
-                e.printStackTrace();
+                logger.error("Failed loading classpath properties for component name '{}' for file '{}", e,
+                        componentName, psiFile.getContainingDirectory().toString());
                 return null;
             }
         }
