@@ -5,7 +5,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
-import me.alanfoster.camelus.CamelusBundle;
+import static me.alanfoster.camelus.CamelusBundle.*;
 import me.alanfoster.camelus.icons.PluginIcons;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,10 +19,20 @@ import java.util.Map;
  */
 public class InjectionColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = {
-        new AttributesDescriptor(CamelusBundle.message("camelus.blueprint.language.color.settings.description.starttoken"), InjectionSyntaxHighlighterColors.FUNCTION_START),
-        new AttributesDescriptor(CamelusBundle.message("camelus.blueprint.language.color.settings.description.propertyname"), InjectionSyntaxHighlighterColors.PROPERTY_NAME),
-        new AttributesDescriptor(CamelusBundle.message("camelus.blueprint.language.color.settings.description.endtoken"), InjectionSyntaxHighlighterColors.FUNCTION_END),
-        new AttributesDescriptor(CamelusBundle.message("camelus.blueprint.language.color.settings.description.text"), InjectionSyntaxHighlighterColors.TEXT)
+        new AttributesDescriptor(
+                message("camelus.blueprint.language.color.settings.description.starttoken"),
+                InjectionSyntaxHighlighterColors.FUNCTION_START),
+
+        new AttributesDescriptor(
+                message("camelus.blueprint.language.color.settings.description.propertyname"),
+                InjectionSyntaxHighlighterColors.PROPERTY_NAME),
+
+        new AttributesDescriptor(
+                message("camelus.blueprint.language.color.settings.description.endtoken"),
+                InjectionSyntaxHighlighterColors.FUNCTION_END),
+
+        new AttributesDescriptor(message("camelus.blueprint.language.color.settings.description.text"),
+                InjectionSyntaxHighlighterColors.TEXT)
     };
 
     public static final String DEMO_TEXT =
@@ -68,6 +78,6 @@ public class InjectionColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDisplayName() {
-        return CamelusBundle.message("camelus.blueprint.language.color.settings.title");
+        return message("camelus.blueprint.language.color.settings.title");
     }
 }

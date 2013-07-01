@@ -8,6 +8,7 @@ import com.intellij.util.xml.highlighting.DomCustomAnnotationChecker;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementProblemDescriptor;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
+import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.blueprint.converters.ThrowableBlueprintBeanConverter;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import me.alanfoster.camelus.camel.dom.ThrowException;
@@ -18,14 +19,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static me.alanfoster.camelus.CamelusBundle.message;
+
 /**
- * Checks that the given element
+ * Checks that the given element has a reference to a blueprint bean which extends the
+ * required class.
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
 public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<BlueprintBeanRefExtends> {
-
 
     @NotNull
     @Override
@@ -71,9 +74,8 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
         return classAttribute;
     }
 
-
     private String getErrorMessage(Class requiredClass) {
-        return "This BlueprintBean does not extend the required class " + requiredClass.getName();
+        return message("camelus.blueprint.dom.extends.error", requiredClass.getName());
     }
 
 }
