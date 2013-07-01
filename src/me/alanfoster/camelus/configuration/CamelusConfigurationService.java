@@ -23,7 +23,7 @@ public class CamelusConfigurationService implements PersistentStateComponent<Cam
     @Nullable
     public static CamelusConfigurationModel getConfiguration() {
         CamelusConfigurationService service = ServiceManager.getService(CamelusConfigurationService.class);
-        return service == null ? null : service.getState();
+        return service.getState();
     }
 
     /**

@@ -7,6 +7,8 @@ import com.intellij.psi.LanguageInjector;
 import com.intellij.psi.PsiLanguageInjectionHost;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlText;
+import me.alanfoster.camelus.configuration.CamelusConfigurationModel;
+import me.alanfoster.camelus.configuration.CamelusConfigurationService;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,14 +20,22 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CamelLanguageInjector implements LanguageInjector {
 
+    private boolean simpleLanguageInjected;
+
+    /**
+     * Attempt to match an xml element with a parent node which has a local name of simple,
+     * IE <simple>${simple-expression}</simple>
+     *
+     * @param psiLanguageInjectionHost
+     * @param injectedLanguagePlaces
+     */
     @Override
     public void getLanguagesToInject(@NotNull PsiLanguageInjectionHost psiLanguageInjectionHost,
                                      @NotNull InjectedLanguagePlaces injectedLanguagePlaces) {
+        // Try to inject a language, somewhat abusing the lazy evaluation of predicates :(
         boolean isLanguageInjected =
-                // Attempt to match an xml element with a parent node which has a local name
-                // of simple, IE <simple>${simple-expression}</simple>
                 // TODO Simple can also be used within the log component
-                tryInjectLanguage("simple", "Simple", psiLanguageInjectionHost, injectedLanguagePlaces)
+                (isSimpleLanguageInjected() && tryInjectLanguage("simple", "Simple", psiLanguageInjectionHost, injectedLanguagePlaces))
                         || tryInjectLanguage("xpath", "XPath", psiLanguageInjectionHost, injectedLanguagePlaces)
                         || tryInjectLanguage("javaScript", "JavaScript", psiLanguageInjectionHost, injectedLanguagePlaces)
                         || tryInjectLanguage("groovy", "Groovy", psiLanguageInjectionHost, injectedLanguagePlaces);
@@ -85,4 +95,8 @@ public class CamelLanguageInjector implements LanguageInjector {
         injectedLanguagePlaces.addPlace(requiredLanguage, expressionTextRange, null, null);
     }
 
+    public boolean isSimpleLanguageInjected() {
+        CamelusConfigurationModel configuration = CamelusConfigurationService.getConfiguration();
+        return configuration.isSimpleLanguageInjected();
+    }
 }

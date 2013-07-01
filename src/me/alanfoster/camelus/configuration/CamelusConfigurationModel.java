@@ -1,22 +1,19 @@
 package me.alanfoster.camelus.configuration;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import org.jetbrains.annotations.Nullable;
-
 /**
  * Represents a basic POJO for all of Camelus' settings.
  * This may need to become more complex in the future.
  */
 public class CamelusConfigurationModel {
 
-    private boolean isSimpleInjected;
+    private boolean isSimpleLanguageInjected;
 
-    public boolean isSimpleInjected() {
-        return isSimpleInjected;
+    public boolean isSimpleLanguageInjected() {
+        return isSimpleLanguageInjected;
     }
 
-    public void setSimpleInjected(boolean simpleInjected) {
-        isSimpleInjected = simpleInjected;
+    public void setSimpleLanguageInjected(boolean simpleLanguageInjected) {
+        isSimpleLanguageInjected = simpleLanguageInjected;
     }
 
     /**
@@ -27,14 +24,14 @@ public class CamelusConfigurationModel {
      */
     protected static CamelusConfigurationModel getDefaults() {
         CamelusConfigurationModel model = new CamelusConfigurationModel();
-        model.setSimpleInjected(false);
+        model.setSimpleLanguageInjected(false);
         return model;
     }
 
     @Override
     public String toString() {
         return "CamelusConfigurationModel{" +
-                "isSimpleInjected=" + isSimpleInjected +
+                "isSimpleLanguageInjected=" + isSimpleLanguageInjected +
                 '}';
     }
 
