@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.camel.simple.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.camel.simple.language.SimpleLanguage;
 import me.alanfoster.camelus.icons.PluginIcons;
 import org.jetbrains.annotations.NonNls;
@@ -8,6 +9,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+
+import static me.alanfoster.camelus.CamelusBundle.message;
 
 /**
  * This class represents the details of a FileType.
@@ -45,7 +48,7 @@ public class SimpleFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return "A Camel File";
+        return message("camelus.simple.language.description");
     }
 
     @NotNull

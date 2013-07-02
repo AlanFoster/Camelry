@@ -6,12 +6,15 @@ import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.CustomReferenceConverter;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericDomValue;
+import me.alanfoster.camelus.CamelusBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.beans.Introspector;
 import java.util.HashSet;
 import java.util.Set;
+
+import static me.alanfoster.camelus.CamelusBundle.message;
 
 /**
  * This class is used as the Property Resolver for Blueprint Beans.
@@ -80,14 +83,13 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
          *
          * @return
          */
-        //  TODO Find out the specific limitations with blueprint's name injection, I believe it only supports method injection?
         @NotNull
         @Override
         public Object[] getVariants() {
             PsiClass beanClass = getBeanClass();
 
             if(beanClass == null) {
-                return null;
+                return EMPTY_ARRAY;
             }
 
             // Note, we use Set as we don't want duplicates
@@ -115,7 +117,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
         @NotNull
         @Override
         public String getUnresolvedMessagePattern() {
-            return "No public setter found for this value";
+            return message("camelus.camel.beanpropertyresolver.unresolvedmessagepattern");
         }
     }
 }

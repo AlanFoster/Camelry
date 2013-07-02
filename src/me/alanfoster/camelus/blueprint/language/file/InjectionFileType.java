@@ -1,12 +1,16 @@
 package me.alanfoster.camelus.blueprint.language.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
+import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.blueprint.language.BlueprintInjectionLanguage;
 import me.alanfoster.camelus.icons.PluginIcons;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+
+import static me.alanfoster.camelus.CamelusBundle.message;
 
 /**
  * @author Alan Foster
@@ -14,6 +18,12 @@ import javax.swing.*;
  */
 public class InjectionFileType extends LanguageFileType {
     public static final InjectionFileType INSTANCE = new InjectionFileType();
+
+    /**
+     * A Semicolon deliminated list of file extensions that this is recognised
+     */
+    @NonNls
+    private static final String EXTENSIONS = "blueprint;blueprintinjectionlanguage";
 
     protected InjectionFileType() {
         super(BlueprintInjectionLanguage.INSTANCE);
@@ -28,13 +38,13 @@ public class InjectionFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return "BlueprintInjectionLanguageFile";
+        return message("camelus.blueprint.language.description");
     }
 
     @NotNull
     @Override
     public String getDefaultExtension() {
-        return "blueprint";
+        return EXTENSIONS;
     }
 
     @Nullable
