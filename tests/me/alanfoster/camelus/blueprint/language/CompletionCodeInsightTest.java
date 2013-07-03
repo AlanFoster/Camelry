@@ -2,23 +2,22 @@ package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.openapi.application.PathManager;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.blueprint.TestHelper;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.blueprint.language.CamelusProjectDescriptorBuilder.CamelusProject;
+import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 
-public class InjectionCodeInsightTest extends LightCodeInsightFixtureTestCase {
+public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        final String jarPathForClass = PathManager.getJarPathForClass(InjectionParsingTest.class);
-        File testDirectory = new File(jarPathForClass, "../../../testData/" + InjectionParsingTest.class.getPackage().getName().toString().replace('.', '/'));
-        return testDirectory.getPath();
+        return TestHelper.getTestDataPath() + "/language";
     }
 
     public void testCompletionWithNoBlueprintFiles() {
@@ -31,7 +30,7 @@ public class InjectionCodeInsightTest extends LightCodeInsightFixtureTestCase {
     }
 
     public void testCompletionWithHelloWorld() {
-        CamelusProject(myFixture)
+        CreateCamelusProject(myFixture)
                 .withBlueprintFiles("codeInsight/HelloWorldPropertyPlaceholders.xml");
 
         List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
@@ -41,7 +40,7 @@ public class InjectionCodeInsightTest extends LightCodeInsightFixtureTestCase {
     }
 
     public void testCompletionWithFooBarBazQux() {
-        CamelusProject(myFixture)
+        CreateCamelusProject(myFixture)
                 .withBlueprintFiles("codeInsight/FooBarBazQuxPropertyPlaceholders.xml");
 
         List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");

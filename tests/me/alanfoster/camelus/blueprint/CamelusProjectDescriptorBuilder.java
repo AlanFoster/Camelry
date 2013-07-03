@@ -1,17 +1,16 @@
-package me.alanfoster.camelus.blueprint.language;
+package me.alanfoster.camelus.blueprint;
 
 
-import com.intellij.openapi.application.PathManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.testFramework.PsiTestUtil;
+import com.intellij.testFramework.TestDataFile;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture;
+import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
 
 public class CamelusProjectDescriptorBuilder {
 
-    public static CamelusProject CamelusProject(JavaCodeInsightTestFixture fixture) {
+    public static CamelusProject CreateCamelusProject(JavaCodeInsightTestFixture fixture) {
         return new CamelusProject(fixture, new DefaultLightProjectDescriptor());
     }
 
@@ -27,9 +26,14 @@ public class CamelusProjectDescriptorBuilder {
             this.fixture = fixture;
         }
 
-        public CamelusProject withBlueprintFiles(String... blueprintFiles) {
-            for (String blueprintFile : blueprintFiles) {
-                fixture.copyFileToProject(blueprintFile, OSGI_FOLDER_PATH + new File(blueprintFile).getName());
+        /**
+         * Copies the given files into the OSGI-INF folder
+         * @param testDataPaths The test data paths, relative to the testData folder
+         * @return The builder object
+         */
+        public CamelusProject withBlueprintFiles(@TestDataFile @NonNls String... testDataPaths) {
+            for (String testDataPath : testDataPaths) {
+                fixture.copyFileToProject(testDataPath, OSGI_FOLDER_PATH + new File(testDataPath).getName());
             }
             return this;
         }
