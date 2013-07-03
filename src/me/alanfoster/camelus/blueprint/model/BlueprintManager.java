@@ -4,10 +4,14 @@ import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.PsiManager;
 import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.ProjectScope;
@@ -56,7 +60,7 @@ public class BlueprintManager extends IBlueprintManager {
 
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
                 FileTypeIndex.NAME, XmlFileType.INSTANCE,
-                scope);
+                ProjectScope.getContentScope(project));
 
         for (VirtualFile virtualFile : virtualFiles) {
 
@@ -64,12 +68,13 @@ public class BlueprintManager extends IBlueprintManager {
             // Match only blueprint files
             final VirtualFile parentFile = virtualFile.getParent();
             boolean isBlueprintXmlFile = parentFile != null &&
+                    // TODO - Will this will break for non-maven projects? We should search for source folders instead (content roots?)
                     parentFile.getPresentableUrl().endsWith("resources\\OSGI-INF\\blueprint");
 
             if (isBlueprintXmlFile) {
                 final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
                 if (document != null) {
-                    final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
+                    final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
 
                     XmlFile xmlFile = (XmlFile) cachedPsiFile;
 

@@ -1,17 +1,14 @@
 package me.alanfoster.camelus.blueprint.language;
 
-import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.openapi.application.PathManager;
-import com.intellij.psi.PsiElement;
-import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
-import org.unitils.reflectionassert.ReflectionComparatorMode;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static me.alanfoster.camelus.blueprint.language.CamelusProjectDescriptorBuilder.CamelusProject;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 
@@ -33,6 +30,23 @@ public class InjectionCodeInsightTest extends LightCodeInsightFixtureTestCase {
                 completionVariants);
     }
 
+    public void testCompletionWithHelloWorld() {
+        CamelusProject(myFixture)
+                .withBlueprintFiles("codeInsight/HelloWorldPropertyPlaceholders.xml");
 
+        List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
+        assertReflectionEquals(
+                Arrays.asList("Hello", "World"),
+                completionVariants);
+    }
 
+    public void testCompletionWithFooBarBazQux() {
+        CamelusProject(myFixture)
+                .withBlueprintFiles("codeInsight/FooBarBazQuxPropertyPlaceholders.xml");
+
+        List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
+        assertReflectionEquals(
+                Arrays.asList("bar", "baz", "foo", "qux"),
+                completionVariants);
+    }
 }
