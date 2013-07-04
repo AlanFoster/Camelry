@@ -18,10 +18,11 @@ public class FoldingTest extends LightCodeInsightFixtureTestCase {
 
     public void testFolding() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES);
-               // .withOpenedFile(LanguageFiles.BLUEPRINT_SINGLE_CARET);
+                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES)
+                .withOpenedFile(LanguageFiles.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
-        myFixture.configureByFiles(LanguageFiles.FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION);
         myFixture.testFolding(getTestDataPath() + "/" + LanguageFiles.FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION);
     }
+
+
 }

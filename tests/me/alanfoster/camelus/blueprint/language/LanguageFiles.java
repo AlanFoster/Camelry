@@ -10,7 +10,7 @@ public class LanguageFiles {
     public static final String FOO_BAR_BAZ_QUX_PROPERTIES = "codeInsight/FooBarBazQuxPropertyPlaceholders.xml";
     public static final String HELLO_WORLD_PROPERTIES = "codeInsight/HelloWorldPropertyPlaceholders.xml";
 
-    public static final String FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION = "codeInsight/FooBarBazQuxFolding.blueprintinjectionlanguage";
-    public static final String FOO_BAR_BAZ_QUX_FOLDING = "codeInsight/FooBarBazQuxFolding.blueprintinjectionlanguage";
+    public static final String FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION = "codeInsight/BlueprintFooBarBazQux.blueprintinjectionlanguage";
+    public static final String FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA = "codeInsight/FooBarBazQuxTestData.blueprintinjectionlanguage";
 
 }

@@ -1,1 +1,1 @@
-${foo} ${bar} ${baz} ${qux} ${noop}
+${<caret>foo} ${bar} ${baz} ${qux} ${noop}

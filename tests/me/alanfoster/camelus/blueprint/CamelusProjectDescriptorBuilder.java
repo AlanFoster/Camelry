@@ -4,6 +4,7 @@ package me.alanfoster.camelus.blueprint;
 import com.intellij.testFramework.TestDataFile;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture;
+import me.alanfoster.camelus.blueprint.language.LanguageFiles;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
@@ -35,6 +36,11 @@ public class CamelusProjectDescriptorBuilder {
             for (String testDataPath : testDataPaths) {
                 fixture.copyFileToProject(testDataPath, OSGI_FOLDER_PATH + new File(testDataPath).getName());
             }
+            return this;
+        }
+
+        public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
+            fixture.configureByFiles(testDataPath);
             return this;
         }
     }
