@@ -21,8 +21,8 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
     }
 
     public void testCompletionWithNoBlueprintFiles() {
-        myFixture.configureByFiles("codeInsight/CompleteTestData.blueprintinjectionlanguage");
-        List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
+        myFixture.configureByFiles(LanguageFiles.BLUEPRINT_SINGLE_CARET);
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
 
         assertReflectionEquals(
                 Collections.EMPTY_LIST,
@@ -31,9 +31,9 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     public void testCompletionWithHelloWorld() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles("codeInsight/HelloWorldPropertyPlaceholders.xml");
+                .withBlueprintFiles(LanguageFiles.HELLO_WORLD_PROPERTIES);
 
-        List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(
                 Arrays.asList("Hello", "World"),
                 completionVariants);
@@ -41,9 +41,9 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     public void testCompletionWithFooBarBazQux() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles("codeInsight/FooBarBazQuxPropertyPlaceholders.xml");
+                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES);
 
-        List<String> completionVariants = myFixture.getCompletionVariants("codeInsight/CompleteTestData.blueprintinjectionlanguage");
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(
                 Arrays.asList("bar", "baz", "foo", "qux"),
                 completionVariants);

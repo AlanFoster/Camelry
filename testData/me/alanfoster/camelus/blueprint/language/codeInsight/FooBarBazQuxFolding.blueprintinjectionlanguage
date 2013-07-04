@@ -1,0 +1,1 @@
+<fold text='foo value 1'>${foo}</fold> <fold text='bar value 2'>${bar}</fold> <fold text='baz value 3'>${baz}</fold> <fold text='qux value 4'>${qux}</fold> ${noop}
