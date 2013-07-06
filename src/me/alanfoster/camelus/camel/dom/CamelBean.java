@@ -20,7 +20,6 @@ import me.alanfoster.camelus.camel.converters.CamelBeanMethodConverter;
  * @version 1.0.0-SNAPSHOT
  */
 public interface CamelBean extends DomElement {
-    @NameValue
     @Attribute("ref")
     @Required(nonEmpty = true, value = true)
     @Convert(BlueprintBeanConverter.class)

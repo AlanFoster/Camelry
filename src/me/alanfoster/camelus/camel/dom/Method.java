@@ -1,5 +1,7 @@
 package me.alanfoster.camelus.camel.dom;
 
+import com.intellij.codeInsight.template.TemplateContextType;
+import com.intellij.codeInsight.template.impl.DefaultLiveTemplatesProvider;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
 import me.alanfoster.camelus.blueprint.converters.BlueprintBeanConverter;
@@ -13,7 +15,6 @@ import me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribute;
  */
 //@Presentation(icon = PluginIcons.CAMEL_STRING)
 public interface Method extends DomElement {
-    @NameValue
     @Attribute("bean")
     @DeprecatedAttribute(
             reason = "The 'bean' attribute is deprecated. You should make use of the 'ref' attribute instead",
@@ -22,7 +23,6 @@ public interface Method extends DomElement {
     @Convert(BlueprintBeanConverter.class)
     GenericAttributeValue<BlueprintBean> getBeanReference();
 
-    @NameValue
     @Attribute("ref")
     @Convert(BlueprintBeanConverter.class)
     GenericAttributeValue<BlueprintBean> getRef();
