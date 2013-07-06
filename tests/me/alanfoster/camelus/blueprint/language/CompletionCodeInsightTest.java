@@ -1,8 +1,25 @@
 package me.alanfoster.camelus.blueprint.language;
 
+import com.intellij.ide.util.projectWizard.ModuleBuilder;
 import com.intellij.openapi.application.PathManager;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleManager;
+import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.StdModuleTypes;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.project.ProjectManager;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.roots.*;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.testFramework.LightProjectDescriptor;
+import com.intellij.testFramework.PsiTestUtil;
+import com.intellij.testFramework.builders.WebModuleFixtureBuilder;
+import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
+import com.intellij.testFramework.fixtures.IdeaTestFixtureFactory;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.TempDirTestFixture;
 import me.alanfoster.camelus.blueprint.TestHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Arrays;
@@ -38,6 +55,27 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
                 Arrays.asList("Hello", "World"),
                 completionVariants);
     }
+
+/*
+    @NotNull
+    @Override
+    protected LightProjectDescriptor getProjectDescriptor() {
+        return new DefaultLightProjectDescriptor() {
+            @Override
+            public void configureModule(Module module, ModifiableRootModel model, ContentEntry contentEntry) {
+                Project project = module.getProject();
+
+                PsiTestUtil.addModule(project, StdModuleTypes.JAVA, "projectTwo", model.getProject().getBaseDir());
+
+                Module[] modules = ModuleManager.getInstance(model.getProject()).getModules();
+                VirtualFile[] contentSourceRoots = ProjectRootManager.getInstance(project).getContentSourceRoots();
+                OrderEntry[] orderEntries = ModuleRootManager.getInstance(modules[0]).getOrderEntries();
+
+                super.configureModule(module, model, contentEntry);
+            }
+        };
+    }
+*/
 
     public void testCompletionWithFooBarBazQux() {
         CreateCamelusProject(myFixture)
