@@ -1,7 +1,7 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
-import me.alanfoster.camelus.blueprint.TestHelper;
+import me.alanfoster.camelus.TestHelper;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,7 +15,7 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/language";
+        return TestHelper.getTestDataPath() + "/blueprint/language";
     }
 
     public void testCompletionWithNoBlueprintFiles() {

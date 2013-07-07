@@ -1,12 +1,9 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
-import me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder;
-import me.alanfoster.camelus.blueprint.TestHelper;
+import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.Property;
-import me.alanfoster.camelus.blueprint.language.impl.InjectionPropertyDefinitionImpl;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 
 import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
@@ -18,7 +15,7 @@ public class ReferenceTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/language";
+        return TestHelper.getTestDataPath() + "/blueprint/language";
     }
 
     public void testSameBundleNoPropertyPlaceholdersValidReference() {

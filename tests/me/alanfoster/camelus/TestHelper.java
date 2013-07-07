@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint;
+package me.alanfoster.camelus;
 
 import com.intellij.openapi.application.PathManager;
 import me.alanfoster.camelus.blueprint.language.InjectionParsingTest;

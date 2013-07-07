@@ -1,7 +1,7 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
-import me.alanfoster.camelus.blueprint.TestHelper;
+import me.alanfoster.camelus.TestHelper;
 
 import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 
@@ -13,7 +13,7 @@ public class FoldingTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/language";
+        return TestHelper.getTestDataPath() + "/blueprint/language";
     }
 
     public void testFolding() {
