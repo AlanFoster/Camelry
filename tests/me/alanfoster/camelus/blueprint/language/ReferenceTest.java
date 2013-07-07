@@ -2,6 +2,7 @@ package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.Property;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
@@ -20,7 +21,7 @@ public class ReferenceTest extends LightCodeInsightFixtureTestCase {
 
     public void testSameBundleNoPropertyPlaceholdersValidReference() {
         CreateCamelusProject(myFixture)
-                .withOpenedFile(LanguageFiles.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
+                .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
         PsiElement parent = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         Property reference = ((InjectionPropertyDefinition) parent).getReferencedProperty();
@@ -30,8 +31,8 @@ public class ReferenceTest extends LightCodeInsightFixtureTestCase {
 
     public void testSameBundleWIthValidReference() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES)
-                .withOpenedFile(LanguageFiles.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
+                .withBlueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES)
+                .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
         PsiElement parent = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
         String reference = ((InjectionPropertyDefinition) parent).getReferencedProperty().getValue().getRawText();

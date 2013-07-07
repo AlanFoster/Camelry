@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
 import java.util.Arrays;
@@ -19,8 +20,8 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
     }
 
     public void testCompletionWithNoBlueprintFiles() {
-        myFixture.configureByFiles(LanguageFiles.BLUEPRINT_SINGLE_CARET);
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
+        myFixture.configureByFiles(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
 
         assertReflectionEquals(
                 Collections.EMPTY_LIST,
@@ -29,9 +30,9 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     public void testCompletionWithHelloWorld() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.HELLO_WORLD_PROPERTIES);
+                .withBlueprintFiles(LanguageFiles.Blueprint.HELLO_WORLD_PROPERTIES);
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(
                 Arrays.asList("Hello", "World"),
                 completionVariants);
@@ -60,9 +61,9 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     public void testCompletionWithFooBarBazQux() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES);
+                .withBlueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES);
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.BLUEPRINT_SINGLE_CARET);
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(
                 Arrays.asList("bar", "baz", "foo", "qux"),
                 completionVariants);

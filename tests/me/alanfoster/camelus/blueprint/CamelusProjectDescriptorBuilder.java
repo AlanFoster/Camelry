@@ -4,7 +4,6 @@ package me.alanfoster.camelus.blueprint;
 import com.intellij.testFramework.TestDataFile;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture;
-import me.alanfoster.camelus.blueprint.language.LanguageFiles;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;

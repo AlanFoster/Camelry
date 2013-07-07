@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
 import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
@@ -18,10 +19,10 @@ public class FoldingTest extends LightCodeInsightFixtureTestCase {
 
     public void testFolding() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.FOO_BAR_BAZ_QUX_PROPERTIES)
-                .withOpenedFile(LanguageFiles.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
+                .withBlueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES)
+                .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
-        myFixture.testFolding(getTestDataPath() + "/" + LanguageFiles.FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION);
+        myFixture.testFolding(getTestDataPath() + "/" + LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION);
     }
 
 
