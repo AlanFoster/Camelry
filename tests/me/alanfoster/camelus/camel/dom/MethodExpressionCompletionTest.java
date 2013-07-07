@@ -1,8 +1,8 @@
 package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
-import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.LanguageFiles;
+import me.alanfoster.camelus.TestHelper;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,16 +12,16 @@ import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.Cr
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
- * Tests camel bean intellisense completion.
+ * Tests for camel method DSL completion
  */
-public class BeanCompletionTest extends LightCodeInsightFixtureTestCase {
+public class MethodExpressionCompletionTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/camel/dom/completion/CamelBean";
+        return TestHelper.getTestDataPath() + "/camel/dom/completion/CamelMethod";
     }
 
-    public void testBlueprintBeanRefCompletionWithinSameBlueprintFile() {
+    public void testBlueprintBeanMethodCompletionSameFileWithMethodDSL() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
 
@@ -52,8 +52,18 @@ public class BeanCompletionTest extends LightCodeInsightFixtureTestCase {
                 completionVariants);
     }
 
+    /**
+     * Test to ensure that the user is told about the deprecated 'bean' attribute on
+     * the camel method XML DSL.
+     */
+    // TODO Depends on more complex test structure setup
+    public void ignoreMethodAttributeBeanDeprecatedAnnotator() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("MethodAttributeBeanDeprecatedAnnotatorData.xml")
+                .withOpenedFile("MethodAttributeBeanDeprecatedAnnotatorErrorAnnotation.xml");
 
-
+        myFixture.checkHighlighting(true, true, true);
+    }
 
 
 }
