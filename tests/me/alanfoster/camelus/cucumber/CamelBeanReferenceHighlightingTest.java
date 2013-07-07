@@ -1,4 +1,4 @@
-package me.alanfoster.camelus;
+package me.alanfoster.camelus.cucumber;
 
 import com.intellij.openapi.application.PathManager;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;

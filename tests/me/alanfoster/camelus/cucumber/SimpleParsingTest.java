@@ -1,4 +1,4 @@
-package me.alanfoster.camelus;
+package me.alanfoster.camelus.cucumber;
 
 import com.intellij.testFramework.ParsingTestCase;
 import me.alanfoster.camelus.camel.simple.language.parser.SimpleParserDefinition;
