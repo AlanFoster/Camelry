@@ -79,7 +79,6 @@
             Blueprint specific
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
-
         <!--
                Register the Blueprint DOM file description
            -->
@@ -98,6 +97,11 @@
         <localInspection language="XML" enabledByDefault="true" level="WARNING"
                          groupName="Blueprint and Camel Support" displayName="Deprecated Attributes"
                          implementationClass="me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribtueChecker"/>
+
+        <!-- Inspection for ensuring one bundle does not have duplicate BlueprintBean ids -->
+        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                         groupName="Blueprint and Camel Support" displayName="Duplicate Blueprint Bean IDs"
+                         implementationClass="me.alanfoster.camelus.blueprint.inspectors.DuplicatedBeanIdInspection"/>
 
         <dom.customAnnotationChecker
                 implementation="me.alanfoster.camelus.blueprint.inspectors.BlueprintBeanRefExtendsChecker" />
@@ -127,8 +131,8 @@
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
-                serviceInterface="me.alanfoster.camelus.blueprint.model.IBlueprintManager"
-                serviceImplementation="me.alanfoster.camelus.blueprint.model.BlueprintManager"/>
+                serviceInterface="me.alanfoster.camelus.blueprint.model.BlueprintManager"
+                serviceImplementation="me.alanfoster.camelus.blueprint.model.BlueprintManagerImpl"/>
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Karaf specific

@@ -6,11 +6,10 @@ import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.DomFileElement;
-import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.ResolvingConverter;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import me.alanfoster.camelus.blueprint.model.IBlueprintDomModel;
-import me.alanfoster.camelus.blueprint.model.IBlueprintManager;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -49,7 +48,7 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
         BlueprintBean matchingBlueprintBean =  ContainerUtil.find(blueprintBeans, new Condition<BlueprintBean>() {
                 @Override
                 public boolean value(BlueprintBean blueprintBean) {
-                    return blueprintRefId.equals(blueprintBean.getId().getStringValue());
+                    return blueprintRefId.equals(blueprintBean.getName().getStringValue());
                 }
         });
 
@@ -60,7 +59,7 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
     @Override
     public String toString(final @Nullable BlueprintBean blueprintBean,
                            final ConvertContext context) {
-        return blueprintBean == null ? null : blueprintBean.getId().getStringValue();
+        return blueprintBean == null ? null : blueprintBean.getName().getStringValue();
     }
 
     @NotNull
@@ -76,7 +75,7 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
     public List<BlueprintBean> getAllBlueprintBeans(@NotNull Module module) {
         List<BlueprintBean> allBeans = new ArrayList<BlueprintBean>();
 
-        final IBlueprintManager blueprintManager = IBlueprintManager.getInstance();
+        final BlueprintManager blueprintManager = BlueprintManager.getInstance();
         final IBlueprintDomModel mergedBlueprintModel = blueprintManager.getMergedBlueprintModel(module);
 
         // There should be a single merged file

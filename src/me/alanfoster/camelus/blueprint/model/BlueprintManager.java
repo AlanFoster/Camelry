@@ -1,137 +1,65 @@
 package me.alanfoster.camelus.blueprint.model;
 
-import com.intellij.ide.highlighter.XmlFileType;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.FileTypeIndex;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.xml.XmlFile;
-import com.intellij.util.indexing.FileBasedIndex;
-import com.intellij.util.xml.DomFileElement;
-import com.intellij.util.xml.DomManager;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
 import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
+ * Blueprint manager service. Registered via Plugins.xml.
+ * This provides access to the singleton instance
+ *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public class BlueprintManager extends IBlueprintManager {
+public abstract class BlueprintManager {
 
-    // TODO Possibly singly instantiate this ModelFactory via a component
-    private BlueprintModelFactory _blueprintModelFactory;
-
-    public BlueprintManager() {
-    }
-
-    @NotNull
-    @Override
-    public Set<XmlFile> getAllBlueprintConfigFiles(@NotNull Project project) {
-        Set<XmlFile> blueprintConfigFiles = getBlueprintConfigFiles(project, ProjectScope.getContentScope(project));
-        return blueprintConfigFiles;
-    }
-
-    @NotNull
-    @Override
-    public Set<XmlFile> getModuleBlueprintConfigFiles(@NotNull Module module) {
-        Set<XmlFile> blueprintConfigFiles = getBlueprintConfigFiles(module.getProject(), GlobalSearchScope.moduleScope(module));
-        return blueprintConfigFiles;
-    }
-
-    private Set<XmlFile> getBlueprintConfigFiles(@NotNull Project project, GlobalSearchScope scope) {
-        Set<XmlFile> files = new HashSet<XmlFile>();
-
-        Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
-                FileTypeIndex.NAME, XmlFileType.INSTANCE,
-                ProjectScope.getContentScope(project));
-
-        for (VirtualFile virtualFile : virtualFiles) {
-
-            // TODO Is there a nicer way to do this??
-            // Match only blueprint files
-            final VirtualFile parentFile = virtualFile.getParent();
-            boolean isBlueprintXmlFile = parentFile != null &&
-                    // TODO - Will this will break for non-maven projects? We should search for source folders instead (content roots?)
-                    parentFile.getPresentableUrl().endsWith("resources\\OSGI-INF\\blueprint");
-
-            if (isBlueprintXmlFile) {
-                final Document document = FileDocumentManager.getInstance().getDocument(virtualFile);
-                if (document != null) {
-                    final PsiFile cachedPsiFile = PsiDocumentManager.getInstance(project).getPsiFile(document);
-
-                    XmlFile xmlFile = (XmlFile) cachedPsiFile;
-
-                    files.add(xmlFile);
-                }
-            }
-        }
-
-        return files;
-    }
-
-    @NotNull
-    @Override
-    public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
-        return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
-    }
-
-    @Nullable
-    @Override
-    public IBlueprintDomModel getMergedBlueprintModel(@NotNull Module module) {
-        final List<IBlueprintDomModel> blueprintModels = getAllBlueprintModels(module);
-        if (blueprintModels.size() == 0) return null;
-        IBlueprintDomModel model = blueprintModels.get(0);
-        return model;
+    public static BlueprintManager getInstance() {
+        return ServiceManager.getService(BlueprintManager.class);
     }
 
     /**
-     * {@inheritDoc}
+     * @param project The project to search blueprint config files for
+     * @return ALL blueprint config files within the project.
      */
-    @Nullable
-    @Override
-    public PropertyPlaceholder getModulePropertyPlaceHolder(@NotNull Module module) {
-        final Set<XmlFile> blueprintModels = IBlueprintManager.getInstance().getModuleBlueprintConfigFiles(module);
-
-        // Find the required XmlFile which contains the property placeholder DomElement
-        final DomManager domManager = DomManager.getDomManager(module.getProject());
-        for (XmlFile xmlFile : blueprintModels) {
-            DomFileElement<Blueprint> fileElement = domManager.getFileElement(xmlFile, Blueprint.class);
-            if(fileElement == null) continue;
-            final Blueprint rootElement = fileElement.getRootElement();
-            final PropertyPlaceholder propertyPlaceHolder = rootElement.getPropertyPlaceHolder();
-            if (propertyPlaceHolder != null
-                    && propertyPlaceHolder.isValid()
-                    && propertyPlaceHolder.exists()) {
-
-                return propertyPlaceHolder;
-            }
-        }
-
-        return null;
-    }
+    @NotNull
+    public abstract Set<XmlFile> getAllProjectBlueprintConfigFiles(@NotNull Project project);
 
     @NotNull
-    public BlueprintModelFactory getBlueprintModelFactory(@NotNull Project project) {
-        if (_blueprintModelFactory == null) {
-            _blueprintModelFactory = new BlueprintModelFactory(project);
-        }
-        return _blueprintModelFactory;
-    }
+    public abstract Set<Blueprint> getAllProjectBlueprintRoots(@NotNull Project project);
+
+    /**
+     * @param module The module to search for
+     * @return The blueprint config files within the given module.
+     *         To get all blueprint config files within the project, make use of the getAllProjectBlueprintConfigFiles instead
+     */
+    @NotNull
+    public abstract Set<XmlFile> getModuleBlueprintConfigFiles(@NotNull Module module);
+
+    @NotNull
+    public abstract Set<Blueprint> getModuleBlueprintRoots(@NotNull Module module);
+
+    @NotNull
+    public abstract List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module);
+
+    @Nullable
+    public abstract IBlueprintDomModel getMergedBlueprintModel(@NotNull Module module);
+
+    /**
+     * Each Blueprint bundle is allowed one PropertyPlaceholder.
+     * This property placeholder should have a unique PID.
+     *
+     * @param module the module to search for a property placeholder in
+     * @return
+     */
+    @Nullable
+    public abstract PropertyPlaceholder getModulePropertyPlaceHolder(@NotNull Module module);
 }
+

@@ -18,8 +18,7 @@ public class CamelusProjectDescriptorBuilder {
         private final DefaultLightProjectDescriptor defaultLightProjectDescriptor;
         private final JavaCodeInsightTestFixture fixture;
 
-        // TODO - Will this will break for non-maven projects? We should search for source folders instead (content roots?)
-        private static final String OSGI_FOLDER_PATH = "resources/OSGI-INF/blueprint/";
+        private static final String OSGI_FOLDER_PATH = "OSGI-INF/blueprint/";
 
         public CamelusProject(JavaCodeInsightTestFixture fixture, DefaultLightProjectDescriptor defaultLightProjectDescriptor) {
             this.defaultLightProjectDescriptor = defaultLightProjectDescriptor;
@@ -33,13 +32,14 @@ public class CamelusProjectDescriptorBuilder {
          */
         public CamelusProject withBlueprintFiles(@TestDataFile @NonNls String... testDataPaths) {
             for (String testDataPath : testDataPaths) {
-                fixture.copyFileToProject(testDataPath, OSGI_FOLDER_PATH + new File(testDataPath).getName());
+                String targetPath = OSGI_FOLDER_PATH + new File(testDataPath).getName();
+                fixture.copyFileToProject(testDataPath, targetPath);
             }
             return this;
         }
 
         public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
-            fixture.configureByFiles(testDataPath);
+            fixture.configureFromTempProjectFile(testDataPath);
             return this;
         }
     }

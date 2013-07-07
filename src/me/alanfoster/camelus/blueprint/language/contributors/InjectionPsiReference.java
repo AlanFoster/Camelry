@@ -19,7 +19,7 @@ import me.alanfoster.camelus.blueprint.dom.DefaultProperties;
 import me.alanfoster.camelus.blueprint.dom.Property;
 import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFileType;
-import me.alanfoster.camelus.blueprint.model.IBlueprintManager;
+import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import me.alanfoster.camelus.icons.PluginIcons;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFile;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
@@ -115,7 +115,7 @@ public class InjectionPsiReference extends PsiReferenceBase<PsiElement> {
     private PropertyPlaceholder getModulePropertyPlaceHolder(PsiElement psiElement){
         final Module module = ModuleUtil.findModuleForPsiElement(psiElement);
         if(module == null) return null;
-        final PropertyPlaceholder propertyPlaceHolder = IBlueprintManager.getInstance().getModulePropertyPlaceHolder(module);
+        final PropertyPlaceholder propertyPlaceHolder = BlueprintManager.getInstance().getModulePropertyPlaceHolder(module);
         return propertyPlaceHolder;
     }
 

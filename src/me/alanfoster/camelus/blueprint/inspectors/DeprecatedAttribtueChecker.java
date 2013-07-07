@@ -26,6 +26,7 @@ public class DeprecatedAttribtueChecker extends DomElementsInspection<Blueprint>
         super(Blueprint.class);
     }
 
+    @Override
     protected void checkDomElement(final DomElement element,
                                    final DomElementAnnotationHolder holder,
                                    final DomHighlightingHelper helper) {

@@ -8,7 +8,6 @@ import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.model.impl.DomModelFactory;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class BlueprintModelFactory extends DomModelFactory<Blueprint, IBlueprint
     @NotNull
     @Override
     protected List<IBlueprintDomModel> computeAllModels(@NotNull Module scope) {
-        IBlueprintManager blueprintManager = IBlueprintManager.getInstance();
+        BlueprintManager blueprintManager = BlueprintManager.getInstance();
         final Project project = scope.getProject();
         Set<XmlFile> xmlFiles = blueprintManager.getModuleBlueprintConfigFiles(scope);
 

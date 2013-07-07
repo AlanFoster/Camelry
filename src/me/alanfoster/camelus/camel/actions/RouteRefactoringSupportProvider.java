@@ -16,7 +16,7 @@ public class RouteRefactoringSupportProvider extends RefactoringSupportProvider 
     @Override
     public boolean isAvailable(@NotNull PsiElement context) {
       //  PsiFile containingFile = context.getContainingFile();
-      //  return containingFile != null && IBlueprintManager.getInstance().isCamelRoute(containingFile);
+      //  return containingFile != null && BlueprintManager.getInstance().isCamelRoute(containingFile);
         return super.isAvailable(context);
     }
 
