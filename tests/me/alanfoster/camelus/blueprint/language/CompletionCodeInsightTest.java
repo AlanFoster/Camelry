@@ -11,7 +11,10 @@ import java.util.List;
 import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
-
+/**
+ * Tests for blueprint injection language autocompletion support.
+ * ie ctrl+space support for property names.
+ */
 public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
 
     @Override
