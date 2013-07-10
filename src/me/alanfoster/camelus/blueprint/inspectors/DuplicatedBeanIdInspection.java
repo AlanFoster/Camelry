@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.blueprint.inspectors;
 
 import com.intellij.lang.annotation.HighlightSeverity;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.psi.util.PsiUtil;
@@ -23,6 +24,8 @@ import java.util.*;
  */
 public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint> {
 
+    public static Logger logger = Logger.getInstance("me.alanfoster.camelus.blueprint.inspectors.DuplicatedBeanIdInspection");
+
     public DuplicatedBeanIdInspection() {
         super(Blueprint.class);
     }
@@ -40,6 +43,11 @@ public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint>
 
             Module module = ModuleUtil.findModuleForPsiElement(element.getXmlTag());
 
+            if(module == null) {
+                logger.error("Module value was null for searchId '" + id + "' - Possibly due to an in memory editor?");
+                return;
+            }
+
             List<BlueprintBean> duplicatedBeans = getDuplicatedBeans(id, module);
             if(duplicatedBeans.isEmpty()) return;
 
@@ -56,7 +64,7 @@ public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint>
      * @return An empty list if the searchId unique, otherwise the list of duplicates.
      */
     @NotNull
-    private List<BlueprintBean> getDuplicatedBeans(String searchId,  Module module) {
+    private List<BlueprintBean> getDuplicatedBeans(@NotNull String searchId, @NotNull Module module) {
         Set<Blueprint> blueprintRoots = BlueprintManager.getInstance().getModuleBlueprintRoots(module);
 
         Map<String, List<BlueprintBean>> duplicates = new HashMap<String, List<BlueprintBean>>();

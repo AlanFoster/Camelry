@@ -1,16 +1,15 @@
 package me.alanfoster.camelus.blueprint.dom.inspection;
 
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.inspectors.DuplicatedBeanIdInspection;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static javax.swing.SwingUtilities.invokeAndWait;
 
 /**
  * Ensures the user is alerted when a blueprint bean id is duplicated within
  * the same bundle
  */
-public class DuplicatedBeanIdInspectionTest extends LightCodeInsightFixtureTestCase {
+public class DuplicatedBeanIdInspectionTest extends ModuleSupportTest {
 
     @Override
     public void setUp() throws Exception {
@@ -28,15 +27,54 @@ public class DuplicatedBeanIdInspectionTest extends LightCodeInsightFixtureTestC
      * Test to ensure that the user is told about the deprecated 'bean' attribute on
      * the camel method XML DSL.
      */
-    // TODO Depends on more complex test structure setup
-    public void testDuplicatedBeanIdWithinSameBundle() {
-        CreateCamelusProject(myFixture)
-                .withBlueprintFiles("TwoThreeFourFiveBeans.xml", "OneTwoThreeFourBeans.xml")
-                .withOpenedFile("OSGI-INF/blueprint/TwoThreeFourFiveBeans.xml");
+    public void testDuplicatedBeanIdWithinSameBundle() throws Exception {
+        myFixture.copyFileToProject("OneTwoThreeFourBeans.xml", myFirstModule.getName() + "/src/OSGI-INF/blueprint/OneTwoThreeFourBeans.xml");
+        myFixture.copyFileToProject("TwoThreeFourFiveBeansWithError.xml", myFirstModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithError.xml");
 
-        myFixture.checkHighlighting(true, true, true);
+        myFixture.configureFromTempProjectFile(myFirstModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithError.xml");
+
+        invokeAndWait(new Runnable() {
+            @Override
+            public void run() {
+                myFixture.checkHighlighting(true, true, true);
+            }
+        });
     }
 
-    // TODO Write test for highlighting within test directories
+    /**
+     * Checks highlighting doesn't result in any errors if the same bean IDs exist within
+     * two different bundles.
+     */
+    public void testDuplicatedBeanIdWithinDifferentBundleResultingInNoErrors() throws Exception {
+        // Copy two different files with duplicated bean ids into different bundles
+        myFixture.copyFileToProject("OneTwoThreeFourBeans.xml", myFirstModule.getName() + "/src/OSGI-INF/blueprint/OneTwoThreeFourBeans.xml");
+        myFixture.copyFileToProject("TwoThreeFourFiveBeansWithOutError.xml", mySecondModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithOutError.xml");
 
+        myFixture.configureFromTempProjectFile(mySecondModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithOutError.xml");
+
+        invokeAndWait(new Runnable() {
+            @Override
+            public void run() {
+                myFixture.checkHighlighting(true, true, true);
+            }
+        });
+    }
+
+
+    /**
+     * A test which adds a camel file to a non source folder, leading to no highlighting errors
+     */
+    public void testNonSourceFolderCamelRouteDoesntAffectHighlighting() throws Exception {
+        myFixture.copyFileToProject("OneTwoThreeFourBeans.xml", myFirstModule.getName() + "/nonSourceFolder/OSGI-INF/blueprint/OneTwoThreeFourBeans.xml");
+        myFixture.copyFileToProject("TwoThreeFourFiveBeansWithOutError.xml", myFirstModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithOutError.xml");
+
+        myFixture.configureFromTempProjectFile(myFirstModule.getName() + "/src/OSGI-INF/blueprint/TwoThreeFourFiveBeansWithOutError.xml");
+
+        invokeAndWait(new Runnable() {
+            @Override
+            public void run() {
+                myFixture.checkHighlighting(true, true, true);
+            }
+        });
+    }
 }

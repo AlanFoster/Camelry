@@ -1,5 +1,6 @@
 package me.alanfoster.camelus.blueprint.dom.inspection;
 
+import com.intellij.testFramework.fixtures.impl.LightTempDirTestFixtureImpl;
 import me.alanfoster.camelus.TestHelper;
 
 import com.intellij.ide.highlighter.XmlFileType;
@@ -43,6 +44,12 @@ public class ModuleSupportTest extends TestCase {
         mySecondModule = secondModuleFixture.getModule();
     }
 
+    @Override
+    public void tearDown() throws Exception {
+        myFixture.tearDown();
+        super.tearDown();
+    }
+
     // Creates a new java 1.7 module and adds it to the project
     private ModuleFixture newModule(TestFixtureBuilder<IdeaProjectTestFixture> projectBuilder, String contentRoot) throws Exception {
         final JavaModuleFixtureBuilder firstProjectBuilder = projectBuilder.addModule(JavaModuleFixtureBuilder.class);
@@ -53,32 +60,19 @@ public class ModuleSupportTest extends TestCase {
         String contentRootPath = tempDirPath + "/" + contentRoot;
         new File(contentRootPath).mkdir();
 
+        String sourceRootPath = contentRootPath + "/src";
+        new File(sourceRootPath).mkdir();
+
         // Call the builder
         ModuleFixture moduleFixture = firstProjectBuilder
                 .addContentRoot(contentRootPath)
-                .addSourceRoot("src")
+                .addSourceRoot(sourceRootPath)
                 .getFixture();
 
         return moduleFixture;
     }
 
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-        myFixture.tearDown();
-    }
-
     public String getTestDataPath() {
         return TestHelper.getTestDataPath();
-    }
-
-    public void testFileCopiesSuccessfullyIntoTwoDifferentModules() {
-        // Copy two different files into both modules separately
-        myFixture.copyFileToProject("blueprint/dom/inspection/OneTwoThreeFourBeans.xml", myFirstModule.getName() + "/src/OneTwoThreeFourBeans.xml");
-        myFixture.copyFileToProject("blueprint/dom/inspection/TwoThreeFourFiveBeans.xml", mySecondModule.getName() + "/src/TwoThreeFourFiveBeans.xml");
-
-        Collection<VirtualFile> virtualFilesTwo = FileBasedIndex.getInstance().getContainingFiles(
-                FileTypeIndex.NAME, XmlFileType.INSTANCE, mySecondModule.getModuleContentScope());
-        Assert.assertEquals("The second module should only have one file available within its content scope", 1, virtualFilesTwo.size());
     }
 }
