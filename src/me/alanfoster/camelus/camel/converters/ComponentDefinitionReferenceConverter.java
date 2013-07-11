@@ -4,6 +4,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiDirectory;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.FilenameIndex;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -31,6 +32,10 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
     @Nullable
     @Override
     public PsiClass fromString(@Nullable @NonNls String string, ConvertContext context) {
+        if (string == null) {
+            return null;
+        }
+
         ComponentDefinition componentDefinition = getComponentDefinition(string);
 
         if (componentDefinition == null) {
@@ -62,7 +67,7 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
                 return componentClass;
             } catch (IOException e) {
                 logger.error("Failed loading classpath properties for component name '{}' for file '{}", e,
-                        componentName, psiFile.getContainingDirectory().toString());
+                        componentName, String.valueOf(psiFile.getContainingDirectory()));
                 return null;
             }
         }
@@ -79,12 +84,11 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
     @NotNull
     @Override
     public Collection<? extends PsiClass> getVariants(ConvertContext context) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     @Nullable
-    private ComponentDefinition getComponentDefinition(String componentString) {
-        @SuppressWarnings("*")
+    private ComponentDefinition getComponentDefinition(@NotNull String componentString) {
         final Pattern compile = Pattern.compile("^(?<componentName>\\w+):(.+)$");
         final Matcher matcher = compile.matcher(componentString);
         if (matcher.matches()) {
