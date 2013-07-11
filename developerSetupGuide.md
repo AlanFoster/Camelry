@@ -5,17 +5,36 @@ Setting up your environment for IntelliJ plugin development is extremely easy;
 These steps should guide you through the process of getting started with IntelliJ Plugin Development.
 Be sure to fire any [questions or issues](../../issues) our way!
 
-Downloading the sourcecode
+Prerequisites
 -------------------------
 
-One of the first steps is to get the code!
+###### 1. Download Intellij IDE
 
-- [Fork and Clone the Camelus Git Repo](https://help.github.com/articles/fork-a-repo)
+If you haven't already, make sure you have installed either the Ultimate or Community Edition of [IntelliJ](http://www.jetbrains.com/idea/).
 
-Creating your project
+###### 2. Download Intellij IDE sources
+
+The [IntelliJ community edition sourcecode](https://github.com/JetBrains/intellij-community) is available on GitHub.
+You will either need to git Clone or Download the sources
+
+###### 3. Installing Additional Developer Plugins
+
+Developing a plugin for IntelliJ is 100% out of the box.
+
+However the following are additional plugins which will make development work easier;
+
+- [Grammar-Kit](http://plugins.jetbrains.com/plugin?pluginId=6606) - Tooling for editing BNF grammars and parser generation
+- [JFlex](http://plugins.jetbrains.com/plugin?pluginId=263) - Enables JFlex support for [lexical analysis](http://en.wikipedia.org/wiki/Lexical_analysis)
+- [PsiViewer](http://plugins.jetbrains.com/plugin/?pluginId=227) - A very nice tool which allows view in a hierarchical manner the [PSI Elements](http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Architectural+Overview#IntelliJIDEAArchitecturalOverview-PsiElements) within a document.
+
+*Note* If installing Grammar-Kit, one extra step is required; You must specify the paths of `JFlex` and the `Skeleton file` to point to the IntelliJ community edition sources. The JFlex settings are available under project settings - *ctrl+alt+s*
+
+
+![JFlex settings](/documentation/setup/JflexSettings.png "JFlex settings")
+
+
+Importing the IntelliJ project
 ---------------------
-
-Once you have all of the required sources downloaded, it's time to fire up IntelliJ.
 
 ###### Step 1: Import the Project
 
