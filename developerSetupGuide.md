@@ -17,6 +17,12 @@ If you haven't already, make sure you have installed either the Ultimate or Comm
 The [IntelliJ community edition sourcecode](https://github.com/JetBrains/intellij-community) is available on GitHub.
 You will either need to git Clone or Download the sources
 
+###### 4. Installing Additional Developer Plugins
+
+Add a new IntelliJ project SDK. Update the sourcepath to include your downloaded IntelliJ sources.
+
+![IntellijSDKImportSources](/documentation/setup/IntellijSDKImportSources.png "IntellijSDKImportSources")
+
 ###### 3. Installing Additional Developer Plugins
 
 Developing a plugin for IntelliJ is 100% out of the box.
@@ -28,7 +34,6 @@ However the following are additional plugins which will make development work ea
 - [PsiViewer](http://plugins.jetbrains.com/plugin/?pluginId=227) - A very nice tool which allows view in a hierarchical manner the [PSI Elements](http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Architectural+Overview#IntelliJIDEAArchitecturalOverview-PsiElements) within a document.
 
 *Note* If installing Grammar-Kit, one extra step is required; You must specify the paths of `JFlex` and the `Skeleton file` to point to the IntelliJ community edition sources. The JFlex settings are available under project settings - *ctrl+alt+s*
-
 
 ![JFlex settings](/documentation/setup/JflexSettings.png "JFlex settings")
 
@@ -62,7 +67,7 @@ Create a new Intellij IDEA SDK
 ![IntelliJSDK](/documentation/setup/IntelliJSDK.png "IntelliJSDK")
 
 *Note* - You may find it useful to also download the IntelliJ community edition source code and update your SDK's
-sourcepath
+sourcepath, as mentioned in the Prerequisites section.
 
 ###### Step 5: Create a plugin configuration
 
