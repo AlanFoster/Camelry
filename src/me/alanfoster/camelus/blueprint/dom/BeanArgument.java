@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.blueprint.dom;
 
 import com.intellij.util.xml.*;
+import me.alanfoster.camelus.blueprint.converters.BeanArgumentIndexConverter;
 import org.jetbrains.annotations.NotNull;
 
 /**

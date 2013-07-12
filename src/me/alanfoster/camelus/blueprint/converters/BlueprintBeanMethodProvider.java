@@ -1,9 +1,10 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.converters;
 
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.converters.AbstractMethodParams;
 import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

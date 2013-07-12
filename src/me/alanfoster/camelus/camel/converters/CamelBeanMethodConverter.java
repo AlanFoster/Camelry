@@ -41,7 +41,7 @@ public class CamelBeanMethodConverter extends AbstractMethodResolveConverter<Cam
                 return Arrays.asList(beanClass);
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     private BlueprintBean getBeanReference(CamelBean parent) {
@@ -72,6 +72,6 @@ public class CamelBeanMethodConverter extends AbstractMethodResolveConverter<Cam
      * @return An empty set.
      */
     public Set<String> getAdditionalVariants() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 }

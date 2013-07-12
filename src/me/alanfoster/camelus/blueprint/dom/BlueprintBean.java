@@ -3,6 +3,7 @@ package me.alanfoster.camelus.blueprint.dom;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
+import me.alanfoster.camelus.blueprint.converters.BlueprintBeanMethodProvider;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public interface BlueprintBean extends DomElement {
     @Attribute("id")
     @NotNull
     @Required(nonEmpty = true, value = true)
+            @Scope(ScopeProvider.class)
     GenericAttributeValue<String> getName();
 
     @Attribute("init-method")

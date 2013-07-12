@@ -6,7 +6,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDirectory;
 import me.alanfoster.camelus.icons.PluginIcons;
-import me.alanfoster.camelus.blueprint.dom.BlueprintFileTemplateManager;
+import me.alanfoster.camelus.blueprint.support.BlueprintFileTemplateManager;
 
 import static me.alanfoster.camelus.CamelusBundle.message;
 

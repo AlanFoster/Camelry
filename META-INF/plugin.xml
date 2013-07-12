@@ -47,7 +47,7 @@
             Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
             a new generic blueprint/camel file
         -->
-        <fileTemplateGroup implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileTemplateManager"/>
+        <fileTemplateGroup implementation="me.alanfoster.camelus.blueprint.support.BlueprintFileTemplateManager"/>
 
         <!-- Configuration window -->
         <applicationConfigurable implementation="me.alanfoster.camelus.configuration.CamelusConfigurationForm" />

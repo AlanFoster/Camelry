@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.converters;
 
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
 import com.intellij.psi.*;
@@ -7,6 +7,7 @@ import com.intellij.util.xml.CustomReferenceConverter;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericDomValue;
 import me.alanfoster.camelus.CamelusBundle;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +22,7 @@ import static me.alanfoster.camelus.CamelusBundle.message;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see BeanProperty
+ * @see me.alanfoster.camelus.blueprint.dom.BeanProperty
  */
 // TODO This seems like it would be a common pattern in IntelliJ, try to find if there is a class for this already!
 public class BeanPropertyResolver implements CustomReferenceConverter<String> {
