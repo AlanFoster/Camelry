@@ -13,11 +13,11 @@
         </route>
         <route>
             <from uri="direct:refactoredRoute"/>
-            <log message="Hello World"/>
-            <to uri="log:foo.bar.baz?showAll=true"/>
-            <setHeader headerName="myHeader">
-                <xpath>/foo/bar/text()</xpath>
-            </setHeader>
+            <!-- Leading Comment -->
+            <log message="Element One"/>
+            <log message="Element Two"/>
+            <log message="Element Three"/>
+            <log message="Element Four"/>
         </route>
     </camelContext>
 

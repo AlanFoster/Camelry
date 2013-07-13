@@ -9,10 +9,11 @@
     <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint">
         <route>
             <from uri="direct:route"/>
-            <selection><log message="Element One" />
-            <log message="Element Two" />
-            <log message="Element Three" />
-            <log message="Element Four" /></selection>
+            <selection><log message="Hello World" />
+            <to uri="log:foo.bar.baz?showAll=true" />
+            <setHeader headerName="myHeader">
+                <xpath>/foo/bar/text()</xpath>
+            </setHeader></selection>
         </route>
     </camelContext>
 

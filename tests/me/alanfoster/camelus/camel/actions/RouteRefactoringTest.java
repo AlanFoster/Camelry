@@ -18,36 +18,21 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
         return TestHelper.getTestDataPath() + "/camel/actions/routeRefactoring";
     }
 
+    /****************************************************************************
+     * Happy Path tests which should refactor successfully
+     ****************************************************************************/
+
     public void testSingleElementRefactor() {
         performRouteRefactoring();
     }
 
-    // TODO
-    public void ignoreMultiElementRefactor() {
+    // TODO Find out the cause of assertion errors
+    public void testMultiElementRefactor() {
         performRouteRefactoring();
     }
 
-    // TODO
-    public void ignoreNoElementRefactor() {
-    }
-
-    // TODO
-    public void ignoreInvalidEndElementRefactor() {
-    }
-
-    /**
-     * We need to ensure the ensure will get a useful error message if they attempt to refactor
-     * elements which don't exist within a camel route.
-     */
-    public void testNonCamelRouteRefactor() {
-        try {
-            performRouteRefactoring();
-            fail("An error should have been thrown during refactoring, as the user hasn't selected routes within a camel context");
-        } catch(CommonRefactoringUtil.RefactoringErrorHintException refactoringErrorMessage) {
-            String expectedMessage = "Cannot perform refactoring.\n" +
-                    "The selected block should be a valid selection under a camel route.";
-            Assert.assertEquals(expectedMessage, refactoringErrorMessage.getMessage());
-        }
+    public void testRefactorWithLeadingComment() {
+        performRouteRefactoring();
     }
 
     /**
@@ -58,25 +43,55 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
         performRouteRefactoring(null);
     }
 
-    /**
-     * The refactoring support should only work within a given camel route,
-     * and therefore should not cause any errors/refactoring to occur when not
-     * inside the context of a came lroute.
-     */
-    public void testRefactoringOutsideOfRoute() {
-        Assert.assertEquals(true, true);
+    /****************************************************************************
+     * Tests which are expected to result in a user error message
+     ****************************************************************************/
+
+    // TODO Find out the cause of errors
+    public void testNoElementRefactor() {
+        performRouteRefactoring();
     }
 
+    public void testInvalidEndElementRefactor() {
+        performRouteRefactoringWithUserError();
+    }
+
+    /**
+     * The refactoring support should only work within a given camel route
+     */
+    public void testNonCamelRouteRefactor() {
+        performRouteRefactoringWithUserError();
+    }
+
+    /****************************************************************************
+     * Helpers specific to RouteRefactoring
+     ****************************************************************************/
 
     private void performRouteRefactoring() {
         performRouteRefactoring("direct:refactoredRoute");
     }
 
     /**
+     * Attempts to perform a user refactor, and expects for a user error to occur.
+     * If the refactor does not result in a error message, then this method will fail.
+     */
+    private void performRouteRefactoringWithUserError() {
+        try {
+            performRouteRefactoring();
+            fail("An error should have been thrown during refactoring, as the user hasn't selected routes within a camel context");
+        } catch (CommonRefactoringUtil.RefactoringErrorHintException refactoringErrorMessage) {
+            String expectedMessage = "Cannot perform refactoring.\n" +
+                    "The selected block should be a valid selection under a camel route.";
+            Assert.assertEquals(expectedMessage, refactoringErrorMessage.getMessage());
+        }
+    }
+
+    /**
      * Perform the refactoring test, following the convention of getTestName() returning the
      * correct resource prefix in the routeRefactoring folder.
-     * @param routeUri The new route URI to create. This may be null, to represent the user
-     *                 cancelling the input dialogue.
+     *
+     * @param routeUri  The new route URI to create. This may be null, to represent the user
+     *                  cancelling the input dialogue.
      */
     private void performRouteRefactoring(@Nullable final String routeUri) {
         String resourceName = getTestName(false);
@@ -91,6 +106,7 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
         new RouteRefactoringSupportProvider()
                 .getExtractMethodHandler()
                 .invoke(myFixture.getProject(), myFixture.getEditor(), myFixture.getFile(), null);
+
         myFixture.checkResultByFile(resourceName + "_after.xml");
     }
 

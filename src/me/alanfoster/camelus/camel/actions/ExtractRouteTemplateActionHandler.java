@@ -9,17 +9,19 @@ import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.psi.xml.XmlComment;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.refactoring.RefactoringActionHandler;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
-import com.intellij.util.xml.DomFileElement;
-import com.intellij.util.xml.DomManager;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import com.intellij.util.xml.DomElement;
+import com.intellij.util.xml.DomUtil;
+import me.alanfoster.camelus.camel.dom.CamelContext;
 import me.alanfoster.camelus.camel.dom.Route;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,15 +38,26 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
     // TODO Write an error when the highlighted selection is not valid
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
-        boolean isSuccess = invoke(project, editor, psiFile);
-        if (!isSuccess) {
+        final SelectionModel selectionModel = editor.getSelectionModel();
+        if (!selectionModel.hasSelection()) {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
-                            message("camelus.camel.actions.extract.route.error.message"),
-                            message("camelus.camel.actions.extract.route.error.title"),
+                            message("camelus.camel.actions.extract.route.errors.no.selection.message"),
+                            message("camelus.camel.actions.extract.route.errors.no.selection.title"),
+                            null);
+            return;
+        }
+
+        boolean isSuccess = invoke(project, editor, psiFile);
+        if (isSuccess) {
+            editor.getSelectionModel().removeSelection();
+        } else {
+            CommonRefactoringUtil
+                    .showErrorHint(project, editor,
+                            message("camelus.camel.actions.extract.route.errors.unsuccessful.message"),
+                            message("camelus.camel.actions.extract.route.errors.unsuccessful.title"),
                             null);
         }
-        editor.getSelectionModel().removeSelection();
     }
 
     /**
@@ -55,32 +68,20 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
      *         False otherwise, ie a validation error.
      */
     private boolean invoke(final Project project, final Editor editor, final PsiFile psiFile) {
-        final SelectionModel selectionModel = editor.getSelectionModel();
-        if (!selectionModel.hasSelection()) return false;
+        Pair<XmlElement, XmlElement> startEndElements = getStartStopElements(editor.getSelectionModel(), psiFile);
+        if(startEndElements == null) return false;
 
-        final Blueprint blueprintRoot = getBlueprintRoot(project, psiFile);
-        if (blueprintRoot == null) return false;
+        final XmlElement startElement = startEndElements.getFirst();
+        final XmlElement endElement = startEndElements.getSecond();
 
-        // Find Selection start + end to copy into a new route
-        final PsiElement startElement = getNextNonWhitespaceElementAt(psiFile, selectionModel.getSelectionStart());
-        final PsiElement endElement = getPreviousNonWhitespaceElementAt(psiFile, selectionModel.getSelectionEnd());
+        final XmlTag selectionParentTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, true);
+        if (selectionParentTag == null) return false;
 
-        if (startElement == null || endElement == null) return false;
-
-        final int startElementOffset = startElement.getTextRange().getStartOffset();
-        final int endElementOffset = endElement.getTextRange().getEndOffset();
-
-        if (startElementOffset == endElementOffset) return false;
+        final XmlTag parentRoute = getParentXmlTagOfType(selectionParentTag, Route.class, false);
+        if(parentRoute == null) return false;
 
         // TODO It would be nice to allow inline naming similar to live templates
-        final String newRouteUri =
-                Messages.showInputDialog(project,
-                        message("camelus.camel.actions.extract.route.message"),
-                        message("camelus.camel.actions.extract.route.title"),
-                        Messages.getQuestionIcon(),
-                        message("camelus.camel.actions.extract.route.initial.value"),
-                        null
-                );
+        final String newRouteUri = getNewRouteUri(project);
 
         // This value will be null when the user hits 'cancel', this is a valid action, therefore return true
         if (StringUtil.isEmpty(newRouteUri)) return true;
@@ -97,19 +98,11 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
              *         False otherwise, ie a validation error.
              */
             private boolean performRefactor() {
-                XmlTag selectionParentTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, true);
-                if (selectionParentTag == null) return false;
-
-                // Copy Start + end selection elements into the new route below the `from` domElement
-                PsiElement[] newElements = copyElements(project, psiFile, startElementOffset, endElementOffset);
-
-                if (newElements.length == 0) return false;
-
-                Route newRoute = createNewRoute(blueprintRoot, newRouteUri);
-                copyElementsIntoRoute(newRoute, newElements);
+                // Pull out our existing camel route so we can insert the new camel route beneath it
+                if (!insertNewRoute(selectionParentTag, parentRoute)) return false;
 
                 // Create new 'to' element to send to the new route
-                XmlTag to = getToXmlTag(selectionParentTag);
+                XmlTag to = createToXmlTag(selectionParentTag);
                 to = (XmlTag) selectionParentTag.addBefore(to, startElement);
 
                 // Delete the now refactored XML :)
@@ -124,52 +117,52 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
                 return true;
             }
 
+            /**
+             * Inserts a new route into the given document underneath the topmost route parent.
+             * @param selectionParentTag
+             * @param previousRoute the route being refactored
+             * @return True if successful, otherwise false.
+             */
+            private boolean insertNewRoute(@NotNull XmlTag selectionParentTag, @NotNull XmlTag previousRoute) {
+                XmlTag camelContext = getParentXmlTagOfType(previousRoute, CamelContext.class, false);
+                if(camelContext == null) return false;
 
-            private XmlTag getToXmlTag(XmlTag selectionParentTag) {
+                // Create a new route, copying the start + end selection elements into the new route below the `from` domElement
+                XmlTag newRoute = createNewRoute(newRouteUri, project, psiFile, startElement, endElement);
+                camelContext.addAfter(newRoute, previousRoute);
+                return true;
+            }
+
+            private XmlTag createToXmlTag(XmlTag selectionParentTag) {
                 XmlTag to = selectionParentTag.createChildTag("to", selectionParentTag.getNamespace(), null, false);
                 to.setAttribute("uri", newRouteUri);
                 return to;
             }
 
-            private Route createNewRoute(Blueprint blueprintRoot, String newRouteUri) {
-                // Create a new route with the given route uri
-                Route route = blueprintRoot.getCamelContext().addRoute();
-                route.getFrom().getUri().setStringValue(newRouteUri);
-                return route;
-            }
-
-            /**
-             * Copies the required PsiELements into the new route, beneath the 'from' element
-             * @param route The blueprint route
-             * @param newElements The new elmeents to copy beneath the from element
-             */
-            private void copyElementsIntoRoute(Route route, PsiElement[] newElements) {
-                XmlElement newRouteElement = route.getXmlElement();
-                assert newRouteElement != null;
-                XmlElement fromElement = route.getFrom().getXmlElement();
-
-                if (newElements.length == 1) {
-                    newRouteElement.addAfter(newElements[0], fromElement);
-                } else {
-                    newRouteElement.addRangeAfter(newElements[0], newElements[newElements.length - 1], fromElement);
-                }
-            }
-
             /**
              * In IntelliJ you should create new elements, rather than modify existing.
              * This method helps with this by creating a temp Xml document and returning
-             * the newly created elements.
+             * the newly route elements
              *
-             * @return A new copy of the required Xml elements.
+             * @return A route with a copy of the required Xml elements.
              */
-            private PsiElement[] copyElements(Project project, PsiFile psiFile, int startElementOffset, int endElementOffset) {
+            private XmlTag createNewRoute(String routeUri, Project project, PsiFile psiFile, PsiElement startElement, PsiElement endElement) {
+                final int startElementOffset = startElement.getTextRange().getStartOffset();
+                final int endElementOffset = endElement.getTextRange().getEndOffset();
+
                 String extractedText = psiFile.getText().substring(startElementOffset, endElementOffset);
 
-                // Building a new document from a string is commnon practice
+                // Building a new document from a string is common practice
                 // As demoed by Jetbrain's CTO during the 'Live Coding a plugin from scratch' webinar
+                StringBuilder stringBuilder = new StringBuilder();
                 String tempDocumentXml =
-                        "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-                                + "<temp>" + extractedText + "</temp>";
+                        stringBuilder
+                                .append("<?xml version=\"1.0\" encoding=\"utf-8\"?>")
+                                .append("<route>")
+                                .append("<from uri=\"").append(routeUri).append("\"/>")
+                                .append(extractedText)
+                                .append("</route>")
+                        .toString();
 
                 String tempFileName = "__" + psiFile.getName();
                 XmlFile tempDocument = (XmlFile) PsiFileFactory.getInstance(project)
@@ -177,12 +170,48 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
 
                 XmlTag rootTag = tempDocument.getRootTag();
                 assert rootTag != null;
-                return rootTag.getSubTags();
+                return rootTag;
             }
         }.execute();
 
         return refactoringResult.getResultObject();
     }
+
+    private String getNewRouteUri(Project project) {
+        return Messages.showInputDialog(project,
+                message("camelus.camel.actions.extract.route.message"),
+                message("camelus.camel.actions.extract.route.title"),
+                Messages.getQuestionIcon(),
+                message("camelus.camel.actions.extract.route.initial.value"),
+                null
+        );
+    }
+
+    /**
+     * Extract the start and end XmlElements which are in the given PsiFile.
+     *
+     * @param selectionModel
+     * @param psiFile
+     * @return Null if the *either* of the required elements cannot be extract successfully.
+     *          Otherwise the pair of start and end elements.
+     */
+    @SuppressWarnings("unchecked")
+    private Pair<XmlElement, XmlElement> getStartStopElements(SelectionModel selectionModel, PsiFile psiFile) {
+        // Find Selection start + end to copy into a new route
+        final PsiElement startElement = getNextNonWhitespaceElementAt(psiFile, selectionModel.getSelectionStart());
+        final PsiElement endElement = getPreviousNonWhitespaceElementAt(psiFile, selectionModel.getSelectionEnd());
+        if (startElement == null || endElement == null) return null;
+
+        final XmlElement startTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, XmlComment.class);
+        final XmlElement endTag = PsiTreeUtil.getParentOfType(endElement, XmlTag.class, XmlComment.class);
+
+        if(startTag == null || endTag == null) return null;
+        // Handle the scenario of consuming consuming a startTag after the endTag, IE during white-space only selection
+        if(startTag.getTextOffset() > endTag.getTextOffset()) return null;
+
+        return new Pair<XmlElement, XmlElement>(startTag, endTag);
+    }
+
 
     private PsiElement getNextNonWhitespaceElementAt(PsiFile psiFile, int position) {
         PsiElement element = psiFile.findElementAt(position);
@@ -190,7 +219,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
     }
 
     private PsiElement getPreviousNonWhitespaceElementAt(PsiFile psiFile, int position) {
-        PsiElement element = psiFile.findElementAt(position);
+        PsiElement element = psiFile.findElementAt(position - 1);
         return element instanceof PsiWhiteSpace ? PsiTreeUtil.prevLeaf(element) : element;
     }
 
@@ -199,25 +228,15 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Extracts the Blueprint root DOM element from the given action event.
-     * Note, this method has no side effects on the event passed in.
-     *
-     * @param project The project
-     * @return the Blueprint root DOM element from the given action event,
-     *         this will be null if if not found
-     */
-    private Blueprint getBlueprintRoot(@NotNull Project project, PsiFile psiFile) {
-        if (!(psiFile instanceof XmlFile)) return null;
 
-        XmlFile xmlFile = (XmlFile) psiFile;
-        DomManager domManager = DomManager.getDomManager(project);
-        DomFileElement<Blueprint> fileElement = domManager.getFileElement(xmlFile, Blueprint.class);
-
-        if (fileElement == null || !fileElement.exists()) return null;
-
-        Blueprint rootElement = fileElement.getRootElement();
-        return rootElement;
+    private static XmlTag getParentXmlTagOfType(XmlTag tag, Class<? extends DomElement> requiredDomClass, boolean strict) {
+        DomElement domElement = DomUtil.getDomElement(tag);
+        if(domElement == null) return null;
+        DomElement parent = domElement.getParentOfType(requiredDomClass, strict);
+        return parent == null ? null : parent.getXmlTag();
     }
+
 }
+
+
 
