@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  * @version 1.0.0-SNAPSHOT
  */
 public class ComponentDefinitionReferenceConverter extends ResolvingConverter<PsiClass> {
-    public static Logger logger = Logger.getInstance("me.alanfoster.camelus.camel.converters.ComponentDefinitionReferenceConverter");
+    public static Logger logger = Logger.getInstance(ComponentDefinitionReferenceConverter.class);
 
     @Nullable
     @Override

@@ -24,7 +24,7 @@ import java.util.*;
  */
 public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint> {
 
-    public static Logger logger = Logger.getInstance("me.alanfoster.camelus.blueprint.inspectors.DuplicatedBeanIdInspection");
+    public static Logger logger = Logger.getInstance(DuplicatedBeanIdInspection.class);
 
     public DuplicatedBeanIdInspection() {
         super(Blueprint.class);

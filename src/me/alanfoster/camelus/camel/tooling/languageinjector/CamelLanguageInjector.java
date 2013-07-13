@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.camel.tooling.languageinjector;
 
 import com.intellij.lang.Language;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.InjectedLanguagePlaces;
 import com.intellij.psi.LanguageInjector;
@@ -19,8 +20,7 @@ import org.jetbrains.annotations.NotNull;
  * @version 1.0.0-SNAPSHOT
  */
 public class CamelLanguageInjector implements LanguageInjector {
-
-    private boolean simpleLanguageInjected;
+    public static Logger logger = Logger.getInstance(CamelLanguageInjector.class);
 
     /**
      * Attempt to match an xml element with a parent node which has a local name of simple,
@@ -89,6 +89,8 @@ public class CamelLanguageInjector implements LanguageInjector {
                                 @NotNull InjectedLanguagePlaces injectedLanguagePlaces) {
         // Find the required Language
         Language requiredLanguage = Language.findLanguageByID(languageId);
+        logger.debug("The required languageId '" + languageId + "' value was '" + requiredLanguage + "'");
+        if(requiredLanguage == null) return;
 
         TextRange xmlTextRange = psiLanguageInjectionHost.getTextRange();
         TextRange expressionTextRange = TextRange.from(0, psiLanguageInjectionHost.getTextLength());
