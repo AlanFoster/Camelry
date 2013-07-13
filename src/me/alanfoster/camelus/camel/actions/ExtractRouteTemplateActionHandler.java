@@ -1,24 +1,29 @@
 package me.alanfoster.camelus.camel.actions;
 
 import com.intellij.openapi.actionSystem.DataContext;
+import com.intellij.openapi.application.Result;
+import com.intellij.openapi.application.RunResult;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
-import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.refactoring.RefactoringActionHandler;
+import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
 import me.alanfoster.camelus.camel.dom.Route;
-import me.alanfoster.camelus.camel.dom.To;
 import org.jetbrains.annotations.NotNull;
+
+import static me.alanfoster.camelus.CamelusBundle.message;
 
 /**
  * Implements the refactoring of extracting the highlighted camel context elements into a
@@ -31,48 +36,94 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
     // TODO Write an error when the highlighted selection is not valid
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
+        boolean isSuccess = invoke(project, editor, psiFile);
+        if (!isSuccess) {
+            CommonRefactoringUtil
+                    .showErrorHint(project, editor,
+                            message("camelus.camel.actions.extract.route.error.message"),
+                            message("camelus.camel.actions.extract.route.error.title"),
+                            null);
+        }
+        editor.getSelectionModel().removeSelection();
+    }
+
+    /**
+     * @param project See super class invoke
+     * @param editor  See super class invoke
+     * @param psiFile See super class invoke
+     * @return True if the refactoring has been successful, or the user has cancelled the operation.
+     *         False otherwise, ie a validation error.
+     */
+    private boolean invoke(final Project project, final Editor editor, final PsiFile psiFile) {
         final SelectionModel selectionModel = editor.getSelectionModel();
-        if(!selectionModel.hasSelection()) return;
+        if (!selectionModel.hasSelection()) return false;
 
-        final Blueprint blueprintRoot = getBlueprintRoot(project, editor, psiFile);
-        if(blueprintRoot == null) return;
-
-        //final String newRouteUri = Messages.showInputDialog(project, "title", "label", Messages.getQuestionIcon());
-        final String newRouteUri = "direct:foo";
+        final Blueprint blueprintRoot = getBlueprintRoot(project, psiFile);
+        if (blueprintRoot == null) return false;
 
         // Find Selection start + end to copy into a new route
         final PsiElement startElement = getNextNonWhitespaceElementAt(psiFile, selectionModel.getSelectionStart());
         final PsiElement endElement = getPreviousNonWhitespaceElementAt(psiFile, selectionModel.getSelectionEnd());
 
-        if(startElement == null || endElement == null) return;
+        if (startElement == null || endElement == null) return false;
 
         final int startElementOffset = startElement.getTextRange().getStartOffset();
         final int endElementOffset = endElement.getTextRange().getEndOffset();
 
-        if(startElementOffset == endElementOffset) return;
+        if (startElementOffset == endElementOffset) return false;
 
-        new WriteCommandAction.Simple(project) {
+        // TODO It would be nice to allow inline naming similar to live templates
+        final String newRouteUri =
+                Messages.showInputDialog(project,
+                        message("camelus.camel.actions.extract.route.message"),
+                        message("camelus.camel.actions.extract.route.title"),
+                        Messages.getQuestionIcon(),
+                        message("camelus.camel.actions.extract.route.initial.value"),
+                        null
+                );
+
+        // This value will be null when the user hits 'cancel', this is a valid action, therefore return true
+        if (StringUtil.isEmpty(newRouteUri)) return true;
+
+        RunResult<Boolean> refactoringResult = new WriteCommandAction<Boolean>(project) {
             @Override
-            protected void run() throws Throwable {
-                XmlTag selectionParentTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, true);
-                if(selectionParentTag == null) return;
+            protected void run(Result<Boolean> result) throws Throwable {
+                result.setResult(performRefactor());
+            }
 
-                Route newRoute = createNewRoute(blueprintRoot, newRouteUri);
+            /**
+             * Performs the required refactor
+             * @return True if the refactoring has been successful.
+             *         False otherwise, ie a validation error.
+             */
+            private boolean performRefactor() {
+                XmlTag selectionParentTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, true);
+                if (selectionParentTag == null) return false;
 
                 // Copy Start + end selection elements into the new route below the `from` domElement
                 PsiElement[] newElements = copyElements(project, psiFile, startElementOffset, endElementOffset);
+
+                if (newElements.length == 0) return false;
+
+                Route newRoute = createNewRoute(blueprintRoot, newRouteUri);
                 copyElementsIntoRoute(newRoute, newElements);
 
                 // Create new 'to' element to send to the new route
                 XmlTag to = getToXmlTag(selectionParentTag);
-                selectionParentTag.addBefore(to, startElement);
+                to = (XmlTag) selectionParentTag.addBefore(to, startElement);
 
                 // Delete the now refactored XML :)
                 selectionParentTag.deleteChildRange(startElement, endElement);
 
-                // Format created code - Doesn't seem to be needed, seems to format perfectly without anyhelp :)
+                // Format created code - Doesn't seem to be needed, seems to format perfectly without any help :)
                 // CodeStyleManager.getInstance().adjustLineIndent
+
+                int toUriOffset = to.getAttribute("uri").getValueElement().getTextRange().getStartOffset() + 1;
+                editor.getCaretModel().moveToOffset(toUriOffset);
+
+                return true;
             }
+
 
             private XmlTag getToXmlTag(XmlTag selectionParentTag) {
                 XmlTag to = selectionParentTag.createChildTag("to", selectionParentTag.getNamespace(), null, false);
@@ -97,7 +148,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
                 assert newRouteElement != null;
                 XmlElement fromElement = route.getFrom().getXmlElement();
 
-                if(newElements.length == 1) {
+                if (newElements.length == 1) {
                     newRouteElement.addAfter(newElements[0], fromElement);
                 } else {
                     newRouteElement.addRangeAfter(newElements[0], newElements[newElements.length - 1], fromElement);
@@ -112,7 +163,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
              * @return A new copy of the required Xml elements.
              */
             private PsiElement[] copyElements(Project project, PsiFile psiFile, int startElementOffset, int endElementOffset) {
-                String extractedText = psiFile.getText().substring(startElementOffset,  endElementOffset);
+                String extractedText = psiFile.getText().substring(startElementOffset, endElementOffset);
 
                 // Building a new document from a string is commnon practice
                 // As demoed by Jetbrain's CTO during the 'Live Coding a plugin from scratch' webinar
@@ -128,8 +179,9 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
                 assert rootTag != null;
                 return rootTag.getSubTags();
             }
-
         }.execute();
+
+        return refactoringResult.getResultObject();
     }
 
     private PsiElement getNextNonWhitespaceElementAt(PsiFile psiFile, int position) {
@@ -152,12 +204,11 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
      * Note, this method has no side effects on the event passed in.
      *
      * @param project The project
-     * @param editor The editor
      * @return the Blueprint root DOM element from the given action event,
      *         this will be null if if not found
      */
-    private Blueprint getBlueprintRoot(@NotNull Project project, Editor editor, PsiFile psiFile) {
-        if (editor == null || !(psiFile instanceof XmlFile)) return null;
+    private Blueprint getBlueprintRoot(@NotNull Project project, PsiFile psiFile) {
+        if (!(psiFile instanceof XmlFile)) return null;
 
         XmlFile xmlFile = (XmlFile) psiFile;
         DomManager domManager = DomManager.getDomManager(project);
