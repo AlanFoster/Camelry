@@ -42,7 +42,7 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
                                                               final @NotNull DomElementAnnotationHolder holder,
                                                               final @NotNull DomHighlightingHelper helper) {
         PsiClass classAttribute = getBeanPsiClass(throwExceptionElement);
-        if(classAttribute == null) return Collections.EMPTY_LIST;
+        if(classAttribute == null) return Collections.emptyList();
 
         Project project = throwExceptionElement.getManager().getProject();
         final Class<?> requiredClass = annotation.value();

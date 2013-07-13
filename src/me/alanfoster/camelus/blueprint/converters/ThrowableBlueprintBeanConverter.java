@@ -22,14 +22,11 @@ import java.util.Collection;
  * @see BlueprintBean
  */
 public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
-    private static final String THROWABLE_QUALIFIED_NAME = CommonClassNames.JAVA_LANG_THROWABLE;
-
     @NotNull
     @Override
     public Collection<? extends BlueprintBean> getVariants(final ConvertContext context) {
-        // TODO Research if camelus uses LRU cache or such, or should i be maintaining such things myself
         final Project project = context.getProject();
-        final PsiClass throwablePsiClass = getPsiClass(THROWABLE_QUALIFIED_NAME, project);
+        final PsiClass throwablePsiClass = getPsiClass(CommonClassNames.JAVA_LANG_THROWABLE, project);
         return ContainerUtil.filter(super.getVariants(context), new Condition<BlueprintBean>() {
             @Override
             public boolean value(BlueprintBean blueprintBean) {
@@ -46,7 +43,7 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
 
     public static PsiClass getPsiClass(String qualifiedName, Project project) {
         final PsiClass psiClass = JavaPsiFacade.getInstance(project)
-                .findClass(THROWABLE_QUALIFIED_NAME, GlobalSearchScope.allScope(project));
+                .findClass(qualifiedName, GlobalSearchScope.allScope(project));
 
         return psiClass;
     }
