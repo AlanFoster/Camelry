@@ -2,6 +2,7 @@ package me.alanfoster.camelus.blueprint.converters;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
+import com.intellij.psi.CommonClassNames;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.search.GlobalSearchScope;
@@ -21,7 +22,7 @@ import java.util.Collection;
  * @see BlueprintBean
  */
 public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
-    private static final String THROWABLE_QUALIFIED_NAME = "java.lang.Throwable";
+    private static final String THROWABLE_QUALIFIED_NAME = CommonClassNames.JAVA_LANG_THROWABLE;
 
     @NotNull
     @Override
