@@ -7,12 +7,22 @@
        ">
 
     <camelContext trace="false" xmlns="http://camel.apache.org/schema/blueprint">
-        <selection><dataFormats>
-            <jaxb id="id" prettyPrint="true" contextPath="path"/>
-        </dataFormats></selection>
-
         <route>
             <from uri="direct:route"/>
+            <to uri="<caret>direct:refactoredRoute"/>
+        </route>
+        <route>
+            <from uri="direct:refactoredRoute"/>
+            <choice>
+                <when>
+                    <xpath>/foo/bar/text() = 'foo'</xpath>
+                    <log message="Received 'foo' request"/>
+                </when>
+                <when>
+                    <xpath>/foo/bar/baz/qux/text() = 'bar'</xpath>
+                    <log message="Received 'bar' request"/>
+                </when>
+            </choice>
         </route>
     </camelContext>
 

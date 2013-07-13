@@ -49,11 +49,11 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
 
     // TODO Find out the cause of errors
     public void testNoElementRefactor() {
-        performRouteRefactoring();
+        performRouteRefactoringWithUserError();
     }
 
-    public void testInvalidEndElementRefactor() {
-        performRouteRefactoringWithUserError();
+    public void testSelectEndElementRefactor() {
+        performRouteRefactoring();
     }
 
     /**
@@ -68,7 +68,15 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
      ****************************************************************************/
 
     private void performRouteRefactoring() {
-        performRouteRefactoring("direct:refactoredRoute");
+        performRouteRefactoring("direct:refactoredRoute", false);
+    }
+
+    private void performRouteRefactoring(String routeUri) {
+        performRouteRefactoring(routeUri, false);
+    }
+
+    private void performRouteRefactoring(boolean isErrorExpected) {
+        performRouteRefactoring("direct:refactoredRoute", isErrorExpected);
     }
 
     /**
@@ -92,17 +100,21 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
      *
      * @param routeUri  The new route URI to create. This may be null, to represent the user
      *                  cancelling the input dialogue.
+     * @param isErrorExpected If true the test dialogue
      */
-    private void performRouteRefactoring(@Nullable final String routeUri) {
+    private void performRouteRefactoring(@Nullable final String routeUri, boolean isErrorExpected) {
         String resourceName = getTestName(false);
         myFixture.configureByFile(resourceName + ".xml");
-        // Override the route name
-        Messages.setTestInputDialog(new TestInputDialog() {
-            @Override
-            public String show(String message) {
-                return routeUri;
-            }
-        });
+        // Override the route name if we don't expect a validation error
+        if(!isErrorExpected) {
+            Messages.setTestInputDialog(new TestInputDialog() {
+                @Override
+                public String show(String message) {
+                    return routeUri;
+                }
+            });
+        }
+
         new RouteRefactoringSupportProvider()
                 .getExtractMethodHandler()
                 .invoke(myFixture.getProject(), myFixture.getEditor(), myFixture.getFile(), null);
