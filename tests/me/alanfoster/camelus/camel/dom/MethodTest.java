@@ -15,7 +15,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 /**
  * Tests for camel method DSL completion
  */
-public class MethodExpressionCompletionTest extends CamelusTestSupport {
+public class MethodTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
@@ -84,6 +84,16 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
         myFixture.checkHighlighting(true, true, true);
     }
 
+    /**
+     * Test that we can rename our bean reference id, directly from a camel route :)
+     */
+    public void testRenameRefValueWithBlueprintPointerReference() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("RenameRefValueWithBlueprintPointerReference.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/IPersonService.java")
+                .withOpenedFile("RenameRefValueWithBlueprintPointerReference.xml");
 
-
+        myFixture.renameElementAtCaret("newPersonServiceName");
+        myFixture.checkResultByFile("RenameRefValueWithBlueprintPointerReference.xml", "RenameRefValueWithBlueprintPointerReference_after.xml", false);
+    }
 }
