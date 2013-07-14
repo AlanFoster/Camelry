@@ -84,6 +84,15 @@ You will now be able to run the plugin with Run/Debug mode
 
 ![DebugMode](/documentation/setup/DebugMode.png "DebugMode")
 
+Extra resources
+---------------------
+IntelliJ also offers some great great plugin development resources
+
+- [Plugin Development](http://confluence.jetbrains.com/display/IDEADEV/PluginDevelopment)
+- [Custom Language Support](http://confluence.jetbrains.com/display/IntelliJIDEA/Custom+Language+Support)
+- [200+ Open-source IntelliJ plugins](http://blogs.jetbrains.com/idea/2012/10/check-out-more-than-200-open-source-plugins/)
+- [Plugin Development Forum](http://devnet.jetbrains.com/community/idea/open_api_and_plugin_development)
+
 Questions?
 ---------------------
 

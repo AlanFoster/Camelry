@@ -23,6 +23,11 @@ Currently the support for the Blueprint Injection Language includes
 ![Language Injection](/documentation/screenshots/KarafFeatures.png "Karaf Features Support")
 #####Reference Validation
 ![Reference Validation](/documentation/screenshots/BeanReferenceValidation.png "Bean Reference Validation")
+
+##### Route refactoring
+
+Camel Routes can be refactored by simply selecting the required elements and invoking `Extract Method` with either *ctrl+alt+m* or *Rightclick -> Extract -> Method*
+
 #####Language Injection
 ![Language Injection](/documentation/screenshots/LanguageInjection.png "Language Injection")
 
