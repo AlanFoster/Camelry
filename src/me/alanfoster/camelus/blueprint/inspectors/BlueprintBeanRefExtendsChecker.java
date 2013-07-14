@@ -1,5 +1,7 @@
 package me.alanfoster.camelus.blueprint.inspectors;
 
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtil;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.util.InheritanceUtil;
@@ -8,9 +10,8 @@ import com.intellij.util.xml.highlighting.DomCustomAnnotationChecker;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementProblemDescriptor;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
-import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.blueprint.converters.ThrowableBlueprintBeanConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import me.alanfoster.camelus.camel.dom.ThrowException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -45,8 +46,11 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
         if(classAttribute == null) return Collections.emptyList();
 
         Project project = throwExceptionElement.getManager().getProject();
+        Module module = ModuleUtil.findModuleForPsiElement(throwExceptionElement.getXmlTag());
+        if(module == null) return Collections.emptyList();
+
         final Class<?> requiredClass = annotation.value();
-        final PsiClass requiredPsiClass = ThrowableBlueprintBeanConverter.getPsiClass(requiredClass, project);
+        final PsiClass requiredPsiClass = ThrowableBlueprintBeanConverter.getPsiClass(requiredClass, module);
 
         List<DomElementProblemDescriptor> problems = new ArrayList<DomElementProblemDescriptor>();
         if(!InheritanceUtil.isInheritorOrSelf(classAttribute, requiredPsiClass, true)) {
@@ -67,10 +71,10 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
         ThrowException throwException = throwExceptionElement.getParentOfType(ThrowException.class, true);
 
         if(throwException == null) return null;
-        BlueprintBean blueprintBean = throwException.getRef().getValue();
+        BlueprintBeanPointer blueprintBean = throwException.getRef().getValue();
         if(blueprintBean == null) return null;
 
-        PsiClass classAttribute = blueprintBean.getClassAttribute().getValue();
+        PsiClass classAttribute = blueprintBean.getReferencedClass();
         return classAttribute;
     }
 

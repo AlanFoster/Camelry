@@ -1,5 +1,6 @@
 package me.alanfoster.camelus.blueprint.converters;
 
+import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.CommonClassNames;
@@ -14,6 +15,7 @@ import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Converter for Blueprint beans which only extend Throwable.
@@ -26,8 +28,10 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanPointerConvert
     @NotNull
     @Override
     public Collection<? extends BlueprintBeanPointer> getVariants(final ConvertContext context) {
-        final Project project = context.getProject();
-        final PsiClass throwablePsiClass = getPsiClass(CommonClassNames.JAVA_LANG_THROWABLE, project);
+        final Module module = context.getModule();
+        if(module == null) return Collections.emptyList();
+
+        final PsiClass throwablePsiClass = getPsiClass(CommonClassNames.JAVA_LANG_THROWABLE, module);
         return ContainerUtil.filter(super.getVariants(context), new Condition<BlueprintBeanPointer>() {
             @Override
             public boolean value(BlueprintBeanPointer blueprintBean) {
@@ -38,13 +42,13 @@ public class ThrowableBlueprintBeanConverter extends BlueprintBeanPointerConvert
         });
     }
 
-    public static PsiClass getPsiClass(@NotNull Class<?> clazz, Project project) {
-        return getPsiClass(clazz.getName(), project);
+    public static PsiClass getPsiClass(@NotNull Class<?> clazz, @NotNull Module module) {
+        return getPsiClass(clazz.getName(), module);
     }
 
-    public static PsiClass getPsiClass(String qualifiedName, Project project) {
-        final PsiClass psiClass = JavaPsiFacade.getInstance(project)
-                .findClass(qualifiedName, GlobalSearchScope.allScope(project));
+    public static PsiClass getPsiClass(String qualifiedName, @NotNull Module module) {
+        final PsiClass psiClass = JavaPsiFacade.getInstance(module.getProject())
+                .findClass(qualifiedName, module.getModuleWithDependenciesAndLibrariesScope(true));
 
         return psiClass;
     }

@@ -1,6 +1,7 @@
 package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.util.xml.*;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import me.alanfoster.camelus.blueprint.inspectors.BlueprintBeanRefExtends;
 import me.alanfoster.camelus.blueprint.converters.ThrowableBlueprintBeanConverter;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
@@ -15,6 +16,6 @@ public interface ThrowException extends DomElement {
     @Convert(ThrowableBlueprintBeanConverter.class)
     @Attribute("ref")
     @Required
-    GenericAttributeValue<BlueprintBean> getRef();
+    GenericAttributeValue<BlueprintBeanPointer> getRef();
 
 }
