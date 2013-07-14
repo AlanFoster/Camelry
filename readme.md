@@ -5,7 +5,9 @@ This IntelliJ plugin is designed to improve the improve the development experien
 both Apache Blueprint and Apache Camel.
 
 Note, there is *currently* no support for Spring-DM (as it is deprecated). However, the Camel XML DSL
-will be re-usable, so it is definitely a possibility in the future. We will happy welcome any contributions in this area though! :)
+will be re-usable, so it is definitely a possibility in the future.
+
+We will happily welcome any contributions in this area though! :)
 
 Currently Supported Features
 ----------------------------

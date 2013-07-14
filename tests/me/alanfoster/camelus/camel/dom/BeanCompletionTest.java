@@ -19,7 +19,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestRoot() + "/camel/dom/completion/CamelBean";
+        return TestHelper.getTestRoot() + "/camel/dom/camelBean";
     }
 
     /******************************************************************************
@@ -81,7 +81,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
 
     public void testBlueprintServiceReferenceRefCompletionWithinDifferentFile() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../BlueprintServiceReferenceExternalFile.xml");
+                .withBlueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml");
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml");
         assertReflectionEquals(

@@ -16,7 +16,7 @@ public class ThrowExceptionTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestRoot() + "/camel/dom/ThrowException";
+        return TestHelper.getTestRoot() + "/camel/dom/throwException";
     }
 
     /**
@@ -26,7 +26,7 @@ public class ThrowExceptionTest extends CamelusTestSupport {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("ExceptionBeanVariantsOnly.xml")
                 .withOpenedFile("ExceptionBeanVariantsOnly.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.completion", "CustomException.java", "../completion/Person.java");
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/CustomException.java", "../common/Person.java");
 
         List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
         assertReflectionEquals(

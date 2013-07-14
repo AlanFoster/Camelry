@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.camel.dom.completion;
+package me.alanfoster.camelus.blueprint.camel.dom.common;
 
 /**
  * Represents a basic Person pojo.

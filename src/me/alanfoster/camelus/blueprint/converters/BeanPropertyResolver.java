@@ -74,6 +74,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
             return StringUtil.capitalizeWithJavaBeanConvention(propertyName);
         }
 
+        @Override
         public boolean isSoft() {
             return true;
         }

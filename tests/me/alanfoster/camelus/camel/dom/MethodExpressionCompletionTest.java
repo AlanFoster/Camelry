@@ -19,7 +19,7 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestRoot() + "/camel/dom/completion/CamelMethod";
+        return TestHelper.getTestRoot() + "/camel/dom/camelMethod";
     }
 
     public void testBlueprintBeanMethodCompletionSameFileWithMethodDSL() {
@@ -42,11 +42,10 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
                 completionVariants);
     }
 
-    // Currently ignored, as the completion doesn't seem to work from the test suite... The SDK should already be set though
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile)
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.completion", "../Person.java");
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/Person.java");
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
@@ -60,8 +59,8 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
 
     public void testBlueprintReferenceMethodCompletionExternalFile() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../BlueprintServiceReferenceExternalFile.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.completion", "../Person.java", "../IPersonService.java")
+                .withBlueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/Person.java", "../common/IPersonService.java")
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
