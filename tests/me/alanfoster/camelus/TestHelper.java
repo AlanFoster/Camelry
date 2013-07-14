@@ -10,10 +10,14 @@ import java.io.File;
  */
 public class TestHelper {
 
-    public static String getTestDataPath() {
+    public static String getTestRoot() {
+        File testRoot = new File(getSourceRoot(), "testData/" + TestHelper.class.getPackage().getName().replace('.', '/'));
+        return testRoot.getPath();
+    }
+
+    public static File getSourceRoot() {
         final String jarPathForClass = PathManager.getJarPathForClass(InjectionParsingTest.class);
-        File testDirectory = new File(jarPathForClass, "../../../testData/" + TestHelper.class.getPackage().getName().replace('.', '/'));
-        return testDirectory.getPath();
+        return new File(jarPathForClass, "../../../");
     }
 
 }

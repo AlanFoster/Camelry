@@ -16,7 +16,7 @@ public class ReferenceTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/blueprint/language";
+        return TestHelper.getTestRoot() + "/blueprint/language";
     }
 
     public void testSameBundleNoPropertyPlaceholdersValidReference() {

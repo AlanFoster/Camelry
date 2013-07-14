@@ -1,21 +1,14 @@
 package me.alanfoster.camelus.blueprint.dom.inspection;
 
-import com.intellij.testFramework.fixtures.impl.LightTempDirTestFixtureImpl;
 import me.alanfoster.camelus.TestHelper;
 
-import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.pom.java.LanguageLevel;
-import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.testFramework.builders.JavaModuleFixtureBuilder;
 import com.intellij.testFramework.fixtures.*;
-import com.intellij.util.indexing.FileBasedIndex;
 import junit.framework.TestCase;
-import org.junit.Assert;
 
 import java.io.File;
-import java.util.Collection;
 
 public class ModuleSupportTest extends TestCase {
     // Project test fixture which points to the root src content folder
@@ -73,6 +66,6 @@ public class ModuleSupportTest extends TestCase {
     }
 
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath();
+        return TestHelper.getTestRoot();
     }
 }

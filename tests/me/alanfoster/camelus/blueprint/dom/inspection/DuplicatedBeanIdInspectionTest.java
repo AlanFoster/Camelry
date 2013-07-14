@@ -20,7 +20,7 @@ public class DuplicatedBeanIdInspectionTest extends ModuleSupportTest {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/blueprint/dom/inspection";
+        return TestHelper.getTestRoot() + "/blueprint/dom/inspection";
     }
 
     /**

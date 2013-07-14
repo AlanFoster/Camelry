@@ -18,7 +18,7 @@ public class MethodExpressionCompletionTest extends LightCodeInsightFixtureTestC
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/camel/dom/completion/CamelMethod";
+        return TestHelper.getTestRoot() + "/camel/dom/completion/CamelMethod";
     }
 
     public void testBlueprintBeanMethodCompletionSameFileWithMethodDSL() {

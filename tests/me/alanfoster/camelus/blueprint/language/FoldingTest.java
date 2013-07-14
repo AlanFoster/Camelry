@@ -14,7 +14,7 @@ public class FoldingTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/blueprint/language";
+        return TestHelper.getTestRoot() + "/blueprint/language";
     }
 
     public void testFolding() {

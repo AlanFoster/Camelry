@@ -15,7 +15,7 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
 
     @Override
     public String getTestDataPath() {
-        return TestHelper.getTestDataPath() + "/camel/actions/routeRefactoring";
+        return TestHelper.getTestRoot() + "/camel/actions/routeRefactoring";
     }
 
     /****************************************************************************
