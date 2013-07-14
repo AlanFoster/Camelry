@@ -16,7 +16,6 @@ public interface BlueprintBean extends DomElement {
     @Attribute("id")
     @NotNull
     @Required(nonEmpty = true, value = true)
-            @Scope(ScopeProvider.class)
     GenericAttributeValue<String> getName();
 
     @Attribute("init-method")
