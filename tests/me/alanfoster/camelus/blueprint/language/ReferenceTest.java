@@ -1,7 +1,7 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.Property;
@@ -12,7 +12,7 @@ import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.Cr
 /**
  * Tests for ensuring references are correct as expected.
  */
-public class ReferenceTest extends LightCodeInsightFixtureTestCase {
+public class ReferenceTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {

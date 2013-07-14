@@ -1,15 +1,10 @@
 package me.alanfoster.camelus.camel.dom;
 
-import com.intellij.openapi.projectRoots.JavaSdk;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.LanguageFiles;
-import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -20,19 +15,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 /**
  * Tests camel bean intellisense completion.
  */
-public class BeanCompletionTest extends LightCodeInsightFixtureTestCase {
-    /**
-     * Specify the use of a mock JDK, which is a lightweight version of the Java SDK.
-     * If we didn't supply this, then we wouldn't be able to get intellisense for classes
-     * like java.lang.String etc.
-     */
-    public static final LightProjectDescriptor PROJECT_DESCRIPTOR = new DefaultLightProjectDescriptor() {
-        @Override
-        public Sdk getSdk() {
-            String jdkPath = new File(TestHelper.getSourceRoot(), "mockJDK-1.7").getPath();
-            return JavaSdk.getInstance().createJdk("1.7", jdkPath, false);
-        }
-    };
+public class BeanCompletionTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
@@ -77,11 +60,5 @@ public class BeanCompletionTest extends LightCodeInsightFixtureTestCase {
                         "toUpperCase", "toUpperCase", "trim", "clone", "hashCode", "toString", "finalize",
                         "subSequence"),
                         completionVariants);
-    }
-
-    @NotNull
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return PROJECT_DESCRIPTOR;
     }
 }

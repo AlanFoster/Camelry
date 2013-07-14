@@ -3,15 +3,15 @@ package me.alanfoster.camelus.camel.actions;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TestInputDialog;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
 import junit.framework.Assert;
+import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Tests to ensure that route refactoring works correctly
  */
-public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
+public class RouteRefactoringTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {

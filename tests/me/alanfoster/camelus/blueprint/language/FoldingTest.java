@@ -1,6 +1,6 @@
 package me.alanfoster.camelus.blueprint.language;
 
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
@@ -10,7 +10,7 @@ import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.Cr
  * Tests to ensure that the blueprint injection language propertly folds.
  * @see me.alanfoster.camelus.blueprint.language.support.InjectionFoldingBuilder
  */
-public class FoldingTest extends LightCodeInsightFixtureTestCase {
+public class FoldingTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {

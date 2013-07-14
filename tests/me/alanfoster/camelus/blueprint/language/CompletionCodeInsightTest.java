@@ -1,6 +1,6 @@
 package me.alanfoster.camelus.blueprint.language;
 
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
@@ -15,7 +15,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
  * Tests for blueprint injection language autocompletion support.
  * ie ctrl+space support for property names.
  */
-public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
+public class CompletionCodeInsightTest extends CamelusTestSupport {
 
     @Override
     public String getTestDataPath() {
@@ -40,27 +40,6 @@ public class CompletionCodeInsightTest extends LightCodeInsightFixtureTestCase {
                 Arrays.asList("Hello", "World"),
                 completionVariants);
     }
-
-/*
-    @NotNull
-    @Override
-    protected LightProjectDescriptor getProjectDescriptor() {
-        return new DefaultLightProjectDescriptor() {
-            @Override
-            public void configureModule(Module module, ModifiableRootModel model, ContentEntry contentEntry) {
-                Project project = module.getProject();
-
-                PsiTestUtil.addModule(project, StdModuleTypes.JAVA, "projectTwo", model.getProject().getBaseDir());
-
-                Module[] modules = ModuleManager.getInstance(model.getProject()).getModules();
-                VirtualFile[] contentSourceRoots = ProjectRootManager.getInstance(project).getContentSourceRoots();
-                OrderEntry[] orderEntries = ModuleRootManager.getInstance(modules[0]).getOrderEntries();
-
-                super.configureModule(module, model, contentEntry);
-            }
-        };
-    }
-*/
 
     public void testCompletionWithFooBarBazQux() {
         CreateCamelusProject(myFixture)

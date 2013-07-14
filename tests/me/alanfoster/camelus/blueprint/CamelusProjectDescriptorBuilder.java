@@ -38,8 +38,13 @@ public class CamelusProjectDescriptorBuilder {
             return this;
         }
 
-        public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
+        public CamelusProject withOpenedFileFromTempProject(@TestDataFile @NonNls String testDataPath) {
             fixture.configureFromTempProjectFile(testDataPath);
+            return this;
+        }
+
+        public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
+            fixture.configureByFile(testDataPath);
             return this;
         }
     }
