@@ -20,6 +20,9 @@ public interface Blueprint extends DomElement {
     @SubTagList(value = "bean")
     List<BlueprintBean> getBeans();
 
+    @SubTagList(value = "reference")
+    List<BlueprintReference> getReferences();
+
     // Represents the osgi <cm:property-placeholder /> element
     @SubTag("property-placeholder")
     PropertyPlaceholder getPropertyPlaceHolder();

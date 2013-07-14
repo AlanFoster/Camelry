@@ -8,8 +8,8 @@
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-    <bean id="one" class="java.lang.String"/>
-    <bean id="two" class="java.lang.String"/>
+    <bean id="one" class="me.alanfoster.camelus.blueprint.camel.dom.completion.Person"/>
+    <bean id="two" class="me.alanfoster.camelus.blueprint.camel.dom.completion.Person"/>
     <bean id="three" class="java.lang.String"/>
 
     <camelContext id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">

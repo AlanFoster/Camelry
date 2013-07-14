@@ -8,8 +8,8 @@
        http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
-    <reference id="dataSourceFoo" interface="javax.sql.DataSource" filter="(type=foo)" />
     <reference id="dataSourceBar" interface="javax.sql.DataSource" filter="(type=bar)" />
+    <reference id="dataSourceFoo" interface="javax.sql.DataSource" filter="(type=foo)" />
 
     <bean id="one" class="java.lang.String"/>
     <bean id="two" class="java.lang.String"/>

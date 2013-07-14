@@ -71,13 +71,21 @@ public class BeanCompletionTest extends CamelusTestSupport {
      ******************************************************************************/
     public void testBlueprintServiceReferenceRefCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+                .withBlueprintFiles(getTestName(false) + ".xml");
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+        List<String> completionVariants = myFixture.getCompletionVariants(getTestName(false) + ".xml");
         assertReflectionEquals(
-                Arrays.asList("dataSourceFoo", "dataSourceFoo", "one", "three", "two"),
+                Arrays.asList("dataSourceBar", "dataSourceFoo", "one", "three", "two"),
                 completionVariants);
     }
 
+    public void testBlueprintServiceReferenceRefCompletionWithinDifferentFile() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../BlueprintServiceReferenceExternalFile.xml");
 
+        List<String> completionVariants = myFixture.getCompletionVariants("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml");
+        assertReflectionEquals(
+                Arrays.asList("dataSourceBar", "dataSourceFoo", "externalReferenceOne", "externalReferenceTwo", "one", "three", "two"),
+                completionVariants);
+    }
 }

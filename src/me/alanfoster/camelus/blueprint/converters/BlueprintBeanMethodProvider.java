@@ -34,7 +34,7 @@ public class BlueprintBeanMethodProvider extends AbstractMethodResolveConverter<
                 return Arrays.asList(beanClass);
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /**
@@ -59,7 +59,9 @@ public class BlueprintBeanMethodProvider extends AbstractMethodResolveConverter<
      *
      * @return An empty set.
      */
+    @NotNull
+    @Override
     public Set<String> getAdditionalVariants() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 }

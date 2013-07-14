@@ -87,13 +87,15 @@
         <!-- Register the Blueprint DOM file description -->
         <dom.fileDescription implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileDescription"/>
 
-
         <dom.implementation
                 interfaceClass="me.alanfoster.camelus.blueprint.dom.Blueprint"
                 implementationClass="me.alanfoster.camelus.blueprint.dom.impl.BlueprintImpl" />
         <dom.implementation
                 interfaceClass="me.alanfoster.camelus.blueprint.dom.BlueprintBean"
                 implementationClass="me.alanfoster.camelus.blueprint.dom.impl.BlueprintBeanImpl" />
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelus.blueprint.dom.BlueprintReference"
+                implementationClass="me.alanfoster.camelus.blueprint.dom.impl.BlueprintReferenceImpl" />
 
         <!--
             Blueprint inspection elements

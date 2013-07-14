@@ -45,21 +45,30 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
     // Currently ignored, as the completion doesn't seem to work from the test suite... The SDK should already be set though
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
+                .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile)
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.completion", "../Person.java");
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
+
         assertReflectionEquals(
                 Arrays.asList(
-                        "charAt", "charAt", "codePointAt", "codePointBefore", "codePointCount", "compareTo",
-                        "compareTo", "compareToIgnoreCase", "concat", "contains", "contentEquals", "contentEquals",
-                        "endsWith", "equals", "equalsIgnoreCase", "equals", "getBytes", "getBytes", "getBytes",
-                        "getChars", "getChars", "hashCode", "indexOf", "indexOf", "indexOf", "indexOf", "intern",
-                        "lastIndexOf", "lastIndexOf", "lastIndexOf", "lastIndexOf", "length", "length", "matches",
-                        "offsetByCodePoints", "regionMatches", "regionMatches", "replace", "replace", "replaceAll",
-                        "replaceFirst", "split", "split", "startsWith", "startsWith", "subSequence", "substring",
-                        "substring", "toCharArray", "toLowerCase", "toLowerCase", "toString", "toString",
-                        "toUpperCase", "toUpperCase", "trim", "clone", "hashCode", "toString", "finalize",
-                        "subSequence"),
+                        "getAge", "getF", "getFirstName", "getId", "getLastName", "getNumber", "setAge",
+                        "setF", "setFirstName", "setId", "setLastName", "setNumber", "clone", "equals",
+                        "hashCode", "toString", "finalize"),
+                completionVariants);
+    }
+
+    public void testBlueprintReferenceMethodCompletionExternalFile() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../BlueprintServiceReferenceExternalFile.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.completion", "../Person.java", "../IPersonService.java")
+                .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
+
+        List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
+        assertReflectionEquals(
+                Arrays.asList(
+                        "create", "delete", "get", "getAll", "update",
+                        "clone", "equals", "hashCode", "toString", "finalize"),
                 completionVariants);
     }
 
@@ -67,7 +76,7 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
      * Test to ensure that the user is told about the deprecated 'bean' attribute on
      * the camel method XML DSL.
      */
-    public void testMethodAttributeBeanDeprecatedAnnotator() throws Exception {
+    public void testMethodAttributeBeanDeprecatedAnnotator() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("MethodAttributeBeanDeprecatedAnnotatorData.xml")
                 .withOpenedFile("MethodAttributeBeanDeprecatedAnnotatorError.xml");
@@ -75,5 +84,7 @@ public class MethodExpressionCompletionTest extends CamelusTestSupport {
         myFixture.enableInspections(new DeprecatedAttribtueChecker());
         myFixture.checkHighlighting(true, true, true);
     }
+
+
 
 }

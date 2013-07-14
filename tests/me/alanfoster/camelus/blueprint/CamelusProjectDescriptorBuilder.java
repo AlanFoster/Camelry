@@ -1,12 +1,19 @@
 package me.alanfoster.camelus.blueprint;
 
 
+import com.intellij.ide.highlighter.XmlFileType;
+import com.intellij.openapi.fileTypes.StdFileTypes;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.search.FileTypeIndex;
+import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.testFramework.TestDataFile;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture;
+import com.intellij.util.indexing.FileBasedIndex;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
+import java.util.Collection;
 
 public class CamelusProjectDescriptorBuilder {
 
@@ -45,6 +52,17 @@ public class CamelusProjectDescriptorBuilder {
 
         public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
             fixture.configureByFile(testDataPath);
+            return this;
+        }
+
+        public CamelusProject withJavaFiles(String targetPackage, @TestDataFile @NonNls String... testDataPaths) {
+            for(String testDataPath : testDataPaths) {
+                String targetPath = targetPackage.replace('.', '/') + "/" + new File(testDataPath).getName();
+                fixture.copyFileToProject(testDataPath, targetPath);
+            }
+            Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
+                    FileTypeIndex.NAME, StdFileTypes.JAVA, fixture.getModule().getModuleContentScope());
+
             return this;
         }
     }
