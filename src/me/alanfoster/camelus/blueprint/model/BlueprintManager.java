@@ -5,6 +5,7 @@ import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.xml.XmlFile;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -61,5 +62,15 @@ public abstract class BlueprintManager {
      */
     @Nullable
     public abstract PropertyPlaceholder getModulePropertyPlaceHolder(@NotNull Module module);
+
+
+    /**
+     * @param module The scope of search
+     * @return The list of BlueprintBeanPointer instances within the given module.
+     *         An empty list will be returned of none are found within the scope.
+     * @see BlueprintBeanPointer
+     */
+    @NotNull
+    public abstract List<? extends BlueprintBeanPointer> getAllModuleBlueprintBeanPointers(@NotNull Module module);
 }
 

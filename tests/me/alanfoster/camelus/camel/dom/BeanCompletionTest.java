@@ -22,6 +22,9 @@ public class BeanCompletionTest extends CamelusTestSupport {
         return TestHelper.getTestRoot() + "/camel/dom/completion/CamelBean";
     }
 
+    /******************************************************************************
+     * Basic Blueprint Bean Reference tests
+     ******************************************************************************/
     public void testBlueprintBeanRefCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
@@ -61,4 +64,20 @@ public class BeanCompletionTest extends CamelusTestSupport {
                         "subSequence"),
                         completionVariants);
     }
+
+
+    /*******************************************************************************
+     * Blueprint Service reference Bean Reference tests
+     ******************************************************************************/
+    public void testBlueprintServiceReferenceRefCompletionWithinSameBlueprintFile() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+
+        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+        assertReflectionEquals(
+                Arrays.asList("dataSourceFoo", "dataSourceFoo", "one", "three", "two"),
+                completionVariants);
+    }
+
+
 }

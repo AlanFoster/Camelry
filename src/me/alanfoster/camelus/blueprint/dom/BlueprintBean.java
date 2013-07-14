@@ -12,11 +12,7 @@ import java.util.List;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public interface BlueprintBean extends DomElement {
-    @Attribute("id")
-    @NotNull
-    @Required(nonEmpty = true, value = true)
-    GenericAttributeValue<String> getName();
+public interface BlueprintBean extends DomElement, BlueprintBeanPointer {
 
     @Attribute("init-method")
     @NotNull

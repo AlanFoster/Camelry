@@ -57,7 +57,7 @@ public class MethodMethodConverter extends AbstractMethodResolveConverter<Method
                 return Arrays.asList(beanClass);
             }
         }
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     // TODO I believe we can provide an abstract class which implements the Method interface and provide a concrete implementation for this method. This would be nice to do! <-- I believe you need to add 'dom.implementation' to the meta-inf file with both interfaceClass + implementationClass attributes
@@ -92,7 +92,9 @@ public class MethodMethodConverter extends AbstractMethodResolveConverter<Method
      *
      * @return An empty set.
      */
+    @NotNull
+    @Override
     public Set<String> getAdditionalVariants() {
-        return Collections.EMPTY_SET;
+        return Collections.emptySet();
     }
 }

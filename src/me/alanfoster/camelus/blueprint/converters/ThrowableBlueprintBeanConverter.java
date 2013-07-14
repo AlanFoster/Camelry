@@ -10,6 +10,7 @@ import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -21,16 +22,16 @@ import java.util.Collection;
  * @version 1.0.0-SNAPSHOT
  * @see BlueprintBean
  */
-public class ThrowableBlueprintBeanConverter extends BlueprintBeanConverter {
+public class ThrowableBlueprintBeanConverter extends BlueprintBeanPointerConverter {
     @NotNull
     @Override
-    public Collection<? extends BlueprintBean> getVariants(final ConvertContext context) {
+    public Collection<? extends BlueprintBeanPointer> getVariants(final ConvertContext context) {
         final Project project = context.getProject();
         final PsiClass throwablePsiClass = getPsiClass(CommonClassNames.JAVA_LANG_THROWABLE, project);
-        return ContainerUtil.filter(super.getVariants(context), new Condition<BlueprintBean>() {
+        return ContainerUtil.filter(super.getVariants(context), new Condition<BlueprintBeanPointer>() {
             @Override
-            public boolean value(BlueprintBean blueprintBean) {
-                final PsiClass psiClass = blueprintBean.getClassAttribute().getValue();
+            public boolean value(BlueprintBeanPointer blueprintBean) {
+                final PsiClass psiClass = blueprintBean.getReferencedClass();
 
                 return InheritanceUtil.isInheritorOrSelf(psiClass, throwablePsiClass, true);
             }

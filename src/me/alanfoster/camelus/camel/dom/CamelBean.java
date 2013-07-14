@@ -2,7 +2,7 @@ package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.blueprint.converters.BlueprintBeanConverter;
+import me.alanfoster.camelus.blueprint.converters.BlueprintBeanPointerConverter;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import me.alanfoster.camelus.camel.converters.CamelBeanMethodConverter;
 
@@ -22,7 +22,7 @@ import me.alanfoster.camelus.camel.converters.CamelBeanMethodConverter;
 public interface CamelBean extends DomElement {
     @Attribute("ref")
     @Required(nonEmpty = true, value = true)
-    @Convert(BlueprintBeanConverter.class)
+    @Convert(BlueprintBeanPointerConverter.class)
     GenericAttributeValue<BlueprintBean> getRef();
 
     @Attribute("method")

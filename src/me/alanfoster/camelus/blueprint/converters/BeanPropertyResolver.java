@@ -1,12 +1,12 @@
 package me.alanfoster.camelus.blueprint.converters;
 
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.CustomReferenceConverter;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericDomValue;
-import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -19,6 +19,7 @@ import static me.alanfoster.camelus.CamelusBundle.message;
 
 /**
  * This class is used as the Property Resolver for Blueprint Beans.
+ * Blueprint currently supports only method level getter/setter access only.
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
@@ -70,9 +71,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
         }
 
         private String capitaliseFirst(@NotNull String propertyName) {
-            return propertyName.length() > 1
-               ? propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1)
-               : propertyName.substring(0, 1).toUpperCase();
+            return StringUtil.capitalizeWithJavaBeanConvention(propertyName);
         }
 
         public boolean isSoft() {
@@ -110,6 +109,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
         private PsiClass getBeanClass() {
             final DomElement domElement = convertContext.getInvocationElement();
             final BlueprintBean bean = domElement.getParentOfType(BlueprintBean.class, true);
+            if(bean == null) return null;
 
             PsiClass beanClass = bean.getClassAttribute().getValue();
             return beanClass;

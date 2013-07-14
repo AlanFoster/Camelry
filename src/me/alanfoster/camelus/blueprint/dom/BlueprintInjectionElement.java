@@ -14,9 +14,9 @@ import com.intellij.util.xml.GenericAttributeValue;
 // TODO Support more than just key/value pairs, and support map/list etc too
 public interface BlueprintInjectionElement extends DomElement {
     @Attribute("value")
- //   @Referencing()
     GenericAttributeValue<String> getValue();
 
     @Attribute("ref")
     GenericAttributeValue<String> getRef();
 }
+

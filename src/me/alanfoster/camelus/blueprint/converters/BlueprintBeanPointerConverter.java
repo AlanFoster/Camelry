@@ -8,6 +8,7 @@ import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.ResolvingConverter;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import me.alanfoster.camelus.blueprint.model.IBlueprintDomModel;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
@@ -30,11 +31,11 @@ import java.util.List;
  * @version 1.0.0-SNAPSHOT
  */
 // TODO Look at CustomReferenceConverter
-public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
+public class BlueprintBeanPointerConverter extends ResolvingConverter<BlueprintBeanPointer> {
 
     @Nullable
     @Override
-    public BlueprintBean fromString(final @Nullable @NonNls String blueprintRefId,
+    public BlueprintBeanPointer fromString(final @Nullable @NonNls String blueprintRefId,
                           final ConvertContext context) {
 
         // Extra `blueprintRefId == null` added to stop IntelliJ's null warning
@@ -44,10 +45,10 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
         if(module == null) return null;
 
         // Find a blueprint bean with the same id as the reference id
-        List<BlueprintBean> blueprintBeans = getAllBlueprintBeans(module);
-        BlueprintBean matchingBlueprintBean =  ContainerUtil.find(blueprintBeans, new Condition<BlueprintBean>() {
+        List<? extends BlueprintBeanPointer> blueprintBeans = getBlueprintPointers(module);
+        BlueprintBeanPointer matchingBlueprintBean =  ContainerUtil.find(blueprintBeans, new Condition<BlueprintBeanPointer>() {
                 @Override
-                public boolean value(BlueprintBean blueprintBean) {
+                public boolean value(BlueprintBeanPointer blueprintBean) {
                     return blueprintRefId.equals(blueprintBean.getName().getStringValue());
                 }
         });
@@ -57,37 +58,25 @@ public class BlueprintBeanConverter extends ResolvingConverter<BlueprintBean> {
 
     @Nullable
     @Override
-    public String toString(final @Nullable BlueprintBean blueprintBean,
+    public String toString(final @Nullable BlueprintBeanPointer blueprintBean,
                            final ConvertContext context) {
         return blueprintBean == null ? null : blueprintBean.getName().getStringValue();
     }
 
     @NotNull
     @Override
-    public Collection<? extends BlueprintBean> getVariants(ConvertContext context) {
+    public Collection<? extends BlueprintBeanPointer> getVariants(ConvertContext context) {
         return (context == null || context.getModule() == null)
                 ? Collections.<BlueprintBean>emptyList()
-                : getAllBlueprintBeans(context.getModule());
+                : getBlueprintPointers(context.getModule());
     }
 
-    // TODO Place this into either the blueprint model or BlueprintManager
     @NotNull
-    public List<BlueprintBean> getAllBlueprintBeans(@NotNull Module module) {
-        List<BlueprintBean> allBeans = new ArrayList<BlueprintBean>();
+    public List<? extends BlueprintBeanPointer> getBlueprintPointers(@Nullable Module module) {
+        if(module == null) return Collections.emptyList();
 
         final BlueprintManager blueprintManager = BlueprintManager.getInstance();
-        final IBlueprintDomModel mergedBlueprintModel = blueprintManager.getMergedBlueprintModel(module);
-
-        // There should be a single merged file
-        if(mergedBlueprintModel == null) {
-            return allBeans;
-        }
-
-        for(DomFileElement<Blueprint> domFile : mergedBlueprintModel.getRoots()) {
-            Blueprint blueprint = domFile.getRootElement();
-            allBeans.addAll(blueprint.getBeans());
-        }
-
-        return allBeans;
+        List<? extends BlueprintBeanPointer> pointers = blueprintManager.getAllModuleBlueprintBeanPointers(module);
+        return pointers;
     }
 }

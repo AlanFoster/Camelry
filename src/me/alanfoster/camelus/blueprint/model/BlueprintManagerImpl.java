@@ -1,12 +1,10 @@
 package me.alanfoster.camelus.blueprint.model;
 
-import com.intellij.core.CoreModule;
 import com.intellij.ide.highlighter.XmlFileType;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
@@ -18,14 +16,12 @@ import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
 import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Alan Foster
@@ -141,6 +137,20 @@ public class BlueprintManagerImpl extends BlueprintManager {
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @NotNull
+    @Override
+    public List<? extends BlueprintBeanPointer> getAllModuleBlueprintBeanPointers(@NotNull Module module) {
+        Set<Blueprint> blueprintFiles = getModuleBlueprintRoots(module);
+        List<BlueprintBeanPointer> blueprintBeanPointers = new ArrayList<BlueprintBeanPointer>();
+        for (Blueprint blueprintFile : blueprintFiles) {
+            blueprintBeanPointers.addAll(blueprintFile.getBlueprintBeanPointers());
+        }
+        return blueprintBeanPointers;
     }
 
     @NotNull

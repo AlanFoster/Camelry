@@ -1,10 +1,8 @@
 package me.alanfoster.camelus.camel.dom;
 
-import com.intellij.codeInsight.template.TemplateContextType;
-import com.intellij.codeInsight.template.impl.DefaultLiveTemplatesProvider;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.blueprint.converters.BlueprintBeanConverter;
+import me.alanfoster.camelus.blueprint.converters.BlueprintBeanPointerConverter;
 import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
 import me.alanfoster.camelus.camel.converters.MethodMethodConverter;
 import me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribute;
@@ -20,11 +18,11 @@ public interface Method extends DomElement {
             reason = "The 'bean' attribute is deprecated. You should make use of the 'ref' attribute instead",
             newName = "ref"
     )
-    @Convert(BlueprintBeanConverter.class)
+    @Convert(BlueprintBeanPointerConverter.class)
     GenericAttributeValue<BlueprintBean> getBeanReference();
 
     @Attribute("ref")
-    @Convert(BlueprintBeanConverter.class)
+    @Convert(BlueprintBeanPointerConverter.class)
     GenericAttributeValue<BlueprintBean> getRef();
 
     @Attribute("method")

@@ -79,10 +79,21 @@
             Blueprint specific
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 
+
         <!--
-               Register the Blueprint DOM file description
-           -->
+            Blueprint DOM descriptions/implementations
+        -->
+
+        <!-- Register the Blueprint DOM file description -->
         <dom.fileDescription implementation="me.alanfoster.camelus.blueprint.dom.BlueprintFileDescription"/>
+
+
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelus.blueprint.dom.Blueprint"
+                implementationClass="me.alanfoster.camelus.blueprint.dom.impl.BlueprintImpl" />
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelus.blueprint.dom.BlueprintBean"
+                implementationClass="me.alanfoster.camelus.blueprint.dom.impl.BlueprintBeanImpl" />
 
         <!--
             Blueprint inspection elements
