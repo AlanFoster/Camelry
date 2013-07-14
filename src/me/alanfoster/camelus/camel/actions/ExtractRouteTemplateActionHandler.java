@@ -1,5 +1,6 @@
 package me.alanfoster.camelus.camel.actions;
 
+import com.intellij.lang.ASTNode;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.Result;
 import com.intellij.openapi.application.RunResult;
@@ -10,8 +11,10 @@ import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.Pair;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.source.SourceTreeToPsiMap;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.psi.xml.XmlComment;
 import com.intellij.psi.xml.XmlElement;
@@ -178,12 +181,17 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
     }
 
     private String getNewRouteUri(Project project) {
+        String defaultRouteUri = message("camelus.camel.actions.extract.route.initial.value");
+        // Highlight by default the value after the default component, ie "direct:<selection>newRoute</selection>"
+        int componentDivider = defaultRouteUri.indexOf(':') + 1;
+        TextRange highlightedTextRange = new TextRange(componentDivider, defaultRouteUri.length());
         return Messages.showInputDialog(project,
                 message("camelus.camel.actions.extract.route.message"),
                 message("camelus.camel.actions.extract.route.title"),
                 Messages.getQuestionIcon(),
-                message("camelus.camel.actions.extract.route.initial.value"),
-                null
+                defaultRouteUri,
+                null,
+                highlightedTextRange
         );
     }
 
@@ -208,6 +216,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
         if(startTag == null || endTag == null) return null;
         // Handle the scenario of consuming consuming a startTag after the endTag, IE during white-space only selection
         if(startTag.getTextOffset() > endTag.getTextOffset()) return null;
+        if(startTag.getNode().getTreeParent() != endTag.getNode().getTreeParent()) return null;
 
         return new Pair<XmlElement, XmlElement>(startTag, endTag);
     }

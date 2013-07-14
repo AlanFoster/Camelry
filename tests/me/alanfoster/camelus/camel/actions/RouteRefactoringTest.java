@@ -26,7 +26,6 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
         performRouteRefactoring();
     }
 
-    // TODO Find out the cause of assertion errors
     public void testMultiElementRefactor() {
         performRouteRefactoring();
     }
@@ -47,7 +46,10 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
      * Tests which are expected to result in a user error message
      ****************************************************************************/
 
-    // TODO Find out the cause of errors
+    public void testNoElementsSelected() {
+        performRouteRefactoringWithUserError("Please select the elements you wish to extract.");
+    }
+
     public void testNoElementRefactor() {
         performRouteRefactoringWithUserError();
     }
@@ -60,6 +62,10 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
      * The refactoring support should only work within a given camel route
      */
     public void testNonCamelRouteRefactor() {
+        performRouteRefactoringWithUserError();
+    }
+
+    public void testInvalidSelection() {
         performRouteRefactoringWithUserError();
     }
 
@@ -79,17 +85,21 @@ public class RouteRefactoringTest extends LightCodeInsightFixtureTestCase {
         performRouteRefactoring("direct:refactoredRoute", isErrorExpected);
     }
 
+    private void performRouteRefactoringWithUserError(){
+        performRouteRefactoringWithUserError("The selected block should be a valid selection under a camel route.");
+    }
+
     /**
      * Attempts to perform a user refactor, and expects for a user error to occur.
      * If the refactor does not result in a error message, then this method will fail.
      */
-    private void performRouteRefactoringWithUserError() {
+    private void performRouteRefactoringWithUserError(String expectedUserError) {
         try {
             performRouteRefactoring();
             fail("An error should have been thrown during refactoring, as the user hasn't selected routes within a camel context");
         } catch (CommonRefactoringUtil.RefactoringErrorHintException refactoringErrorMessage) {
             String expectedMessage = "Cannot perform refactoring.\n" +
-                    "The selected block should be a valid selection under a camel route.";
+                    expectedUserError;
             Assert.assertEquals(expectedMessage, refactoringErrorMessage.getMessage());
         }
     }
