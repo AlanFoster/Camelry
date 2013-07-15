@@ -1,7 +1,7 @@
 package me.alanfoster.camelus.blueprint.model;
 
 import com.intellij.util.xml.model.DomModel;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 
 /**
  * @author Alan Foster

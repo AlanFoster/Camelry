@@ -1,20 +1,10 @@
 package me.alanfoster.camelus.camel.converters;
 
-import com.intellij.psi.PsiClass;
-import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.GenericAttributeValue;
-import com.intellij.util.xml.converters.AbstractMethodParams;
-import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import me.alanfoster.camelus.camel.dom.Method;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
 
 /**
  * Handles the Method Resolving for references that link to Bean elements

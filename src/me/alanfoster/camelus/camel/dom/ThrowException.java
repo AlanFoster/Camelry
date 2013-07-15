@@ -1,10 +1,9 @@
 package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
-import me.alanfoster.camelus.blueprint.inspectors.BlueprintBeanRefExtends;
-import me.alanfoster.camelus.blueprint.converters.ThrowableBlueprintBeanConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.inspectors.BlueprintBeanRefExtends;
+import me.alanfoster.camelus.blueprint.dom.converters.ThrowableBlueprintBeanConverter;
 
 /**
  * @author Alan Foster

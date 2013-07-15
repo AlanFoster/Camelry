@@ -2,10 +2,10 @@ package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.blueprint.converters.BlueprintBeanPointerConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.converters.BlueprintBeanPointerConverter;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.camel.converters.MethodMethodConverter;
-import me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribute;
+import me.alanfoster.camelus.blueprint.dom.inspectors.DeprecatedAttribute;
 
 /**
  * @author Alan Foster

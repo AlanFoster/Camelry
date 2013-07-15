@@ -1,7 +1,7 @@
-package me.alanfoster.camelus.blueprint.inspectors;
+package me.alanfoster.camelus.blueprint.dom.inspectors;
 
 import com.intellij.util.xml.highlighting.BasicDomElementsInspection;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 
 /**
  * @author Alan Foster

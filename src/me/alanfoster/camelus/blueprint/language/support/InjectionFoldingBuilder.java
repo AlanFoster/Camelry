@@ -7,7 +7,7 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.FoldingGroup;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import me.alanfoster.camelus.blueprint.dom.Property;
+import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.BlueprintInjectionLanguage;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 import org.jetbrains.annotations.NotNull;

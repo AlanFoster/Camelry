@@ -3,7 +3,7 @@ package me.alanfoster.camelus.blueprint.model;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.model.impl.DomModelImpl;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;

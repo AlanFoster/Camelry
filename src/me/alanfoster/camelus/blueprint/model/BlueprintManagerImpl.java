@@ -15,9 +15,9 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.indexing.FileBasedIndex;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
-import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

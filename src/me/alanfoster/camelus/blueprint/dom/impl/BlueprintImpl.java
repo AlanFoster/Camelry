@@ -1,13 +1,12 @@
 package me.alanfoster.camelus.blueprint.dom.impl;
 
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
-import me.alanfoster.camelus.blueprint.dom.BlueprintReference;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintReference;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**

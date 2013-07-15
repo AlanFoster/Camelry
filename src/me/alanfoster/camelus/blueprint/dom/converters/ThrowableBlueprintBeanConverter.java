@@ -1,17 +1,15 @@
-package me.alanfoster.camelus.blueprint.converters;
+package me.alanfoster.camelus.blueprint.dom.converters;
 
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.psi.CommonClassNames;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.InheritanceUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;

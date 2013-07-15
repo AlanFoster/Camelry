@@ -9,7 +9,7 @@ import java.util.List;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see me.alanfoster.camelus.blueprint.dom.Blueprint
+ * @see me.alanfoster.camelus.blueprint.dom.model.Blueprint
  * @see CamelContext
  */
 @Stubbed

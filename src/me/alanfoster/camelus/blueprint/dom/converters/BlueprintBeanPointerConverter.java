@@ -1,22 +1,19 @@
-package me.alanfoster.camelus.blueprint.converters;
+package me.alanfoster.camelus.blueprint.dom.converters;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
-import com.intellij.util.xml.DomFileElement;
+import com.intellij.util.xml.GenericDomValue;
 import com.intellij.util.xml.ResolvingConverter;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
-import me.alanfoster.camelus.blueprint.model.IBlueprintDomModel;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -78,5 +75,17 @@ public class BlueprintBeanPointerConverter extends ResolvingConverter<BlueprintB
         final BlueprintManager blueprintManager = BlueprintManager.getInstance();
         List<? extends BlueprintBeanPointer> pointers = blueprintManager.getAllModuleBlueprintBeanPointers(module);
         return pointers;
+    }
+
+    /**
+     * Delegate from {@link com.intellij.psi.PsiReference#handleElementRename(String)}
+     * @param genericValue generic value
+     * @param context context
+     * @param newElementName new element name
+     */
+    @Override
+    public void handleElementRename(final GenericDomValue<BlueprintBeanPointer> genericValue, final ConvertContext context,
+                                    final String newElementName) {
+        genericValue.setStringValue(newElementName);
     }
 }

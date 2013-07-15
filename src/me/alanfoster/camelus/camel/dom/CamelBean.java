@@ -2,8 +2,8 @@ package me.alanfoster.camelus.camel.dom;
 
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.blueprint.converters.BlueprintBeanPointerConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.converters.BlueprintBeanPointerConverter;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import me.alanfoster.camelus.camel.converters.CamelBeanMethodConverter;
 
 /**

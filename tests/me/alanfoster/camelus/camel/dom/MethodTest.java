@@ -3,7 +3,7 @@ package me.alanfoster.camelus.camel.dom;
 import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
-import me.alanfoster.camelus.blueprint.inspectors.DeprecatedAttribtueChecker;
+import me.alanfoster.camelus.blueprint.dom.inspectors.DeprecatedAttribtueChecker;
 
 import java.util.Arrays;
 import java.util.Collections;

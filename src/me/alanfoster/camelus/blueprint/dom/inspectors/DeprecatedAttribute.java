@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.inspectors;
+package me.alanfoster.camelus.blueprint.dom.inspectors;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

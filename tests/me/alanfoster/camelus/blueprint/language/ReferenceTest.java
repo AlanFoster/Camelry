@@ -4,7 +4,7 @@ import com.intellij.psi.PsiElement;
 import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
-import me.alanfoster.camelus.blueprint.dom.Property;
+import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 
 import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;

@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.DomElement;

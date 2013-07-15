@@ -1,7 +1,7 @@
 package me.alanfoster.camelus.blueprint.dom.inspection;
 
 import me.alanfoster.camelus.TestHelper;
-import me.alanfoster.camelus.blueprint.inspectors.DuplicatedBeanIdInspection;
+import me.alanfoster.camelus.blueprint.dom.inspectors.DuplicatedBeanIdInspection;
 
 import static javax.swing.SwingUtilities.invokeAndWait;
 

@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.inspectors;
+package me.alanfoster.camelus.blueprint.dom.inspectors;
 
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.LocalQuickFixBase;
@@ -9,7 +9,7 @@ import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementsInspection;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import org.jetbrains.annotations.NotNull;
 
 /**

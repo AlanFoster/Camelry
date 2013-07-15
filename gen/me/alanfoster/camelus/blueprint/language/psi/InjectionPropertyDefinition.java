@@ -3,7 +3,7 @@ package me.alanfoster.camelus.blueprint.language.psi;
 
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
-import me.alanfoster.camelus.blueprint.dom.Property;
+import me.alanfoster.camelus.blueprint.dom.model.Property;
 
 public interface InjectionPropertyDefinition extends BlueprintInjectionPropertyDefinition {
 

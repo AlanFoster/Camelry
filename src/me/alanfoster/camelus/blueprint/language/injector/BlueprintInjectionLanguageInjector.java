@@ -7,7 +7,7 @@ import com.intellij.psi.InjectedLanguagePlaces;
 import com.intellij.psi.LanguageInjector;
 import com.intellij.psi.PsiLanguageInjectionHost;
 import com.intellij.psi.xml.XmlAttributeValue;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.blueprint.language.BlueprintInjectionLanguage;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,7 @@ import static com.intellij.patterns.XmlPatterns.xmlAttributeValue;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see me.alanfoster.camelus.blueprint.dom.BlueprintBean
+ * @see me.alanfoster.camelus.blueprint.dom.model.BlueprintBean
  */
 public class BlueprintInjectionLanguageInjector implements LanguageInjector {
     private static final Logger logger = Logger.getInstance(BlueprintInjectionLanguageInjector.class);

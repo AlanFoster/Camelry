@@ -1,19 +1,17 @@
-package me.alanfoster.camelus.blueprint.inspectors;
+package me.alanfoster.camelus.blueprint.dom.inspectors;
 
 import com.intellij.lang.annotation.HighlightSeverity;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
-import com.intellij.psi.util.PsiUtil;
-import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementsInspection;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
 import me.alanfoster.camelus.CamelusBundle;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import org.jetbrains.annotations.NotNull;
 

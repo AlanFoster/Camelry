@@ -5,7 +5,7 @@ import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.converters.AbstractMethodParams;
 import com.intellij.util.xml.converters.AbstractMethodResolveConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

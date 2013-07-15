@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.openapi.util.Iconable;
 import com.intellij.util.xml.DomFileDescription;

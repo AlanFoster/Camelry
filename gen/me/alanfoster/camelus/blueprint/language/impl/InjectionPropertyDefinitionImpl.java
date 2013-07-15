@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import me.alanfoster.camelus.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl;
 import me.alanfoster.camelus.blueprint.language.psi.*;
-import me.alanfoster.camelus.blueprint.dom.Property;
+import me.alanfoster.camelus.blueprint.dom.model.Property;
 
 public class InjectionPropertyDefinitionImpl extends BlueprintInjectionPropertyDefinitionImpl implements InjectionPropertyDefinition {
 

@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.inspectors;
+package me.alanfoster.camelus.blueprint.dom.inspectors;
 
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
@@ -10,8 +10,8 @@ import com.intellij.util.xml.highlighting.DomCustomAnnotationChecker;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementProblemDescriptor;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
-import me.alanfoster.camelus.blueprint.converters.ThrowableBlueprintBeanConverter;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.converters.ThrowableBlueprintBeanConverter;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
 import me.alanfoster.camelus.camel.dom.ThrowException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

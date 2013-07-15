@@ -6,12 +6,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.refactoring.RefactoringActionHandler;
-import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomManager;
-import com.intellij.util.xml.DomUtil;
-import me.alanfoster.camelus.blueprint.dom.BlueprintFileDescription;
-import me.alanfoster.camelus.blueprint.model.BlueprintManager;
-import me.alanfoster.camelus.camel.dom.Route;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintFileDescription;
 import org.jetbrains.annotations.NotNull;
 
 /**

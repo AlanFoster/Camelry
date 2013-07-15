@@ -1,9 +1,12 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.dom.model;
 
+import com.intellij.ide.presentation.Presentation;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.Required;
+import com.intellij.xml.util.PsiElementPointer;
+import me.alanfoster.camelus.CamelusPresentationProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +18,8 @@ import org.jetbrains.annotations.Nullable;
  * It is therefore preferrable that Converters resolve to this interface directly
  * rather than to a concrete BlueprintBean or BlueprintReference etc.
  */
-public interface BlueprintBeanPointer {
+@Presentation(provider = CamelusPresentationProvider.Blueprint.class)
+public interface BlueprintBeanPointer extends PsiElementPointer {
 
     @Attribute("id")
     @NotNull

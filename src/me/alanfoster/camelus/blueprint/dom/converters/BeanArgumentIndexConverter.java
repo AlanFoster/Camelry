@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.converters;
+package me.alanfoster.camelus.blueprint.dom.converters;
 
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
 import com.intellij.psi.*;
@@ -6,7 +6,7 @@ import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.CustomReferenceConverter;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericDomValue;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBean;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see me.alanfoster.camelus.blueprint.dom.BlueprintBean
+ * @see me.alanfoster.camelus.blueprint.dom.model.BlueprintBean
  */
 public class BeanArgumentIndexConverter implements CustomReferenceConverter<Integer> {
     @NotNull

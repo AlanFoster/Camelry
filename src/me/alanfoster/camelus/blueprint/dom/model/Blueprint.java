@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.dom;
+package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.util.xml.*;
 import me.alanfoster.camelus.camel.dom.CamelContext;

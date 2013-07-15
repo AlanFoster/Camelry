@@ -7,7 +7,7 @@ import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.intellij.util.xml.DomManager;
 import com.intellij.util.xml.GenericAttributeValue;
-import me.alanfoster.camelus.blueprint.dom.Property;
+import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.InjectionTypes;
 import me.alanfoster.camelus.blueprint.language.contributors.InjectionPsiReference;
 import org.jetbrains.annotations.Nullable;

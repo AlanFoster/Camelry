@@ -4,9 +4,9 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.xml.XmlFile;
-import me.alanfoster.camelus.blueprint.dom.Blueprint;
-import me.alanfoster.camelus.blueprint.dom.BlueprintBeanPointer;
-import me.alanfoster.camelus.blueprint.dom.PropertyPlaceholder;
+import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
