@@ -32,6 +32,11 @@ public interface BlueprintBean extends DomElement, BlueprintBeanPointer {
     @Attribute("class")
     @NotNull
     @Required(nonEmpty = true, value = true)
+    /**
+     * We don't explicitly the class to be instantiable
+     * As this isn't valid logic if using BeanArgument elements to provide constructor injection
+     */
+    @ExtendClass(instantiatable = false)
     GenericAttributeValue<PsiClass> getClassAttribute();
 
     @SubTagList("property")
