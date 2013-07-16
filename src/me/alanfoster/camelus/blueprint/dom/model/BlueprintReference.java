@@ -1,10 +1,7 @@
 package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.psi.PsiClass;
-import com.intellij.util.xml.Attribute;
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.GenericAttributeValue;
-import com.intellij.util.xml.Required;
+import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,5 +11,6 @@ public interface BlueprintReference extends DomElement, BlueprintBeanPointer {
     @Attribute("interface")
     @NotNull
     @Required(nonEmpty = true, value = true)
+    @ExtendClass(allowInterface = true, instantiatable = false)
     GenericAttributeValue<PsiClass> getInterface();
 }
