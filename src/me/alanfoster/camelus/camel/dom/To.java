@@ -11,6 +11,6 @@ import me.alanfoster.camelus.camel.converters.ComponentDefinitionReferenceConver
 public interface To extends DomElement {
     @Attribute("uri")
     @Required
-    @Convert(ComponentDefinitionReferenceConverter.class)
+    @Convert(value = ComponentDefinitionReferenceConverter.class, soft = true)
     public GenericAttributeValue<PsiClass> getUri();
 }
