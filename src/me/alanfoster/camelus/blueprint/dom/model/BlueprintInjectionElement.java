@@ -1,8 +1,10 @@
 package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.util.xml.Attribute;
+import com.intellij.util.xml.Convert;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.GenericAttributeValue;
+import me.alanfoster.camelus.blueprint.dom.converters.BlueprintBeanPointerConverter;
 
 /**
  * Represents the root interface of an Element which can have injectable properties.
@@ -17,6 +19,7 @@ public interface BlueprintInjectionElement extends DomElement {
     GenericAttributeValue<String> getValue();
 
     @Attribute("ref")
+    @Convert(BlueprintBeanPointerConverter.class)
     GenericAttributeValue<String> getRef();
 }
 
