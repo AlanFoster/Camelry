@@ -24,6 +24,10 @@ public class Person {
     public Person() {
     }
 
+    public Person(String firstName) {
+        this.firstName = firstName;
+    }
+
     // Largest constructor with 5 parameters
     public Person(int id, String firstName, String lastName, String number, Integer age) {
         this.id = id;

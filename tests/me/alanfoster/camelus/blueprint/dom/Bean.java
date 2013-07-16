@@ -12,6 +12,7 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 /**
  * Tests for Blueprint Bean DomElements.
  */
+// TODO Tests to ensure that we resolve to the correct constructor type - Not implemented
 public class Bean extends CamelusTestSupport {
 
     @Override
@@ -28,7 +29,7 @@ public class Bean extends CamelusTestSupport {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("BeanArgumentIndexChoosesLargestConstructorSize.xml")
                 .withOpenedFile("BeanArgumentIndexChoosesLargestConstructorSize.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java"));
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BeanArgumentIndexChoosesLargestConstructorSize.xml");
         assertReflectionEquals(
@@ -36,7 +37,69 @@ public class Bean extends CamelusTestSupport {
                 completionVariants);
     }
 
-    // TODO Tests to ensure that we resolve to the correct constructor type
+
+    /**
+     * Tests to ensure that only methods with a public setter method are shown to the user under
+     * intellisense.
+     */
+    public void testPropertyNamesIntellisense() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("PropertyNamesIntellisense.xml")
+                .withOpenedFile("PropertyNamesIntellisense.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"));
+
+        List<String> completionVariants = myFixture.getCompletionVariants("PropertyNamesIntellisense.xml");
+        assertReflectionEquals(
+                Arrays.asList("age", "f", "firstName", "id", "lastName", "number"),
+                completionVariants);
+    }
+
+    /**
+     * Tests to ensure that only methods with a public setter method are shown to the user under
+     * intellisense.
+     */
+    public void testPropertyRefIntellisense() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("PropertyRefIntellisense.xml")
+                .withOpenedFile("PropertyRefIntellisense.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java"));
+
+        List<String> completionVariants = myFixture.getCompletionVariants("PropertyRefIntellisense.xml");
+        assertReflectionEquals(
+                Arrays.asList("customString", "person", "personService"),
+                completionVariants);
+    }
+
+    /**
+     * Tests to ensure that we can invoke property language intellisense
+     */
+    public void testPropertyLanguageVariants() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("PropertyLanguageVariants.xml")
+                .withOpenedFile("PropertyLanguageVariants.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"));
+
+        List<String> completionVariants = myFixture.getCompletionVariants("PropertyLanguageVariants.xml");
+        assertReflectionEquals(
+                Arrays.asList("myConfig.name"),
+                completionVariants);
+    }
+
+    /**
+     * Tests to ensure we can rename a property placeholder from the context of a property value attribute
+     */
+    // TODO See why we get the exception element not found in file PropertyLanguageRename.xml at caret position, offset 907
+    public void ignorePropertyLanguageRename() {
+        CreateCamelusProject(myFixture)
+                .withBlueprintFiles("PropertyLanguageRename.xml")
+                .withOpenedFile("PropertyLanguageRename.xml")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"));
+
+
+        myFixture.renameElementAtCaret("helloWorldddd");
+        myFixture.checkResultByFile("PropertyLanguageRename.xml", "PropertyLanguageRename.xml", false);
+    }
+
 
 }
 
