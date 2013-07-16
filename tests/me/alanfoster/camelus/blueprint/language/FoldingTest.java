@@ -4,7 +4,7 @@ import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 
 /**
  * Tests to ensure that the blueprint injection language propertly folds.

@@ -9,7 +9,7 @@ import static javax.swing.SwingUtilities.invokeAndWait;
  * Ensures the user is alerted when a blueprint bean id is duplicated within
  * the same bundle
  */
-public class DuplicatedBeanIdInspectionTest extends ModuleSupportTest {
+public class DuplicatedBeanIdInspectionTest extends ModuleSupportHelper {
 
     @Override
     public void setUp() throws Exception {

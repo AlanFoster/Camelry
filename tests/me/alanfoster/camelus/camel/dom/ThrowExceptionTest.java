@@ -6,7 +6,7 @@ import me.alanfoster.camelus.TestHelper;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -26,7 +26,7 @@ public class ThrowExceptionTest extends CamelusTestSupport {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("ExceptionBeanVariantsOnly.xml")
                 .withOpenedFile("ExceptionBeanVariantsOnly.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/CustomException.java", "../common/Person.java");
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java"));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
         assertReflectionEquals(

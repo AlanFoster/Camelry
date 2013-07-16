@@ -14,6 +14,7 @@ import java.io.File;
  * The base class used for testing.
  */
 public class CamelusTestSupport extends LightCodeInsightFixtureTestCase {
+
     /**
      * Specify the use of a mock JDK, which is a lightweight version of the Java SDK.
      * If we didn't supply this, then we wouldn't be able to get intellisense for classes
@@ -31,6 +32,15 @@ public class CamelusTestSupport extends LightCodeInsightFixtureTestCase {
     @Override
     protected LightProjectDescriptor getProjectDescriptor() {
         return DEFAULT_PROJECT_DESCRIPTOR;
+    }
+
+    /**
+     * @return a path which points directly to the common folder with the given relative path
+     */
+    public static String commonFile(String relativePath) {
+        File commonDirectory = new File(TestHelper.getTestRoot(), "/common");
+        String commonFilePath = new File(commonDirectory, relativePath).getPath();
+        return commonFilePath;
     }
 
 }

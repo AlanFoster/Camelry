@@ -7,7 +7,7 @@ import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 
 /**
  * Tests for ensuring references are correct as expected.

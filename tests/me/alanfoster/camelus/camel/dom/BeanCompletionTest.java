@@ -1,6 +1,5 @@
 package me.alanfoster.camelus.camel.dom;
 
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
 import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.LanguageFiles;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**

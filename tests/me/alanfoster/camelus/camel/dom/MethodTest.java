@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -45,7 +45,7 @@ public class MethodTest extends CamelusTestSupport {
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile)
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/Person.java");
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
@@ -60,7 +60,7 @@ public class MethodTest extends CamelusTestSupport {
     public void testBlueprintReferenceMethodCompletionExternalFile() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/Person.java", "../common/IPersonService.java")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java"))
                 .withBlueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
@@ -90,7 +90,7 @@ public class MethodTest extends CamelusTestSupport {
     public void testRenameRefValueWithBlueprintPointerReference() {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("RenameRefValueWithBlueprintPointerReference.xml")
-                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", "../common/IPersonService.java")
+                .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("IPersonService.java"))
                 .withOpenedFile("RenameRefValueWithBlueprintPointerReference.xml");
 
         myFixture.renameElementAtCaret("newPersonServiceName");

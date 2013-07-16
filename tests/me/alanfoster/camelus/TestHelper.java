@@ -1,7 +1,7 @@
 package me.alanfoster.camelus;
 
 import com.intellij.openapi.application.PathManager;
-import me.alanfoster.camelus.blueprint.language.InjectionParsingTest;
+import me.alanfoster.camelus.blueprint.language.IgnoredInjectionParsing;
 
 import java.io.File;
 
@@ -16,8 +16,9 @@ public class TestHelper {
     }
 
     public static File getSourceRoot() {
-        final String jarPathForClass = PathManager.getJarPathForClass(InjectionParsingTest.class);
+        final String jarPathForClass = PathManager.getJarPathForClass(IgnoredInjectionParsing.class);
         return new File(jarPathForClass, "../../../");
     }
+
 
 }

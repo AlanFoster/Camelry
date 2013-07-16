@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.blueprint.CamelusProjectDescriptorBuilder.*;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**

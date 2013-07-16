@@ -15,7 +15,6 @@ public class LanguageFiles {
 
     }
 
-
     public class Camel {
         public static final String BlueprintBeanCompletionWithinSameBlueprintFile = "BlueprintBeanRefCompletionWithinSameBlueprintFile.xml";
         public static final String BlueprintBeanMethodCompletionWithinSameBlueprintFile = "BlueprintBeanMethodCompletionWithinSameBlueprintFile.xml";
