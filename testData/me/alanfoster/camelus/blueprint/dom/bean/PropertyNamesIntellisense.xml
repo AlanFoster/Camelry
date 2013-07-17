@@ -12,7 +12,7 @@
     <bean id="customString" class="java.lang.String" />
 
     <bean id="person" class="me.alanfoster.camelus.blueprint.camel.dom.common.Person">
-        <property name="name" ref="<caret>" />
+        <property name="<caret>"
     </bean>
 
 </blueprint>
