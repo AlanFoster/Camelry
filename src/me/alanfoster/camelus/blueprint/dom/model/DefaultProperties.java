@@ -12,4 +12,6 @@ import java.util.List;
 public interface DefaultProperties extends DomElement {
     @SubTagList("property")
     List<Property> getProperties();
+
+    Property addProperty();
 }
