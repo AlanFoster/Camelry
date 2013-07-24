@@ -4,6 +4,7 @@ import com.intellij.ide.presentation.Presentation;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.Attribute;
 import com.intellij.util.xml.GenericAttributeValue;
+import com.intellij.util.xml.NameValue;
 import com.intellij.util.xml.Required;
 import com.intellij.xml.util.PsiElementPointer;
 import me.alanfoster.camelus.CamelusPresentationProvider;
@@ -23,6 +24,7 @@ public interface BlueprintBeanPointer extends PsiElementPointer {
 
     @Attribute("id")
     @NotNull
+    @NameValue(unique = false)
     @Required(nonEmpty = true, value = true)
     GenericAttributeValue<String> getName();
 

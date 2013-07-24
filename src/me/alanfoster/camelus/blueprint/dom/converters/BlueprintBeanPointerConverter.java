@@ -3,6 +3,7 @@ package me.alanfoster.camelus.blueprint.dom.converters;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.text.StringUtil;
+import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.xml.ConvertContext;
 import com.intellij.util.xml.GenericDomValue;
@@ -77,15 +78,10 @@ public class BlueprintBeanPointerConverter extends ResolvingConverter<BlueprintB
         return pointers;
     }
 
-    /**
-     * Delegate from {@link com.intellij.psi.PsiReference#handleElementRename(String)}
-     * @param genericValue generic value
-     * @param context context
-     * @param newElementName new element name
-     */
     @Override
     public void handleElementRename(final GenericDomValue<BlueprintBeanPointer> genericValue, final ConvertContext context,
                                     final String newElementName) {
         genericValue.setStringValue(newElementName);
     }
+
 }
