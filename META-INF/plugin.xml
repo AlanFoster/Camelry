@@ -121,6 +121,7 @@
 
         <!-- Blueprint Injection Language -->
 
+
         <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelus.blueprint.language.InjectionParserDefinition" />
 
         <annotator language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelus.blueprint.language.validators.ExistingPropertyReferenceAnnotator" />
@@ -137,10 +138,15 @@
         <lang.syntaxHighlighterFactory key="BlueprintInjectionLanguage"
                                        implementationClass="me.alanfoster.camelus.blueprint.language.highlight.InjectionHighlighterFactory"/>
 
+
         <lang.braceMatcher language="BlueprintInjectionLanguage"
                            implementationClass="me.alanfoster.camelus.blueprint.language.support.InjectionBraceMatcher" />
 
         <colorSettingsPage implementation="me.alanfoster.camelus.blueprint.language.highlight.InjectionColorSettingsPage" />
+
+        <lang.refactoringSupport language="BlueprintInjectionLanguage"
+                                 implementationClass="me.alanfoster.camelus.blueprint.dom.actions.BlueprintRefactoringSupport" />
+
 
         <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
         <applicationService
@@ -157,7 +163,7 @@
         <dom.fileDescription implementation="me.alanfoster.camelus.karaf.dom.KarafFeaturesFileDescription"/>
 
         <!-- Basic checker for Required, duplicate names etc -->
-        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+        <localInspection language="XML" enabledByDefault="true" level="WARNING"
                          groupName="Blueprint and Camel Support" displayName="Karaf Feature File Validation"
                          implementationClass="me.alanfoster.camelus.karaf.dom.KarafDomValidation"/>
 

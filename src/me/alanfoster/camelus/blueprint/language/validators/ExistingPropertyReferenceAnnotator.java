@@ -131,37 +131,16 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
                 return;
             }
 
-            BlueprintManager blueprintManager = BlueprintManager.getInstance();
-            PropertyPlaceholder placeholder = blueprintManager.getModulePropertyPlaceHolder(module);
-            if (placeholder == null) {
-                // TODO The DomApi doesn't respect namespaces
-                placeholder = getNewPropertyPlaceholder(project, file);
-            }
-
-            Property property = placeholder.getDefaultProperties().addProperty();
-            property.getName().setStringValue(propertyName);
-            property.getValue().setStringValue(propertyValue);
+            Property property = ExistingPropertyReferenceAnnotator.createNewProperty(file, propertyName, propertyValue);
 
             // Place the caret directly after the property ie "${foo}<caret>"
             editor.getCaretModel().moveToOffset(propertyEndOffset);
 
             // Force a reformat of the property placeholder element, to put the new element on a new line
             CodeStyleManager.getInstance(project)
-                    .adjustLineIndent(file, placeholder.getXmlTag().getTextRange());
+                    .adjustLineIndent(file, property.getParent().getXmlTag().getTextRange());
         }
 
-        /**
-         * Creates a new Propertyplaceholder element within the given file.
-         */
-        private PropertyPlaceholder getNewPropertyPlaceholder(Project project, PsiFile file) {
-            XmlFile xmlFile = XmlUtil.getContainingFile(file);
-            DomFileElement<Blueprint> domElement = DomManager.getDomManager(project).getFileElement(xmlFile, Blueprint.class);
-            assert domElement != null : "The annotator only applies to Blueprint XML files, the doElement should not be null";
-
-            // The Dom API will automatically create a DomElement on write to stop NPEs
-            PropertyPlaceholder placeholder = domElement.getRootElement().getPropertyPlaceHolder();
-            return placeholder;
-        }
 
         private String getPropertyValue(@NotNull Project project) {
             return Messages.showInputDialog(project,
@@ -170,5 +149,37 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
                     Messages.getQuestionIcon()
             );
         }
+    }
+
+
+    // TODO Add to blueprint manager directly once we find an easy way to use the DomApi to create namespace aware elements
+    public static Property createNewProperty(@NotNull PsiFile psiFile, @NotNull String propertyName, @NotNull String propertyValue) {
+        BlueprintManager blueprintManager = BlueprintManager.getInstance();
+        Module module = ModuleUtil.findModuleForPsiElement(psiFile);
+        PropertyPlaceholder placeholder = blueprintManager.getModulePropertyPlaceHolder(module);
+        if (placeholder == null) {
+            // TODO The DomApi doesn't respect namespaces
+            placeholder = createNewPropertyPlaceholder(psiFile.getProject(), psiFile);
+        }
+
+        Property property = placeholder.getDefaultProperties().addProperty();
+        property.getName().setStringValue(propertyName);
+        property.getValue().setStringValue(propertyValue);
+
+        return property;
+    }
+
+
+    /**
+     * Creates a new Propertyplaceholder element within the given file.
+     */
+    private static PropertyPlaceholder createNewPropertyPlaceholder(Project project, PsiFile file) {
+        XmlFile xmlFile = XmlUtil.getContainingFile(file);
+        DomFileElement<Blueprint> domElement = DomManager.getDomManager(project).getFileElement(xmlFile, Blueprint.class);
+        assert domElement != null : "The annotator only applies to Blueprint XML files, the doElement should not be null";
+
+        // The Dom API will automatically create a DomElement on write to stop NPEs
+        PropertyPlaceholder placeholder = domElement.getRootElement().getPropertyPlaceHolder();
+        return placeholder;
     }
 }
