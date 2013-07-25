@@ -2,6 +2,7 @@ package me.alanfoster.camelus.blueprint.dom.model;
 
 import com.intellij.openapi.util.Iconable;
 import com.intellij.util.xml.DomFileDescription;
+import me.alanfoster.camelus.blueprint.BlueprintConstants;
 import me.alanfoster.camelus.icons.PluginIcons;
 
 import javax.swing.*;
@@ -20,14 +21,13 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
     /**
      * The list of all possible namespaces that the root element node can be under.
      */
-    private static final String[] ROOT_ELEMENT_POSSIBLE_NAMESPACES = new String[] {
-        // TODO is there a preferred way to deal with different versions within plugins?
-        "http://www.osgi.org/xmlns/blueprint/v1.0.0",
-        "http://www.osgi.org/xmlns/blueprint/v1.1.0"
-    };
-
     public BlueprintFileDescription() {
-        super(Blueprint.class, Blueprint.ROOT_ELEMENT_NAME, ROOT_ELEMENT_POSSIBLE_NAMESPACES);
+        super(Blueprint.class, Blueprint.ROOT_ELEMENT_NAME, BlueprintConstants.BLUEPRINT_ROOT_POSSIBLE_NAMESPACES);
+    }
+
+    @Override
+    protected void initializeFileDescription() {
+        registerNamespacePolicy(BlueprintConstants.BLUEPRINT_CM, BlueprintConstants.BLUEPRINT_CM_NAMESPACES);
     }
 
     @Override

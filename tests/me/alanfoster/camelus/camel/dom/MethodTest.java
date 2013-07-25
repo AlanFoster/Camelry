@@ -94,6 +94,7 @@ public class MethodTest extends CamelusTestSupport {
                 .withOpenedFile("RenameRefValueWithBlueprintPointerReference.xml");
 
         myFixture.renameElementAtCaret("newPersonServiceName");
+        // TODO Investigate why the target dom element id isn't being renamed successfully specifically within tests
         myFixture.checkResultByFile("RenameRefValueWithBlueprintPointerReference.xml", "RenameRefValueWithBlueprintPointerReference_after.xml", false);
     }
 }
