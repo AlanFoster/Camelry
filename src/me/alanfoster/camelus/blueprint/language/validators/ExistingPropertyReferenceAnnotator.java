@@ -1,10 +1,6 @@
 package me.alanfoster.camelus.blueprint.language.validators;
 
 import com.intellij.codeInsight.intention.impl.BaseIntentionAction;
-import com.intellij.codeInsight.template.TemplateManager;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.ide.fileTemplates.actions.CreateFromTemplateAction;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.application.ApplicationManager;
@@ -20,7 +16,6 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.xml.DomFileDescription;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import com.intellij.xml.util.XmlUtil;
@@ -30,7 +25,6 @@ import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
 import me.alanfoster.camelus.blueprint.language.contributors.InjectionPsiReference;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
-import me.alanfoster.camelus.blueprint.support.BlueprintFileTemplateManager;
 import org.jetbrains.annotations.NotNull;
 
 import static me.alanfoster.camelus.CamelusBundle.message;
@@ -131,16 +125,11 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
                 return;
             }
 
-            Property property = ExistingPropertyReferenceAnnotator.createNewProperty(file, propertyName, propertyValue);
+            Property property = ExistingPropertyReferenceAnnotator.createNewProperty(module, file, propertyName, propertyValue);
 
             // Place the caret directly after the property ie "${foo}<caret>"
             editor.getCaretModel().moveToOffset(propertyEndOffset);
-
-            // Force a reformat of the property placeholder element, to put the new element on a new line
-            CodeStyleManager.getInstance(project)
-                    .adjustLineIndent(file, property.getParent().getXmlTag().getTextRange());
         }
-
 
         private String getPropertyValue(@NotNull Project project) {
             return Messages.showInputDialog(project,
@@ -151,11 +140,8 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
         }
     }
 
-
-    // TODO Add to blueprint manager directly once we find an easy way to use the DomApi to create namespace aware elements
-    public static Property createNewProperty(@NotNull PsiFile psiFile, @NotNull String propertyName, @NotNull String propertyValue) {
+    public static Property createNewProperty(@NotNull Module module, @NotNull PsiFile psiFile, @NotNull String propertyName, @NotNull String propertyValue) {
         BlueprintManager blueprintManager = BlueprintManager.getInstance();
-        Module module = ModuleUtil.findModuleForPsiElement(psiFile);
         PropertyPlaceholder placeholder = blueprintManager.getModulePropertyPlaceHolder(module);
         if (placeholder == null) {
             // TODO The DomApi doesn't respect namespaces
@@ -166,9 +152,12 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
         property.getName().setStringValue(propertyName);
         property.getValue().setStringValue(propertyValue);
 
+        // Force a reformat of the property placeholder element, to put the new element on a new line
+        CodeStyleManager.getInstance(module.getProject())
+                .reformat(placeholder.getXmlTag());
+
         return property;
     }
-
 
     /**
      * Creates a new Propertyplaceholder element within the given file.

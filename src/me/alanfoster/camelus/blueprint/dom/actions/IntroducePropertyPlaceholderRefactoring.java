@@ -16,11 +16,10 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.refactoring.RefactoringActionHandler;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
-import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
+import me.alanfoster.camelus.blueprint.language.InjectionTypes;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFile;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFileType;
 import me.alanfoster.camelus.blueprint.language.validators.ExistingPropertyReferenceAnnotator;
-import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import org.jetbrains.annotations.NotNull;
 
 import static me.alanfoster.camelus.CamelusBundle.message;
@@ -34,6 +33,10 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
         final SelectionModel selectionModel = editor.getSelectionModel();
+        final Module module = ModuleUtil.findModuleForPsiElement(psiFile);
+
+        assert module != null : "The module must not be null for invoking a refactoring - potentially we are using an in memory editor?";
+
         if (!selectionModel.hasSelection()) {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
@@ -49,7 +52,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
                 CommandProcessor.getInstance().executeCommand(project, new Runnable() {
                     @Override
                     public void run() {
-                        writeActionInvoke(project, editor, psiFile);
+                        writeActionInvoke(project, module, editor, psiFile);
                     }
                 }, message("camelus.blueprint.language.quickfix.missing.property.undo.message"), project);
             }
@@ -59,7 +62,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
     /**
      * This method should only be called when write action has been permitted.
      */
-    private void writeActionInvoke(final Project project, final Editor editor, final PsiFile psiFile) {
+    private void writeActionInvoke(final Project project, final Module module, final Editor editor, final PsiFile psiFile) {
         SelectionModel selectionModel = editor.getSelectionModel();
 
         PsiElement start = psiFile.findElementAt(selectionModel.getSelectionStart());
@@ -67,17 +70,17 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
 
         if (start == null || stop == null) return;
         if (start != stop) return;
-        // if(!(start instanceof TEXT)) return;
+        if(!(start.getNode().getElementType() == InjectionTypes.TEXT)) return;
 
         Trinity<String, String, String> splitTrinity = getSplitTrinity(selectionModel, start.getTextOffset(), start.getText());
 
         String propertyName = "MyNewVar";
-        createNewProperty(psiFile, propertyName, splitTrinity.getSecond());
+        createNewProperty(module, psiFile, propertyName, splitTrinity.getSecond());
         updateExistingText(project, psiFile, start, splitTrinity.getFirst(), propertyName, splitTrinity.getThird());
     }
 
-    private Property createNewProperty(PsiFile psiFile, String propertyName, String propertyValue) {
-        return ExistingPropertyReferenceAnnotator.createNewProperty(psiFile, propertyName, propertyValue);
+    private Property createNewProperty(Module module, PsiFile psiFile, String propertyName, String propertyValue) {
+        return ExistingPropertyReferenceAnnotator.createNewProperty(module, psiFile, propertyName, propertyValue);
     }
 
     /**
@@ -97,7 +100,6 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
         PsiElement replacementElements = getReplacementPsiElement(project, psiFile, newValue);
         oldElement.replace(replacementElements);
     }
-
 
     /**
      * Get a split trinity of the selected text.
