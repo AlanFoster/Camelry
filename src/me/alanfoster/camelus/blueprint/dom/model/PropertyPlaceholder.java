@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 @Namespace(value = BlueprintConstants.BLUEPRINT_CM)
 public interface PropertyPlaceholder extends DomElement {
     @NotNull
-    @Required(identifier = true)
+    @Required
     GenericAttributeValue<String> getPersistentId();
 
     @NotNull

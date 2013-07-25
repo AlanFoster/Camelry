@@ -3,6 +3,7 @@ package me.alanfoster.camelus.blueprint.model;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
+import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlFile;
 import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
@@ -72,5 +73,13 @@ public abstract class BlueprintManager {
      */
     @NotNull
     public abstract List<? extends BlueprintBeanPointer> getAllModuleBlueprintBeanPointers(@NotNull Module module);
+
+    /**
+     * Tests whether the given psiFile is a blueprint file.
+     *
+     * @param psiFile The psi file to test
+     * @return True if the given PsiFile is a blueprint file, false otherwise,
+     */
+    public abstract boolean isBlueprintFile(@Nullable PsiFile psiFile);
 }
 

@@ -17,6 +17,7 @@ import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomManager;
 import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import me.alanfoster.camelus.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelus.blueprint.dom.model.BlueprintFileDescription;
 import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +36,9 @@ public class BlueprintManagerImpl extends BlueprintManager {
     public BlueprintManagerImpl() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public Set<XmlFile> getAllProjectBlueprintConfigFiles(@NotNull Project project) {
@@ -42,6 +46,9 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return blueprintConfigFiles;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public Set<Blueprint> getAllProjectBlueprintRoots(@NotNull Project project) {
@@ -50,6 +57,9 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return blueprintRoots;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public Set<XmlFile> getModuleBlueprintConfigFiles(@NotNull Module module) {
@@ -58,6 +68,9 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return blueprintConfigFiles;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public Set<Blueprint> getModuleBlueprintRoots(@NotNull Module module) {
@@ -66,6 +79,9 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return blueprintRoots;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     private Set<XmlFile> getBlueprintConfigFiles(@NotNull Project project, @NotNull GlobalSearchScope scope) {
         Set<XmlFile> files = new HashSet<XmlFile>();
@@ -103,12 +119,18 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return files;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     @Override
     public List<IBlueprintDomModel> getAllBlueprintModels(@NotNull Module module) {
         return getBlueprintModelFactory(module.getProject()).computeAllModels(module);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Nullable
     @Override
     public IBlueprintDomModel getMergedBlueprintModel(@NotNull Module module) {
@@ -153,6 +175,21 @@ public class BlueprintManagerImpl extends BlueprintManager {
         return blueprintBeanPointers;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isBlueprintFile(@Nullable PsiFile psiFile) {
+        if(psiFile == null) return false;
+
+        Project project = psiFile.getProject();
+        return psiFile instanceof XmlFile
+                && DomManager.getDomManager(project).getDomFileDescription((XmlFile) psiFile) instanceof BlueprintFileDescription;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     @NotNull
     public BlueprintModelFactory getBlueprintModelFactory(@NotNull Project project) {
         if (_blueprintModelFactory == null) {

@@ -3,6 +3,7 @@ package me.alanfoster.camelus.blueprint.dom.actions;
 import com.intellij.lang.refactoring.RefactoringSupportProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.refactoring.RefactoringActionHandler;
+import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,10 +13,10 @@ import org.jetbrains.annotations.Nullable;
  * property placeholder value.
  */
 public class BlueprintRefactoringSupport extends RefactoringSupportProvider {
-    // TODO Decide when this should be available
     @Override
     public boolean isAvailable(@NotNull PsiElement context) {
-        return true;
+        return BlueprintManager.getInstance().isBlueprintFile(context.getContainingFile())
+                && super.isAvailable(context);
     }
 
     @Nullable

@@ -8,6 +8,7 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.refactoring.RefactoringActionHandler;
 import com.intellij.util.xml.DomManager;
 import me.alanfoster.camelus.blueprint.dom.model.BlueprintFileDescription;
+import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -27,13 +28,9 @@ public class RouteRefactoringSupportProvider extends RefactoringSupportProvider 
      * @return True if the psiElement is within a Blueprint PsiFile
      *         Otherwise false.
      */
-    // TODO Add extract this logic and add it to invoke to provide more meaningful error/usage messages
     @Override
     public boolean isAvailable(@NotNull PsiElement context) {
-        PsiFile containingFile = context.getContainingFile();
-        Project project = context.getProject();
-        return containingFile instanceof XmlFile
-                && DomManager.getDomManager(project).getDomFileDescription((XmlFile) containingFile) instanceof BlueprintFileDescription
+        return BlueprintManager.getInstance().isBlueprintFile(context.getContainingFile())
                 && super.isAvailable(context);
     }
 

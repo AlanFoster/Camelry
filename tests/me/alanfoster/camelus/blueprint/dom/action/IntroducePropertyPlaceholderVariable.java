@@ -28,7 +28,22 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
     }
 
     // TODO
+    public void ignoreNoSelectionErrorMessage() {
+        performTest();
+    }
+
+    // TODO
+    public void ignoreNonTextRefactoringErrorMessage() {
+        performTest();
+    }
+
+    // TODO
     public void ignoreValueContainsSucceedingPropertyTextWithNoexistingPropertyPlaceholder() {
+        performTest();
+    }
+
+    // TODO
+    public void ignoreUserCancelsRefactoring() {
         performTest();
     }
 

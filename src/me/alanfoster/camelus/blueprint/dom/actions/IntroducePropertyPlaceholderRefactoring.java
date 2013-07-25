@@ -21,6 +21,7 @@ import me.alanfoster.camelus.blueprint.language.file.InjectionFile;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFileType;
 import me.alanfoster.camelus.blueprint.language.validators.ExistingPropertyReferenceAnnotator;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static me.alanfoster.camelus.CamelusBundle.message;
 
@@ -32,19 +33,14 @@ import static me.alanfoster.camelus.CamelusBundle.message;
 public class IntroducePropertyPlaceholderRefactoring implements RefactoringActionHandler {
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
-        final SelectionModel selectionModel = editor.getSelectionModel();
         final Module module = ModuleUtil.findModuleForPsiElement(psiFile);
-
         assert module != null : "The module must not be null for invoking a refactoring - potentially we are using an in memory editor?";
 
-        if (!selectionModel.hasSelection()) {
-            CommonRefactoringUtil
-                    .showErrorHint(project, editor,
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.message"),
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.title"),
-                            null);
-            return;
-        }
+        boolean isValid = performValidation(project, editor, psiFile);
+        if (!isValid) return;
+
+        final String propertyName = getPropertyName();
+        if (propertyName == null) return;
 
         ApplicationManager.getApplication().runWriteAction(new Runnable() {
             @Override
@@ -52,31 +48,71 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
                 CommandProcessor.getInstance().executeCommand(project, new Runnable() {
                     @Override
                     public void run() {
-                        writeActionInvoke(project, module, editor, psiFile);
+                        writeActionInvoke(project, module, editor, psiFile, propertyName);
                     }
                 }, message("camelus.blueprint.language.quickfix.missing.property.undo.message"), project);
             }
         });
     }
 
-    /**
-     * This method should only be called when write action has been permitted.
-     */
-    private void writeActionInvoke(final Project project, final Module module, final Editor editor, final PsiFile psiFile) {
-        SelectionModel selectionModel = editor.getSelectionModel();
 
+    private boolean performValidation(final @NotNull Project project, final Editor editor, final PsiFile psiFile) {
+        final SelectionModel selectionModel = editor.getSelectionModel();
+
+        if (!selectionModel.hasSelection()) {
+            CommonRefactoringUtil
+                    .showErrorHint(project, editor,
+                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.message"),
+                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.title"),
+                            null);
+            return false;
+        }
+
+        if (!isTextOnlySelection(psiFile, selectionModel)) {
+            CommonRefactoringUtil
+                    .showErrorHint(project, editor,
+                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.text.only.message"),
+                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.text.only.title"),
+                            null);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @param psiFile
+     * @param selectionModel
+     * @return True if the selection contains a single InjectionTypes.TEXT instance, false otherwise.
+     */
+    private boolean isTextOnlySelection(@NotNull PsiFile psiFile, @NotNull SelectionModel selectionModel) {
         PsiElement start = psiFile.findElementAt(selectionModel.getSelectionStart());
         PsiElement stop = psiFile.findElementAt(selectionModel.getSelectionEnd() - 1);
 
-        if (start == null || stop == null) return;
-        if (start != stop) return;
-        if(!(start.getNode().getElementType() == InjectionTypes.TEXT)) return;
+        if (start == null || stop == null) return false;
+        if (start != stop) return false;
+        if (!(start.getNode().getElementType() == InjectionTypes.TEXT)) return false;
 
-        Trinity<String, String, String> splitTrinity = getSplitTrinity(selectionModel, start.getTextOffset(), start.getText());
+        return true;
+    }
 
-        String propertyName = "MyNewVar";
+    /**
+     * This method should only be called when write action has been permitted.
+     */
+    private void writeActionInvoke(final Project project, final Module module, final Editor editor,
+                                   final PsiFile psiFile, @NotNull String propertyName) {
+        SelectionModel selectionModel = editor.getSelectionModel();
+        PsiElement textElement = psiFile.findElementAt(selectionModel.getSelectionStart());
+
+        Trinity<String, String, String> splitTrinity = getSplitTrinity(selectionModel, textElement.getTextOffset(), textElement.getText());
+
         createNewProperty(module, psiFile, propertyName, splitTrinity.getSecond());
-        updateExistingText(project, psiFile, start, splitTrinity.getFirst(), propertyName, splitTrinity.getThird());
+        updateExistingText(project, psiFile, textElement, splitTrinity.getFirst(), propertyName, splitTrinity.getThird());
+    }
+
+    @Nullable
+    private String getPropertyName() {
+        return "MyNewVar";
     }
 
     private Property createNewProperty(Module module, PsiFile psiFile, String propertyName, String propertyValue) {
@@ -88,7 +124,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
      */
     private void updateExistingText(Project project, PsiFile psiFile,
                                     PsiElement oldElement,
-                                    String precedingText,  String propertyName, String succeedingText) {
+                                    String precedingText, String propertyName, String succeedingText) {
         // Create the new value to replace the old element; IE "... ${newPropertyName} ..."
         String newValue =
                 new StringBuilder()
