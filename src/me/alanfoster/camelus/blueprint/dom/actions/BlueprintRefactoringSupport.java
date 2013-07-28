@@ -15,8 +15,7 @@ import org.jetbrains.annotations.Nullable;
 public class BlueprintRefactoringSupport extends RefactoringSupportProvider {
     @Override
     public boolean isAvailable(@NotNull PsiElement context) {
-        return BlueprintManager.getInstance().isBlueprintFile(context.getContainingFile())
-                && super.isAvailable(context);
+        return true;
     }
 
     @Nullable

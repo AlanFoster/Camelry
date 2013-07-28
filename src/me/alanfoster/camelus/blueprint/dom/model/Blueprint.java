@@ -27,7 +27,7 @@ public interface Blueprint extends DomElement {
     List<Service> getServices();
 
     // Represents the osgi <cm:property-placeholder /> element
-    @SubTag("property-placeholder")
+    @SubTag(PropertyPlaceholder.TAG_NAME)
     PropertyPlaceholder getPropertyPlaceHolder();
 
     CamelContext getCamelContext();

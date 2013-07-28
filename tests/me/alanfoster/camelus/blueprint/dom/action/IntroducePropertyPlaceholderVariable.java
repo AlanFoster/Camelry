@@ -58,13 +58,18 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
                         commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java"));
 
         // TODO Language injection doesn't seem to happen automatically in tests
-        Editor editor = myFixture.getEditor();
+/*        Editor editor = myFixture.getEditor();
         PsiFile injectedFile = InjectedLanguageUtil.findInjectedPsiNoCommit(myFixture.getFile(), editor.getSelectionModel().getSelectionStart());
         Editor injectedEditor = InjectedLanguageUtil.getInjectedEditorForInjectedFile(editor, injectedFile);
 
         new BlueprintRefactoringSupport()
                 .getIntroduceVariableHandler()
-                .invoke(myFixture.getProject(), injectedEditor, injectedFile, null);
+                .invoke(myFixture.getProject(), injectedEditor, injectedFile, null);*/
+/*        InjectedLanguageUtil.forceInjectionOnElement(myFixture.getFile().findElementAt(myFixture.getEditor().getSelectionModel().getSelectionStart()));
+
+        new BlueprintRefactoringSupport()
+                .getIntroduceVariableHandler()
+                .invoke(myFixture.getProject(), myFixture.getEditor(), myFixture.getFile(), null);*/
 
         myFixture.checkResultByFile(resourceName + "_after.xml");
     }

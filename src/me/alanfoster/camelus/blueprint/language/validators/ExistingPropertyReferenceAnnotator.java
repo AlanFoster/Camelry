@@ -16,8 +16,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.xml.DomFileElement;
-import com.intellij.util.xml.DomManager;
+import com.intellij.util.xml.*;
 import com.intellij.xml.util.XmlUtil;
 import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
@@ -25,6 +24,7 @@ import me.alanfoster.camelus.blueprint.dom.model.PropertyPlaceholder;
 import me.alanfoster.camelus.blueprint.language.contributors.InjectionPsiReference;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
+import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
 import static me.alanfoster.camelus.CamelusBundle.message;
@@ -94,9 +94,9 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
 
         @Override
         public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
-            // Ask the user for the property value. Null implies the user closed the window.
+            // Ask the user for the property value. Null/Empty implies the user closed the window.
             final String propertyValue = getPropertyValue(project);
-            if (propertyValue == null) return;
+            if (StringUtils.isEmpty(propertyValue)) return;
 
             // Boilerplate setup for write action
             ApplicationManager.getApplication().runWriteAction(new Runnable() {
@@ -144,8 +144,7 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
         BlueprintManager blueprintManager = BlueprintManager.getInstance();
         PropertyPlaceholder placeholder = blueprintManager.getModulePropertyPlaceHolder(module);
         if (placeholder == null) {
-            // TODO The DomApi doesn't respect namespaces
-            placeholder = createNewPropertyPlaceholder(psiFile.getProject(), psiFile);
+            placeholder = createNewPropertyPlaceholder(psiFile.getProject(), module, psiFile);
         }
 
         Property property = placeholder.getDefaultProperties().addProperty();
@@ -160,15 +159,19 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
     }
 
     /**
-     * Creates a new Propertyplaceholder element within the given file.
+     * Creates a new Propertyplaceholder element within the given file as the very first element.
      */
-    private static PropertyPlaceholder createNewPropertyPlaceholder(Project project, PsiFile file) {
+    private static PropertyPlaceholder createNewPropertyPlaceholder(Project project, Module module, PsiFile file) {
         XmlFile xmlFile = XmlUtil.getContainingFile(file);
-        DomFileElement<Blueprint> domElement = DomManager.getDomManager(project).getFileElement(xmlFile, Blueprint.class);
-        assert domElement != null : "The annotator only applies to Blueprint XML files, the doElement should not be null";
+        DomManager domManager = DomManager.getDomManager(project);
+        DomFileDescription<?> domFileDescription = domManager.getDomFileDescription(xmlFile);
+        DomFileElement<Blueprint> blueprint = domManager.getFileElement(xmlFile, Blueprint.class);
+        assert blueprint != null : "The annotator only applies to Blueprint XML files, the doElement should not be null";
 
-        // The Dom API will automatically create a DomElement on write to stop NPEs
-        PropertyPlaceholder placeholder = domElement.getRootElement().getPropertyPlaceHolder();
-        return placeholder;
+        String persistentId = module.getName();
+        PropertyPlaceholder propertyPlaceholder = blueprint.getRootElement().getPropertyPlaceHolder();
+        propertyPlaceholder.getPersistentId().setStringValue(persistentId);
+
+        return propertyPlaceholder;
     }
 }

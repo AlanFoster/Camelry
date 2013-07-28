@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 @Stubbed
 @Namespace(value = BlueprintConstants.BLUEPRINT_CM)
 public interface PropertyPlaceholder extends DomElement {
+    String TAG_NAME = "property-placeholder";
+
     @NotNull
     @Required
     GenericAttributeValue<String> getPersistentId();
