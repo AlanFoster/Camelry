@@ -91,10 +91,10 @@ public class MethodTest extends CamelusTestSupport {
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles("RenameRefValueWithBlueprintPointerReference.xml")
                 .withJavaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("IPersonService.java"))
-                .withOpenedFile("RenameRefValueWithBlueprintPointerReference.xml");
+                .withOpenedFileFromTempProject("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml");
 
         myFixture.renameElementAtCaret("newPersonServiceName");
         // TODO Investigate why the target dom element id isn't being renamed successfully specifically within tests
-        myFixture.checkResultByFile("RenameRefValueWithBlueprintPointerReference.xml", "RenameRefValueWithBlueprintPointerReference_after.xml", false);
+        myFixture.checkResultByFile("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml", "RenameRefValueWithBlueprintPointerReference_after.xml", false);
     }
 }

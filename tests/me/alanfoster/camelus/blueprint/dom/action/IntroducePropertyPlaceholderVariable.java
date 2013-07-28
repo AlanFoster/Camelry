@@ -1,6 +1,8 @@
 package me.alanfoster.camelus.blueprint.dom.action;
 
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.TestInputDialog;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
 import me.alanfoster.camelus.CamelusTestSupport;
@@ -20,11 +22,11 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
     }
 
     public void testValueContainsOnlyText() {
-        performTest();
+        performTest("connectionFactory.url");
     }
 
     public void testValueContainsPrecedingPropertyText() {
-        performTest();
+        performTest("connectionFactory.username");
     }
 
     // TODO
@@ -47,29 +49,35 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
         performTest();
     }
 
+
     private void performTest() {
+        performTest("MyNewVar");
+    }
+
+    private void performTest(final String newPropertyName) {
         String resourceName = getTestName(false);
 
         CreateCamelusProject(myFixture)
                 .withBlueprintFiles(resourceName + ".xml")
-                .withOpenedFile(resourceName + ".xml")
+                .withOpenedFileFromTempProject("OSGI-INF/blueprint/" + resourceName + ".xml")
                 .withJavaFiles(
                         "me.alanfoster.camelus.blueprint.camel.dom.common",
                         commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java"));
 
-        // TODO Language injection doesn't seem to happen automatically in tests
-/*        Editor editor = myFixture.getEditor();
-        PsiFile injectedFile = InjectedLanguageUtil.findInjectedPsiNoCommit(myFixture.getFile(), editor.getSelectionModel().getSelectionStart());
-        Editor injectedEditor = InjectedLanguageUtil.getInjectedEditorForInjectedFile(editor, injectedFile);
+        // Override the input dialogue to input the requried name
+        Messages.setTestInputDialog(new TestInputDialog() {
+            @Override
+            public String show(String message) {
+                return newPropertyName;
+            }
+        });
+
+        final PsiFile injectedFile = InjectedLanguageUtil.findInjectedPsiNoCommit(myFixture.getFile(), myFixture.getEditor().getSelectionModel().getSelectionStart());
+        final Editor injectedEditor = InjectedLanguageUtil.getInjectedEditorForInjectedFile(myFixture.getEditor(), injectedFile);
 
         new BlueprintRefactoringSupport()
                 .getIntroduceVariableHandler()
-                .invoke(myFixture.getProject(), injectedEditor, injectedFile, null);*/
-/*        InjectedLanguageUtil.forceInjectionOnElement(myFixture.getFile().findElementAt(myFixture.getEditor().getSelectionModel().getSelectionStart()));
-
-        new BlueprintRefactoringSupport()
-                .getIntroduceVariableHandler()
-                .invoke(myFixture.getProject(), myFixture.getEditor(), myFixture.getFile(), null);*/
+                .invoke(myFixture.getProject(), injectedEditor, injectedFile, null);
 
         myFixture.checkResultByFile(resourceName + "_after.xml");
     }
