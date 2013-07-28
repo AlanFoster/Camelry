@@ -10,6 +10,8 @@ import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.actions.BlueprintRefactoringSupport;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.java;
 
 /**
  * Tests for ensuring the user can extract a hardcoded string into a property placeholder value.
@@ -58,11 +60,11 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
         String resourceName = getTestName(false);
 
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(resourceName + ".xml")
-                .withOpenedFileFromTempProject("OSGI-INF/blueprint/" + resourceName + ".xml")
-                .withJavaFiles(
+                .withFiles(blueprint(resourceName + ".xml"))
+                .withOpenedFileFromTempProject(blueprint(resourceName + ".xml"))
+                .withFiles(java(
                         "me.alanfoster.camelus.blueprint.camel.dom.common",
-                        commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java"));
+                        commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java")));
 
         // Override the input dialogue to input the requried name
         Messages.setTestInputDialog(new TestInputDialog() {
@@ -81,4 +83,6 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
 
         myFixture.checkResultByFile(resourceName + "_after.xml");
     }
+
+
 }

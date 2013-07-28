@@ -5,6 +5,7 @@ import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
 
 /**
  * Tests to ensure that the blueprint injection language propertly folds.
@@ -19,8 +20,8 @@ public class FoldingTest extends CamelusTestSupport {
 
     public void testFolding() {
         CreateCamelusProject(myFixture)
-                .withBlueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES)
-                .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
+                .withFiles(blueprint(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES))
+                        .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
         myFixture.testFolding(getTestDataPath() + "/" + LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_BLUEPRINT_INJECTION);
     }
