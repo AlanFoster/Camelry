@@ -22,9 +22,12 @@ import com.intellij.psi.xml.XmlAttribute;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.refactoring.RefactoringActionHandler;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
+import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomManager;
+import com.intellij.util.xml.DomUtil;
 import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.xml.util.XmlUtil;
+import me.alanfoster.camelus.blueprint.dom.model.BeanProperty;
 import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.InjectionTypes;
@@ -47,6 +50,13 @@ import static me.alanfoster.camelus.CamelusBundle.message;
  */
 public class IntroducePropertyPlaceholderRefactoring implements RefactoringActionHandler {
 
+    /**
+     *
+     * @param project
+     * @param editor The editor for the blueprint injection file
+     * @param psiFile The BlueprintInjection psi file
+     * @param dataContext
+     */
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
         final Module module = ModuleUtil.findModuleForPsiElement(psiFile);
@@ -66,7 +76,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
                 CommandProcessor.getInstance().executeCommand(project, new Runnable() {
                     @Override
                     public void run() {
-                        writeActionInvoke(project, module, editor, psiFile, dataContext, propertyName);
+                        writeActionInvoke(project, module, editor, psiFile, propertyName);
                     }
                 }, message("camelus.blueprint.language.quickfix.missing.property.undo.message"), project);
             }
@@ -76,28 +86,42 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
 
     /**
      * Attempts to find an appropriate default suggested property name.
-     * @param editor
-     * @param psiFile
+     * @param editor The editor for the blueprint injection file
+     * @param psiFile The BlueprintInjection psi file
      * @return A property/argument bean name value;
      *         Otherwise the default property name from the default resource bundle
      */
-    public String getSuggestedPropertyName(Editor editor, PsiFile psiFile) {
-/*        Editor[] allEditors = EditorFactory.getInstance().getAllEditors();
-        XmlFile xmlFile = XmlUtil.getContainingFile(psiFile);
-        XmlAttribute injectedXmlAttribute = PsiTreeUtil.getParentOfType(xmlFile.findElementAt(editor.getSelectionModel().getSelectionStart()), XmlAttribute.class);
-
-*//*        GenericAttributeValue domElement = DomManager.getDomManager(psiFile.getProject()).getDomElement(injectedXmlAttribute);
-
-        String propertyName;
-        InjectedLanguageUtil.findElementAtNoCommit(psiFile, editor.getSelectionModel().getSelectionStart());*//*
-
-      //  PsiTreeUtil.findFirstParent(selectedElement, XmlPatterns.xmlAttribute());
-
+    @NotNull
+    protected String getSuggestedPropertyName(Editor editor, PsiFile psiFile) {
         String defaultPropertyName = message("camelus.blueprint.language.refactoring.introduce.variable.get.property.name.default");
-        propertyName = defaultPropertyName;
-        return propertyName;*/
-        return message("camelus.blueprint.language.refactoring.introduce.variable.get.property.name.default");
+
+        // Extract the Xml file + xml file editor
+        XmlFile xmlFile = XmlUtil.getContainingFile(psiFile);
+        Editor topLevelEditor = InjectedLanguageUtil.getTopLevelEditor(editor);
+
+        // TODO We could also grab the transitive argument value name too, as a possible suggestion
+        String propertyName = getPropertyName(xmlFile, topLevelEditor);
+        return propertyName == null ? defaultPropertyName : propertyName;
     }
+
+    /**
+     * Attempt to extract the parent Property name value from the injection location
+     * @param xmlFile The xml file
+     * @param editor The editor
+     * @return The property name of the given injected XmlAttribute parent
+     */
+    @Nullable
+    private String getPropertyName(@NotNull XmlFile xmlFile, @NotNull Editor editor) {
+        int selectionStart = editor.getSelectionModel().getSelectionStart();
+        XmlAttribute injectedXmlAttribute = PsiTreeUtil.getParentOfType(xmlFile.findElementAt(selectionStart), XmlAttribute.class);
+        DomElement domElement = DomUtil.getDomElement(injectedXmlAttribute);
+        BeanProperty property = DomUtil.getParentOfType(domElement, BeanProperty.class, true);
+
+        if(property == null) return null;
+
+        return property.getName().getStringValue();
+    }
+
 
     private boolean performValidation(final @NotNull Project project, final Editor editor, final PsiFile psiFile) {
         final SelectionModel selectionModel = editor.getSelectionModel();
@@ -143,7 +167,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
      * This method should only be called when write action has been permitted.
      */
     private void writeActionInvoke(final Project project, final Module module, final Editor editor,
-                                   final PsiFile psiFile, DataContext dataContext, @NotNull String propertyName) {
+                                   final PsiFile psiFile, @NotNull String propertyName) {
         SelectionModel selectionModel = editor.getSelectionModel();
         PsiElement textElement = psiFile.findElementAt(selectionModel.getSelectionStart());
         assert textElement != null : "The blueprint injection textElement instance should not be null";
