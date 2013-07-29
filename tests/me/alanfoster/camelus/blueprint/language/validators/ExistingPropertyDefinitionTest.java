@@ -50,28 +50,38 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
         myFixture.checkHighlighting(false, false, true);
     }
 
+    public void testQuickfixUserCancels() {
+        performQuickfix("username", null);
+    }
+
+    public void testQuickfixMissingPropertyWithNoPreviousPlaceholder() {
+        performQuickfix("timeout", "10");
+    }
 
     public void testQuickfixMissingProperty() {
+        performQuickfix("username", "alan");
+    }
+
+    private void performQuickfix(final String propertyToFix, final String newPropertyValue) {
         CreateCamelusProject(myFixture)
-                .with(blueprintFiles("QuickfixMissingProperty.xml"))
-                .withOpenedFileFromTempProject(blueprintFiles("QuickfixMissingProperty.xml"))
+                .with(blueprintFiles(getTestName(false) + ".xml"))
+                .withOpenedFileFromTempProject(blueprintFiles(getTestName(false) + ".xml"))
                 .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<IntentionAction> allQuickFixes = getAllQuickFixes();
 
-        final String quickFixPropertyName = "username";
         IntentionAction intentionAction = ContainerUtil.find(allQuickFixes, new Condition<IntentionAction>() {
             @Override
             public boolean value(IntentionAction intentionAction) {
                 return "Create Blueprint Property".equals(intentionAction.getText())
-                        && quickFixPropertyName.equals(((ExistingPropertyReferenceAnnotator.CreatePropertyQuickFix) intentionAction).getPropertyName());
+                        && propertyToFix.equals(((ExistingPropertyReferenceAnnotator.CreatePropertyQuickFix) intentionAction).getPropertyName());
             }
         });
 
         Messages.setTestInputDialog(new TestInputDialog() {
             @Override
             public String show(String message) {
-                return "alan";
+                return newPropertyValue;
             }
         });
 
@@ -81,7 +91,7 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
         assertNotNull(intentionAction);
         intentionAction.invoke(myFixture.getProject(), injectedEditor, injectedFile);
 
-        myFixture.checkResultByFile("QuickfixMissingProperty_after.xml");
+        myFixture.checkResultByFile(getTestName(false) + "_after.xml");
     }
 
     // TODO Added a custom getAllQuickFixes to stop NPE in intellij - Is this a bug within the intellij code, or are the quick fixes not registered properly?
