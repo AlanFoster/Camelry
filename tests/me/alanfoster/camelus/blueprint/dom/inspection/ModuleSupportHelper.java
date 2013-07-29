@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 
 import java.io.File;
 
-public class ModuleSupportHelper extends TestCase {
+public abstract class ModuleSupportHelper extends TestCase {
     // Project test fixture which points to the root src content folder
     protected JavaCodeInsightTestFixture myFixture;
 
