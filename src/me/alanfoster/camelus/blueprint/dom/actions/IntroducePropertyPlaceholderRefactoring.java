@@ -172,12 +172,13 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
         PsiElement textElement = psiFile.findElementAt(selectionModel.getSelectionStart());
         assert textElement != null : "The blueprint injection textElement instance should not be null";
 
+        int textElementOffset = textElement.getTextOffset();
         Trinity<String, String, String> splitTrinity = getSplitTrinity(selectionModel, textElement.getTextOffset(), textElement.getText());
 
         createNewProperty(module, psiFile, propertyName, splitTrinity.getSecond());
         PsiElement newInjectionElements = updateExistingText(project, psiFile, textElement, splitTrinity.getFirst(), propertyName, splitTrinity.getThird());
 
-        updateCaret(editor, newInjectionElements);
+        updateCaret(editor, newInjectionElements, textElement.getStartOffsetInParent());
     }
 
       /*
@@ -205,11 +206,11 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
      * @param editor
      * @param newInjectionElements The newly created elements which will contain the injection property
      */
-    private void updateCaret(Editor editor, PsiElement newInjectionElements) {
+    private void updateCaret(Editor editor, PsiElement newInjectionElements, int previousOffset) {
         InjectionPropertyDefinition newInjectionProperty = PsiTreeUtil.findChildOfType(newInjectionElements, InjectionPropertyDefinition.class);
         assert newInjectionProperty != null : "An InjectionPropertyDefinition should have existed within the newInjectionElements '" + newInjectionElements + "'";
         editor.getSelectionModel().removeSelection();
-        editor.getCaretModel().moveToOffset(newInjectionProperty.getTextRange().getEndOffset());
+        editor.getCaretModel().moveToOffset(previousOffset + newInjectionProperty.getTextRange().getEndOffset());
     }
 
     @Nullable
@@ -232,13 +233,13 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
      * @return The newly created parent PsiElement, which will contain the created children
      */
     private PsiElement updateExistingText(Project project, PsiFile psiFile,
-                                    PsiElement oldElement,
-                                    String precedingText, String propertyName, String succeedingText) {
+                                          PsiElement oldElement,
+                                          String precedingText, String propertyName, String succeedingText) {
         // Create the new value to replace the old element; IE "... ${newPropertyName} ..."
         String newValue =
                 new StringBuilder()
                         .append(precedingText)
-                            .append("${").append(propertyName).append("}")
+                        .append("${").append(propertyName).append("}")
                         .append(succeedingText)
                         .toString();
 
