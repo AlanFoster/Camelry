@@ -62,23 +62,27 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
         return new InjectionPsiReference(psiElement).resolve() != null;
     }
 
-    private static class CreatePropertyQuickFix extends BaseIntentionAction {
+    public static class CreatePropertyQuickFix extends BaseIntentionAction {
         /**
          * The name of the property to create within the module if this intention
          * is invoked.
          */
         private final String propertyName;
-        private int propertyEndOffset;
+        private final int propertyEndOffset;
 
         public CreatePropertyQuickFix(int propertyEndOffset, String propertyName) {
             this.propertyName = propertyName;
             this.propertyEndOffset = propertyEndOffset;
         }
 
+        public String getPropertyName() {
+            return propertyName;
+        }
+
         @NotNull
         @Override
         public String getText() {
-            return message("camelus.blueprint.language.quickfix.missing.property.text");
+            return message("camelus.blueprint.language.quickfix.missing.property.text", propertyName);
         }
 
         @NotNull
@@ -174,4 +178,5 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
 
         return propertyPlaceholder;
     }
+
 }

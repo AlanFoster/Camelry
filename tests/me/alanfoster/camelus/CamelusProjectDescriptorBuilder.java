@@ -84,6 +84,10 @@ public class CamelusProjectDescriptorBuilder {
             });
         }
 
+        public String getFirstTargetPath() {
+            return getPairs().get(0).getSecond();
+        }
+
         protected abstract String getTargetPath(String testDataPath);
     }
 
