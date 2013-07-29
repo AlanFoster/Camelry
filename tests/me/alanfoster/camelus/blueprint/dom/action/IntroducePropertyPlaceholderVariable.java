@@ -5,6 +5,8 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TestInputDialog;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
+import com.intellij.refactoring.util.CommonRefactoringUtil;
+import junit.framework.Assert;
 import me.alanfoster.camelus.CamelusTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.actions.BlueprintRefactoringSupport;
@@ -31,29 +33,39 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
         performTest("connectionFactory.username");
     }
 
-    // TODO
-    public void ignoreNoSelectionErrorMessage() {
+    public void testNoSelectionErrorMessage() {
+        performTestWithError("Cannot perform refactoring.\nPlease select the elements you wish to extract.");
+    }
+
+    public void testNonTextRefactoringErrorMessage() {
+        performTestWithError("Cannot perform refactoring.\nPlease select a text value only.");
+    }
+
+    public void testValueContainsSucceedingPropertyTextWithNoExistingPropertyPlaceholder() {
         performTest();
     }
 
-    // TODO
-    public void ignoreNonTextRefactoringErrorMessage() {
-        performTest();
+    public void testUserCancelsRefactoring() {
+        performTest(null);
     }
 
-    // TODO
-    public void ignoreValueContainsSucceedingPropertyTextWithNoexistingPropertyPlaceholder() {
-        performTest();
+    public void testUserEntersEmptyString() {
+        performTest("");
     }
-
-    // TODO
-    public void ignoreUserCancelsRefactoring() {
-        performTest();
-    }
-
 
     private void performTest() {
         performTest("MyNewVar");
+    }
+
+
+    private void performTestWithError(String expectedErrorMessage) {
+        try {
+            performTest();
+            fail("The test should fail with the error message :: " + expectedErrorMessage);
+        } catch(CommonRefactoringUtil.RefactoringErrorHintException e) {
+            Assert.assertEquals("The refactoring error message should be as expected",
+                    expectedErrorMessage, e.getMessage());
+        }
     }
 
     private void performTest(final String newPropertyName) {

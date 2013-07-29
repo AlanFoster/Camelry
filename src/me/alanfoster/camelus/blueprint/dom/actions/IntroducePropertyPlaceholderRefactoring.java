@@ -178,7 +178,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
         createNewProperty(module, psiFile, propertyName, splitTrinity.getSecond());
         PsiElement newInjectionElements = updateExistingText(project, psiFile, textElement, splitTrinity.getFirst(), propertyName, splitTrinity.getThird());
 
-        updateCaret(editor, newInjectionElements, textElement.getStartOffsetInParent());
+        updateCaret(editor, newInjectionElements, textElementOffset);
     }
 
       /*
