@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.java;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -23,9 +23,9 @@ public class Service extends CamelusTestSupport {
 
     public void testServiceRefVariants() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("ServiceRefVariants.xml"))
+                .with(blueprintFiles("ServiceRefVariants.xml"))
                 .withOpenedFile("ServiceRefVariants.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ServiceRefVariants.xml");
         assertReflectionEquals(

@@ -33,7 +33,7 @@ public class CompletionCodeInsightTest extends CamelusTestSupport {
 
     public void testCompletionWithHelloWorld() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Blueprint.HELLO_WORLD_PROPERTIES));
+                .with(blueprintFiles(LanguageFiles.Blueprint.HELLO_WORLD_PROPERTIES));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(
@@ -43,7 +43,7 @@ public class CompletionCodeInsightTest extends CamelusTestSupport {
 
     public void testCompletionWithFooBarBazQux() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES));
+                .with(blueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
         assertReflectionEquals(

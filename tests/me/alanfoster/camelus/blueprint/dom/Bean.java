@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.java;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -29,9 +29,9 @@ public class Bean extends CamelusTestSupport {
      */
     public void testBeanArgumentIndexChoosesLargestConstructorSize() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("BeanArgumentIndexChoosesLargestConstructorSize.xml"))
+                .with(blueprintFiles("BeanArgumentIndexChoosesLargestConstructorSize.xml"))
                 .withOpenedFile("BeanArgumentIndexChoosesLargestConstructorSize.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BeanArgumentIndexChoosesLargestConstructorSize.xml");
         assertReflectionEquals(
@@ -46,9 +46,9 @@ public class Bean extends CamelusTestSupport {
      */
     public void testPropertyNamesIntellisense() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("PropertyNamesIntellisense.xml"))
+                .with(blueprintFiles("PropertyNamesIntellisense.xml"))
                 .withOpenedFile("PropertyNamesIntellisense.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyNamesIntellisense.xml");
         assertReflectionEquals(
@@ -62,9 +62,9 @@ public class Bean extends CamelusTestSupport {
      */
     public void testPropertyRefIntellisense() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("PropertyRefIntellisense.xml"))
+                .with(blueprintFiles("PropertyRefIntellisense.xml"))
                 .withOpenedFile("PropertyRefIntellisense.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyRefIntellisense.xml");
         assertReflectionEquals(
@@ -77,9 +77,9 @@ public class Bean extends CamelusTestSupport {
      */
     public void testPropertyLanguageVariants() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("PropertyLanguageVariants.xml"))
+                .with(blueprintFiles("PropertyLanguageVariants.xml"))
                 .withOpenedFile("PropertyLanguageVariants.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyLanguageVariants.xml");
         assertReflectionEquals(
@@ -93,9 +93,9 @@ public class Bean extends CamelusTestSupport {
     // TODO See why we get the exception element not found in file PropertyLanguageRename.xml at caret position, offset 907
     public void ignorePropertyLanguageRename() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("PropertyLanguageRename.xml"))
+                .with(blueprintFiles("PropertyLanguageRename.xml"))
                         .withOpenedFile("PropertyLanguageRename.xml")
-                        .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                        .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
 
 
         myFixture.renameElementAtCaret("helloWorldddd");

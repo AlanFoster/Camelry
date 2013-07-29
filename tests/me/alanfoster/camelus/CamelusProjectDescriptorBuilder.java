@@ -1,20 +1,15 @@
 package me.alanfoster.camelus;
 
 
-import com.intellij.openapi.fileTypes.StdFileTypes;
 import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.psi.search.FileTypeIndex;
 import com.intellij.testFramework.TestDataFile;
 import com.intellij.testFramework.fixtures.DefaultLightProjectDescriptor;
 import com.intellij.testFramework.fixtures.JavaCodeInsightTestFixture;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.indexing.FileBasedIndex;
 import org.jetbrains.annotations.NonNls;
 
 import java.io.File;
-import java.util.Collection;
 import java.util.List;
 
 public class CamelusProjectDescriptorBuilder {
@@ -39,7 +34,7 @@ public class CamelusProjectDescriptorBuilder {
          * @param fileTypes
          * @return The builder object
          */
-        public CamelusProject withFiles(FileType... fileTypes) {
+        public CamelusProject with(FileType... fileTypes) {
             for(FileType fileType : fileTypes) {
                 for (Pair<String, String> pair : fileType.getPairs()) {
                     fixture.copyFileToProject(pair.getFirst(), pair.getSecond());
@@ -132,7 +127,7 @@ public class CamelusProjectDescriptorBuilder {
      * @param testDataPaths The test data paths, relative to the testData folder
      * @return The builder object
      */
-    public static FileType blueprint(String... testDataPaths) {
+    public static FileType blueprintFiles(String... testDataPaths) {
         return new BlueprintFileType(testDataPaths);
     }
 
@@ -143,10 +138,8 @@ public class CamelusProjectDescriptorBuilder {
      * @param testDataPaths
      * @return
      */
-    public static FileType java(String targetPackage, String... testDataPaths) {
+    public static FileType javaFiles(String targetPackage, String... testDataPaths) {
         return new JavaFileType(targetPackage, testDataPaths);
     }
-
-
 
 }

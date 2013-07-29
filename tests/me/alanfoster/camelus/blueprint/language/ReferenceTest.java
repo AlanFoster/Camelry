@@ -8,7 +8,7 @@ import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
 
 /**
  * Tests for ensuring references are correct as expected.
@@ -32,7 +32,7 @@ public class ReferenceTest extends CamelusTestSupport {
 
     public void testSameBundleWIthValidReference() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES))
+                .with(blueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES))
                 .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
         PsiElement parent = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();

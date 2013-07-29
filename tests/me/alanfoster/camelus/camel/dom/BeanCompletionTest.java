@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -27,7 +27,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
      ******************************************************************************/
     public void testBlueprintBeanRefCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
         assertReflectionEquals(
@@ -37,7 +37,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
 
     public void testBlueprintBeanRefCompletionWithNoReferences() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences);
         assertReflectionEquals(
@@ -47,7 +47,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
 
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
         assertReflectionEquals(
@@ -71,7 +71,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
      ******************************************************************************/
     public void testBlueprintServiceReferenceRefCompletionWithinSameBlueprintFile() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(getTestName(false) + ".xml"));
+                .with(blueprintFiles(getTestName(false) + ".xml"));
 
         List<String> completionVariants = myFixture.getCompletionVariants(getTestName(false) + ".xml");
         assertReflectionEquals(
@@ -81,7 +81,7 @@ public class BeanCompletionTest extends CamelusTestSupport {
 
     public void testBlueprintServiceReferenceRefCompletionWithinDifferentFile() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"));
+                .with(blueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml");
         assertReflectionEquals(

@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.java;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -26,9 +26,9 @@ public class ThrowExceptionTest extends CamelusTestSupport {
      */
     public void testExceptionBeanVariantsOnly() {
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint("ExceptionBeanVariantsOnly.xml"))
+                .with(blueprintFiles("ExceptionBeanVariantsOnly.xml"))
                 .withOpenedFile("ExceptionBeanVariantsOnly.xml")
-                .withFiles(java("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
         assertReflectionEquals(

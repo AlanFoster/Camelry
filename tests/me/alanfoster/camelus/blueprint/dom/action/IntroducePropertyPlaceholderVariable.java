@@ -10,8 +10,8 @@ import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.actions.BlueprintRefactoringSupport;
 
 import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprint;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.java;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
 
 /**
  * Tests for ensuring the user can extract a hardcoded string into a property placeholder value.
@@ -60,9 +60,9 @@ public class IntroducePropertyPlaceholderVariable extends CamelusTestSupport {
         String resourceName = getTestName(false);
 
         CreateCamelusProject(myFixture)
-                .withFiles(blueprint(resourceName + ".xml"))
-                .withOpenedFileFromTempProject(blueprint(resourceName + ".xml"))
-                .withFiles(java(
+                .with(blueprintFiles(resourceName + ".xml"))
+                .withOpenedFileFromTempProject(blueprintFiles(resourceName + ".xml"))
+                .with(javaFiles(
                         "me.alanfoster.camelus.blueprint.camel.dom.common",
                         commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java")));
 
