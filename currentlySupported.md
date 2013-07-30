@@ -1,9 +1,10 @@
 Currently Supported
 ===================
 
-[Here](http://www.youtube.com/watch?v=ttiXWpA_UWQ) is a quick video showing the initial support added for Apache Blueprint + Camel
+#####Screencasts
 
-Here are some of the currently supported features
+- Initial support added for Apache Blueprint + Camel http://www.youtube.com/watch?v=ttiXWpA_UWQ
+- Blueprint Support Preview http://www.youtube.com/watch?v=QnJzkE5yVZg
 
 #####File Creation
 ![File Creation](/documentation/screenshots/CreateNew.png "File Creation")
