@@ -4,6 +4,8 @@ package me.alanfoster.camelus.camel.simple.language.psi;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleElementType;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleTokenType;
 import me.alanfoster.camelus.camel.simple.language.impl.*;
 
 public interface SimpleTypes {

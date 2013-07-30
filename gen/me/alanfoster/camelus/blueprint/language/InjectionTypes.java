@@ -4,8 +4,8 @@ package me.alanfoster.camelus.blueprint.language;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.PsiElement;
 import com.intellij.lang.ASTNode;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionElementType;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionTokenType;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionElementType;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionTokenType;
 import me.alanfoster.camelus.blueprint.language.impl.*;
 
 public interface InjectionTypes {

@@ -1,14 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package me.alanfoster.camelus.blueprint.language.impl;
 
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPsiImplUtil;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPsiImplUtil;
 import org.jetbrains.annotations.*;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
-import me.alanfoster.camelus.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl;
+import me.alanfoster.camelry.blueprint.language.psi.impl.BlueprintInjectionPropertyDefinitionImpl;
 import me.alanfoster.camelus.blueprint.language.psi.*;
-import me.alanfoster.camelus.blueprint.dom.model.Property;
+import me.alanfoster.camelry.blueprint.dom.model.Property;
 
 public class InjectionPropertyDefinitionImpl extends BlueprintInjectionPropertyDefinitionImpl implements InjectionPropertyDefinition {
 

@@ -6,7 +6,7 @@ import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import com.intellij.openapi.diagnostic.Logger;
 import static me.alanfoster.camelus.blueprint.language.InjectionTypes.*;
-import static me.alanfoster.camelus.camel.simple.language.parser.GeneratedParserUtilBase.*;
+import static me.alanfoster.camelry.camel.simple.language.parser.GeneratedParserUtilBase.*;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.PsiParser;
