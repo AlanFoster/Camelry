@@ -12,7 +12,7 @@ package me.alanfoster.camelry.blueprint.language.lexer;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
-import me.alanfoster.camelus.blueprint.language.InjectionTypes;
+import me.alanfoster.camelry.blueprint.language.InjectionTypes;
 
 /**
  * Below are the options and declarations which the lexer will use

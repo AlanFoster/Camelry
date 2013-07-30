@@ -11,7 +11,7 @@ import me.alanfoster.camelry.icons.PluginIcons;
 
 /**
  * Adds the option to create a new camel related file in the
- * 'New' context menu of camelus.
+ * 'New' context menu of camelry.
  * <p/>
  * Note this has been registered via an action in the META-INF/plugin.xml
  * file.
@@ -26,21 +26,21 @@ import me.alanfoster.camelry.icons.PluginIcons;
 public class CreateCamelFile extends CreateFileFromTemplateAction {
 
     public CreateCamelFile() {
-        super(CamelryBundle.message("camelus.templates.text"),
-                CamelryBundle.message("camelus.templates.description"),
+        super(CamelryBundle.message("camelry.templates.text"),
+                CamelryBundle.message("camelry.templates.description"),
                 PluginIcons.CAMEL);
     }
 
     @Override
     protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
-        builder.setTitle(CamelryBundle.message("camelus.templates.title"))
-                .addKind(CamelryBundle.message("camelus.templates.blueprint.route"), PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_DEFINITION_FILE)
-                .addKind(CamelryBundle.message("camelus.templates.blueprint.test"), PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_TEST_FILE);
+        builder.setTitle(CamelryBundle.message("camelry.templates.title"))
+                .addKind(CamelryBundle.message("camelry.templates.blueprint.route"), PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_DEFINITION_FILE)
+                .addKind(CamelryBundle.message("camelry.templates.blueprint.test"), PluginIcons.CAMEL, BlueprintFileTemplateManager.BLUEPRINT_TEST_FILE);
     }
 
     @Override
     protected String getActionName(PsiDirectory directory, String newName, String templateName) {
-        return CamelryBundle.message("camelus.templates.actionname");
+        return CamelryBundle.message("camelry.templates.actionname");
     }
 
     /**

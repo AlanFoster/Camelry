@@ -9,7 +9,7 @@ import com.intellij.util.xml.DomElement;
  *  <expression>...</expression>
  * </setBody>
  *
- * TODO - Is there a way to have a 'choice' subTag in camelus?
+ * TODO - Is there a way to have a 'choice' subTag in camelry?
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT

@@ -12,19 +12,19 @@
 
 
 {
-  parserClass="me.alanfoster.camelus.camel.simple.language.parser.SimpleParser"
-  StubParserClass="me.alanfoster.cameluscamel.simple.parser.GeneratedParserUtilBase"
+  parserClass="me.alanfoster.camelry.camel.simple.language.parser.SimpleParser"
+  StubParserClass="me.alanfoster.camelrycamel.simple.parser.GeneratedParserUtilBase"
 
   extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
   psiClassPrefix="Simple"
   psiImplClassSuffix="Impl"
-  psiPackage="me.alanfoster.camelus.camel.simple.language.psi"
-  psiImplPackage="me.alanfoster.camelus.camel.simple.language.impl"
+  psiPackage="me.alanfoster.camelry.camel.simple.language.psi"
+  psiImplPackage="me.alanfoster.camelry.camel.simple.language.impl"
 
-  elementTypeHolderClass="me.alanfoster.camelus.camel.simple.language.psi.SimpleTypes"
+  elementTypeHolderClass="me.alanfoster.camelry.camel.simple.language.psi.SimpleTypes"
   elementTypeClass="me.alanfoster.camelry.camel.simple.language.psi.SimpleElementType"
-  tokenTypeClass="me.alanfoster.camelus.camel.simple.language.psi.SimpleTokenType"
+  tokenTypeClass="me.alanfoster.camelry.camel.simple.language.psi.SimpleTokenType"
 }
 
 

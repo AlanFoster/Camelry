@@ -9,7 +9,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import me.alanfoster.camelry.blueprint.dom.model.Property;
 import me.alanfoster.camelry.blueprint.language.BlueprintInjectionLanguage;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

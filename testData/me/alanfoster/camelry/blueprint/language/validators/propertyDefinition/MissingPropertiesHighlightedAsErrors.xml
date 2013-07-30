@@ -16,7 +16,7 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="connectionFactory" class="me.alanfoster.camelus.blueprint.camel.dom.common.ConnectionFactory">
+    <bean id="connectionFactory" class="me.alanfoster.camelry.blueprint.camel.dom.common.ConnectionFactory">
         <property name="connectionString" value="${url}?username=${<error descr="Unresolved Blueprint Property username">username</error>}&amp;password=${<error descr="Unresolved Blueprint Property password">password</error>}" />
         <property name="maximumConnections" value="${<error descr="Unresolved Blueprint Property maximumConnections">maximumConnections</error>}" />
         <property name="timeout" value="${timeout}" />

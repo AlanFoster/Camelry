@@ -5,9 +5,9 @@ import me.alanfoster.camelry.CamelryTestSupport;
 import me.alanfoster.camelry.LanguageFiles;
 import me.alanfoster.camelry.TestHelper;
 import me.alanfoster.camelry.blueprint.dom.model.Property;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 
 /**
@@ -21,7 +21,7 @@ public class ReferenceTest extends CamelryTestSupport {
     }
 
     public void testSameBundleNoPropertyPlaceholdersValidReference() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 
         PsiElement parent = myFixture.getFile().findElementAt(myFixture.getCaretOffset()).getParent();
@@ -31,7 +31,7 @@ public class ReferenceTest extends CamelryTestSupport {
     }
 
     public void testSameBundleWIthValidReference() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES))
                 .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 

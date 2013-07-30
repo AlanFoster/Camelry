@@ -15,8 +15,8 @@ import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import me.alanfoster.camelry.camel.simple.language.SimpleLanguage;
 import me.alanfoster.camelry.camel.simple.language.lexer.SimpleLexer;
-import me.alanfoster.camelus.camel.simple.language.parser.SimpleParser;
-import me.alanfoster.camelus.camel.simple.language.psi.SimpleTypes;
+import me.alanfoster.camelry.camel.simple.language.parser.SimpleParser;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Reader;

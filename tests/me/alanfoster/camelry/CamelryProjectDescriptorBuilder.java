@@ -14,17 +14,17 @@ import java.util.List;
 
 public class CamelryProjectDescriptorBuilder {
 
-    public static CamelusProject CreateCamelusProject(JavaCodeInsightTestFixture fixture) {
-        return new CamelusProject(fixture, new DefaultLightProjectDescriptor());
+    public static CamelryProject CreateCamelryProject(JavaCodeInsightTestFixture fixture) {
+        return new CamelryProject(fixture, new DefaultLightProjectDescriptor());
     }
 
-    public static class CamelusProject {
+    public static class CamelryProject {
         private final DefaultLightProjectDescriptor defaultLightProjectDescriptor;
         private final JavaCodeInsightTestFixture fixture;
 
 
 
-        public CamelusProject(JavaCodeInsightTestFixture fixture, DefaultLightProjectDescriptor defaultLightProjectDescriptor) {
+        public CamelryProject(JavaCodeInsightTestFixture fixture, DefaultLightProjectDescriptor defaultLightProjectDescriptor) {
             this.defaultLightProjectDescriptor = defaultLightProjectDescriptor;
             this.fixture = fixture;
         }
@@ -34,7 +34,7 @@ public class CamelryProjectDescriptorBuilder {
          * @param fileTypes
          * @return The builder object
          */
-        public CamelusProject with(FileType... fileTypes) {
+        public CamelryProject with(FileType... fileTypes) {
             for(FileType fileType : fileTypes) {
                 for (Pair<String, String> pair : fileType.getPairs()) {
                     fixture.copyFileToProject(pair.getFirst(), pair.getSecond());
@@ -48,18 +48,18 @@ public class CamelryProjectDescriptorBuilder {
          * @param fileType
          * @return
          */
-        public CamelusProject withOpenedFileFromTempProject(FileType fileType) {
+        public CamelryProject withOpenedFileFromTempProject(FileType fileType) {
             assert fileType.getPairs().size() == 1 : "There should be exactly one file within the FileType";
             fixture.configureFromTempProjectFile(fileType.getPairs().get(0).getSecond());
             return this;
         }
 
-        public CamelusProject withOpenedFileFromTempProject(@TestDataFile @NonNls String testDataPath) {
+        public CamelryProject withOpenedFileFromTempProject(@TestDataFile @NonNls String testDataPath) {
             fixture.configureFromTempProjectFile(testDataPath);
             return this;
         }
 
-        public CamelusProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
+        public CamelryProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
             fixture.configureByFile(testDataPath);
             return this;
         }

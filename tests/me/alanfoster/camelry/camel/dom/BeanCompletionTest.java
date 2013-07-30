@@ -25,7 +25,7 @@ public class BeanCompletionTest extends CamelryTestSupport {
      * Basic Blueprint Bean Reference tests
      ******************************************************************************/
     public void testBlueprintBeanRefCompletionWithinSameBlueprintFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
@@ -35,7 +35,7 @@ public class BeanCompletionTest extends CamelryTestSupport {
     }
 
     public void testBlueprintBeanRefCompletionWithNoReferences() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences);
@@ -45,7 +45,7 @@ public class BeanCompletionTest extends CamelryTestSupport {
     }
 
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
@@ -69,7 +69,7 @@ public class BeanCompletionTest extends CamelryTestSupport {
      * Blueprint Service reference Bean Reference tests
      ******************************************************************************/
     public void testBlueprintServiceReferenceRefCompletionWithinSameBlueprintFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(getTestName(false) + ".xml"));
 
         List<String> completionVariants = myFixture.getCompletionVariants(getTestName(false) + ".xml");
@@ -79,7 +79,7 @@ public class BeanCompletionTest extends CamelryTestSupport {
     }
 
     public void testBlueprintServiceReferenceRefCompletionWithinDifferentFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml");

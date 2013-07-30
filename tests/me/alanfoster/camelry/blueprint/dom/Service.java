@@ -6,7 +6,7 @@ import me.alanfoster.camelry.TestHelper;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -22,10 +22,10 @@ public class Service extends CamelryTestSupport {
     }
 
     public void testServiceRefVariants() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ServiceRefVariants.xml"))
                 .withOpenedFile("ServiceRefVariants.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ServiceRefVariants.xml");
         assertReflectionEquals(

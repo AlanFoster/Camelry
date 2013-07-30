@@ -118,7 +118,7 @@ public class BeanPropertyResolver implements CustomReferenceConverter<String> {
         @NotNull
         @Override
         public String getUnresolvedMessagePattern() {
-            return CamelryBundle.message("camelus.camel.beanpropertyresolver.unresolvedmessagepattern");
+            return CamelryBundle.message("camelry.camel.beanpropertyresolver.unresolvedmessagepattern");
         }
     }
 }

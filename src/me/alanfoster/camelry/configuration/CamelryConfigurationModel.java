@@ -1,7 +1,7 @@
 package me.alanfoster.camelry.configuration;
 
 /**
- * Represents a basic POJO for all of Camelus' settings.
+ * Represents a basic POJO for all of Camelry' settings.
  * This may need to become more complex in the future.
  */
 public class CamelryConfigurationModel {

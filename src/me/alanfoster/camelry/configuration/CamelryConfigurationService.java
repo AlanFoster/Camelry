@@ -4,13 +4,13 @@ import com.intellij.openapi.components.*;
 import org.jetbrains.annotations.Nullable;
 
 /**
- * Represents the CamelusConfiguration service which should store the plugin's state within the Application level.
+ * Represents the CamelryConfiguration service which should store the plugin's state within the Application level.
  * IE This configuration should be persisted across all projects.
  */
 @State(
-        name="CamelusConfiguration",
+        name="CamelryConfiguration",
         storages = {
-                @Storage(id = "default", file = StoragePathMacros.APP_CONFIG + "/CamelusConfiguration.xml"),
+                @Storage(id = "default", file = StoragePathMacros.APP_CONFIG + "/CamelryConfiguration.xml"),
         }
 )
 public class CamelryConfigurationService implements PersistentStateComponent<CamelryConfigurationModel> {

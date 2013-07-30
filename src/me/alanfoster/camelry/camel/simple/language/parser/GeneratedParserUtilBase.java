@@ -37,7 +37,7 @@ import java.util.LinkedList;
 @SuppressWarnings("StringEquality")
 public class GeneratedParserUtilBase {
 
-    private static final Logger LOG = Logger.getInstance("org.camelus.grammar.parser.GeneratedParserUtilBase");
+    private static final Logger LOG = Logger.getInstance("org.camelry.grammar.parser.GeneratedParserUtilBase");
 
     public static final IElementType DUMMY_BLOCK = new DummyBlockElementType();
 

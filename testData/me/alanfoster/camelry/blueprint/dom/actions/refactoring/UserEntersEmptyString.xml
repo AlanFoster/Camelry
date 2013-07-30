@@ -9,7 +9,7 @@
             http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0
         ">
 
-    <bean id="connectionFactory" class="me.alanfoster.camelus.blueprint.camel.dom.common.ConnectionFactory">
+    <bean id="connectionFactory" class="me.alanfoster.camelry.blueprint.camel.dom.common.ConnectionFactory">
         <property name="url" value="<selection>127.0.0.1</selection>" />
     </bean>
 

@@ -6,7 +6,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.tree.IElementType;
 import me.alanfoster.camelry.blueprint.language.lexer.InjectionLexer;
-import me.alanfoster.camelus.blueprint.language.InjectionTypes;
+import me.alanfoster.camelry.blueprint.language.InjectionTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Reader;

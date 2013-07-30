@@ -42,8 +42,8 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
         if (!selectionModel.hasSelection()) {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
-                            CamelryBundle.message("camelus.camel.actions.extract.route.errors.no.selection.message"),
-                            CamelryBundle.message("camelus.camel.actions.extract.route.errors.no.selection.title"),
+                            CamelryBundle.message("camelry.camel.actions.extract.route.errors.no.selection.message"),
+                            CamelryBundle.message("camelry.camel.actions.extract.route.errors.no.selection.title"),
                             null);
             return;
         }
@@ -54,8 +54,8 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
         } else {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
-                            CamelryBundle.message("camelus.camel.actions.extract.route.errors.unsuccessful.message"),
-                            CamelryBundle.message("camelus.camel.actions.extract.route.errors.unsuccessful.title"),
+                            CamelryBundle.message("camelry.camel.actions.extract.route.errors.unsuccessful.message"),
+                            CamelryBundle.message("camelry.camel.actions.extract.route.errors.unsuccessful.title"),
                             null);
         }
     }
@@ -178,13 +178,13 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
     }
 
     private String getNewRouteUri(Project project) {
-        String defaultRouteUri = CamelryBundle.message("camelus.camel.actions.extract.route.initial.value");
+        String defaultRouteUri = CamelryBundle.message("camelry.camel.actions.extract.route.initial.value");
         // Highlight by default the value after the default component, ie "direct:<selection>newRoute</selection>"
         int componentDivider = defaultRouteUri.indexOf(':') + 1;
         TextRange highlightedTextRange = new TextRange(componentDivider, defaultRouteUri.length());
         return Messages.showInputDialog(project,
-                CamelryBundle.message("camelus.camel.actions.extract.route.message"),
-                CamelryBundle.message("camelus.camel.actions.extract.route.title"),
+                CamelryBundle.message("camelry.camel.actions.extract.route.message"),
+                CamelryBundle.message("camelry.camel.actions.extract.route.title"),
                 Messages.getQuestionIcon(),
                 defaultRouteUri,
                 null,

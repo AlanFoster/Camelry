@@ -15,8 +15,8 @@ import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import me.alanfoster.camelry.blueprint.language.file.InjectionFile;
 import me.alanfoster.camelry.blueprint.language.lexer.InjectionLexer;
-import me.alanfoster.camelus.blueprint.language.InjectionParser;
-import me.alanfoster.camelus.blueprint.language.InjectionTypes;
+import me.alanfoster.camelry.blueprint.language.InjectionParser;
+import me.alanfoster.camelry.blueprint.language.InjectionTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Reader;

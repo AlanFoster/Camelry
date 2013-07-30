@@ -1,17 +1,17 @@
 <idea-plugin version="2">
-    <id>Camelus</id>
-    <name>Camelus</name>
+    <id>Camelry</id>
+    <name>Camelry</name>
     <version>0.1</version>
     <vendor url="https://github.com/AlanFoster">Alan Foster</vendor>
 
     <description><![CDATA[
         <p>This IntelliJ plugin is designed to improve the improve the development experience when working with Apache Blueprint, Apache karaf and Apache Camel.</p>
-        <p>For further details see <a href="https://github.com/AlanFoster/Camelus"/>Github Project</a></p>
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelry"/>Github Project</a></p>
         ]]>
     </description>
 
     <change-notes><![CDATA[
-        <p>For further details see <a href="https://github.com/AlanFoster/Camelus"/>Github Project</a>
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelry"/>Github Project</a>
     ]]>
     </change-notes>
 
@@ -35,7 +35,7 @@
                 class="me.alanfoster.camelry.camel.tooling.CreateCamelFile"
                 text="Camel Blueprint"
                 description="Creates a Blueprint Camel File"
-                icon="/me/alanfoster/camelus/icons/camel_16x16.png"
+                icon="/me/alanfoster/camelry/icons/camel_16x16.png"
                 >
             <add-to-group group-id="NewGroup" anchor="last"/>
         </action>

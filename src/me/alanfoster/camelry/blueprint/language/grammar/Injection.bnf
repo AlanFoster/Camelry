@@ -2,7 +2,7 @@
  * @see https://github.com/JetBrains/Grammar-Kit
  */
 {
-  parserClass="me.alanfoster.camelus.blueprint.language.InjectionParser"
+  parserClass="me.alanfoster.camelry.blueprint.language.InjectionParser"
   stubParserClass="GeneratedParserUtilBase"
 
   implements="me.alanfoster.camelry.blueprint.language.psi.InjectionElement"
@@ -10,12 +10,12 @@
 
   psiClassPrefix="Injection"
   psiImplClassSuffix="Impl"
-  psiPackage="me.alanfoster.camelus.blueprint.language.psi"
-  psiImplPackage="me.alanfoster.camelus.blueprint.language.impl"
+  psiPackage="me.alanfoster.camelry.blueprint.language.psi"
+  psiImplPackage="me.alanfoster.camelry.blueprint.language.impl"
 
   psiImplUtilClass="me.alanfoster.camelry.blueprint.language.psi.InjectionPsiImplUtil"
 
-  elementTypeHolderClass="me.alanfoster.camelus.blueprint.language.InjectionTypes"
+  elementTypeHolderClass="me.alanfoster.camelry.blueprint.language.InjectionTypes"
   elementTypeClass="me.alanfoster.camelry.blueprint.language.psi.InjectionElementType"
   tokenTypeClass="me.alanfoster.camelry.blueprint.language.psi.InjectionTokenType"
 }

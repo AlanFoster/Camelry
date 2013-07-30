@@ -24,7 +24,7 @@ import me.alanfoster.camelry.blueprint.dom.model.Property;
 import me.alanfoster.camelry.blueprint.dom.model.PropertyPlaceholder;
 import me.alanfoster.camelry.blueprint.language.contributors.InjectionPsiReference;
 import me.alanfoster.camelry.blueprint.model.BlueprintManager;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -53,7 +53,7 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
     }
 
     private String getMessageErrorMessage(String referencedElement) {
-        return CamelryBundle.message("camelus.blueprint.language.missing.property.error", referencedElement);
+        return CamelryBundle.message("camelry.blueprint.language.missing.property.error", referencedElement);
     }
 
     private boolean hasReference(PsiElement psiElement) {
@@ -81,13 +81,13 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
         @NotNull
         @Override
         public String getText() {
-            return CamelryBundle.message("camelus.blueprint.language.quickfix.missing.property.text", propertyName);
+            return CamelryBundle.message("camelry.blueprint.language.quickfix.missing.property.text", propertyName);
         }
 
         @NotNull
         @Override
         public String getFamilyName() {
-            return CamelryBundle.message("camelus.blueprint.language.quickfix.missing.property.family.name");
+            return CamelryBundle.message("camelry.blueprint.language.quickfix.missing.property.family.name");
         }
 
         @Override
@@ -110,7 +110,7 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
                         public void run() {
                             writeActionInvoke(project, editor, file, propertyName, propertyValue);
                         }
-                    }, CamelryBundle.message("camelus.blueprint.language.quickfix.missing.property.undo.message"), project);
+                    }, CamelryBundle.message("camelry.blueprint.language.quickfix.missing.property.undo.message"), project);
                 }
             });
 
@@ -136,8 +136,8 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
 
         private String getPropertyValue(@NotNull Project project) {
             return Messages.showInputDialog(project,
-                    CamelryBundle.message("camelus.blueprint.language.quickfix.missing.property.input.dialog.message"),
-                    CamelryBundle.message("camelus.blueprint.language.quickfix.missing.property.input.dialog.title"),
+                    CamelryBundle.message("camelry.blueprint.language.quickfix.missing.property.input.dialog.message"),
+                    CamelryBundle.message("camelry.blueprint.language.quickfix.missing.property.input.dialog.title"),
                     Messages.getQuestionIcon()
             );
         }

@@ -3,7 +3,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 
-    <bean id="connectionFactory" class="me.alanfoster.camelus.blueprint.camel.dom.common.ConnectionFactory">
+    <bean id="connectionFactory" class="me.alanfoster.camelry.blueprint.camel.dom.common.ConnectionFactory">
         <property name="connectionString" value="${url}?username=${username}&amp;password=${password}" />
         <property name="maximumConnections" value="${maximumConnections}" />
         <property name="timeout" value="${timeout<caret>}" />

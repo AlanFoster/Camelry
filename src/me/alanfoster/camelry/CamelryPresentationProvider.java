@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 
 /**
- * Provides the presentation icons etc for Camelus.
+ * Provides the presentation icons etc for Camelry.
  */
 public class CamelryPresentationProvider {
     public static class Blueprint extends PresentationProvider<Object> {

@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.javaFiles;
 import static me.alanfoster.camelry.CamelryTestSupport.commonFile;
@@ -42,10 +42,10 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
     }
 
     public void testMissingPropertiesHighlightedAsErrors() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("MissingPropertiesHighlightedAsErrors.xml"))
                 .withOpenedFileFromTempProject(blueprintFiles("MissingPropertiesHighlightedAsErrors.xml"))
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         myFixture.checkHighlighting(false, false, true);
     }
@@ -63,10 +63,10 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
     }
 
     private void performQuickfix(final String propertyToFix, final String newPropertyValue) {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(getTestName(false) + ".xml"))
                 .withOpenedFileFromTempProject(blueprintFiles(getTestName(false) + ".xml"))
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<IntentionAction> allQuickFixes = getAllQuickFixes();
 

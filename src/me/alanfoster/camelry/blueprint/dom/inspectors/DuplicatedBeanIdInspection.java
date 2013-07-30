@@ -50,7 +50,7 @@ public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint>
             if(duplicatedBeans.isEmpty()) return;
 
             // TODO Should we add a quick fix option, so the user can easily check the conflicting ids ?
-            holder.createProblem(idAttribute, HighlightSeverity.ERROR, CamelryBundle.message("camelus.blueprint.dom.duplicate.bean.id"));
+            holder.createProblem(idAttribute, HighlightSeverity.ERROR, CamelryBundle.message("camelry.blueprint.dom.duplicate.bean.id"));
         }
     }
 

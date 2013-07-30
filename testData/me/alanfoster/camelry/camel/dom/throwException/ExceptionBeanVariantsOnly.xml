@@ -9,10 +9,10 @@
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
 
-    <bean id="personBeanOne" class="me.alanfoster.camelus.blueprint.camel.dom.common.Person"/>
-    <bean id="customException" class="me.alanfoster.camelus.blueprint.camel.dom.common.CustomException"/>
+    <bean id="personBeanOne" class="me.alanfoster.camelry.blueprint.camel.dom.common.Person"/>
+    <bean id="customException" class="me.alanfoster.camelry.blueprint.camel.dom.common.CustomException"/>
     <bean id="argumentException" class="java.lang.IllegalArgumentException"/>
-    <bean id="personBeanTwo" class="me.alanfoster.camelus.blueprint.camel.dom.common.Person"/>
+    <bean id="personBeanTwo" class="me.alanfoster.camelry.blueprint.camel.dom.common.Person"/>
 
     <camelContext id="blueprintContext" trace="false" xmlns="http://camel.apache.org/schema/blueprint">
         <route>

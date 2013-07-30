@@ -9,7 +9,7 @@
        http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
 
 
-    <bean id="person" class="me.alanfoster.camelus.blueprint.camel.dom.common.Person">
+    <bean id="person" class="me.alanfoster.camelry.blueprint.camel.dom.common.Person">
         <argument index="<caret>"
     </bean>
 

@@ -6,7 +6,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import static me.alanfoster.camelus.blueprint.language.InjectionTypes.*;
+import static me.alanfoster.camelry.blueprint.language.InjectionTypes.*;
 
 /**
  * Brace matching definition for the Blueprint injection language.

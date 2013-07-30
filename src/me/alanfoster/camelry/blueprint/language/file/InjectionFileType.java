@@ -37,7 +37,7 @@ public class InjectionFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return message("camelus.blueprint.language.description");
+        return message("camelry.blueprint.language.description");
     }
 
     @NotNull

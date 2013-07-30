@@ -23,7 +23,7 @@ public class MethodTest extends CamelryTestSupport {
     }
 
     public void testBlueprintBeanMethodCompletionSameFileWithMethodDSL() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
@@ -33,7 +33,7 @@ public class MethodTest extends CamelryTestSupport {
     }
 
     public void testBlueprintBeanRefCompletionWithNoReferences() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences);
@@ -43,9 +43,9 @@ public class MethodTest extends CamelryTestSupport {
     }
 
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile))
-                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
@@ -58,9 +58,9 @@ public class MethodTest extends CamelryTestSupport {
     }
 
     public void testBlueprintReferenceMethodCompletionExternalFile() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"))
-                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")))
+                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")))
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
@@ -76,7 +76,7 @@ public class MethodTest extends CamelryTestSupport {
      * the camel method XML DSL.
      */
     public void testMethodAttributeBeanDeprecatedAnnotator() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles("MethodAttributeBeanDeprecatedAnnotatorData.xml"))
                 .withOpenedFile("MethodAttributeBeanDeprecatedAnnotatorError.xml");
 
@@ -88,9 +88,9 @@ public class MethodTest extends CamelryTestSupport {
      * Test that we can rename our bean reference id, directly from a camel route :)
      */
     public void testRenameRefValueWithBlueprintPointerReference() {
-        CamelryProjectDescriptorBuilder.CreateCamelusProject(myFixture)
+        CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(CamelryProjectDescriptorBuilder.blueprintFiles("RenameRefValueWithBlueprintPointerReference.xml"))
-                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("IPersonService.java")))
+                .with(CamelryProjectDescriptorBuilder.javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("IPersonService.java")))
                 .withOpenedFileFromTempProject("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml");
 
         myFixture.renameElementAtCaret("newPersonServiceName");

@@ -6,7 +6,7 @@ import me.alanfoster.camelry.TestHelper;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -28,10 +28,10 @@ public class Bean extends CamelryTestSupport {
      * largest constructor has 4 arguments, then the intellisense should represent [0, 1, 2, 3]
      */
     public void testBeanArgumentIndexChoosesLargestConstructorSize() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("BeanArgumentIndexChoosesLargestConstructorSize.xml"))
                 .withOpenedFile("BeanArgumentIndexChoosesLargestConstructorSize.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BeanArgumentIndexChoosesLargestConstructorSize.xml");
         assertReflectionEquals(
@@ -45,10 +45,10 @@ public class Bean extends CamelryTestSupport {
      * intellisense.
      */
     public void testPropertyNamesIntellisense() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyNamesIntellisense.xml"))
                 .withOpenedFile("PropertyNamesIntellisense.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyNamesIntellisense.xml");
         assertReflectionEquals(
@@ -61,10 +61,10 @@ public class Bean extends CamelryTestSupport {
      * intellisense.
      */
     public void testPropertyRefIntellisense() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyRefIntellisense.xml"))
                 .withOpenedFile("PropertyRefIntellisense.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyRefIntellisense.xml");
         assertReflectionEquals(
@@ -76,10 +76,10 @@ public class Bean extends CamelryTestSupport {
      * Tests to ensure that we can invoke property language intellisense
      */
     public void testPropertyLanguageVariants() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyLanguageVariants.xml"))
                 .withOpenedFile("PropertyLanguageVariants.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyLanguageVariants.xml");
         assertReflectionEquals(
@@ -92,10 +92,10 @@ public class Bean extends CamelryTestSupport {
      */
     // TODO See why we get the exception element not found in file PropertyLanguageRename.xml at caret position, offset 907
     public void ignorePropertyLanguageRename() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyLanguageRename.xml"))
                         .withOpenedFile("PropertyLanguageRename.xml")
-                        .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("Person.java")));
+                        .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
 
 
         myFixture.renameElementAtCaret("helloWorldddd");

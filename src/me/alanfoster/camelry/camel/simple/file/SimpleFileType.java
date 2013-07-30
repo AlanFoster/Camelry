@@ -46,7 +46,7 @@ public class SimpleFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getDescription() {
-        return CamelryBundle.message("camelus.simple.language.description");
+        return CamelryBundle.message("camelry.simple.language.description");
     }
 
     @NotNull

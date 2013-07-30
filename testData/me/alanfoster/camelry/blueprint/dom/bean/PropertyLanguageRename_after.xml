@@ -14,7 +14,7 @@
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="person" class="me.alanfoster.camelus.blueprint.camel.dom.common.Person">
+    <bean id="person" class="me.alanfoster.camelry.blueprint.camel.dom.common.Person">
         <argument index="0" value="${myNewConfig.firstName}" />
     </bean>
 

@@ -10,7 +10,7 @@ import javax.swing.*;
 import static me.alanfoster.camelry.CamelryBundle.message;
 
 /**
- * Camelus Configuration form. Note, I have decided to test out IntelliJ's form builder for this class.
+ * Camelry Configuration form. Note, I have decided to test out IntelliJ's form builder for this class.
  * So try to edit this form using the IntelliJ form builder, rather than modifying the swing components
  * directly.
  */
@@ -24,14 +24,14 @@ public class CamelryConfigurationForm implements Configurable {
     @Nls
     @Override
     public String getDisplayName() {
-        return message("camelus.configuration.displayname");
+        return message("camelry.configuration.displayname");
     }
 
     @Nullable
     @Override
     // TODO Where do i register a help topic?
     public String getHelpTopic() {
-        //return "preferences.settings.project.camelus";
+        //return "preferences.settings.project.camelry";
         return null;
     }
 

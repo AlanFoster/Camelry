@@ -10,7 +10,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import me.alanfoster.camelry.camel.simple.language.lexer.SimpleLexer;
-import me.alanfoster.camelus.camel.simple.language.psi.SimpleTypes;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleTypes;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;

@@ -13,7 +13,7 @@ import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.TokenType;
 
-import me.alanfoster.camelus.camel.simple.language.psi.SimpleTypes;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleTypes;
 
 /**
  * Below are the options and declarations which the lexer will use

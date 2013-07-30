@@ -24,9 +24,9 @@ import com.intellij.xml.util.XmlUtil;
 import me.alanfoster.camelry.blueprint.language.file.InjectionFileType;
 import me.alanfoster.camelry.blueprint.dom.model.BeanProperty;
 import me.alanfoster.camelry.blueprint.dom.model.Property;
-import me.alanfoster.camelus.blueprint.language.InjectionTypes;
+import me.alanfoster.camelry.blueprint.language.InjectionTypes;
 import me.alanfoster.camelry.blueprint.language.file.InjectionFile;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 import me.alanfoster.camelry.blueprint.language.validators.ExistingPropertyReferenceAnnotator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +70,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
                     public void run() {
                         writeActionInvoke(project, module, editor, psiFile, propertyName);
                     }
-                }, message("camelus.blueprint.language.quickfix.missing.property.undo.message"), project);
+                }, message("camelry.blueprint.language.quickfix.missing.property.undo.message"), project);
             }
         });
     }
@@ -85,7 +85,7 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
      */
     @NotNull
     protected String getSuggestedPropertyName(Editor editor, PsiFile psiFile) {
-        String defaultPropertyName = message("camelus.blueprint.language.refactoring.introduce.variable.get.property.name.default");
+        String defaultPropertyName = message("camelry.blueprint.language.refactoring.introduce.variable.get.property.name.default");
 
         // Extract the Xml file + xml file editor
         XmlFile xmlFile = XmlUtil.getContainingFile(psiFile);
@@ -121,8 +121,8 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
         if (!selectionModel.hasSelection()) {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.message"),
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.no.selection.title"),
+                            message("camelry.blueprint.language.refactoring.introduce.variable.errors.no.selection.message"),
+                            message("camelry.blueprint.language.refactoring.introduce.variable.errors.no.selection.title"),
                             null);
             return false;
         }
@@ -130,8 +130,8 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
         if (!isTextOnlySelection(psiFile, selectionModel)) {
             CommonRefactoringUtil
                     .showErrorHint(project, editor,
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.text.only.message"),
-                            message("camelus.blueprint.language.refactoring.introduce.variable.errors.text.only.title"),
+                            message("camelry.blueprint.language.refactoring.introduce.variable.errors.text.only.message"),
+                            message("camelry.blueprint.language.refactoring.introduce.variable.errors.text.only.title"),
                             null);
             return false;
         }
@@ -208,8 +208,8 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
     @Nullable
     private String getPropertyName(Project project, String defaultProperty) {
         return Messages.showInputDialog(project,
-                message("camelus.blueprint.language.refactoring.introduce.variable.get.property.name.message"),
-                message("camelus.blueprint.language.refactoring.introduce.variable.get.property.name.title"),
+                message("camelry.blueprint.language.refactoring.introduce.variable.get.property.name.message"),
+                message("camelry.blueprint.language.refactoring.introduce.variable.get.property.name.title"),
                 Messages.getQuestionIcon(),
                 defaultProperty,
                 null

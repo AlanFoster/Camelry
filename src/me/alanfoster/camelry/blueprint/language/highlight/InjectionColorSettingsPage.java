@@ -20,18 +20,18 @@ import java.util.Map;
 public class InjectionColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = {
         new AttributesDescriptor(
-                message("camelus.blueprint.language.color.settings.description.starttoken"),
+                message("camelry.blueprint.language.color.settings.description.starttoken"),
                 InjectionSyntaxHighlighterColors.FUNCTION_START),
 
         new AttributesDescriptor(
-                message("camelus.blueprint.language.color.settings.description.propertyname"),
+                message("camelry.blueprint.language.color.settings.description.propertyname"),
                 InjectionSyntaxHighlighterColors.PROPERTY_NAME),
 
         new AttributesDescriptor(
-                message("camelus.blueprint.language.color.settings.description.endtoken"),
+                message("camelry.blueprint.language.color.settings.description.endtoken"),
                 InjectionSyntaxHighlighterColors.FUNCTION_END),
 
-        new AttributesDescriptor(message("camelus.blueprint.language.color.settings.description.text"),
+        new AttributesDescriptor(message("camelry.blueprint.language.color.settings.description.text"),
                 InjectionSyntaxHighlighterColors.TEXT)
     };
 
@@ -78,6 +78,6 @@ public class InjectionColorSettingsPage implements ColorSettingsPage {
     @NotNull
     @Override
     public String getDisplayName() {
-        return message("camelus.blueprint.language.color.settings.title");
+        return message("camelry.blueprint.language.color.settings.title");
     }
 }

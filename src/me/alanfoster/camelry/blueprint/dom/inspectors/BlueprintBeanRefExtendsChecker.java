@@ -78,7 +78,7 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
     }
 
     private String getErrorMessage(Class requiredClass) {
-        return CamelryBundle.message("camelus.blueprint.dom.extends.error", requiredClass.getName());
+        return CamelryBundle.message("camelry.blueprint.dom.extends.error", requiredClass.getName());
     }
 
 }

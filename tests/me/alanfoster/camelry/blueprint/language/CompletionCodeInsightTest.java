@@ -32,7 +32,7 @@ public class CompletionCodeInsightTest extends CamelryTestSupport {
     }
 
     public void testCompletionWithHelloWorld() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Blueprint.HELLO_WORLD_PROPERTIES));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);
@@ -42,7 +42,7 @@ public class CompletionCodeInsightTest extends CamelryTestSupport {
     }
 
     public void testCompletionWithFooBarBazQux() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Blueprint.BLUEPRINT_SINGLE_CARET);

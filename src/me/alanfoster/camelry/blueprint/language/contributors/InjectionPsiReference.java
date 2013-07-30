@@ -22,7 +22,7 @@ import me.alanfoster.camelry.blueprint.dom.model.DefaultProperties;
 import me.alanfoster.camelry.blueprint.dom.model.Property;
 import me.alanfoster.camelry.blueprint.dom.model.PropertyPlaceholder;
 import me.alanfoster.camelry.icons.PluginIcons;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

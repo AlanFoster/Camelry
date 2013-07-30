@@ -6,7 +6,7 @@ import me.alanfoster.camelry.TestHelper;
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -25,10 +25,10 @@ public class ThrowExceptionTest extends CamelryTestSupport {
      * Test to ensure that only beans which extend Exception are shown to the user.
      */
     public void testExceptionBeanVariantsOnly() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ExceptionBeanVariantsOnly.xml"))
                 .withOpenedFile("ExceptionBeanVariantsOnly.xml")
-                .with(javaFiles("me.alanfoster.camelus.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
         assertReflectionEquals(

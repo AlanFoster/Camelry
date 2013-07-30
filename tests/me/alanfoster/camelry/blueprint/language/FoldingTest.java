@@ -4,7 +4,7 @@ import me.alanfoster.camelry.CamelryTestSupport;
 import me.alanfoster.camelry.LanguageFiles;
 import me.alanfoster.camelry.TestHelper;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 
 /**
@@ -19,7 +19,7 @@ public class FoldingTest extends CamelryTestSupport {
     }
 
     public void testFolding() {
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_PROPERTIES))
                         .withOpenedFile(LanguageFiles.Blueprint.FOO_BAR_BAZ_QUX_FOLDING_TEST_DATA);
 

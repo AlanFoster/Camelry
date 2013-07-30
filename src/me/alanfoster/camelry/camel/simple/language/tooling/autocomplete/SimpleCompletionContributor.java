@@ -5,7 +5,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.util.ProcessingContext;
 import me.alanfoster.camelry.camel.simple.language.SimpleLanguage;
-import me.alanfoster.camelus.camel.simple.language.psi.SimpleTypes;
+import me.alanfoster.camelry.camel.simple.language.psi.SimpleTypes;
 import org.jetbrains.annotations.NotNull;
 
 /**

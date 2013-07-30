@@ -11,7 +11,7 @@ import me.alanfoster.camelry.CamelryTestSupport;
 import me.alanfoster.camelry.TestHelper;
 import me.alanfoster.camelry.blueprint.dom.actions.BlueprintRefactoringSupport;
 
-import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.javaFiles;
 
@@ -71,11 +71,11 @@ public class IntroducePropertyPlaceholderVariable extends CamelryTestSupport {
     private void performTest(final String newPropertyName) {
         String resourceName = getTestName(false);
 
-        CreateCamelusProject(myFixture)
+        CreateCamelryProject(myFixture)
                 .with(blueprintFiles(resourceName + ".xml"))
                 .withOpenedFileFromTempProject(blueprintFiles(resourceName + ".xml"))
                 .with(javaFiles(
-                        "me.alanfoster.camelus.blueprint.camel.dom.common",
+                        "me.alanfoster.camelry.blueprint.camel.dom.common",
                         commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java")));
 
         // Override the input dialogue to input the requried name

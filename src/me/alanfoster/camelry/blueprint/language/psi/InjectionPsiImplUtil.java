@@ -9,8 +9,8 @@ import com.intellij.util.xml.DomManager;
 import com.intellij.util.xml.GenericAttributeValue;
 import me.alanfoster.camelry.blueprint.dom.model.Property;
 import me.alanfoster.camelry.blueprint.language.contributors.InjectionPsiReference;
-import me.alanfoster.camelus.blueprint.language.InjectionTypes;
-import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
+import me.alanfoster.camelry.blueprint.language.InjectionTypes;
+import me.alanfoster.camelry.blueprint.language.psi.InjectionPropertyDefinition;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
- * @see me.alanfoster.camelus.blueprint.language.grammar
+ * @see me.alanfoster.camelry.blueprint.language.grammar
  */
 public class InjectionPsiImplUtil {
 

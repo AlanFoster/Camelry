@@ -1,4 +1,4 @@
-package me.alanfoster.camelus.blueprint.camel.dom.common;
+package me.alanfoster.camelry.blueprint.camel.dom.common;
 
 /**
  * Basic custom exception class which extends Exception, rather than throwable.
