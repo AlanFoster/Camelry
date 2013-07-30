@@ -8,8 +8,8 @@ import com.intellij.psi.LanguageInjector;
 import com.intellij.psi.PsiLanguageInjectionHost;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.psi.xml.XmlText;
-import me.alanfoster.camelus.configuration.CamelusConfigurationModel;
-import me.alanfoster.camelus.configuration.CamelusConfigurationService;
+import me.alanfoster.camelus.configuration.CamelryConfigurationModel;
+import me.alanfoster.camelus.configuration.CamelryConfigurationService;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -98,7 +98,7 @@ public class CamelLanguageInjector implements LanguageInjector {
     }
 
     public boolean isSimpleLanguageInjected() {
-        CamelusConfigurationModel configuration = CamelusConfigurationService.getConfiguration();
+        CamelryConfigurationModel configuration = CamelryConfigurationService.getConfiguration();
         return configuration.isSimpleLanguageInjected();
     }
 }

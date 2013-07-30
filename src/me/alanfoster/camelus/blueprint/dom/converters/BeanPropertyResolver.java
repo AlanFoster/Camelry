@@ -15,7 +15,7 @@ import java.beans.Introspector;
 import java.util.HashSet;
 import java.util.Set;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * This class is used as the Property Resolver for Blueprint Beans.

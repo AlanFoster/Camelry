@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Camelus Configuration form. Note, I have decided to test out IntelliJ's form builder for this class.
@@ -16,10 +16,10 @@ import static me.alanfoster.camelus.CamelusBundle.message;
  */
 // TODO Think about what level of configuration we may need for the plugin, to best decide how much time to invest in creating a reusable solution
 // TODO There's a really slow call time for isModified(), maybe we need to manually call UISettings.getInstance().fireUISettingsChanged(); ourselves?
-public class CamelusConfigurationForm implements Configurable {
+public class CamelryConfigurationForm implements Configurable {
     private JPanel panel;
     private JCheckBox simpleLanguageInjectionCheckBox;
-    private CamelusConfigurationModel settings;
+    private CamelryConfigurationModel settings;
 
     @Nls
     @Override
@@ -39,7 +39,7 @@ public class CamelusConfigurationForm implements Configurable {
     @Override
     public JComponent createComponent() {
         // Bind our model to the application layer
-        settings = CamelusConfigurationService.getConfiguration();
+        settings = CamelryConfigurationService.getConfiguration();
         bindModel(settings);
         return panel;
     }
@@ -48,7 +48,7 @@ public class CamelusConfigurationForm implements Configurable {
      * Bind the given model to the GUI
      * @param model The model to bind to the GUI
      */
-    private void bindModel(CamelusConfigurationModel model) {
+    private void bindModel(CamelryConfigurationModel model) {
         simpleLanguageInjectionCheckBox.setSelected(model.isSimpleLanguageInjected());
     }
 

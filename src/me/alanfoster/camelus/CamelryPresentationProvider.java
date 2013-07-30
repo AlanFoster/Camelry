@@ -9,7 +9,7 @@ import javax.swing.*;
 /**
  * Provides the presentation icons etc for Camelus.
  */
-public class CamelusPresentationProvider {
+public class CamelryPresentationProvider {
     public static class Blueprint extends PresentationProvider<Object> {
         @Override
         @Nullable

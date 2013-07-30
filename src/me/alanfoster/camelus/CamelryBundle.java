@@ -11,13 +11,13 @@ import java.util.ResourceBundle;
 /**
  * Use this class for access to internationalised strings for i18n support.
  */
-public class CamelusBundle {
+public class CamelryBundle {
     private static Reference<ResourceBundle> ourBundle;
 
     @NonNls
-    private static final String PATH_TO_BUNDLE = "CamelusBundle";
+    private static final String PATH_TO_BUNDLE = "CamelryBundle";
 
-    private CamelusBundle(){}
+    private CamelryBundle(){}
 
     public static String message(@PropertyKey(resourceBundle = PATH_TO_BUNDLE) final String key, final String... params) {
         return CommonBundle.message(getBundle(), key, params);

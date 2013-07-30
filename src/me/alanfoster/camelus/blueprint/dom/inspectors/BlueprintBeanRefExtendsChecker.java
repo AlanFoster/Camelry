@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Checks that the given element has a reference to a blueprint bean which extends the

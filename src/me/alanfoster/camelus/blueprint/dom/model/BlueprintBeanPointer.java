@@ -7,7 +7,7 @@ import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.NameValue;
 import com.intellij.util.xml.Required;
 import com.intellij.xml.util.PsiElementPointer;
-import me.alanfoster.camelus.CamelusPresentationProvider;
+import me.alanfoster.camelus.CamelryPresentationProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * It is therefore preferrable that Converters resolve to this interface directly
  * rather than to a concrete BlueprintBean or BlueprintReference etc.
  */
-@Presentation(provider = CamelusPresentationProvider.Blueprint.class)
+@Presentation(provider = CamelryPresentationProvider.Blueprint.class)
 public interface BlueprintBeanPointer extends PsiElementPointer {
 
     @Attribute("id")

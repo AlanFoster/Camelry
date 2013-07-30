@@ -27,7 +27,7 @@ import me.alanfoster.camelus.blueprint.model.BlueprintManager;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Provides an error annotation when a referenced Blueprint property value does not exist.

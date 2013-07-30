@@ -26,7 +26,7 @@ import me.alanfoster.camelus.camel.dom.CamelContext;
 import me.alanfoster.camelus.camel.dom.Route;
 import org.jetbrains.annotations.NotNull;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Implements the refactoring of extracting the highlighted camel context elements into a

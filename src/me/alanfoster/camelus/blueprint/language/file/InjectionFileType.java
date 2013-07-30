@@ -1,7 +1,6 @@
 package me.alanfoster.camelus.blueprint.language.file;
 
 import com.intellij.openapi.fileTypes.LanguageFileType;
-import me.alanfoster.camelus.CamelusBundle;
 import me.alanfoster.camelus.blueprint.language.BlueprintInjectionLanguage;
 import me.alanfoster.camelus.icons.PluginIcons;
 import org.jetbrains.annotations.NonNls;
@@ -10,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * @author Alan Foster

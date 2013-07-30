@@ -1,19 +1,19 @@
 package me.alanfoster.camelus.blueprint.language;
 
 import com.intellij.psi.PsiElement;
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.psi.InjectionPropertyDefinition;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
 
 /**
  * Tests for ensuring references are correct as expected.
  */
-public class ReferenceTest extends CamelusTestSupport {
+public class ReferenceTest extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

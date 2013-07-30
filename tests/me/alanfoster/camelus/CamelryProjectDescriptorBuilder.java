@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NonNls;
 import java.io.File;
 import java.util.List;
 
-public class CamelusProjectDescriptorBuilder {
+public class CamelryProjectDescriptorBuilder {
 
     public static CamelusProject CreateCamelusProject(JavaCodeInsightTestFixture fixture) {
         return new CamelusProject(fixture, new DefaultLightProjectDescriptor());

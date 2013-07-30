@@ -20,7 +20,7 @@
 
     <application-components>
         <component>
-            <implementation-class>me.alanfoster.camelus.configuration.CamelusConfigurationService</implementation-class>
+            <implementation-class>me.alanfoster.camelus.configuration.CamelryConfigurationService</implementation-class>
         </component>
     </application-components>
 
@@ -50,7 +50,7 @@
         <fileTemplateGroup implementation="me.alanfoster.camelus.blueprint.support.BlueprintFileTemplateManager"/>
 
         <!-- Configuration window -->
-        <applicationConfigurable implementation="me.alanfoster.camelus.configuration.CamelusConfigurationForm" />
+        <applicationConfigurable implementation="me.alanfoster.camelus.configuration.CamelryConfigurationForm" />
 
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Camel specific

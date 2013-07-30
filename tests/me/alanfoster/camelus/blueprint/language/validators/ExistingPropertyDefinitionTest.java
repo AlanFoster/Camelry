@@ -19,10 +19,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
-import static me.alanfoster.camelus.CamelusTestSupport.commonFile;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.javaFiles;
+import static me.alanfoster.camelus.CamelryTestSupport.commonFile;
 
 /**
  * Tests that the user is notified when property definitions don't exist within

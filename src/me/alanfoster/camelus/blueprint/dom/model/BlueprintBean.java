@@ -4,7 +4,7 @@ import com.intellij.ide.presentation.Presentation;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.*;
-import me.alanfoster.camelus.CamelusPresentationProvider;
+import me.alanfoster.camelus.CamelryPresentationProvider;
 import me.alanfoster.camelus.blueprint.dom.converters.BlueprintBeanMethodProvider;
 import org.jetbrains.annotations.NotNull;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-@Presentation(provider = CamelusPresentationProvider.Blueprint.class)
+@Presentation(provider = CamelryPresentationProvider.Blueprint.class)
 public interface BlueprintBean extends DomElement, BlueprintBeanPointer {
 
     @Attribute("init-method")

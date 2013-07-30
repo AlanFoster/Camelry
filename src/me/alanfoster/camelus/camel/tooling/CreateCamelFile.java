@@ -8,7 +8,7 @@ import com.intellij.psi.PsiDirectory;
 import me.alanfoster.camelus.icons.PluginIcons;
 import me.alanfoster.camelus.blueprint.support.BlueprintFileTemplateManager;
 
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Adds the option to create a new camel related file in the

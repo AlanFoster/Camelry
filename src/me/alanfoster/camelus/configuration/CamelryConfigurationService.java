@@ -13,16 +13,16 @@ import org.jetbrains.annotations.Nullable;
                 @Storage(id = "default", file = StoragePathMacros.APP_CONFIG + "/CamelusConfiguration.xml"),
         }
 )
-public class CamelusConfigurationService implements PersistentStateComponent<CamelusConfigurationModel> {
-    private CamelusConfigurationModel state;
+public class CamelryConfigurationService implements PersistentStateComponent<CamelryConfigurationModel> {
+    private CamelryConfigurationModel state;
 
-    public CamelusConfigurationService() {
-        state = CamelusConfigurationModel.getDefaults();
+    public CamelryConfigurationService() {
+        state = CamelryConfigurationModel.getDefaults();
     }
 
     @Nullable
-    public static CamelusConfigurationModel getConfiguration() {
-        CamelusConfigurationService service = ServiceManager.getService(CamelusConfigurationService.class);
+    public static CamelryConfigurationModel getConfiguration() {
+        CamelryConfigurationService service = ServiceManager.getService(CamelryConfigurationService.class);
         return service.getState();
     }
 
@@ -31,7 +31,7 @@ public class CamelusConfigurationService implements PersistentStateComponent<Cam
      */
     @Nullable
     @Override
-    public CamelusConfigurationModel getState() {
+    public CamelryConfigurationModel getState() {
         return state;
     }
 
@@ -39,7 +39,7 @@ public class CamelusConfigurationService implements PersistentStateComponent<Cam
      * {@inheritDoc}
      */
     @Override
-    public void loadState(CamelusConfigurationModel state) {
+    public void loadState(CamelryConfigurationModel state) {
        this.state = state;
     }
 }

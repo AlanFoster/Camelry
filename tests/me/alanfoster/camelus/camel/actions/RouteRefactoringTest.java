@@ -4,14 +4,14 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TestInputDialog;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import junit.framework.Assert;
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Tests to ensure that route refactoring works correctly
  */
-public class RouteRefactoringTest extends CamelusTestSupport {
+public class RouteRefactoringTest extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

@@ -1,20 +1,20 @@
 package me.alanfoster.camelus.camel.dom;
 
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.TestHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
  * Tests for the apache camel Throws Exception xml DSL.
  */
-public class ThrowExceptionTest extends CamelusTestSupport {
+public class ThrowExceptionTest extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

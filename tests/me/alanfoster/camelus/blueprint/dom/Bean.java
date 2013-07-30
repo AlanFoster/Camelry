@@ -1,21 +1,21 @@
 package me.alanfoster.camelus.blueprint.dom;
 
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.TestHelper;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
  * Tests for Blueprint Bean DomElements.
  */
 // TODO Tests to ensure that we resolve to the correct constructor type - Not implemented
-public class Bean extends CamelusTestSupport {
+public class Bean extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

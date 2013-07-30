@@ -9,7 +9,7 @@ import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.util.xml.highlighting.DomElementAnnotationHolder;
 import com.intellij.util.xml.highlighting.DomElementsInspection;
 import com.intellij.util.xml.highlighting.DomHighlightingHelper;
-import me.alanfoster.camelus.CamelusBundle;
+import me.alanfoster.camelus.CamelryBundle;
 import me.alanfoster.camelus.blueprint.dom.model.Blueprint;
 import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.blueprint.model.BlueprintManager;
@@ -50,7 +50,7 @@ public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint>
             if(duplicatedBeans.isEmpty()) return;
 
             // TODO Should we add a quick fix option, so the user can easily check the conflicting ids ?
-            holder.createProblem(idAttribute, HighlightSeverity.ERROR, CamelusBundle.message("camelus.blueprint.dom.duplicate.bean.id"));
+            holder.createProblem(idAttribute, HighlightSeverity.ERROR, CamelryBundle.message("camelus.blueprint.dom.duplicate.bean.id"));
         }
     }
 

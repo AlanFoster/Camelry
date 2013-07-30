@@ -1,6 +1,6 @@
 package me.alanfoster.camelus.camel.dom;
 
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.LanguageFiles;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.blueprint.dom.inspectors.DeprecatedAttribtueChecker;
@@ -9,15 +9,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.javaFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.javaFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
  * Tests for camel method DSL completion
  */
-public class MethodTest extends CamelusTestSupport {
+public class MethodTest extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

@@ -1,6 +1,6 @@
 package me.alanfoster.camelus.camel.dom;
 
-import me.alanfoster.camelus.CamelusTestSupport;
+import me.alanfoster.camelus.CamelryTestSupport;
 import me.alanfoster.camelus.TestHelper;
 import me.alanfoster.camelus.LanguageFiles;
 
@@ -8,14 +8,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.CreateCamelusProject;
-import static me.alanfoster.camelus.CamelusProjectDescriptorBuilder.blueprintFiles;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.CreateCamelusProject;
+import static me.alanfoster.camelus.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
  * Tests camel bean intellisense completion.
  */
-public class BeanCompletionTest extends CamelusTestSupport {
+public class BeanCompletionTest extends CamelryTestSupport {
 
     @Override
     public String getTestDataPath() {

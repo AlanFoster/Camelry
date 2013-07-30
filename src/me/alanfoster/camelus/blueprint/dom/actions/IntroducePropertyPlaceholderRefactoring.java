@@ -1,11 +1,9 @@
 package me.alanfoster.camelus.blueprint.dom.actions;
 
 import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorFactory;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtil;
@@ -13,8 +11,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.Trinity;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.patterns.DomPatterns;
-import com.intellij.patterns.XmlPatterns;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -23,12 +19,9 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.refactoring.RefactoringActionHandler;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.DomManager;
 import com.intellij.util.xml.DomUtil;
-import com.intellij.util.xml.GenericAttributeValue;
 import com.intellij.xml.util.XmlUtil;
 import me.alanfoster.camelus.blueprint.dom.model.BeanProperty;
-import me.alanfoster.camelus.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelus.blueprint.dom.model.Property;
 import me.alanfoster.camelus.blueprint.language.InjectionTypes;
 import me.alanfoster.camelus.blueprint.language.file.InjectionFile;
@@ -39,9 +32,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static com.intellij.patterns.DomPatterns.domElement;
-import static com.intellij.patterns.DomPatterns.withDom;
 import static com.intellij.patterns.XmlPatterns.xmlAttributeValue;
-import static me.alanfoster.camelus.CamelusBundle.message;
+import static me.alanfoster.camelus.CamelryBundle.message;
 
 /**
  * Introduces a property placeholder variable when a non-property value has been selected.

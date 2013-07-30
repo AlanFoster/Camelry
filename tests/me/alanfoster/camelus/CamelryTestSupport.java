@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * The base class used for testing.
  */
-public class CamelusTestSupport extends LightCodeInsightFixtureTestCase {
+public class CamelryTestSupport extends LightCodeInsightFixtureTestCase {
 
     /**
      * Specify the use of a mock JDK, which is a lightweight version of the Java SDK.

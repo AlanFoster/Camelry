@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="me.alanfoster.camelus.configuration.CamelusConfigurationForm">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="me.alanfoster.camelus.configuration.CamelryConfigurationForm">
   <grid id="27dc6" binding="panel" layout-manager="FormLayout">
     <rowspec value="center:max(d;4px):noGrow"/>
     <colspec value="fill:max(d;4px):noGrow"/>
@@ -17,7 +17,7 @@
           <forms/>
         </constraints>
         <properties>
-          <text resource-bundle="CamelusBundle" key="camelus.configuration.simplelanguageinjection.label"/>
+          <text resource-bundle="CamelryBundle" key="camelus.configuration.simplelanguageinjection.label"/>
         </properties>
       </component>
       <component id="67d37" class="javax.swing.JLabel">
@@ -26,7 +26,7 @@
           <forms/>
         </constraints>
         <properties>
-          <text resource-bundle="CamelusBundle" key="camelus.configuration.simplelanguageinjection.note"/>
+          <text resource-bundle="CamelryBundle" key="camelus.configuration.simplelanguageinjection.note"/>
         </properties>
       </component>
     </children>
