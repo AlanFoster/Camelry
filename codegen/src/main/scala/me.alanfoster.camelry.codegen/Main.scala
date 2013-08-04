@@ -13,9 +13,10 @@ object Main {
 
     ScalateGenerator
       .generateFiles(
-        "org.apache.camel.model",
-        "org.apache.camel.core.xml"
-      )
+      author = "Alan",
+      jaxbPaths = "org.apache.camel.model",
+      "org.apache.camel.core.xml"
+    )
 
     logger.info("Completed code generation")
   }

@@ -36,21 +36,23 @@ trait Generator {
    * @param jaxbPaths The packages containing the jaxb.index file
    *                  eg "foo.bar.baz" implies there exists a file "foo/bar/baz/jaxb.index"
    */
-  def generateFiles(jaxbPaths: String*): List[String] = {
+  def generateFiles(author: String, jaxbPaths: String*): List[String] = {
     val delimitedPaths: String = jaxbPaths.mkString(":")
 
-    val context:JAXBContext = JAXBContext.newInstance(delimitedPaths)
+    val context: JAXBContext = JAXBContext.newInstance(delimitedPaths)
 
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
     val files = beans
-      .filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
-      .map({ case (key, value) => generateFile(key, value)})
+      //.filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
+      .map({
+      case (clazz, clazzInfo) => generateFile(author, clazz, clazzInfo)
+    })
     files.toList
   }
 
-  def generateFile(clazz : Class[_], classInfo : RuntimeClassInfo): String = {
+  def generateFile(author: String, clazz: Class[_], classInfo: RuntimeClassInfo): String = {
     // Data transformation
     val properties: mutable.Buffer[_ <: RuntimePropertyInfo] = classInfo.getProperties.asScala
 
@@ -75,8 +77,8 @@ trait Generator {
 
     val generatedText = generate(
       new GeneratorObject(
-        metadata = new MetaData(author = "Alan", generator = getClass),
-        other = new Other (
+        metadata = new MetaData(author, generator = getClass),
+        other = new Other(
           name = classInfo.getElementName.getLocalPart,
           elements = propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Any, Any]]],
           attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Any, Any]]]

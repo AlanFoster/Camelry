@@ -1,0 +1,19 @@
+//
+// Note - This file was automatically generated
+// Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
+// Creation Date - Sunday, 4 August 2013
+// Please do not manually modify this class.
+//
+
+import com.intellij.util.xml.*;
+import com.intellij.util.xml.DomElement;
+import org.jetbrains.annotations.*;
+
+
+/**
+ * @author Alan
+ */
+public interface SimpleAttributesAndProperties extends DomElement,  {
+                    @NotNull
+        GenericAttributeValue<class java.lang.String> getid();
+    }

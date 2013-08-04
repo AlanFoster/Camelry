@@ -10,7 +10,7 @@
 
     <properties>
         <scala.version>2.10.2</scala.version>
-        <specs.version>1.2.5</specs.version>
+        <specs.version>2.1.1</specs.version>
         <junit.version>4.4</junit.version>
         <scalate.version>1.6.1</scalate.version>
         <logging.version>1.5.8</logging.version>
@@ -91,8 +91,8 @@
 
         <!-- testing -->
         <dependency>
-            <groupId>org.specs</groupId>
-            <artifactId>specs</artifactId>
+            <groupId>org.specs2</groupId>
+            <artifactId>specs2_2.10</artifactId>
             <version>${specs.version}</version>
             <scope>test</scope>
         </dependency>
@@ -108,6 +108,11 @@
     <build>
         <sourceDirectory>src/main/scala</sourceDirectory>
         <testSourceDirectory>src/test/scala</testSourceDirectory>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
         <plugins>
             <plugin>
                 <groupId>org.scala-tools</groupId>
