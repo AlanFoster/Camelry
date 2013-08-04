@@ -1,0 +1,33 @@
+<%-- val methods: mutable.Buffer[RuntimePropertyInfo] --%>
+
+<%-- Imports  --%>
+#import(com.sun.xml.bind.v2.model.runtime.RuntimeClassInfo)
+#import(com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet)
+#import(com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo)
+#import(com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo})
+#import(scala.collection.mutable)
+
+<%-- Attributes passed in to the template --%>
+<%@ val metadata: me.alanfoster.camelry.codegen.Generator.MetaData %>
+<%@ val other: me.alanfoster.camelry.codegen.Generator.Other  %>
+
+<%--
+   Begin Main Template
+--%>
+
+${include("GeneratedWarningTemplate.ssp")}
+
+import com.intellij.util.xml.*;
+import com.intellij.util.xml.DomElement;
+import org.jetbrains.annotations.*;
+
+${include("HeaderTemplate.ssp")}
+public interface ${other.name} extends DomElement,  {
+    #for(attribute <- other.attributes)
+        #if(attribute.isRequired)
+        @Required
+        #end
+        @NotNull
+        GenericAttributeValue<${attribute.getTarget}> get${attribute.getName}();
+    #end
+}

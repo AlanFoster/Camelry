@@ -1,0 +1,5 @@
+<%-- Attributes passed in to the template --%>
+<%@ val metadata: me.alanfoster.camelry.codegen.Generator.MetaData %>
+/**
+ * @author ${metadata.author}
+ */
