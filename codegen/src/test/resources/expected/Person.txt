@@ -13,7 +13,15 @@ import org.jetbrains.annotations.*;
 /**
  * @author Alan
  */
-public interface SimpleAttributesAndProperties extends DomElement,  {
+public interface person extends DomElement  {
+            
+        @Required
+                @NotNull
+        GenericAttributeValue<class java.lang.Integer> getId();
                     @NotNull
-        GenericAttributeValue<class java.lang.String> getid();
+        GenericAttributeValue<class java.lang.String> getFirstName();
+                    @NotNull
+        GenericAttributeValue<class java.lang.String> getLastName();
+    
+    
     }

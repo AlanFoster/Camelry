@@ -1,0 +1,36 @@
+//
+// Note - This file was automatically generated
+// Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
+// Creation Date - Sunday, 4 August 2013
+// Please do not manually modify this class.
+//
+
+import com.intellij.util.xml.*;
+import com.intellij.util.xml.DomElement;
+import org.jetbrains.annotations.*;
+
+
+/**
+ * @author Alan
+ */
+public interface address extends DomElement  {
+            
+        @Required
+                @NotNull
+        GenericAttributeValue<class java.lang.Integer> getId();
+                    @NotNull
+        GenericAttributeValue<class java.lang.String> getCountry();
+    
+    
+    
+                /**
+         * Returns the current DomElement value.
+         * Originally named as Address
+         */
+        class java.lang.String getValue();
+        /**
+         * Sets the current DomElement value.
+         * Originally named as Address
+         */
+        class java.lang.String setValue();
+    }

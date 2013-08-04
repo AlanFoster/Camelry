@@ -4,7 +4,8 @@
 #import(com.sun.xml.bind.v2.model.runtime.RuntimeClassInfo)
 #import(com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet)
 #import(com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo)
-#import(com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo})
+#import(com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo})
+#import(com.sun.xml.bind.v2.model.runtime.RuntimeValuePropertyInfo)
 #import(scala.collection.mutable)
 
 <%-- Attributes passed in to the template --%>
@@ -22,12 +23,34 @@ import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.*;
 
 ${include("HeaderTemplate.ssp")}
-public interface ${other.name} extends DomElement,  {
+public interface ${other.name} extends DomElement  {
     #for(attribute <- other.attributes)
         #if(attribute.isRequired)
         @Required
         #end
         @NotNull
-        GenericAttributeValue<${attribute.getTarget}> get${attribute.getName}();
+        GenericAttributeValue<${attribute.getTarget}> get${attribute.getName.capitalize}();
+    #end
+
+    #for(element <- other.elements)
+        #if(element.isRequired)
+        @Required
+        #end
+        @NotNull
+        GenericAttributeValue<${element.ref.iterator.next.getType}> get${element.getName.capitalize}();
+    #end
+
+    #if(other.value != null)
+        <% val value = other.value %>
+        /**
+         * Returns the current DomElement value.
+         * Originally named as ${value.getName.capitalize}
+         */
+        ${value.getTarget} getValue();
+        /**
+         * Sets the current DomElement value.
+         * Originally named as ${value.getName.capitalize}
+         */
+        ${value.getTarget} setValue();
     #end
 }

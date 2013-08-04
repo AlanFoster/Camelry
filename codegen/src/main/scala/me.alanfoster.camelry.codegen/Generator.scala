@@ -2,18 +2,16 @@ package me.alanfoster.camelry.codegen
 
 import javax.xml.bind.JAXBContext
 import me.alanfoster.camelry.codegen.model.{GeneratorObject, MetaData, Other}
-import scala.collection.{mutable, JavaConversions}
+import scala.collection.mutable
 
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl
-import com.sun.xml.bind.v2.model.runtime.{RuntimeEnumLeafInfo, RuntimePropertyInfo, RuntimeClassInfo, RuntimeTypeInfoSet}
-import org.apache.camel.model.SetHeaderDefinition
-import org.fusesource.scalate.TemplateEngine
+import com.sun.xml.bind.v2.model.runtime._
 import scala.collection.JavaConverters._
-import com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo}
+import com.sun.xml.bind.v2.model.core.{NonElement, ElementPropertyInfo, AttributePropertyInfo}
 import java.lang.reflect.Type
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 // TODO Consider the scenario of isAbstract() being true
 // XmlRootElement
@@ -70,10 +68,18 @@ trait Generator {
       }
       case value: ElementPropertyInfo[_, _] => {
         logger.info("element :: " + value.getName)
-        "elements"
+        "element"
       }
-      case x => logger.info("Unrecognised val : " + x)
+      case value:RuntimeValuePropertyInfo => {
+        logger.info("values " + value.getName)
+        "values"
+      }
+      case x => logger.info("Unsupported value : " + x)
     }).withDefaultValue(mutable.ArrayBuffer.empty[Any])
+
+    if(propertyMap("values").size > 1) {
+      throw new IllegalArgumentException("Values list should be zero or one :: " + propertyMap("values").mkString)
+    }
 
     val generatedText = generate(
       new GeneratorObject(
@@ -81,7 +87,10 @@ trait Generator {
         other = new Other(
           name = classInfo.getElementName.getLocalPart,
           elements = propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Any, Any]]],
-          attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Any, Any]]]
+          attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Any, Any]]],
+          value =
+            if(propertyMap("values").size == 1) propertyMap("values").asInstanceOf[mutable.Buffer[RuntimeValuePropertyInfo]].head
+            else null
         )
       )
     )
