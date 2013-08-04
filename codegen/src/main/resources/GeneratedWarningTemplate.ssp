@@ -1,5 +1,5 @@
 <%-- Attributes passed in to the template --%>
-<%@ val metadata: me.alanfoster.camelry.codegen.Generator.MetaData %>
+<%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
 
 <%-- Imports --%>
 #import(java.util.Date)

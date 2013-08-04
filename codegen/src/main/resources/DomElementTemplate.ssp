@@ -8,8 +8,8 @@
 #import(scala.collection.mutable)
 
 <%-- Attributes passed in to the template --%>
-<%@ val metadata: me.alanfoster.camelry.codegen.Generator.MetaData %>
-<%@ val other: me.alanfoster.camelry.codegen.Generator.Other  %>
+<%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
+<%@ val other: me.alanfoster.camelry.codegen.model.Other  %>
 
 <%--
    Begin Main Template

@@ -1,6 +1,7 @@
 package me.alanfoster.camelry.codegen
 
 import javax.xml.bind.JAXBContext
+import me.alanfoster.camelry.codegen.model.{GeneratorObject, MetaData, Other}
 import scala.collection.{mutable, JavaConversions}
 
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl
@@ -23,33 +24,33 @@ import org.slf4j.LoggerFactory;
 // XmlID
 
 /**
- * Generator for creating DomElement interfaces from JAXb annotated classes.
+ * The trait Generator for creating DomElement interfaces from JAXB annotated classes.
+ * The generator itself should perform any data transforms required before passing
+ * to a concrete implementation of #generate
  */
-object Generator {
+trait Generator {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
-  def main(args: Array[String]) {
+  /**
+   *
+   * @param jaxbPaths The packages containing the jaxb.index file
+   *                  eg "foo.bar.baz" implies there exists a file "foo/bar/baz/jaxb.index"
+   */
+  def generateFiles(jaxbPaths: String*): List[String] = {
+    val delimitedPaths: String = jaxbPaths.mkString(":")
 
-    logger.info("Starting Code Generation")
-
-    //  Create the jaxB context
-    val context:JAXBContext = JAXBContext.newInstance(
-      "org.apache.camel.model:" +
-      "org.apache.camel.core.xml"
-    )
+    val context:JAXBContext = JAXBContext.newInstance(delimitedPaths)
 
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
-    set.getAnyTypeInfo
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
-    beans
+    val files = beans
       .filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
-      .foreach({ case (key, value) => {generateFile(key, value)}})
-
-    logger.info("Completed code generation")
+      .map({ case (key, value) => generateFile(key, value)})
+    files.toList
   }
 
-  def generateFile(clazz : Class[_], classInfo : RuntimeClassInfo) = {
+  def generateFile(clazz : Class[_], classInfo : RuntimeClassInfo): String = {
     // Data transformation
     val properties: mutable.Buffer[_ <: RuntimePropertyInfo] = classInfo.getProperties.asScala
 
@@ -72,54 +73,24 @@ object Generator {
       case x => logger.info("Unrecognised val : " + x)
     }).withDefaultValue(mutable.ArrayBuffer.empty[Any])
 
-    val generatedText = new ScalateGenerator().generate(
+    val generatedText = generate(
       new GeneratorObject(
         metadata = new MetaData(author = "Alan", generator = getClass),
         other = new Other (
-           name = classInfo.getElementName.getLocalPart,
-           elements = propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Any, Any]]],
-           attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Any, Any]]]
+          name = classInfo.getElementName.getLocalPart,
+          elements = propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Any, Any]]],
+          attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Any, Any]]]
         )
       )
     )
 
-    logger.info("Generated file :: \n" + generatedText.trim)
+    val result = generatedText.trim
+    logger.info("Generated file :: \n" + result)
+
+    result
   }
 
-
-  trait Generator {
-    def generate(definition: GeneratorObject): String
-  }
-
-  class ScalateGenerator extends Generator {
-
-    private val uri: String = "DomElementTemplate.ssp"
-
-    def generate(definition: GeneratorObject): String = {
-      val engine = new TemplateEngine()
-      engine.escapeMarkup = false
-
-      // Forces validation on the file - I believe it also caches it for later use, so there shouldn't be any performance hit in doing this
-      engine.load(uri)
-
-      val answer = engine.layout(uri, Map(
-        "metadata" -> definition.metadata,
-        "other" -> definition.other
-      ))
-      answer
-    }
-  }
-
-  // TODO Decide on a better name in the future once the full requirements are understood
-  case class Other(name: String, attributes: mutable.Buffer[AttributePropertyInfo[Any, Any]], elements:  mutable.Buffer[ElementPropertyInfo[Any, Any]]) {
-  }
-
-  case class GeneratorObject(metadata: MetaData, other : Other) {
-  }
-
-  case class MetaData(author: String, generator: Any) {
-  }
-
+  def generate(definition: GeneratorObject): String
 }
 
 
