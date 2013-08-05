@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - Sunday, 4 August 2013
+// Creation Date - ${injectedDate}
 // Please do not manually modify this class.
 //
 
@@ -13,13 +13,14 @@ import org.jetbrains.annotations.*;
 /**
  * @author Alan
  */
-public interface address extends DomElement  {
+//@SubTag("address")
+public interface Address extends DomElement  {
             
         @Required
                 @NotNull
-        GenericAttributeValue<class java.lang.Integer> getId();
+        GenericAttributeValue<Integer> getId();
                     @NotNull
-        GenericAttributeValue<class java.lang.String> getCountry();
+        GenericAttributeValue<String> getCountry();
     
     
     
@@ -27,10 +28,10 @@ public interface address extends DomElement  {
          * Returns the current DomElement value.
          * Originally named as Address
          */
-        class java.lang.String getValue();
+        String getValue();
         /**
          * Sets the current DomElement value.
          * Originally named as Address
          */
-        class java.lang.String setValue();
+        String setValue();
     }

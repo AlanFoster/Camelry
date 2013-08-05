@@ -18,7 +18,7 @@ public class Person {
     private String lastName;
 
     @XmlElement
-    private Address personElement;
+    private Address address;
 
     @XmlTransient
     private String ignoreField;

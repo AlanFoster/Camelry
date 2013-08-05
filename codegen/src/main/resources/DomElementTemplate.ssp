@@ -5,7 +5,7 @@
 #import(com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet)
 #import(com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo)
 #import(com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo})
-#import(com.sun.xml.bind.v2.model.runtime.RuntimeValuePropertyInfo)
+#import(com.sun.xml.bind.v2.model.runtime.{RuntimeClassInfo, RuntimeValuePropertyInfo})
 #import(scala.collection.mutable)
 
 <%-- Attributes passed in to the template --%>
@@ -23,13 +23,20 @@ import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.*;
 
 ${include("HeaderTemplate.ssp")}
-public interface ${other.name} extends DomElement  {
+<%
+    // TODO
+    val extendClasses =
+        if(other.baseClass.nonEmpty) other.baseClass.get.getClazz.getSimpleName :: List("DomElement")
+        else List("DomElement")
+%>
+//@SubTag("${other.xmlName}")
+public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
     #for(attribute <- other.attributes)
         #if(attribute.isRequired)
         @Required
         #end
         @NotNull
-        GenericAttributeValue<${attribute.getTarget}> get${attribute.getName.capitalize}();
+        GenericAttributeValue<${attribute.getTarget.getType.asInstanceOf[Class[_]].getSimpleName}> get${attribute.getName.capitalize}();
     #end
 
     #for(element <- other.elements)
@@ -37,7 +44,7 @@ public interface ${other.name} extends DomElement  {
         @Required
         #end
         @NotNull
-        GenericAttributeValue<${element.ref.iterator.next.getType}> get${element.getName.capitalize}();
+        ${element.ref.iterator.next.asInstanceOf[RuntimeClassInfo].getClazz.getSimpleName} get${element.getName.capitalize}();
     #end
 
     #if(other.value != null)
@@ -46,11 +53,11 @@ public interface ${other.name} extends DomElement  {
          * Returns the current DomElement value.
          * Originally named as ${value.getName.capitalize}
          */
-        ${value.getTarget} getValue();
+        ${value.getTarget.getType.asInstanceOf[Class[_]].getSimpleName} getValue();
         /**
          * Sets the current DomElement value.
          * Originally named as ${value.getName.capitalize}
          */
-        ${value.getTarget} setValue();
+        ${value.getTarget.getType.asInstanceOf[Class[_]].getSimpleName} setValue();
     #end
 }

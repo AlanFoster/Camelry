@@ -1,19 +1,11 @@
 package me.alanfoster.camelry.codegen
 
-import javax.xml.bind.JAXBContext
 import me.alanfoster.camelry.codegen.model.GeneratorObject
-import scala.collection.{mutable, JavaConversions}
 
-import com.sun.xml.bind.v2.runtime.JAXBContextImpl
-import com.sun.xml.bind.v2.model.runtime.{RuntimeEnumLeafInfo, RuntimePropertyInfo, RuntimeClassInfo, RuntimeTypeInfoSet}
-import org.apache.camel.model.SetHeaderDefinition
 import org.fusesource.scalate.TemplateEngine
-import scala.collection.JavaConverters._
-import com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo}
-import java.lang.reflect.Type
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * Scalate Generator

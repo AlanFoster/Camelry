@@ -13,18 +13,14 @@ import org.jetbrains.annotations.*;
 /**
  * @author Alan
  */
-//@SubTag("person")
-public interface Person extends DomElement  {
+//@SubTag("manager")
+public interface Manager extends Person, DomElement  {
             
         @Required
                 @NotNull
-        GenericAttributeValue<Integer> getId();
-                    @NotNull
-        GenericAttributeValue<String> getFirstName();
-                    @NotNull
-        GenericAttributeValue<String> getLastName();
+        GenericAttributeValue<Integer> getExtraAttribute();
     
                     @NotNull
-        Address getAddress();
+        Address getExtraHouse();
     
     }

@@ -2,11 +2,12 @@
 <%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
 
 <%-- Imports --%>
-#import(java.util.Date)
+#import(java.text.DateFormat)
+#import(java.util.{Locale, Date})
 
 //
 // Note - This file was automatically generated
 // Generation spawned by '${metadata.generator}'
-// Creation Date - ${new Date}
+// Creation Date - ${DateFormat.getDateInstance(DateFormat.LONG, Locale.UK).format(new Date)}
 // Please do not manually modify this class.
 //

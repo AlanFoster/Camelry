@@ -2,10 +2,10 @@ package me.alanfoster.camelry.codegen
 
 import org.specs2.mutable._
 import io.Source._
-import io.BufferedSource
-import io.Codec
 import java.io.{FileWriter, BufferedWriter, File}
-
+import java.util.{Locale, Date}
+import java.text.DateFormat
+;
 
 /**
  * ScalateCode generation tests
@@ -22,10 +22,16 @@ class ScalateSpec extends Specification {
       ans === expectedFiles("Address")
     }
 
-    "handle complex XmlElement types" in {
+   "handle complex XmlElement types" in {
       withJAXBIndex("Person", "Address")
       val ans = ScalateGenerator.generateFiles(author = "Alan", jaxbPaths = "foo.bar")
       ans === expectedFiles("Person", "Address")
+    }
+
+    "handle inheritance" in {
+      withJAXBIndex("Manager")
+      val ans = ScalateGenerator.generateFiles(author = "Alan", jaxbPaths = "foo.bar")
+      ans === expectedFiles("Manager", "Address", "Person")
     }
   }
 
@@ -43,6 +49,8 @@ class ScalateSpec extends Specification {
     simpleNames
       .map(name => "/expected/" + name + ".txt")
       .map(path => fromInputStream(getClass.getResourceAsStream(path), "UTF-8").mkString)
+      // Replace the string ${injectedDate} ourselves, rather than spawn another template engine call for testing
+      .map(fileContent => fileContent.replace("${injectedDate}", DateFormat.getDateInstance(DateFormat.LONG, Locale.UK).format(new Date)))
     .toList
   }
 }
