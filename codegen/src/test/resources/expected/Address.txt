@@ -8,6 +8,7 @@
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.*;
+import java.util.List;
 
 
 /**
@@ -28,6 +29,8 @@ public interface Address extends DomElement  {
          * Returns the current DomElement value.
          * Originally named as Address
          */
+        @Required
+        @NotNull
         String getValue();
         /**
          * Sets the current DomElement value.

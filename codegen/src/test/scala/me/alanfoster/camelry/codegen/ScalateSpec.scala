@@ -16,6 +16,7 @@ class ScalateSpec extends Specification {
     // Force sequential tests, as we need to read/write from the jaxb.index file for each scenario
     sequential
 
+/*
     "handle basic POJO generation" in {
       withJAXBIndex("Address")
       val ans = ScalateGenerator.generateFiles(author = "Alan", jaxbPaths = "foo.bar")
@@ -32,6 +33,13 @@ class ScalateSpec extends Specification {
       withJAXBIndex("Manager")
       val ans = ScalateGenerator.generateFiles(author = "Alan", jaxbPaths = "foo.bar")
       ans === expectedFiles("Manager", "Address", "Person")
+    }
+*/
+
+    "handle complex references" in {
+      withJAXBIndex("PersonDatabase", "Manager")
+      val ans = ScalateGenerator.generateFiles(author = "Alan", jaxbPaths = "foo.bar")
+      ans === expectedFiles("PersonDatabase", "Person", "Address", "Manager")
     }
   }
 

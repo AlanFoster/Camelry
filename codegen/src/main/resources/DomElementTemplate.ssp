@@ -21,6 +21,7 @@ ${include("GeneratedWarningTemplate.ssp")}
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.*;
+import java.util.List;
 
 ${include("HeaderTemplate.ssp")}
 <%
@@ -44,7 +45,11 @@ public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
         @Required
         #end
         @NotNull
+        #if(element.isCollection)
+        List<${element.ref.iterator.next.asInstanceOf[RuntimeClassInfo].getClazz.getSimpleName}> get${element.getName.capitalize}s();
+        #else
         ${element.ref.iterator.next.asInstanceOf[RuntimeClassInfo].getClazz.getSimpleName} get${element.getName.capitalize}();
+        #end
     #end
 
     #if(other.value != null)
@@ -53,6 +58,8 @@ public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
          * Returns the current DomElement value.
          * Originally named as ${value.getName.capitalize}
          */
+        @Required
+        @NotNull
         ${value.getTarget.getType.asInstanceOf[Class[_]].getSimpleName} getValue();
         /**
          * Sets the current DomElement value.

@@ -1,6 +1,6 @@
 package me.alanfoster.camelry.codegen
 
-import javax.xml.bind.JAXBContext
+import javax.xml.bind.{SchemaOutputResolver, JAXBContext}
 import me.alanfoster.camelry.codegen.model.{GeneratorObject, MetaData, Other}
 import scala.collection.mutable
 
@@ -13,6 +13,8 @@ import java.lang.reflect.Type
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.apache.camel.model.SetHeaderDefinition
+import javax.xml.transform.Result
+import javax.xml.transform.stream.StreamResult
 
 // TODO Consider the scenario of isAbstract() being true
 // XmlRootElement
@@ -40,6 +42,15 @@ trait Generator {
 
     val context: JAXBContext = JAXBContext.newInstance(delimitedPaths)
 
+/*    val resolver: SchemaOutputResolver {def createOutput(namespaceUri: String, suggestedFileName: String): Result} = new SchemaOutputResolver {
+      def createOutput(namespaceUri: String, suggestedFileName: String): Result = {
+        val result: StreamResult = new StreamResult(System.out)
+        result.setSystemId(suggestedFileName)
+        result
+      }
+    }
+    context.generateSchema(resolver)*/
+
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
@@ -65,7 +76,7 @@ trait Generator {
       .map(p => p.asInstanceOf[AttributePropertyInfo[Type, _]])
       .foreach(v => inspect(v))
 
-    val propertyMap = groupProperties(classInfo)
+    val propertyMap = PropertyMapper.groupProperties(classInfo)
 
     if(propertyMap("values").size > 1) {
       throw new IllegalArgumentException("Values list should be zero or one :: " + propertyMap("values").mkString)
@@ -91,37 +102,6 @@ trait Generator {
     logger.info("Generated file :: \n" + result)
 
     result
-  }
-
-  def groupProperties(classInfo:RuntimeClassInfo) = {
-    val properties: mutable.Buffer[_ <: RuntimePropertyInfo] = classInfo.getProperties.asScala
-
-    // TODO Handle Enum target generation
-    val propertyMap = properties.groupBy(value => value match {
-      case value: AttributePropertyInfo[Type, _] => {
-        value match {
-          case enum: RuntimeEnumLeafInfo =>
-            val baseType = enum.getBaseType
-            logger.info("enum base type :: " + baseType)
-          case _ =>
-        }
-
-        inspect(value)
-
-        //logger.info("attribute :: " + value.getName)
-        "attributes"
-      }
-      case value: ElementPropertyInfo[Type, _] => {
-        logger.info("element :: " + value.getName)
-        "elements"
-      }
-      case value:RuntimeValuePropertyInfo => {
-        logger.info("values " + value.getName)
-        "values"
-      }
-      case x => logger.info("Unsupported value : " + x)
-    }).withDefaultValue(mutable.ArrayBuffer.empty[Any])
-    propertyMap
   }
 
   def generate(definition: GeneratorObject): String

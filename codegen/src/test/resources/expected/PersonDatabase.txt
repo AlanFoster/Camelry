@@ -14,15 +14,11 @@ import java.util.List;
 /**
  * @author Alan
  */
-//@SubTag("manager")
-public interface Manager extends Person, DomElement  {
-            
-        @Required
-                @NotNull
-        GenericAttributeValue<Integer> getExtraAttribute();
+//@SubTag("personDatabase")
+public interface PersonDatabase extends DomElement  {
     
                     @NotNull
         
-        Address getExtraHouse();
+        List<Person> getPeoples();
             
     }
