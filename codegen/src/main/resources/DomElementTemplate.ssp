@@ -7,6 +7,8 @@
 #import(com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo})
 #import(com.sun.xml.bind.v2.model.runtime.{RuntimeClassInfo, RuntimeValuePropertyInfo})
 #import(scala.collection.mutable)
+#import(scala.collection.JavaConversions)
+#import(java.lang.reflect.{ParameterizedType, Type})
 
 <%-- Attributes passed in to the template --%>
 <%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
@@ -44,12 +46,38 @@ public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
         #if(element.isRequired)
         @Required
         #end
-        @NotNull
-        #if(element.isCollection)
-        List<${element.ref.iterator.next.asInstanceOf[RuntimeClassInfo].getClazz.getSimpleName}> get${element.getName.capitalize}s();
-        #else
-        ${element.ref.iterator.next.asInstanceOf[RuntimeClassInfo].getClazz.getSimpleName} get${element.getName.capitalize}();
+        <%-- TODO Investigate the scenario of multiple refs, does this overlap with elementRefs? --%>
+        #for(ref <- element.ref)
+            <%
+                val dataType =
+                    if(ref.isInstanceOf[RuntimeClassInfo]) ref.asInstanceOf[RuntimeClassInfo].getClass.getSimpleName
+                    else "TODO"
+                val name = element.getName.capitalize
+            %>
+            @NotNull
+            #if(element.isCollection)
+            List<${dataType}> get${name}s();
+            #else
+            ${dataType} get${name}();
+            #end
         #end
+    #end
+
+
+    #for(elementRef <- other.elementRefs)
+    <%
+        // Create separated list of all XmlReferences, splitting by an indented new line
+        val subTags = JavaConversions.asScalaSet(elementRef.getElements)
+                            .map("\"" + _.getElementName.getLocalPart + "\"").grouped(5).map(_.mkString(", "))
+                            .mkString("\n\t\t\t\t\t\t")
+
+        val name = elementRef.getName.capitalize
+        // TODO Get rid of this specific Type instance casting, and remove it completely before reaching the templates
+        val dataType = elementRef.getIndividualType.asInstanceOf[ParameterizedType].getRawType.asInstanceOf[Class[_]].getSimpleName
+    %>
+
+        @SubTagsList(${subTags})
+        List<${dataType}> getComposite${name}();
     #end
 
     #if(other.value != null)

@@ -28,6 +28,7 @@ object PropertyMapper {
 
       // TODO Handle Enum target generation
       val propertyMap = properties.groupBy(value => value match {
+         // Handle @XmlAttribute
         case value: AttributePropertyInfo[Type, _] => {
           value match {
             case enum: RuntimeEnumLeafInfo =>
@@ -39,13 +40,20 @@ object PropertyMapper {
           //logger.info("attribute :: " + value.getName)
           "attributes"
         }
+         // Handle @XmlElement
         case value: ElementPropertyInfo[Type, _] => {
           logger.info("element :: " + value.getName)
           "elements"
         }
+        // Handle @XmlValue
         case value:RuntimeValuePropertyInfo => {
-          logger.info("values " + value.getName)
+          logger.info("values :: " + value.getName)
           "values"
+        }
+        // Handle @XmlElementRef
+        case value: RuntimeReferencePropertyInfo => {
+          logger.info("xmlreference :: " + value)
+          "elementRefs"
         }
         case x => logger.info("Unsupported value : " + x)
       }).withDefaultValue(mutable.ArrayBuffer.empty[Any])

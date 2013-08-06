@@ -11,6 +11,7 @@ object Main {
   def main(args: Array[String]) {
     logger.info("Starting Code Generation")
 
+    // TODO Investigate why AggregateDefinition doesn't create the optimisticLockRetryPolicyDefinition element
     ScalateGenerator
       .generateFiles(
       author = "Alan",
