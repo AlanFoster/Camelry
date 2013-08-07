@@ -21,7 +21,6 @@ public class Manager extends Person {
     // private boolean isEmployed;
 
     // TODO primitive XmlElement
-    // TODO @XmlRef element
     // TODO Enum test
     // TODO Collection support
 }

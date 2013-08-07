@@ -4,6 +4,7 @@
 // Creation Date - ${injectedDate}
 // Please do not manually modify this class.
 //
+package foo.bar;
 
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
@@ -21,8 +22,9 @@ public interface Manager extends Person, DomElement  {
                 @NotNull
         GenericAttributeValue<Integer> getExtraAttribute();
     
-                    @NotNull
         
-        Address getExtraHouse();
-            
+        
+        @SubTag("extraHouse")
+                Address getExtraHouse();
+    
     }

@@ -4,6 +4,7 @@
 // Creation Date - ${injectedDate}
 // Please do not manually modify this class.
 //
+package foo.bar;
 
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
@@ -17,8 +18,25 @@ import java.util.List;
 //@SubTag("personDatabase")
 public interface PersonDatabase extends DomElement  {
     
-                    @NotNull
         
-        List<Person> getPeoples();
-            
+        
+        @SubTags("people")
+                java.util.List<foo.bar.Person> getPeople();
+        
+        
+        @SubTags("names")
+                java.util.List<java.lang.String> getPeopleFirstNames();
+        
+        
+        @SubTags("xxx", "yyy")
+                java.util.List<foo.bar.Person> getPersonListXmlElements();
+        
+        
+        @SubTags("person", "manager")
+                java.util.List<foo.bar.Person> getPeopleRefList();
+        
+        
+        @SubTag("person", "manager")
+                Person getPeopleRefSingle();
+    
     }

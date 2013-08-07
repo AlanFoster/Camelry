@@ -20,7 +20,7 @@
 --%>
 
 ${include("GeneratedWarningTemplate.ssp")}
-package ${metadata.packageName}
+package ${metadata.packageName};
 
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
@@ -44,28 +44,6 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
         GenericAttributeValue<${attribute.getTarget.getType.asInstanceOf[Class[_]].getSimpleName}> get${attribute.getName.capitalize}();
     #end
 
-    #for(element <- beanInfo.elements)
-        #if(element.isRequired)
-        @Required
-        #end
-        <%-- TODO Investigate the scenario of multiple refs, does this overlap with elementRefs? --%>
-        #for(ref <- element.ref)
-            <%
-                val dataType =
-                    if(ref.isInstanceOf[RuntimeClassInfo]) ref.asInstanceOf[RuntimeClassInfo].getClass.getSimpleName
-                    else "TODO"
-                val name = element.getName.capitalize
-            %>
-            @NotNull
-            #if(element.isCollection)
-            List<${dataType}> get${name}s();
-            #else
-            ${dataType} get${name}();
-            #end
-        #end
-    #end
-
-
     #for(elementRef <- beanInfo.elementRefs)
     <%
         // Create separated list of all XmlReferences, splitting by an indented new line
@@ -73,11 +51,19 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
                         .map("\"" + _ + "\"").grouped(5).map(_.mkString(", "))
                         .mkString("\n\t\t\t\t\t\t")
 
-        val name = elementRef.name.capitalize
+        val capitalizedName = elementRef.name.capitalize
+
+        val name = capitalizedName
+            //if(elementRef.isCollection) "Composite" + capitalizedName
+            //else capitalizedName
     %>
 
-        @SubTagsList(${subTags})
-        ${elementRef.dataType} getComposite${name}();
+        #if(elementRef.isCollection)
+        @SubTags(${subTags})
+        #else
+        @SubTag(${subTags})
+        #end
+        ${elementRef.dataType} get${name}();
     #end
 
     #if(beanInfo.value != null)

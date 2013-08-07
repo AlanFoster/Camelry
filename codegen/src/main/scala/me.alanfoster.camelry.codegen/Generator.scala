@@ -1,14 +1,19 @@
 package me.alanfoster.camelry.codegen
 
 import javax.xml.bind.JAXBContext
-import me.alanfoster.camelry.codegen.model.{ElementReference, GeneratorObject, Metadata, BeanInfo}
-import scala.collection.{immutable, mutable, JavaConversions}
+import me.alanfoster.camelry.codegen.model._
+import me.alanfoster.camelry.codegen.model.BeanInfo
+import me.alanfoster.camelry.codegen.model.GeneratorObject
+import me.alanfoster.camelry.codegen.model.Metadata
+import scala.collection.{mutable, immutable, JavaConversions}
 
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl
 import com.sun.xml.bind.v2.model.runtime._
+import com.sun.xml.bind.v2.model.impl.RuntimeElementPropertyInfoImpl
+
 import scala.collection.JavaConverters._
 import com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo}
-import java.lang.reflect.{ParameterizedType, Type}
+import java.lang.reflect.{Method, ParameterizedType, Type}
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -54,6 +59,7 @@ trait Generator {
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
     val files = beans
+      //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
       //.filter({ case (key, value) => key.getSimpleName == "AggregateDefinition"})
       //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
       //.filter({ case (key, value) => key.getSimpleName == "CatchDefinition"})
@@ -83,7 +89,6 @@ trait Generator {
       logger.info("xmlReference :: " + x.getElementName.getLocalPart)
     }*/
   }
-
 
 
   def generateFile(metadata: Metadata, clazz: Class[_], classInfo: RuntimeClassInfo): String = {
@@ -126,9 +131,12 @@ trait Generator {
               if(classInfo.getElementName == null) "AbstractClass"
               else classInfo.getElementName.getLocalPart,
           baseClass = Option(classInfo.getBaseClass),
-          elements = propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]],
+          elements = List[Element](),
           attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Type, Class[_]]]],
-          elementRefs = getElementRefs(propertyMap("elementRefs").asInstanceOf[mutable.Buffer[RuntimeReferencePropertyInfo]]),
+          elementRefs =
+            getElements(propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]])
+            ++ getElementRefs(propertyMap("elementRefs").asInstanceOf[mutable.Buffer[RuntimeReferencePropertyInfo]])
+          ,
           value =
             if(propertyMap("values").size == 1) propertyMap("values").asInstanceOf[mutable.Buffer[RuntimeValuePropertyInfo]].head
             else null
@@ -142,12 +150,33 @@ trait Generator {
     result
   }
 
+  def getElements(elements: mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]): List[ElementReference] = {
+    elements
+    .map(element => {
+      new ElementReference(
+        name = element.getName.capitalize,
+        isCollection = element.isCollection,
+        references = {
+          element.getTypes.asScala.map(elementType => elementType.getTagName.getLocalPart).toSet
+        },
+        dataType = {
+          // XXX Force a call to getRawType, which isn't exposed via the JAXB API for some reason
+          val declaredMethod: Method = element.getClass.getDeclaredMethod("getRawType")
+          declaredMethod.setAccessible(true)
+          val rawType: Type = declaredMethod.invoke(element).asInstanceOf[Type]
+          getDataType(rawType)
+        }
+      )
+    })
+    .toList
+  }
 
   def getElementRefs(elementRefs: mutable.Buffer[RuntimeReferencePropertyInfo]): List[ElementReference] = {
     elementRefs
       .map(elementRef => {
-        new ElementReference(
+        new ElementReference (
           name = elementRef.getName.capitalize,
+          isCollection = elementRef.isCollection,
           references = JavaConversions.asScalaSet(elementRef.getElements).map(elementRef => elementRef.getElementName.getLocalPart).toSet,
           // Grab the IndividualType ourselves, and wrap later if required
           dataType = getDataType(elementRef.getRawType)
