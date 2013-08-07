@@ -11,14 +11,16 @@
 #import(java.lang.reflect.{ParameterizedType, Type})
 
 <%-- Attributes passed in to the template --%>
-<%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
-<%@ val other: me.alanfoster.camelry.codegen.model.Other  %>
+<%@ val generatorName: String %>
+<%@ val metadata: me.alanfoster.camelry.codegen.model.Metadata %>
+<%@ val beanInfo: me.alanfoster.camelry.codegen.model.BeanInfo  %>
 
 <%--
    Begin Main Template
 --%>
 
 ${include("GeneratedWarningTemplate.ssp")}
+package ${metadata.packageName}
 
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
@@ -29,12 +31,12 @@ ${include("HeaderTemplate.ssp")}
 <%
     // TODO
     val extendClasses =
-        if(other.baseClass.nonEmpty) other.baseClass.get.getClazz.getSimpleName :: List("DomElement")
+        if(beanInfo.baseClass.nonEmpty) beanInfo.baseClass.get.getClazz.getSimpleName :: List("DomElement")
         else List("DomElement")
 %>
-//@SubTag("${other.xmlName}")
-public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
-    #for(attribute <- other.attributes)
+//@SubTag("${beanInfo.xmlName}")
+public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")}  {
+    #for(attribute <- beanInfo.attributes)
         #if(attribute.isRequired)
         @Required
         #end
@@ -42,7 +44,7 @@ public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
         GenericAttributeValue<${attribute.getTarget.getType.asInstanceOf[Class[_]].getSimpleName}> get${attribute.getName.capitalize}();
     #end
 
-    #for(element <- other.elements)
+    #for(element <- beanInfo.elements)
         #if(element.isRequired)
         @Required
         #end
@@ -64,24 +66,22 @@ public interface ${other.simpleName} extends ${extendClasses.mkString(", ")}  {
     #end
 
 
-    #for(elementRef <- other.elementRefs)
+    #for(elementRef <- beanInfo.elementRefs)
     <%
         // Create separated list of all XmlReferences, splitting by an indented new line
-        val subTags = JavaConversions.asScalaSet(elementRef.getElements)
-                            .map("\"" + _.getElementName.getLocalPart + "\"").grouped(5).map(_.mkString(", "))
-                            .mkString("\n\t\t\t\t\t\t")
+        val subTags = elementRef.references
+                        .map("\"" + _ + "\"").grouped(5).map(_.mkString(", "))
+                        .mkString("\n\t\t\t\t\t\t")
 
-        val name = elementRef.getName.capitalize
-        // TODO Get rid of this specific Type instance casting, and remove it completely before reaching the templates
-        val dataType = elementRef.getIndividualType.asInstanceOf[ParameterizedType].getRawType.asInstanceOf[Class[_]].getSimpleName
+        val name = elementRef.name.capitalize
     %>
 
         @SubTagsList(${subTags})
-        List<${dataType}> getComposite${name}();
+        ${elementRef.dataType} getComposite${name}();
     #end
 
-    #if(other.value != null)
-        <% val value = other.value %>
+    #if(beanInfo.value != null)
+        <% val value = beanInfo.value %>
         /**
          * Returns the current DomElement value.
          * Originally named as ${value.getName.capitalize}

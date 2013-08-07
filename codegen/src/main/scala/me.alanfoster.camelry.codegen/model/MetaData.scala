@@ -1,11 +1,8 @@
 package me.alanfoster.camelry.codegen.model
 
 /**
- * Created with IntelliJ IDEA.
- * User: alan
- * Date: 04/08/13
- * Time: 14:39
- * To change this template use File | Settings | File Templates.
+ * Represents a basic class that represents the  Metadata information that will
+ * be used during the creation of a new class.
  */
-case class MetaData(author: String, generator: Any) {
+case class Metadata(author: String, packageName: String) {
 }

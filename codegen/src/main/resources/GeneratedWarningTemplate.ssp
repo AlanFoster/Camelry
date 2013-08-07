@@ -1,5 +1,6 @@
 <%-- Attributes passed in to the template --%>
-<%@ val metadata: me.alanfoster.camelry.codegen.model.MetaData %>
+<%@ val generatorName: String %>
+<%@ val metadata: me.alanfoster.camelry.codegen.model.Metadata %>
 
 <%-- Imports --%>
 #import(java.text.DateFormat)
@@ -7,7 +8,7 @@
 
 //
 // Note - This file was automatically generated
-// Generation spawned by '${metadata.generator}'
+// Generation spawned by '${generatorName}'
 // Creation Date - ${DateFormat.getDateInstance(DateFormat.LONG, Locale.UK).format(new Date)}
 // Please do not manually modify this class.
 //

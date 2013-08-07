@@ -22,8 +22,9 @@ object ScalateGenerator extends  Generator {
 
   def generate(definition: GeneratorObject): String = {
     val answer = engine.layout(uri, Map(
+      "generatorName" -> definition.generatorName,
       "metadata" -> definition.metadata,
-      "other" -> definition.other
+      "beanInfo" -> definition.beanInfo
     ))
     answer
   }
