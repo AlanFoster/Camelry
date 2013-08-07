@@ -44,26 +44,26 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
         GenericAttributeValue<${attribute.getTarget.getType.asInstanceOf[Class[_]].getSimpleName}> get${attribute.getName.capitalize}();
     #end
 
-    #for(elementRef <- beanInfo.elementRefs)
+    #for(element <- beanInfo.elements)
     <%
         // Create separated list of all XmlReferences, splitting by an indented new line
-        val subTags = elementRef.references
+        val subTags = element.references
                         .map("\"" + _ + "\"").grouped(5).map(_.mkString(", "))
                         .mkString("\n\t\t\t\t\t\t")
 
-        val capitalizedName = elementRef.name.capitalize
+        val capitalizedName = element.name.capitalize
 
         val name = capitalizedName
-            //if(elementRef.isCollection) "Composite" + capitalizedName
+            //if(element.isCollection) "Composite" + capitalizedName
             //else capitalizedName
     %>
 
-        #if(elementRef.isCollection)
+        #if(element.isCollection)
         @SubTags(${subTags})
         #else
         @SubTag(${subTags})
         #end
-        ${elementRef.dataType} get${name}();
+        ${element.dataType} get${name}();
     #end
 
     #if(beanInfo.value != null)
