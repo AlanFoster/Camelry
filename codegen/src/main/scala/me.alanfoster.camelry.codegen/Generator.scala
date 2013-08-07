@@ -131,9 +131,8 @@ trait Generator {
               if(classInfo.getElementName == null) "AbstractClass"
               else classInfo.getElementName.getLocalPart,
           baseClass = Option(classInfo.getBaseClass),
-          elements = List[Element](),
           attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Type, Class[_]]]],
-          elementRefs =
+          elements =
             getElements(propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]])
             ++ getElementRefs(propertyMap("elementRefs").asInstanceOf[mutable.Buffer[RuntimeReferencePropertyInfo]])
           ,
@@ -150,10 +149,10 @@ trait Generator {
     result
   }
 
-  def getElements(elements: mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]): List[ElementReference] = {
+  def getElements(elements: mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]): List[Element] = {
     elements
     .map(element => {
-      new ElementReference(
+      new Element(
         name = element.getName.capitalize,
         isCollection = element.isCollection,
         references = {
@@ -171,10 +170,10 @@ trait Generator {
     .toList
   }
 
-  def getElementRefs(elementRefs: mutable.Buffer[RuntimeReferencePropertyInfo]): List[ElementReference] = {
+  def getElementRefs(elementRefs: mutable.Buffer[RuntimeReferencePropertyInfo]): List[Element] = {
     elementRefs
       .map(elementRef => {
-        new ElementReference (
+        new Element (
           name = elementRef.getName.capitalize,
           isCollection = elementRef.isCollection,
           references = JavaConversions.asScalaSet(elementRef.getElements).map(elementRef => elementRef.getElementName.getLocalPart).toSet,

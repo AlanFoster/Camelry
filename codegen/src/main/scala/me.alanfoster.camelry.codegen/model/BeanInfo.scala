@@ -13,7 +13,6 @@ case class BeanInfo (
                   baseClass: Option[RuntimeClassInfo],
                   attributes: mutable.Buffer[AttributePropertyInfo[Type, Class[_]]],
                   elements: List[Element],
-                  elementRefs: List[ElementReference],
                   value: RuntimeValuePropertyInfo
             ) {
 }
