@@ -13,11 +13,12 @@ import com.sun.xml.bind.v2.model.impl.RuntimeElementPropertyInfoImpl
 
 import scala.collection.JavaConverters._
 import com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo}
-import java.lang.reflect.{ParameterizedType, Method, Type}
+import java.lang.reflect.{WildcardType, ParameterizedType, Method, Type}
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util
+import org.apache.camel.model.{ProcessorDefinition, ProcessDefinition}
 
 
 // TODO Consider the scenario of isAbstract() being true
@@ -31,11 +32,12 @@ trait Generator {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
   /**
-   *
+   * @param metadata Additional metadata relevant to package/class generation
    * @param jaxbPaths The packages containing the jaxb.index file
    *                  eg "foo.bar.baz" implies there exists a file "foo/bar/baz/jaxb.index"
+   * @return A tuple, in which the first value is the file name, and the second value is the class contents
    */
-  def generateFiles(metadata: Metadata, jaxbPaths: String*): List[String] = {
+  def generateFiles(metadata: Metadata, jaxbPaths: String*): List[(String, String)] = {
     val delimitedPaths: String = jaxbPaths.mkString(":")
 
     val context: JAXBContext = JAXBContext.newInstance(delimitedPaths)
@@ -50,7 +52,7 @@ trait Generator {
       //.filter({ case (key, value) => key.getSimpleName == "CatchDefinition"})
       //.filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
       .map({
-      case (clazz, clazzInfo) => generateFile(metadata, clazz, clazzInfo)
+      case (clazz, clazzInfo) => (clazz.getSimpleName, generateFile(metadata, clazz, clazzInfo))
     })
     files.toList
   }
@@ -140,8 +142,11 @@ trait Generator {
           paramType.getActualTypeArguments.map(getDataType).mkString("<", ", ", ">")
       }
 
-      createString(individualType)
+      // TODO Remove Camel Specific code
+      if(individualType.getRawType.asInstanceOf[Class[_]].isAssignableFrom(classOf[ProcessorDefinition[Any]])) "ProcessDefinition"
+      else createString(individualType)
     }
+    case individualType: WildcardType => "?"
     case individualType: Class[_] => individualType.getSimpleName
   }
 

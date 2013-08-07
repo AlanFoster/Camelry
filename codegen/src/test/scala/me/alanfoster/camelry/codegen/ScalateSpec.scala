@@ -20,25 +20,25 @@ class ScalateSpec extends Specification {
     "handle basic POJO generation" in {
       withJAXBIndex("Address")
       val ans = generate
-      ans === expectedFiles("Address")
+      ans must containAllOf(expectedFiles("Address"))
     }
 
      "handle complex XmlElement types" in {
         withJAXBIndex("Person")
         val ans = generate
-        ans === expectedFiles("Person", "Address")
+        ans must containAllOf(expectedFiles("Person", "Address"))
       }
 
         "handle inheritance" in {
           withJAXBIndex("Manager")
           val ans = generate
-          ans === expectedFiles("Manager", "Address", "Person")
+          ans must containAllOf(expectedFiles("Manager", "Address", "Person"))
         }
 
     "handle simple xml references" in {
       withJAXBIndex("PersonDatabase", "Manager")
       val ans = generate
-      ans === expectedFiles("PersonDatabase", "Person", "Address", "Manager")
+      ans must containAllOf(expectedFiles("PersonDatabase", "Person", "Address", "Manager"))
     }
   }
 
@@ -57,12 +57,12 @@ class ScalateSpec extends Specification {
     bufferedWriter.close()
   }
 
-  def expectedFiles(simpleNames: String*): List[String] = {
+  def expectedFiles(simpleNames: String*): List[(String, String)] = {
     simpleNames
-      .map(name => "/expected/" + name + ".txt")
-      .map(path => fromInputStream(getClass.getResourceAsStream(path), "UTF-8").mkString)
+      .map(name => (name, s"/expected/${name}.txt"))
+      .map({ case(name, path) => (name, fromInputStream(getClass.getResourceAsStream(path), "UTF-8").mkString) })
       // Replace the string ${injectedDate} ourselves, rather than spawn another template engine call for testing
-      .map(fileContent => fileContent.replace("${injectedDate}", DateFormat.getDateInstance(DateFormat.LONG, Locale.UK).format(new Date)))
+      .map({ case(name, fileContent) => (name, fileContent.replace("${injectedDate}", DateFormat.getDateInstance(DateFormat.LONG, Locale.UK).format(new Date)))})
     .toList
   }
 }
