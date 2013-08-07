@@ -21,19 +21,19 @@ public interface PersonDatabase extends DomElement  {
         
         
         @SubTags("people")
-                java.util.List<foo.bar.Person> getPeople();
+                List<Person> getPeople();
         
         
         @SubTags("names")
-                java.util.List<java.lang.String> getPeopleFirstNames();
+                List<String> getPeopleFirstNames();
         
         
         @SubTags("xxx", "yyy")
-                java.util.List<foo.bar.Person> getPersonListXmlElements();
+                List<Person> getPersonListXmlElements();
         
         
         @SubTags("person", "manager")
-                java.util.List<foo.bar.Person> getPeopleRefList();
+                List<Person> getPeopleRefList();
         
         
         @SubTag("person", "manager")

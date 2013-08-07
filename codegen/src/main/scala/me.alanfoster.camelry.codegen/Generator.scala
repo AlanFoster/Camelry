@@ -13,7 +13,7 @@ import com.sun.xml.bind.v2.model.impl.RuntimeElementPropertyInfoImpl
 
 import scala.collection.JavaConverters._
 import com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo}
-import java.lang.reflect.{Method, ParameterizedType, Type}
+import java.lang.reflect.{ParameterizedType, Method, Type}
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -21,12 +21,6 @@ import java.util
 
 
 // TODO Consider the scenario of isAbstract() being true
-// XmlRootElement
-// XmlType (?)
-// XmlAttribute
-// XmlValue
-// XmlTransient
-// XmlID
 
 /**
  * The trait Generator for creating DomElement interfaces from JAXB annotated classes.
@@ -46,15 +40,6 @@ trait Generator {
 
     val context: JAXBContext = JAXBContext.newInstance(delimitedPaths)
 
-/*    val resolver: SchemaOutputResolver {def createOutput(namespaceUri: String, suggestedFileName: String): Result} = new SchemaOutputResolver {
-      def createOutput(namespaceUri: String, suggestedFileName: String): Result = {
-        val result: StreamResult = new StreamResult(System.out)
-        result.setSystemId(suggestedFileName)
-        result
-      }
-    }
-    context.generateSchema(resolver)*/
-
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
@@ -70,50 +55,11 @@ trait Generator {
     files.toList
   }
 
-
-  def inspect(info: AttributePropertyInfo[Type, _]) {
-    val name: String = info.getTarget.getType.asInstanceOf[Class[_]].getSimpleName
-  }
-
-
-  def inspect(info: ElementPropertyInfo[Type, _]) {
-    val name = info.ref().iterator().next
-  }
-
-  def inspect(elementRef: RuntimeReferencePropertyInfo) {
-    val name = elementRef
-    //logger.info(JavaConversions.asScalaSet(elementRef.getElements).map("\"" + _.getElementName.getLocalPart + "\"").grouped(5).map(_.mkString(", ")).mkString("\n\t\t\t\t"))
-
-  /*  info.getIndividualType
-    for(x <- info.getElements.asScala) {
-      logger.info("xmlReference :: " + x.getElementName.getLocalPart)
-    }*/
-  }
-
-
   def generateFile(metadata: Metadata, clazz: Class[_], classInfo: RuntimeClassInfo): String = {
     logger.info("Generating file for {}", clazz)
 
     // Data transformation
     val properties: mutable.Buffer[_ <: RuntimePropertyInfo] = classInfo.getProperties.asScala
-
-    properties
-      .filter(p => p.isInstanceOf[RuntimeReferencePropertyInfo])
-      .map(p => p.asInstanceOf[RuntimeReferencePropertyInfo])
-      .foreach(v => inspect(v))
-
-/*
-    properties
-      .filter(p => p.isInstanceOf[AttributePropertyInfo[Type, _]])
-      .map(p => p.asInstanceOf[AttributePropertyInfo[Type, _]])
-      .foreach(v => inspect(v))
-
-    properties
-      .filter(p => p.isInstanceOf[ElementPropertyInfo[Type, _]])
-      .map(p => p.asInstanceOf[ElementPropertyInfo[Type, _]])
-      .foreach(v => inspect(v))
-*/
-
 
     val propertyMap = PropertyMapper.groupProperties(classInfo)
 
@@ -132,6 +78,7 @@ trait Generator {
               else classInfo.getElementName.getLocalPart,
           baseClass = Option(classInfo.getBaseClass),
           attributes = propertyMap("attributes").asInstanceOf[mutable.Buffer[AttributePropertyInfo[Type, Class[_]]]],
+          // Note, elements is the concatenation of both XmlElements and XmlElementRef - we make no distinction between the two
           elements =
             getElements(propertyMap("elements").asInstanceOf[mutable.Buffer[ElementPropertyInfo[Type, Class[_]]]])
             ++ getElementRefs(propertyMap("elementRefs").asInstanceOf[mutable.Buffer[RuntimeReferencePropertyInfo]])
@@ -184,10 +131,18 @@ trait Generator {
       .toList
   }
 
+  // TODO Perhaps we can't assume a raw type will always refer to the newly generated classes?
   def getDataType(parentType: Type): String = parentType match {
-    case individualType: ParameterizedType => String.valueOf(individualType)
+    // Create the full java type declaration, ie 'java.util.List<Foo, Bar, Baz>'
+    case individualType: ParameterizedType => {
+      def createString(paramType: ParameterizedType) = {
+        paramType.getRawType.asInstanceOf[Class[_]].getSimpleName +
+          paramType.getActualTypeArguments.map(getDataType).mkString("<", ", ", ">")
+      }
+
+      createString(individualType)
+    }
     case individualType: Class[_] => individualType.getSimpleName
-    /*case x =>  logger.info("Unexpected type" + x)*/
   }
 
   def generate(definition: GeneratorObject): String
