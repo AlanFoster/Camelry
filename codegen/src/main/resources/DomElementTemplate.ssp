@@ -49,7 +49,7 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
         // Create separated list of all XmlReferences, splitting by an indented new line
         val subTags = element.references
                         .map("\"" + _ + "\"").grouped(5).map(_.mkString(", "))
-                        .mkString("\n\t\t\t\t\t\t")
+                        .mkString(",\n\t\t\t\t\t\t")
 
         val capitalizedName = element.name.capitalize
 
@@ -59,7 +59,7 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
     %>
 
         #if(element.isCollection)
-        @SubTags(${subTags})
+        @SubTagsList({${subTags}})
         #else
         @SubTag(${subTags})
         #end

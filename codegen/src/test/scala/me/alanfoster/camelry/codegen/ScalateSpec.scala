@@ -23,17 +23,18 @@ class ScalateSpec extends Specification {
       ans must containAllOf(expectedFiles("Address"))
     }
 
-     "handle complex XmlElement types" in {
-        withJAXBIndex("Person")
-        val ans = generate
-        ans must containAllOf(expectedFiles("Person", "Address"))
-      }
+    "handle complex XmlElement types" in {
+      withJAXBIndex("Person")
+      val ans = generate
+      ans must containAllOf(expectedFiles("Person", "Address"))
+    }
 
-        "handle inheritance" in {
-          withJAXBIndex("Manager")
-          val ans = generate
-          ans must containAllOf(expectedFiles("Manager", "Address", "Person"))
-        }
+
+    "handle inheritance" in {
+      withJAXBIndex("Manager")
+      val ans = generate
+      ans must containAllOf(expectedFiles("Manager", "Address", "Person"))
+    }
 
     "handle simple xml references" in {
       withJAXBIndex("PersonDatabase", "Manager")

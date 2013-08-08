@@ -21,7 +21,7 @@ import java.util
 import org.apache.camel.model.{ProcessorDefinition, ProcessDefinition}
 
 
-// TODO Consider the scenario of isAbstract() being true
+// TODO Generate Enum files
 
 /**
  * The trait Generator for creating DomElement interfaces from JAXB annotated classes.
