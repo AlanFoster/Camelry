@@ -37,10 +37,10 @@ trait Generator {
    *                  eg "foo.bar.baz" implies there exists a file "foo/bar/baz/jaxb.index"
    * @return A tuple, in which the first value is the file name, and the second value is the class contents
    */
-  def generateFiles(metadata: Metadata, jaxbPaths: String*): List[(String, String)] = {
+  def generateFiles(metadata: Metadata, jaxbPaths: List[String], classLoader: ClassLoader): List[(String, String)] = {
     val delimitedPaths: String = jaxbPaths.mkString(":")
 
-    val context: JAXBContext = JAXBContext.newInstance(delimitedPaths)
+    val context: JAXBContext = JAXBContext.newInstance(delimitedPaths, classLoader)
 
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala

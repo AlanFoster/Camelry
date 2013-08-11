@@ -64,6 +64,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>core</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.fusesource.scalate</groupId>
             <artifactId>scalate-core_2.10</artifactId>
             <version>${scalate.version}</version>

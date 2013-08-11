@@ -46,7 +46,9 @@ class ScalateSpec extends Specification {
   def generate =
     ScalateGenerator.generateFiles(
       metadata = new Metadata(author = "Alan", packageName = "foo.bar"),
-      jaxbPaths = "foo.bar")
+      jaxbPaths = List("foo.bar"),
+      classLoader = getClass.getClassLoader
+    )
 
   def withJAXBIndex(simpleNames: String*) {
     val jaxbPath : String = getClass.getResource("/foo/bar/jaxb.index").getFile

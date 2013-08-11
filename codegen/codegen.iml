@@ -33,6 +33,7 @@
     <orderEntry type="library" name="Maven: org.apache.aries:org.apache.aries.util:0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.aries.testsupport:org.apache.aries.testsupport.unit:0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.aries.proxy:org.apache.aries.proxy.api:0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.osgi:core:4.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.scalate:scalate-core_2.10:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.fusesource.scalate:scalate-util_2.10:1.6.1" level="project" />
     <orderEntry type="library" name="Maven: org.scala-lang:scala-library:2.10.2" level="project" />
