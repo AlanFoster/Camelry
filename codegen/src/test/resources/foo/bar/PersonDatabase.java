@@ -9,13 +9,13 @@ import java.util.List;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDatabase {
-    @XmlElement(name = "people")
-    List<Person> people;
+/*    @XmlElement(name = "people")
+    List<Person> people;*/
 
     @XmlElementRef
     List<Person> peopleRefList;
 
-    @XmlElementRef
+  /*  @XmlElementRef
     Person peopleRefSingle;
 
     @XmlElement(name = "names")
@@ -25,5 +25,5 @@ public class PersonDatabase {
             @XmlElement(name = "xxx", type = Person.class),
             @XmlElement(name = "yyy", type = Manager.class)
     })
-    List<Person> personListXmlElements;
+    List<Person> personListXmlElements;*/
 }

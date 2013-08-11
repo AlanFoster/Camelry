@@ -46,6 +46,8 @@ trait Generator {
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
 
     val files = beans
+      //.filter({ case (key, value) => key.getSimpleName == "OnCompletionDefinition"})
+      //.filter({ case (key, value) => key.getSimpleName == "ExpressionNode"})
       //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
       //.filter({ case (key, value) => key.getSimpleName == "AggregateDefinition"})
       //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
@@ -61,8 +63,6 @@ trait Generator {
     logger.info("Generating file for {}", clazz)
 
     // Data transformation
-    val properties: mutable.Buffer[_ <: RuntimePropertyInfo] = classInfo.getProperties.asScala
-
     val propertyMap = PropertyMapper.groupProperties(classInfo)
 
     if(propertyMap("values").size > 1) {
@@ -104,9 +104,13 @@ trait Generator {
       new Element(
         name = element.getName.capitalize,
         isCollection = element.isCollection,
-        references = {
-          element.getTypes.asScala.map(elementType => elementType.getTagName.getLocalPart).toSet
-        },
+        references =
+          element
+            .getTypes
+            .asScala
+            .map(elementType => new Base(elementType.getTagName.getLocalPart, getDataType(elementType.getTarget.getType), "TODO"))
+            .toSet
+        ,
         dataType = {
           // XXX Force a call to getRawType, which isn't exposed via the JAXB API for some reason
           val declaredMethod: Method = element.getClass.getDeclaredMethod("getRawType")
@@ -121,21 +125,28 @@ trait Generator {
 
   def getElementRefs(elementRefs: mutable.Buffer[RuntimeReferencePropertyInfo]): List[Element] = {
     elementRefs
-      .map(elementRef => {
-        new Element (
-          name = elementRef.getName.capitalize,
-          isCollection = elementRef.isCollection,
-          references = JavaConversions.asScalaSet(elementRef.getElements).map(elementRef => elementRef.getElementName.getLocalPart).toSet,
-          // Grab the IndividualType ourselves, and wrap later if required
-          dataType = getDataType(elementRef.getRawType)
-        )
-      })
+      .map(getElement)
       .toList
+  }
+
+  def getElement(elementRef: RuntimeReferencePropertyInfo): Element = {
+    new Element (
+      name = elementRef.getName.capitalize,
+      isCollection = elementRef.isCollection,
+      references = JavaConversions
+        .asScalaSet(elementRef.getElements)
+        .map(elementRef =>  new Base(name = elementRef.getElementName.getLocalPart, dataType = getDataType(elementRef.getType), rawDataType = "rawr"))
+        .toSet,
+      // Grab the IndividualType ourselves, and wrap later if required
+      dataType = getDataType(elementRef.getRawType),
+      rawDataType = getDataType(elementRef.getIndividualType),
+      isRef = true
+    )
   }
 
   // TODO Perhaps we can't assume a raw type will always refer to the newly generated classes?
   def getDataType(parentType: Type): String = parentType match {
-    // Create the full java type declaration, ie 'java.util.List<Foo, Bar, Baz>'
+    // Create the full java type declaration, ie 'List<Foo, Bar, Baz>'
     case individualType: ParameterizedType => {
       def createString(paramType: ParameterizedType) = {
         paramType.getRawType.asInstanceOf[Class[_]].getSimpleName +

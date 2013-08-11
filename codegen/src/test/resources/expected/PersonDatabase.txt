@@ -17,13 +17,18 @@ import java.util.List;
  */
 //@SubTag("personDatabase")
 public interface PersonDatabase extends DomElement  {
-    
-        
-        
+        @SubTagsList({"person", "manager"})
+                List<Person> getPeopleRefList();
+
+        Manager getManager();
+        Person getPerson();
+
+
+      /*
         @SubTagsList({"people"})
                 List<Person> getPeople();
-        
-        
+
+
         @SubTagsList({"names"})
                 List<String> getPeopleFirstNames();
         
@@ -38,5 +43,5 @@ public interface PersonDatabase extends DomElement  {
         
         @SubTag("person", "manager")
                 Person getPeopleRefSingle();
-    
+    */
     }

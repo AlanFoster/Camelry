@@ -29,6 +29,8 @@ import java.util.List;
 
 ${include("HeaderTemplate.ssp")}
 <%
+
+
     // TODO
     val extendClasses =
         if(beanInfo.baseClass.nonEmpty) beanInfo.baseClass.get.getClazz.getSimpleName :: List("DomElement")
@@ -48,6 +50,7 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
     <%
         // Create separated list of all XmlReferences, splitting by an indented new line
         val subTags = element.references
+                        .map(_.name)
                         .map("\"" + _ + "\"").grouped(5).map(_.mkString(", "))
                         .mkString(",\n\t\t\t\t\t\t")
 
@@ -58,12 +61,24 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
             //else capitalizedName
     %>
 
-        #if(element.isCollection)
+        <%-- Generate the 'composite' sub tags getter --%>
+        #if(element.isRef)
         @SubTagsList({${subTags}})
-        #else
-        @SubTag(${subTags})
         #end
         ${element.dataType} get${name}();
+
+        <%-- Generate all composite tag name values --%>
+        #if(element.references.size > 1)
+            #for(subTag <- element.references)
+                <%
+                    val dataType = element.dataType.replace(element.rawDataType, subTag.dataType)
+                    val name =
+                        if(element.isCollection) subTag.name.capitalize + "s"
+                        else subTag.name.capitalize
+                %>
+                ${dataType} get${name}();
+            #end
+        #end
     #end
 
     #if(beanInfo.value != null)
