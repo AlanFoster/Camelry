@@ -41,6 +41,12 @@ class ScalateSpec extends Specification {
       val ans = generate
       ans must containAllOf(expectedFiles("PersonDatabase", "Person", "Address", "Manager"))
     }.pendingUntilFixed("ref generation")
+
+    "handle enum generation" in {
+      withJAXBIndex("Logger", "LoggingLevel")
+      val ans = generate
+      ans === expectedFiles("Logger", "LoggingLevel")
+    }.pendingUntilFixed("Line seperator difference investigation")
   }
 
   def generate =

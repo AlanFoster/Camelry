@@ -3,7 +3,6 @@ package me.alanfoster.camelry.codegen
 import javax.xml.bind.JAXBContext
 import me.alanfoster.camelry.codegen.model._
 import me.alanfoster.camelry.codegen.model.BeanInfo
-import me.alanfoster.camelry.codegen.model.GeneratorObject
 import me.alanfoster.camelry.codegen.model.Metadata
 import scala.collection.{mutable, immutable, JavaConversions}
 
@@ -12,24 +11,26 @@ import com.sun.xml.bind.v2.model.runtime._
 import com.sun.xml.bind.v2.model.impl.RuntimeElementPropertyInfoImpl
 
 import scala.collection.JavaConverters._
-import com.sun.xml.bind.v2.model.core.{ElementPropertyInfo, AttributePropertyInfo}
+import com.sun.xml.bind.v2.model.core.{EnumConstant, ElementPropertyInfo, AttributePropertyInfo}
 import java.lang.reflect.{WildcardType, ParameterizedType, Method, Type}
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util
 import org.apache.camel.model.{ProcessorDefinition, ProcessDefinition}
+import java.lang.Iterable
+import scala.collection
 
-
-// TODO Generate Enum files
 
 /**
  * The trait Generator for creating DomElement interfaces from JAXB annotated classes.
  * The generatorName itself should perform any data transforms required before passing
  * to a concrete implementation of #generate
  */
+// TODO This could do with a tidy up once there is a happy path straight through with camel code generation
 trait Generator {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
+
 
   /**
    * @param metadata Additional metadata relevant to package/class generation
@@ -44,22 +45,47 @@ trait Generator {
 
     val set: RuntimeTypeInfoSet = context.asInstanceOf[JAXBContextImpl].getTypeInfoSet
     val beans: mutable.Map[Class[_], _ <: RuntimeClassInfo] = set.beans().asScala
+    val enums: mutable.Map[Class[_], _ <: RuntimeEnumLeafInfo] = set.enums().asScala
 
-    val files = beans
-      //.filter({ case (key, value) => key.getSimpleName == "OnCompletionDefinition"})
-      //.filter({ case (key, value) => key.getSimpleName == "ExpressionNode"})
-      //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
-      //.filter({ case (key, value) => key.getSimpleName == "AggregateDefinition"})
-      //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
-      //.filter({ case (key, value) => key.getSimpleName == "CatchDefinition"})
-      //.filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
-      .map({
-      case (clazz, clazzInfo) => (clazz.getSimpleName, generateFile(metadata, clazz, clazzInfo))
-    })
-    files.toList
+    val generatedBeans = generateBeans(metadata, beans)
+    val generatedEnums = generateEnums(metadata, enums)
+
+    (generatedBeans ::: generatedEnums).toList
   }
 
-  def generateFile(metadata: Metadata, clazz: Class[_], classInfo: RuntimeClassInfo): String = {
+   def generateBeans(metadata : Metadata, beans: mutable.Map[Class[_], _ <: RuntimeClassInfo]): List[(String, String)] = {
+     val files = beans
+       //.filter({ case (key, value) => key.getSimpleName == "OnCompletionDefinition"})
+       //.filter({ case (key, value) => key.getSimpleName == "ExpressionNode"})
+       //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
+       //.filter({ case (key, value) => key.getSimpleName == "AggregateDefinition"})
+       //.filter({ case (key, value) => key.getSimpleName == "PersonDatabase"})
+       //.filter({ case (key, value) => key.getSimpleName == "CatchDefinition"})
+       //.filter({ case (key, value) => value.isElement && "aggregate".equals(value.getElementName.getLocalPart) })
+       .map({
+       case (clazz, clazzInfo) => (clazz.getSimpleName, generateBeanFile(metadata, clazz, clazzInfo))
+     })
+     files.toList
+   }
+
+
+  def generateEnums(metadata : Metadata, enums: mutable.Map[Class[_], _ <: RuntimeEnumLeafInfo]): List[(String, String)] = {
+    enums
+      .map({ case (clazz, enum) => (clazz.getSimpleName, generateEnum(metadata, enum))})
+      .toList
+  }
+
+  def generateEnum(metadata: Metadata, enum: RuntimeEnumLeafInfo) = {
+    val generatedEnum = generateEnumFile(metadata, new EnumInfo(
+      simpleName = enum.getClazz.getSimpleName,
+      baseType = getDataType(enum.getBaseType.getType),
+      enumPairs =  enum.getConstants.asScala.map(enum => EnumPair(enum.getName, enum.getLexicalValue)).toList)
+    ).trim
+    logger.info("Generated enum :: " + generatedEnum)
+    generatedEnum
+  }
+
+  def generateBeanFile(metadata: Metadata, clazz: Class[_], classInfo: RuntimeClassInfo): String = {
     logger.info("Generating file for {}", clazz)
 
     // Data transformation
@@ -69,9 +95,7 @@ trait Generator {
       throw new IllegalArgumentException("Values list should be zero or one :: " + propertyMap("values").mkString)
     }
 
-    val generatedText = generate(
-      new GeneratorObject(
-        generatorName = String.valueOf(getClass),
+    val generatedText = generateBeanFile(
         metadata = metadata,
         beanInfo = new BeanInfo(
           simpleName = clazz.getSimpleName,
@@ -90,7 +114,6 @@ trait Generator {
             else null
         )
       )
-    )
 
     val result = generatedText.trim
     logger.info("Generated file :: \n" + result)
@@ -161,7 +184,8 @@ trait Generator {
     case individualType: Class[_] => individualType.getSimpleName
   }
 
-  def generate(definition: GeneratorObject): String
+  def generateBeanFile(metadata: Metadata, beanInfo: BeanInfo): String
+  def generateEnumFile(metadata: Metadata, enumInfo: EnumInfo): String
 }
 
 

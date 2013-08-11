@@ -1,7 +1,7 @@
 package me.alanfoster.camelry.codegen
 
 import javax.xml.bind.{SchemaOutputResolver, JAXBContext}
-import me.alanfoster.camelry.codegen.model.{GeneratorObject, Metadata, BeanInfo}
+import me.alanfoster.camelry.codegen.model.{Metadata, BeanInfo}
 import scala.collection.mutable
 
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl

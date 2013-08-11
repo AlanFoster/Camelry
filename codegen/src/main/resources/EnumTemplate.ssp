@@ -1,0 +1,39 @@
+<%-- val methods: mutable.Buffer[RuntimePropertyInfo] --%>
+
+<%-- Imports  --%>
+#import(com.sun.xml.bind.v2.model.runtime.RuntimeClassInfo)
+#import(com.sun.xml.bind.v2.model.runtime.RuntimeTypeInfoSet)
+#import(com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo)
+#import(com.sun.xml.bind.v2.model.core.{PropertyInfo, NonElement, ElementPropertyInfo, AttributePropertyInfo})
+#import(com.sun.xml.bind.v2.model.runtime.{RuntimeClassInfo, RuntimeValuePropertyInfo})
+#import(scala.collection.mutable)
+#import(scala.collection.JavaConversions)
+#import(java.lang.reflect.{ParameterizedType, Type})
+
+<%-- Attributes passed in to the template --%>
+<%@ val generatorName: String %>
+<%@ val metadata: me.alanfoster.camelry.codegen.model.Metadata %>
+<%@ val enumInfo: me.alanfoster.camelry.codegen.model.EnumInfo  %>
+
+<%--
+   Begin Main Template
+--%>
+
+${include("GeneratedWarningTemplate.ssp")}
+package ${metadata.packageName};
+
+${include("HeaderTemplate.ssp")}
+public enum ${enumInfo.simpleName} implements NamedEnum {
+    <%
+        // Create the fields within this enum, IE `ONE("1"), TWO("2")`
+        val fields = enumInfo.enumPairs
+                        .map(enumPair => enumPair.name.toUpperCase + "(\"" + enumPair.lexicalValue + "\")")
+                        .mkString("", ",\n\t", ";")
+    %>
+
+    ${fields}
+
+    private final ${enumInfo.baseType} value;
+    private ${enumInfo.simpleName}(${enumInfo.baseType} value) { this.value = value; }
+    public ${enumInfo.baseType} getValue() { return value; }
+}

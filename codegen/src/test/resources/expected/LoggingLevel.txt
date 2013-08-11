@@ -1,0 +1,25 @@
+//
+// Note - This file was automatically generated
+// Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
+// Creation Date - ${injectedDate}
+// Please do not manually modify this class.
+//
+package foo.bar;
+
+
+/**
+ * @author Alan
+ */
+public enum LoggingLevel implements NamedEnum {
+    
+    TRACE("trace"),
+	DEBUG("debug"),
+	INFO("info"),
+	WARN("warn"),
+	ERROR("error"),
+	ALL("all");
+
+    private final String value;
+    private LoggingLevel(String value) { this.value = value; }
+    public String getValue() { return value; }
+}
