@@ -68,15 +68,17 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
         ${element.dataType} get${name}();
 
         <%-- Generate all composite tag name values --%>
-        #if(element.references.size > 1)
+        #if(element.isRef)
             #for(subTag <- element.references)
                 <%
                     val dataType = element.dataType.replace(element.rawDataType, subTag.dataType)
-                    val name =
-                        if(element.isCollection) subTag.name.capitalize + "s"
-                        else subTag.name.capitalize
+                    val capitalizedName = subTag.name.capitalize
+                    val methodName =
+                        if(element.isCollection) capitalizedName + "s"
+                        else capitalizedName
                 %>
-                ${dataType} get${name}();
+                @SubTagList("${subTag.name}")
+                ${dataType} get${methodName}();
             #end
         #end
     #end

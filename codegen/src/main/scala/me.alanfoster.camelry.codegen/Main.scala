@@ -17,7 +17,9 @@ object Main {
     val folderOutputLocation = "c:/genTest"
 
     // TODO Investigate why AggregateDefinition doesn't create the optimisticLockRetryPolicyDefinition element
-    val generatedFiles: List[(String, String)] = generateFiles(metadata).distinct
+    val generatedFiles: List[(String, String)] =
+      generateFiles(metadata)
+        .groupBy(_._1).map(_._2.head).toList
     saveFiles(folderOutputLocation, generatedFiles)
 
     logger.info("Completed code generation with {} files", generatedFiles.size)

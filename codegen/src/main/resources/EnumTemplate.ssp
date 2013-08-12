@@ -22,6 +22,8 @@
 ${include("GeneratedWarningTemplate.ssp")}
 package ${metadata.packageName};
 
+import com.intellij.util.xml.NamedEnum;
+
 ${include("HeaderTemplate.ssp")}
 public enum ${enumInfo.simpleName} implements NamedEnum {
     <%
