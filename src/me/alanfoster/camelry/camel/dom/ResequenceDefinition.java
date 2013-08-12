@@ -8,7 +8,7 @@ package me.alanfoster.camelry.camel.dom;
 
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
-import org.jetbrains.annotations.*;
+
 import java.util.List;
 
 

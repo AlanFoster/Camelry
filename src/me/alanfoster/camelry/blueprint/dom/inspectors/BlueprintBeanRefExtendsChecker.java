@@ -13,7 +13,7 @@ import com.intellij.util.xml.highlighting.DomHighlightingHelper;
 import me.alanfoster.camelry.CamelryBundle;
 import me.alanfoster.camelry.blueprint.dom.converters.ThrowableBlueprintBeanConverter;
 import me.alanfoster.camelry.blueprint.dom.model.BlueprintBeanPointer;
-import me.alanfoster.camelry.camel.dom.ThrowException;
+import me.alanfoster.camelry.camel.dom.ThrowExceptionDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -67,7 +67,7 @@ public class BlueprintBeanRefExtendsChecker extends DomCustomAnnotationChecker<B
      */
     @Nullable
     private PsiClass getBeanPsiClass(@NotNull DomElement throwExceptionElement) {
-        ThrowException throwException = throwExceptionElement.getParentOfType(ThrowException.class, true);
+        ThrowExceptionDefinition throwException = throwExceptionElement.getParentOfType(ThrowExceptionDefinition.class, true);
 
         if(throwException == null) return null;
         BlueprintBeanPointer blueprintBean = throwException.getRef().getValue();

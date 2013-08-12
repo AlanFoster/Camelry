@@ -7,20 +7,20 @@
 package me.alanfoster.camelry.camel.dom;
 
 import com.intellij.util.xml.*;
-import com.intellij.util.xml.DomElement;
-import org.jetbrains.annotations.*;
-import java.util.List;
-
+import me.alanfoster.camelry.blueprint.dom.converters.ThrowableBlueprintBeanConverter;
+import me.alanfoster.camelry.blueprint.dom.model.BlueprintBeanPointer;
+import me.alanfoster.camelry.blueprint.dom.inspectors.BlueprintBeanRefExtends;
 
 /**
  * @author Alan
  */
 //@SubTag("throwException")
 public interface ThrowExceptionDefinition extends NoOutputDefinition, DomElement  {
-            
-        @Required
-                @NotNull
-        GenericAttributeValue<String> getRef();
-    
-    
-    }
+
+    @BlueprintBeanRefExtends(Throwable.class)
+    @Convert(ThrowableBlueprintBeanConverter.class)
+    @Attribute("ref")
+    @Required
+    GenericAttributeValue<BlueprintBeanPointer> getRef();
+
+}

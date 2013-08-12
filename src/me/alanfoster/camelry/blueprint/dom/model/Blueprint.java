@@ -1,7 +1,7 @@
 package me.alanfoster.camelry.blueprint.dom.model;
 
 import com.intellij.util.xml.*;
-import me.alanfoster.camelry.camel.dom.CamelContext;
+import me.alanfoster.camelry.camel.dom.CamelContextFactoryBean;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,8 @@ public interface Blueprint extends DomElement {
     @SubTag(PropertyPlaceholder.TAG_NAME)
     PropertyPlaceholder getPropertyPlaceHolder();
 
-    CamelContext getCamelContext();
+    CamelContextFactoryBean getCamelContext();
+    //CamelContextFactoryBean getCamelContext();
 
     /**
      * Not DOM related; Should be provided by the DOM implementation

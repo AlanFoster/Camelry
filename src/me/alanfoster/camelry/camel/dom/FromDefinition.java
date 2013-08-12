@@ -6,21 +6,24 @@
 //
 package me.alanfoster.camelry.camel.dom;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
-import com.intellij.util.xml.DomElement;
-import org.jetbrains.annotations.*;
-import java.util.List;
-
+import me.alanfoster.camelry.camel.converters.ComponentDefinitionReferenceConverter;
+import org.jetbrains.annotations.NotNull;
 
 /**
- * @author Alan
+ * @author Alan Foster
+ * @version 1.0.0-SNAPSHOT
  */
-//@SubTag("from")
 public interface FromDefinition extends OptionalIdentifiedDefinition, DomElement  {
-                    @NotNull
-        GenericAttributeValue<String> getUri();
-                    @NotNull
+    @Attribute("uri")
+    @Required
+    @Convert(value = ComponentDefinitionReferenceConverter.class, soft = true)
+    public GenericAttributeValue<PsiClass> getUri();
+
+
+        @NotNull
         GenericAttributeValue<String> getRef();
-    
-    
+
+
     }

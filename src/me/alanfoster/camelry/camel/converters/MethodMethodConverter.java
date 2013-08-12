@@ -3,7 +3,7 @@ package me.alanfoster.camelry.camel.converters;
 import com.intellij.util.xml.GenericAttributeValue;
 import me.alanfoster.camelry.blueprint.dom.model.BlueprintBean;
 import me.alanfoster.camelry.blueprint.dom.model.BlueprintBeanPointer;
-import me.alanfoster.camelry.camel.dom.Method;
+import me.alanfoster.camelry.camel.dom.MethodCallExpression;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -13,15 +13,15 @@ import org.jetbrains.annotations.Nullable;
  * @author Alan Foster
  * @version 1.0.0-SNAPSHOT
  */
-public class MethodMethodConverter extends BeanPointerMethodConverter<Method> {
+public class MethodMethodConverter extends BeanPointerMethodConverter<MethodCallExpression> {
 
     public MethodMethodConverter() {
-        super(Method.class);
+        super(MethodCallExpression.class);
     }
 
     @Nullable
     @Override
-    public BlueprintBeanPointer getBlueprintBeanPointer(Method parent) {
+    public BlueprintBeanPointer getBlueprintBeanPointer(MethodCallExpression parent) {
         // TODO Abstract this logic within a DomImpl class
         // The BlueprintBean reference can be in one of two places, either the 'ref' attribute or 'bean' (deprecated) attribute
         GenericAttributeValue<BlueprintBean> blueprintBeanWrapper =

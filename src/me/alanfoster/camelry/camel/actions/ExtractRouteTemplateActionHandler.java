@@ -23,8 +23,8 @@ import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
 import me.alanfoster.camelry.CamelryBundle;
-import me.alanfoster.camelry.camel.dom.CamelContext;
-import me.alanfoster.camelry.camel.dom.Route;
+import me.alanfoster.camelry.camel.dom.CamelContextFactoryBean;
+import me.alanfoster.camelry.camel.dom.RouteDefinition;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -77,7 +77,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
         final XmlTag selectionParentTag = PsiTreeUtil.getParentOfType(startElement, XmlTag.class, true);
         if (selectionParentTag == null) return false;
 
-        final XmlTag parentRoute = getParentXmlTagOfType(selectionParentTag, Route.class, false);
+        final XmlTag parentRoute = getParentXmlTagOfType(selectionParentTag, RouteDefinition.class, false);
         if(parentRoute == null) return false;
 
         // TODO It would be nice to allow inline naming similar to live templates
@@ -124,7 +124,7 @@ public class ExtractRouteTemplateActionHandler implements RefactoringActionHandl
              * @return True if successful, otherwise false.
              */
             private boolean insertNewRoute(@NotNull XmlTag selectionParentTag, @NotNull XmlTag previousRoute) {
-                XmlTag camelContext = getParentXmlTagOfType(previousRoute, CamelContext.class, false);
+                XmlTag camelContext = getParentXmlTagOfType(previousRoute, CamelContextFactoryBean.class, false);
                 if(camelContext == null) return false;
 
                 // Create a new route, copying the start + end selection elements into the new route below the `from` domElement
