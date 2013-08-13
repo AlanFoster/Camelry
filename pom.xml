@@ -22,7 +22,7 @@
 
 	<modules>
 		<module>plugin</module>
-		<!--<module>codegen</module>-->
+        <module>codegen</module>
 	</modules>
 
     <build>
