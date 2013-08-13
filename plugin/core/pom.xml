@@ -33,7 +33,7 @@
 
     <dependencies>
 
-        <!-- Lexer/Parser GEN Depenendecies -->
+        <!-- Lexer/Parser GEN Dependencies -->
         <dependency>
             <groupId>me.alanfoster.camelry.plugin</groupId>
             <artifactId>camelry-gen</artifactId>
@@ -51,6 +51,56 @@
 
     <build>
 
+        <!-- Include the generated lexer/parser files -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include> **/*.java </include>
+                    <include> **/*.properties </include>
+                    <include> **/*.xml </include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/gen</directory>
+                <includes>
+                    <include> **/*.java </include>
+                    <include> **/*.properties </include>
+                    <include> **/*.xml </include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/test</directory>
+                <includes>
+                    <include> **/*.java </include>
+                    <include> **/*.properties </include>
+                    <include> **/*.xml </include>
+                </includes>
+            </resource>
+        </resources>
+
+
+        <!-- Include the generated lexer/parser files during maven generate-sources -->
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${basedir}/src/main/gen</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
 
     </build>
 
