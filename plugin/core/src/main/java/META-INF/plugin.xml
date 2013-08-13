@@ -1,0 +1,173 @@
+<idea-plugin version="2">
+    <id>Camelry</id>
+    <name>Camelry</name>
+    <version>0.1</version>
+    <vendor url="https://github.com/AlanFoster">Alan Foster</vendor>
+
+    <description><![CDATA[
+        <p>This IntelliJ plugin is designed to improve the improve the development experience when working with Apache Blueprint, Apache karaf and Apache Camel.</p>
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelry"/>Github Project</a></p>
+        ]]>
+    </description>
+
+    <change-notes><![CDATA[
+        <p>For further details see <a href="https://github.com/AlanFoster/Camelry"/>Github Project</a>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="107.105"/>
+
+    <application-components>
+        <component>
+            <implementation-class>me.alanfoster.camelry.configuration.CamelryConfigurationService</implementation-class>
+        </component>
+    </application-components>
+
+    <project-components />
+
+    <actions>
+        <!--
+            Creates an item on the context menu to allow the user
+            to create a new Camel related file
+        -->
+        <action id="Camel.CreateBlueprintXmlFile"
+                class="me.alanfoster.camelry.camel.tooling.CreateCamelFile"
+                text="Camel Blueprint"
+                description="Creates a Blueprint Camel File"
+                icon="/me/alanfoster/camelry/icons/camel_16x16.png"
+                >
+            <add-to-group group-id="NewGroup" anchor="last"/>
+        </action>
+    </actions>
+
+    <!-- TODO Find how to provide multiple external plugin configuration files -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!--
+            Provides a fileTemplateGroup, which allows you to rightclick the navigation area and create
+            a new generic blueprint/camel file
+        -->
+        <fileTemplateGroup implementation="me.alanfoster.camelry.blueprint.support.BlueprintFileTemplateManager"/>
+
+        <!-- Configuration window -->
+        <applicationConfigurable implementation="me.alanfoster.camelry.configuration.CamelryConfigurationForm" />
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Camel specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+        <!-- Simple Language Related -->
+        <fileTypeFactory implementation="me.alanfoster.camelry.camel.simple.file.SimpleFileTypeFactory"/>
+        <lang.parserDefinition language="Simple"
+                               implementationClass="me.alanfoster.camelry.camel.simple.language.parser.SimpleParserDefinition"/>
+
+        <completion.contributor language="Simple"
+                                implementationClass="me.alanfoster.camelry.camel.simple.language.tooling.autocomplete.SimpleCompletionContributor"/>
+        <lang.syntaxHighlighterFactory key="Simple"
+                                       implementationClass="me.alanfoster.camelry.camel.simple.language.tooling.highlighter.SimpleSyntaxHighlighterFactory"/>
+
+        <languageInjector
+                implementation="me.alanfoster.camelry.camel.tooling.languageinjector.CamelLanguageInjector"/>
+
+        <!--
+            Refactoring support for Camel Routes
+        -->
+        <lang.refactoringSupport language="XML"
+                                 implementationClass="me.alanfoster.camelry.camel.actions.RouteRefactoringSupportProvider" />
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Blueprint specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+
+        <!--
+            Blueprint DOM descriptions/implementations
+        -->
+
+        <!-- Register the Blueprint DOM file description -->
+        <dom.fileDescription implementation="me.alanfoster.camelry.blueprint.dom.model.BlueprintFileDescription"/>
+
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelry.blueprint.dom.model.Blueprint"
+                implementationClass="me.alanfoster.camelry.blueprint.dom.impl.BlueprintImpl" />
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelry.blueprint.dom.model.BlueprintBean"
+                implementationClass="me.alanfoster.camelry.blueprint.dom.impl.BlueprintBeanImpl" />
+        <dom.implementation
+                interfaceClass="me.alanfoster.camelry.blueprint.dom.model.BlueprintReference"
+                implementationClass="me.alanfoster.camelry.blueprint.dom.impl.BlueprintReferenceImpl" />
+
+        <!--
+            Blueprint inspection elements
+        -->
+
+        <!-- Basic checker for Required, duplicate names etc -->
+        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                         groupName="Blueprint and Camel Support" displayName="Blueprint File Validation"
+                         implementationClass="me.alanfoster.camelry.blueprint.dom.inspectors.BlueprintDOMInspection"/>
+
+        <!-- Custom checker for Deprecated elements which are no longer supported by camel -->
+        <localInspection language="XML" enabledByDefault="true" level="WARNING"
+                         groupName="Blueprint and Camel Support" displayName="Deprecated Attributes"
+                         implementationClass="me.alanfoster.camelry.blueprint.dom.inspectors.DeprecatedAttribtueChecker"/>
+
+        <!-- Inspection for ensuring one bundle does not have duplicate BlueprintBean ids -->
+        <localInspection language="XML" enabledByDefault="true" level="ERROR"
+                         groupName="Blueprint and Camel Support" displayName="Duplicate Blueprint Bean IDs"
+                         implementationClass="me.alanfoster.camelry.blueprint.dom.inspectors.DuplicatedBeanIdInspection"/>
+
+        <dom.customAnnotationChecker
+                implementation="me.alanfoster.camelry.blueprint.dom.inspectors.BlueprintBeanRefExtendsChecker" />
+
+        <!-- Blueprint Injection Language -->
+
+
+        <lang.parserDefinition language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelry.blueprint.language.InjectionParserDefinition" />
+
+        <annotator language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelry.blueprint.language.validators.ExistingPropertyReferenceAnnotator" />
+
+        <languageInjector implementation="me.alanfoster.camelry.blueprint.language.injector.BlueprintInjectionLanguageInjector" />
+
+        <lang.foldingBuilder language="BlueprintInjectionLanguage" implementationClass="me.alanfoster.camelry.blueprint.language.support.InjectionFoldingBuilder" />
+
+        <fileTypeFactory implementation="me.alanfoster.camelry.blueprint.language.file.InjectionFileTypeFactory"/>
+
+        <psi.referenceContributor
+                implementation="me.alanfoster.camelry.blueprint.language.contributors.InjectionPsiReferenceContributor" />
+
+        <lang.syntaxHighlighterFactory key="BlueprintInjectionLanguage"
+                                       implementationClass="me.alanfoster.camelry.blueprint.language.highlight.InjectionHighlighterFactory"/>
+
+
+        <lang.braceMatcher language="BlueprintInjectionLanguage"
+                           implementationClass="me.alanfoster.camelry.blueprint.language.support.InjectionBraceMatcher" />
+
+        <colorSettingsPage implementation="me.alanfoster.camelry.blueprint.language.highlight.InjectionColorSettingsPage" />
+
+        <lang.refactoringSupport language="BlueprintInjectionLanguage"
+                                 implementationClass="me.alanfoster.camelry.blueprint.dom.actions.BlueprintRefactoringSupport" />
+
+
+        <!-- See http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Plugin+Structure about services -->
+        <applicationService
+                serviceInterface="me.alanfoster.camelry.blueprint.model.BlueprintManager"
+                serviceImplementation="me.alanfoster.camelry.blueprint.model.BlueprintManagerImpl"/>
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            Karaf specific
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <!--
+            Register the  Karaf Features File DOM file description
+            Which will wire up all of the magic for a karaf features file
+        -->
+        <dom.fileDescription implementation="me.alanfoster.camelry.karaf.dom.KarafFeaturesFileDescription"/>
+
+        <!-- Basic checker for Required, duplicate names etc -->
+        <localInspection language="XML" enabledByDefault="true" level="WARNING"
+                         groupName="Blueprint and Camel Support" displayName="Karaf Feature File Validation"
+                         implementationClass="me.alanfoster.camelry.karaf.dom.KarafDomValidation"/>
+
+    </extensions>
+
+
+</idea-plugin>

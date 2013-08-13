@@ -17,7 +17,7 @@
 
 	<groupId>me.alanfoster.camelry.plugin</groupId>
 	<artifactId>camelry-core</artifactId>
-    <packaging>jar</packaging>
+    <packaging>ij-plugin</packaging>
 
     <name>Camelry Core</name>
 
@@ -25,20 +25,13 @@
         <!--
             Allow for the IntelliJ Maven plugin to correctly identity this module as a custom plugin
         -->
-        <ij.plugin>true</ij.plugin>
+<!--        <ij.plugin>true</ij.plugin>-->
 
         <unitils-core.version>3.3</unitils-core.version>
     </properties>
 
 
     <dependencies>
-
-        <!-- Lexer/Parser GEN Dependencies -->
-        <dependency>
-            <groupId>me.alanfoster.camelry.plugin</groupId>
-            <artifactId>camelry-gen</artifactId>
-            <version>0.1.0-SNAPSHOT</version>
-        </dependency>
 
         <!-- Test Dependencies -->
         <dependency>
@@ -50,35 +43,6 @@
     </dependencies>
 
     <build>
-
-        <!-- Include the generated lexer/parser files -->
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include> **/*.java </include>
-                    <include> **/*.properties </include>
-                    <include> **/*.xml </include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/gen</directory>
-                <includes>
-                    <include> **/*.java </include>
-                    <include> **/*.properties </include>
-                    <include> **/*.xml </include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/test</directory>
-                <includes>
-                    <include> **/*.java </include>
-                    <include> **/*.properties </include>
-                    <include> **/*.xml </include>
-                </includes>
-            </resource>
-        </resources>
-
 
         <!-- Include the generated lexer/parser files during maven generate-sources -->
         <plugins>

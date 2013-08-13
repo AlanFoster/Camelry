@@ -28,7 +28,7 @@
         <!--
             Generated Intellij SDK Dependendecies
         -->
-        <dependency>
+      <!--  <dependency>
             <groupId>com.intellij</groupId>
             <artifactId>alloy</artifactId>
             <version>${idea.version}</version>
@@ -608,7 +608,7 @@
             <version>${idea.version}</version>
             <systemPath>${idea.home}/lib/yjp-controller-api-redist.jar</systemPath>
             <scope>system</scope>
-        </dependency>
+        </dependency>-->
     </dependencies>
 	
 </project>
