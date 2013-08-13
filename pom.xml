@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+        xmlns="http://maven.apache.org/POM/4.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>me.alanfoster</groupId>
+    <artifactId>camelry</artifactId>
+    <packaging>pom</packaging>
+    <version>0.1.0-SNAPSHOT</version>
+
+    <name>Blueprint And Camel Support</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <java.configuration.version>1.6</java.configuration.version>
+    </properties>
+
+	<modules>
+		<module>plugin</module>
+		<!--<module>codegen</module>-->
+	</modules>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+
+       <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <source>${java.configuration.version}</source>
+                    <target>${java.configuration.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
