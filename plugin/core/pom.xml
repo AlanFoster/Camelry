@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Note, to make use of maven when doing IntelliJ development work the the 'ijplugin-maven-plugin' plugin
+    should be installed from IntelliJ's plugin library
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>me.alanfoster.camelry</groupId>
+        <artifactId>plugin</artifactId>
+		<version>0.1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+	<groupId>me.alanfoster.camelry.plugin</groupId>
+	<artifactId>camelry-core</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Camelry Core</name>
+
+    <properties>
+        <!--
+            Allow for the IntelliJ Maven plugin to correctly identity this module as a custom plugin
+        -->
+        <ij.plugin>true</ij.plugin>
+
+        <unitils-core.version>3.3</unitils-core.version>
+    </properties>
+
+
+    <dependencies>
+
+        <!-- Lexer/Parser GEN Depenendecies -->
+        <dependency>
+            <groupId>me.alanfoster.camelry.plugin</groupId>
+            <artifactId>camelry-gen</artifactId>
+            <version>0.1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.unitils</groupId>
+            <artifactId>unitils-core</artifactId>
+            <version>${unitils-core.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+
+    </build>
+
+</project>
