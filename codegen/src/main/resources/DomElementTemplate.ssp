@@ -43,6 +43,7 @@ public interface ${beanInfo.simpleName} extends ${extendClasses.mkString(", ")} 
         @Required
         #end
         @NotNull
+        @Attribute("${attribute.getName}")
         GenericAttributeValue<${attribute.getTarget.getType.asInstanceOf[Class[_]].getSimpleName}> get${attribute.getName.capitalize}();
     #end
 
