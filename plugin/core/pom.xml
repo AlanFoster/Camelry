@@ -17,7 +17,10 @@
 
     <groupId>me.alanfoster.camelry.plugin</groupId>
     <artifactId>camelry-core</artifactId>
-    <packaging>jar</packaging>
+    <!--
+        By default this will be set to `ij-plugin` otherwise it causes issues with the intellij-maven plugin plugin
+    -->
+    <packaging>${packaging.type}</packaging>
 
     <name>Camelry Core</name>
 
@@ -627,8 +630,26 @@
         </dependency>
     </dependencies>
 
-    <build>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <packaging.type>ij-plugin</packaging.type>
+            </properties>
+        </profile>
+        <profile>
+            <id>standalone</id>
+            <properties>
+                <packaging.type>jar</packaging.type>
+            </properties>
+        </profile>
+    </profiles>
 
+
+    <build>
         <!-- Include the generated lexer/parser files during maven generate-sources -->
         <plugins>
             <plugin>
