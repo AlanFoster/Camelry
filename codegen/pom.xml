@@ -21,6 +21,11 @@
         <junit.version>4.4</junit.version>
         <scalate.version>1.6.1</scalate.version>
         <logging.version>1.5.8</logging.version>
+
+        <!-- Code Gen properties -->
+        <codegen.author>Alan</codegen.author>
+        <codegen.packageName>me.alanfoster.camelry.camel.dom</codegen.packageName>
+        <codegen.outputDirectory>c:/genTest</codegen.outputDirectory>
     </properties>
 
     <repositories>
@@ -152,7 +157,44 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
+
+    <profiles>
+        <!--
+            Profile to allow us to generate camel code from maven
+        -->
+        <profile>
+            <id>generate</id>
+            <build>
+                <defaultGoal>compile</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <mainClass>me.alanfoster.camelry.codegen.Program</mainClass>
+                            <arguments>
+                                <argument>${codegen.author}</argument>
+                                <argument>${codegen.packageName}</argument>
+                                <argument>${codegen.outputDirectory}</argument>
+                            </arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <reporting>
         <plugins>
             <plugin>
@@ -163,7 +205,6 @@
                 </configuration>
             </plugin>
         </plugins>
-
     </reporting>
 
 

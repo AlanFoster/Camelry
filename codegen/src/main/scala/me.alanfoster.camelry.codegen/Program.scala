@@ -7,14 +7,23 @@ import java.io.{File, PrintWriter}
 /**
  * The main class for external triggering of code generation.
  */
-object Main {
+object Program {
   private val logger: Logger = LoggerFactory.getLogger(getClass)
 
   def main(args: Array[String]) {
     logger.info("Starting Code Generation")
 
-    val metadata: Metadata = new Metadata(author = "Alan", packageName = "me.alanfoster.camelry.camel.dom")
-    val folderOutputLocation = "c:/genTest"
+    args.toList match {
+      case author :: packageName :: folderOutputLocation :: Nil =>
+        generate(author, packageName, folderOutputLocation)
+      case _ => {
+        throw new IllegalArgumentException("Unexpected arguments. Expected the arguments 'author' 'packageName' 'folderOutputLocation'")
+      }
+    }
+  }
+
+  def generate(author: String, packageName: String, folderOutputLocation: String) {
+    val metadata: Metadata = new Metadata(author, packageName)
 
     // TODO Investigate why AggregateDefinition doesn't create the optimisticLockRetryPolicyDefinition element
     val generatedFiles: List[(String, String)] =
@@ -24,6 +33,7 @@ object Main {
 
     logger.info("Completed code generation with {} files", generatedFiles.size)
   }
+
 
   def saveFiles(folderOutputLocation: String, generatedFiles: List[(String, String)]) {
     val deleteFolder:File = new File(folderOutputLocation)
