@@ -10,15 +10,17 @@ import java.io.File;
  */
 public class TestHelper {
 
+    /**
+     * @return The absolute path to the camelry test folder
+     */
     public static String getTestRoot() {
-        File testRoot = new File(getSourceRoot(), "testData/" + TestHelper.class.getPackage().getName().replace('.', '/'));
-        return testRoot.getPath();
+        return new File(getSourceRoot().getPath(), "me/alanfoster/camelry").getPath();
     }
 
+    /**
+     * @return The absolute path to the root test folder
+     */
     public static File getSourceRoot() {
-        final String jarPathForClass = PathManager.getJarPathForClass(IgnoredInjectionParsing.class);
-        return new File(jarPathForClass, "../../../");
+        return new File(TestHelper.class.getResource("/").getPath());
     }
-
-
 }
