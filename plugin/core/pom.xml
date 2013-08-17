@@ -610,7 +610,30 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
+
+            <!--
+                Handles IntelliJ form generation
+            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>ideauidesigner-maven-plugin</artifactId>
+                <version>1.0-beta-2-12.0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>javac2</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <fork>true</fork>
+                    <debug>true</debug>
+                    <failOnError>true</failOnError>
+                </configuration>
+            </plugin>
         </plugins>
+
+
     </build>
 
 </project>
