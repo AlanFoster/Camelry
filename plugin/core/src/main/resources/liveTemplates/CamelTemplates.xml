@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateSet group="Camel">
+    <template name="camel_route" value="&lt;route&gt;&#10;    &lt;from uri=&quot;$fromUri$&quot;/&gt; &#10;    $END$&#10;&lt;/route&gt;&#10;&#10;" description="Inserts a new camel route within a camel context" toReformat="true" toShortenFQNames="false">
+        <variable name="fromUri" expression="" defaultValue="&quot;direct:start&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="CAMEL_CONTEXT" value="true" />
+        </context>
+    </template>
+
+    <template name="camel_cbr" value="&lt;choice&gt;&#10;    &lt;when&gt;&#10;        &lt;$filter$&gt;$expressionText$&lt;/$filter$&gt;&#10;        $processorDefinition$&#10;        $END$&#10;    &lt;/when&gt;&#10;    &lt;otherwise&gt;&#10;        &#10;    &lt;/otherwise&gt;&#10;&lt;/choice&gt;" description="Inserts a Content Based Router" toReformat="true" toShortenFQNames="false">
+        <variable name="filter" expression="" defaultValue="&quot;xpath&quot;" alwaysStopAt="true" />
+        <variable name="expressionText" expression="" defaultValue="&quot;/foo/bar/text() = 'Cheese'&quot;" alwaysStopAt="true" />
+        <variable name="processorDefinition" expression="" defaultValue="&quot;&lt;log message=\&quot;Successfully Consumed message '${body}'\&quot; /&gt;&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="CAMEL_ROUTE" value="true" />
+        </context>
+    </template>
+
+    <template name="camel_sh" value="&lt;setHeader headerName=&quot;$headerName$&quot;&gt;&#10;    &lt;$expression$&gt;$expressionText$&lt;/$expression$&gt;&#10;&lt;/setHeader&gt;" description="Insert a setHeader element" toReformat="false" toShortenFQNames="true">
+        <variable name="headerName" expression="" defaultValue="&quot;myHeader&quot;" alwaysStopAt="true" />
+        <variable name="expression" expression="" defaultValue="&quot;xpath&quot;" alwaysStopAt="true" />
+        <variable name="expressionText" expression="" defaultValue="&quot;/foo/text()&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="CAMEL_ROUTE" value="true" />
+        </context>
+    </template>
+</templateSet>
+

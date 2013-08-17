@@ -6,7 +6,7 @@ import com.intellij.testFramework.ParsingTestCase;
 import java.io.File;
 
 // TODO This test is ignored as it causes test runner exceptions
-public class IgnoredInjectionParsing extends ParsingTestCase {
+public abstract class IgnoredInjectionParsing extends ParsingTestCase {
     public IgnoredInjectionParsing() {
         super("", "blueprintinjectionlanguage", new InjectionParserDefinition());
     }

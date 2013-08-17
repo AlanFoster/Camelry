@@ -75,6 +75,23 @@
         <lang.refactoringSupport language="XML"
                                  implementationClass="me.alanfoster.camelry.camel.actions.RouteRefactoringSupportProvider" />
 
+
+
+        <!--
+            Live Templates support
+        -->
+
+        <!--
+            Camel specific Live Template Contexts
+            These define camel-specific places for a live template to be performed
+        -->
+        <liveTemplateContext implementation="me.alanfoster.camelry.camel.livetemplates.RouteTemplateContext" />
+        <liveTemplateContext implementation="me.alanfoster.camelry.camel.livetemplates.CamelContextTemplateContext" />
+
+
+        <defaultLiveTemplatesProvider implementation="me.alanfoster.camelry.camel.livetemplates.CamelTemplateProvider" />
+
+
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             Blueprint specific
         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
