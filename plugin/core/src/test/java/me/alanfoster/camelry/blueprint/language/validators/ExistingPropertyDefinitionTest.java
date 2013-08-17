@@ -45,7 +45,7 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("MissingPropertiesHighlightedAsErrors.xml"))
                 .withOpenedFileFromTempProject(blueprintFiles("MissingPropertiesHighlightedAsErrors.xml"))
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         myFixture.checkHighlighting(false, false, true);
     }
@@ -66,7 +66,7 @@ public class ExistingPropertyDefinitionTest extends LightCodeInsightFixtureTestC
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles(getTestName(false) + ".xml"))
                 .withOpenedFileFromTempProject(blueprintFiles(getTestName(false) + ".xml"))
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<IntentionAction> allQuickFixes = getAllQuickFixes();
 

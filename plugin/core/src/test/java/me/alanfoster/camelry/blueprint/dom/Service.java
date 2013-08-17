@@ -25,7 +25,7 @@ public class Service extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ServiceRefVariants.xml"))
                 .withOpenedFile("ServiceRefVariants.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ServiceRefVariants.xml");
         assertReflectionEquals(

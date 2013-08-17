@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="<error descr="URI is not registered (Settings | Project Settings | Schemas and DTDs)">http://www.osgi.org/xmlns/blueprint/v1.0.0</error>"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cm="<error descr="URI is not registered (Settings | Project Settings | Schemas and DTDs)">http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0</error>"
+        xmlns:camel="<error descr="URI is not registered (Settings | Project Settings | Schemas and DTDs)">http://camel.apache.org/schema/blueprint</error>"
+        xsi:schemaLocation="
+        http://www.osgi.org/xmlns/blueprint/v1.0.0 <error descr="Cannot resolve symbol 'http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd'">http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd</error>
+        http://camel.apache.org/schema/blueprint <error descr="Cannot resolve symbol 'http://camel.apache.org/schema/blueprint/camel-blueprint.xsd'">http://camel.apache.org/schema/blueprint/camel-blueprint.xsd</error>
+        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0
+        ">
+
+    <cm:property-placeholder id="myblueprint.placeholder" persistent-id="camel.blueprint">
+        <cm:default-properties>
+            <cm:property name="url" value="127.0.0.1"/>
+            <cm:property name="timeout" value="10"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <bean id="connectionFactory" class="me.alanfoster.camelry.common.ConnectionFactory">
+        <property name="connectionString" value="${url}?username=${<error descr="Unresolved Blueprint Property username">username</error>}&amp;password=${<error descr="Unresolved Blueprint Property password">password</error>}" />
+        <property name="maximumConnections" value="${<error descr="Unresolved Blueprint Property maximumConnections">maximumConnections</error>}" />
+        <property name="timeout" value="${timeout}" />
+    </bean>
+
+</blueprint>

@@ -14,7 +14,7 @@ public class TestHelper {
      * @return The absolute path to the camelry test folder
      */
     public static String getTestRoot() {
-        return new File(getSourceRoot().getPath(), "me/alanfoster/camelry").getPath();
+        return new File(getSourceRoot().getPath(), "testData/me/alanfoster/camelry").getPath();
     }
 
     /**

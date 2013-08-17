@@ -47,7 +47,7 @@ public class MethodTest extends CamelryTestSupport {
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile))
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
 
@@ -62,7 +62,7 @@ public class MethodTest extends CamelryTestSupport {
     public void testBlueprintReferenceMethodCompletionExternalFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"))
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")))
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java"), commonFile("IPersonService.java")))
                 .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
@@ -92,7 +92,7 @@ public class MethodTest extends CamelryTestSupport {
     public void testRenameRefValueWithBlueprintPointerReference() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles("RenameRefValueWithBlueprintPointerReference.xml"))
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("IPersonService.java")))
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("IPersonService.java")))
                 .withOpenedFileFromTempProject("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml");
 
         myFixture.renameElementAtCaret("newPersonServiceName");

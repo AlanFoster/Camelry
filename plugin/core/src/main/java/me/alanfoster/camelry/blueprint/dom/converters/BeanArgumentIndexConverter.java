@@ -70,6 +70,7 @@ public class BeanArgumentIndexConverter implements CustomReferenceConverter<Inte
         public Object[] getVariants() {
             PsiClass beanClass = getBeanClass();
 
+            if(beanClass == null) return EMPTY_ARRAY;
             Integer maxArgumentSize = 0;
             for(PsiMethod constructor :  beanClass.getConstructors()) {
                 maxArgumentSize = Math.max(maxArgumentSize, constructor.getParameterList().getParametersCount());
@@ -83,6 +84,7 @@ public class BeanArgumentIndexConverter implements CustomReferenceConverter<Inte
             return values;
         }
 
+        @Nullable
         private PsiClass getBeanClass() {
             final DomElement domElement = convertContext.getInvocationElement();
             final BlueprintBean bean = domElement.getParentOfType(BlueprintBean.class, true);

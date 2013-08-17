@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:camel="http://camel.apache.org/schema/blueprint"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.0.0"
+           xsi:schemaLocation="
+       http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+       http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <cm:property-placeholder persistent-id="placeholder">
+        <cm:default-properties>
+            <cm:property name="myNewConfig.firstName" value="Alan" />
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <bean id="person" class="me.alanfoster.camelry.common.Person">
+        <argument index="0" value="${myNewConfig.firstName}" />
+    </bean>
+
+</blueprint>

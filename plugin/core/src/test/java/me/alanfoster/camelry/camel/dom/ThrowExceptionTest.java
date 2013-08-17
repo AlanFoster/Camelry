@@ -28,7 +28,7 @@ public class ThrowExceptionTest extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ExceptionBeanVariantsOnly.xml"))
                 .withOpenedFile("ExceptionBeanVariantsOnly.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("CustomException.java"), commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("CustomException.java"), commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
         assertReflectionEquals(

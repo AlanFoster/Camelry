@@ -75,7 +75,7 @@ public class IntroducePropertyPlaceholderVariable extends CamelryTestSupport {
                 .with(blueprintFiles(resourceName + ".xml"))
                 .withOpenedFileFromTempProject(blueprintFiles(resourceName + ".xml"))
                 .with(javaFiles(
-                        "me.alanfoster.camelry.blueprint.camel.dom.common",
+                        "me.alanfoster.camelry.common",
                         commonFile("IConnectionFactory.java"), commonFile("ConnectionFactory.java"), commonFile("Connection.java")));
 
         // Override the input dialogue to input the requried name

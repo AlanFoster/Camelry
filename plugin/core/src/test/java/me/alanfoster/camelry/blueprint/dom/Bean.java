@@ -31,7 +31,7 @@ public class Bean extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("BeanArgumentIndexChoosesLargestConstructorSize.xml"))
                 .withOpenedFile("BeanArgumentIndexChoosesLargestConstructorSize.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("BeanArgumentIndexChoosesLargestConstructorSize.xml");
         assertReflectionEquals(
@@ -48,7 +48,7 @@ public class Bean extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyNamesIntellisense.xml"))
                 .withOpenedFile("PropertyNamesIntellisense.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyNamesIntellisense.xml");
         assertReflectionEquals(
@@ -64,7 +64,7 @@ public class Bean extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyRefIntellisense.xml"))
                 .withOpenedFile("PropertyRefIntellisense.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java"), commonFile("IPersonService.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java"), commonFile("IPersonService.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyRefIntellisense.xml");
         assertReflectionEquals(
@@ -79,7 +79,7 @@ public class Bean extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyLanguageVariants.xml"))
                 .withOpenedFile("PropertyLanguageVariants.xml")
-                .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
         List<String> completionVariants = myFixture.getCompletionVariants("PropertyLanguageVariants.xml");
         assertReflectionEquals(
@@ -95,7 +95,7 @@ public class Bean extends CamelryTestSupport {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("PropertyLanguageRename.xml"))
                         .withOpenedFile("PropertyLanguageRename.xml")
-                        .with(javaFiles("me.alanfoster.camelry.blueprint.camel.dom.common", commonFile("Person.java")));
+                        .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
 
         myFixture.renameElementAtCaret("helloWorldddd");
