@@ -29,6 +29,8 @@ Currently the support for the Blueprint Injection Language includes
 
 Camel Routes can be refactored by simply selecting the required elements and invoking `Extract Method` with either *ctrl+alt+m* or *Rightclick -> Extract -> Method*
 
+![Extract Route](/documentation/screenshots/ExtractRoute.png "Extract Route")
+
 ##### Live Templates
 
 Live templates can be invoked with `ctrl+j` under a Camel Context or a Camel Route
@@ -64,6 +66,10 @@ The currently injected languages are :
 Note, the [Simple](http://camel.apache.org/simple.html) language support is currently very rudimentary and requires a lot of work :)
 It is also now disabled by default to not cause issues during its early stages of life
 
-This configuration value can now be configured within the Settings menu - available with the shortcut *ctrl+alt+s*
+This configuration value can now be configured within the Settings menu - available with the shortcut `ctrl+alt+s`
 
 ![Configuration Window](/documentation/screenshots/ConfigurationWindow.png "Configuration Window")
+
+#### Missing a feature?
+
+If there's any features missing that you'd love to see implemented, be sure to [Raise an issue](../../issues)!
