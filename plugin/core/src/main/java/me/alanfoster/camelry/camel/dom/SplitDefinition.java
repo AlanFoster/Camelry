@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,20 +18,28 @@ import java.util.List;
 //@SubTag("split")
 public interface SplitDefinition extends ExpressionNode, DomElement  {
                     @NotNull
+        @Attribute("parallelProcessing")
         GenericAttributeValue<Boolean> getParallelProcessing();
                     @NotNull
+        @Attribute("strategyRef")
         GenericAttributeValue<String> getStrategyRef();
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("streaming")
         GenericAttributeValue<Boolean> getStreaming();
                     @NotNull
+        @Attribute("stopOnException")
         GenericAttributeValue<Boolean> getStopOnException();
                     @NotNull
+        @Attribute("timeout")
         GenericAttributeValue<Long> getTimeout();
                     @NotNull
+        @Attribute("onPrepareRef")
         GenericAttributeValue<String> getOnPrepareRef();
                     @NotNull
+        @Attribute("shareUnitOfWork")
         GenericAttributeValue<Boolean> getShareUnitOfWork();
     
     

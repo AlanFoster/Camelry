@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -17,66 +17,148 @@ import java.util.List;
  */
 //@SubTag("camelContext")
 public interface CamelContextFactoryBean extends AbstractCamelContextFactoryBean, DomElement  {
-    @NotNull
-    GenericAttributeValue<String> getDependsOn();
-    @NotNull
-    GenericAttributeValue<String> getTrace();
-    @NotNull
-    GenericAttributeValue<String> getStreamCache();
-    @NotNull
-    GenericAttributeValue<String> getDelayer();
-    @NotNull
-    GenericAttributeValue<String> getHandleFault();
-    @NotNull
-    GenericAttributeValue<String> getErrorHandlerRef();
-    @NotNull
-    GenericAttributeValue<String> getAutoStartup();
-    @NotNull
-    GenericAttributeValue<String> getUseMDCLogging();
-    @NotNull
-    GenericAttributeValue<String> getUseBreadcrumb();
-    @NotNull
-    GenericAttributeValue<String> getManagementNamePattern();
-    @NotNull
-    GenericAttributeValue<Boolean> getUseBlueprintPropertyResolver();
-    @NotNull
-    GenericAttributeValue<ShutdownRoute> getShutdownRoute();
-    @NotNull
-    GenericAttributeValue<ShutdownRunningTask> getShutdownRunningTask();
-    @NotNull
-    GenericAttributeValue<Boolean> getLazyLoadTypeConverters();
+                    @NotNull
+        @Attribute("dependsOn")
+        GenericAttributeValue<String> getDependsOn();
+                    @NotNull
+        @Attribute("trace")
+        GenericAttributeValue<String> getTrace();
+                    @NotNull
+        @Attribute("streamCache")
+        GenericAttributeValue<String> getStreamCache();
+                    @NotNull
+        @Attribute("delayer")
+        GenericAttributeValue<String> getDelayer();
+                    @NotNull
+        @Attribute("handleFault")
+        GenericAttributeValue<String> getHandleFault();
+                    @NotNull
+        @Attribute("errorHandlerRef")
+        GenericAttributeValue<String> getErrorHandlerRef();
+                    @NotNull
+        @Attribute("autoStartup")
+        GenericAttributeValue<String> getAutoStartup();
+                    @NotNull
+        @Attribute("useMDCLogging")
+        GenericAttributeValue<String> getUseMDCLogging();
+                    @NotNull
+        @Attribute("useBreadcrumb")
+        GenericAttributeValue<String> getUseBreadcrumb();
+                    @NotNull
+        @Attribute("managementNamePattern")
+        GenericAttributeValue<String> getManagementNamePattern();
+                    @NotNull
+        @Attribute("useBlueprintPropertyResolver")
+        GenericAttributeValue<Boolean> getUseBlueprintPropertyResolver();
+                    @NotNull
+        @Attribute("shutdownRoute")
+        GenericAttributeValue<ShutdownRoute> getShutdownRoute();
+                    @NotNull
+        @Attribute("shutdownRunningTask")
+        GenericAttributeValue<ShutdownRunningTask> getShutdownRunningTask();
+                    @NotNull
+        @Attribute("lazyLoadTypeConverters")
+        GenericAttributeValue<Boolean> getLazyLoadTypeConverters();
+    
+        
+        
+                PropertiesDefinition getProperties();
 
-    PropertiesDefinition getProperties();
-    CamelPropertyPlaceholderDefinition getCamelPropertyPlaceholder();
-    String[] getPackages();
-    PackageScanDefinition getPackageScan();
-    ContextScanDefinition getContextScan();
-    CamelJMXAgentDefinition getCamelJMXAgent();
-    List<?> getBeans();
-    List<RouteBuilderDefinition> getBuilderRefs();
-    List<RouteContextRefDefinition> getRouteRefs();
-    List<ThreadPoolProfileDefinition> getThreadPoolProfiles();
-    List<CamelThreadPoolFactoryBean> getThreadPools();
-    List<CamelEndpointFactoryBean> getEndpoints();
-    DataFormatsDefinition getDataFormats();
-    List<CamelRedeliveryPolicyFactoryBean> getRedeliveryPolicies();
-    @SubTag("onException")
-    List<OnExceptionDefinition> getOnExceptions();
-    List<OnCompletionDefinition> getOnCompletions();
-    List<InterceptDefinition> getIntercepts();
-    List<InterceptFromDefinition> getInterceptFroms();
-    List<InterceptSendToEndpointDefinition> getInterceptSendToEndpoints();
+        
+                
+        
+                CamelPropertyPlaceholderDefinition getCamelPropertyPlaceholder();
 
+        
+                
+        
+                String[] getPackages();
 
-    /**
-     * @return Gets the list of CamelRoutes registered with this camel context.
-     *         This list should not be modified, instead call undefine() or interact with addRoute()
-     *         which can be freely modified.
-     */
-    List<RouteDefinition> getRoutes();
+        
+                
+        
+                PackageScanDefinition getPackageScan();
 
-    /**
-     * @return A new route within the camel context
-     */
-    RouteDefinition addRoute();
-}
+        
+                
+        
+                ContextScanDefinition getContextScan();
+
+        
+                
+        
+                CamelJMXAgentDefinition getCamelJMXAgent();
+
+        
+                
+        
+                List<?> getBeans();
+
+        
+                
+        
+                List<RouteBuilderDefinition> getBuilderRefs();
+
+        
+                
+        
+                List<RouteContextRefDefinition> getRouteRefs();
+
+        
+                
+        
+                List<ThreadPoolProfileDefinition> getThreadPoolProfiles();
+
+        
+                
+        
+                List<CamelThreadPoolFactoryBean> getThreadPools();
+
+        
+                
+        
+                List<CamelEndpointFactoryBean> getEndpoints();
+
+        
+                
+        
+                DataFormatsDefinition getDataFormats();
+
+        
+                
+        
+                List<CamelRedeliveryPolicyFactoryBean> getRedeliveryPolicies();
+
+        
+                
+        
+                List<OnExceptionDefinition> getOnExceptions();
+
+        
+                
+        
+                List<OnCompletionDefinition> getOnCompletions();
+
+        
+                
+        
+                List<InterceptDefinition> getIntercepts();
+
+        
+                
+        
+                List<InterceptFromDefinition> getInterceptFroms();
+
+        
+                
+        
+                List<InterceptSendToEndpointDefinition> getInterceptSendToEndpoints();
+
+        
+                
+        
+                List<RouteDefinition> getRoutes();
+
+        
+            
+    }

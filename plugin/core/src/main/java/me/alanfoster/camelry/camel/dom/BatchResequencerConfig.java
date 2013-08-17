@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,14 +18,19 @@ import java.util.List;
 //@SubTag("batchResequencerConfig")
 public interface BatchResequencerConfig extends ResequencerConfig, DomElement  {
                     @NotNull
+        @Attribute("batchSize")
         GenericAttributeValue<Integer> getBatchSize();
                     @NotNull
+        @Attribute("batchTimeout")
         GenericAttributeValue<Long> getBatchTimeout();
                     @NotNull
+        @Attribute("allowDuplicates")
         GenericAttributeValue<Boolean> getAllowDuplicates();
                     @NotNull
+        @Attribute("reverse")
         GenericAttributeValue<Boolean> getReverse();
                     @NotNull
+        @Attribute("ignoreInvalidExchanges")
         GenericAttributeValue<Boolean> getIgnoreInvalidExchanges();
     
     

@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -20,20 +20,28 @@ public interface TokenizerExpression extends ExpressionDefinition, DomElement  {
             
         @Required
                 @NotNull
+        @Attribute("token")
         GenericAttributeValue<String> getToken();
                     @NotNull
+        @Attribute("endToken")
         GenericAttributeValue<String> getEndToken();
                     @NotNull
+        @Attribute("inheritNamespaceTagName")
         GenericAttributeValue<String> getInheritNamespaceTagName();
                     @NotNull
+        @Attribute("headerName")
         GenericAttributeValue<String> getHeaderName();
                     @NotNull
+        @Attribute("regex")
         GenericAttributeValue<Boolean> getRegex();
                     @NotNull
+        @Attribute("xml")
         GenericAttributeValue<Boolean> getXml();
                     @NotNull
+        @Attribute("includeTokens")
         GenericAttributeValue<Boolean> getIncludeTokens();
                     @NotNull
+        @Attribute("group")
         GenericAttributeValue<Integer> getGroup();
     
     

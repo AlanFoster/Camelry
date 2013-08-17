@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -20,22 +20,30 @@ public interface AbstractCamelThreadPoolFactoryBean extends AbstractCamelFactory
             
         @Required
                 @NotNull
+        @Attribute("poolSize")
         GenericAttributeValue<String> getPoolSize();
                     @NotNull
+        @Attribute("maxPoolSize")
         GenericAttributeValue<String> getMaxPoolSize();
                     @NotNull
+        @Attribute("keepAliveTime")
         GenericAttributeValue<String> getKeepAliveTime();
                     @NotNull
+        @Attribute("timeUnit")
         GenericAttributeValue<String> getTimeUnit();
                     @NotNull
+        @Attribute("maxQueueSize")
         GenericAttributeValue<String> getMaxQueueSize();
                     @NotNull
+        @Attribute("rejectedPolicy")
         GenericAttributeValue<ThreadPoolRejectedPolicy> getRejectedPolicy();
             
         @Required
                 @NotNull
+        @Attribute("threadName")
         GenericAttributeValue<String> getThreadName();
                     @NotNull
+        @Attribute("scheduled")
         GenericAttributeValue<Boolean> getScheduled();
     
     

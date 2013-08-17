@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -20,12 +20,16 @@ public interface LogDefinition extends NoOutputDefinition, DomElement  {
             
         @Required
                 @NotNull
+        @Attribute("message")
         GenericAttributeValue<String> getMessage();
                     @NotNull
+        @Attribute("loggingLevel")
         GenericAttributeValue<LoggingLevel> getLoggingLevel();
                     @NotNull
+        @Attribute("logName")
         GenericAttributeValue<String> getLogName();
                     @NotNull
+        @Attribute("marker")
         GenericAttributeValue<String> getMarker();
     
     

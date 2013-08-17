@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -20,10 +20,12 @@ public interface PropertyDefinition extends DomElement  {
             
         @Required
                 @NotNull
+        @Attribute("key")
         GenericAttributeValue<String> getKey();
             
         @Required
                 @NotNull
+        @Attribute("value")
         GenericAttributeValue<String> getValue();
     
     

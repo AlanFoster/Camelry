@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,12 +18,16 @@ import java.util.List;
 //@SubTag("onCompletion")
 public interface OnCompletionDefinition extends ProcessorDefinition, DomElement  {
                     @NotNull
+        @Attribute("onCompleteOnly")
         GenericAttributeValue<Boolean> getOnCompleteOnly();
                     @NotNull
+        @Attribute("onFailureOnly")
         GenericAttributeValue<Boolean> getOnFailureOnly();
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("useOriginalMessagePolicy")
         GenericAttributeValue<Boolean> getUseOriginalMessagePolicy();
     
         

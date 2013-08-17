@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,14 +18,19 @@ import java.util.List;
 //@SubTag("csv")
 public interface CsvDataFormat extends DataFormatDefinition, DomElement  {
                     @NotNull
+        @Attribute("autogenColumns")
         GenericAttributeValue<Boolean> getAutogenColumns();
                     @NotNull
+        @Attribute("delimiter")
         GenericAttributeValue<String> getDelimiter();
                     @NotNull
+        @Attribute("configRef")
         GenericAttributeValue<String> getConfigRef();
                     @NotNull
+        @Attribute("strategyRef")
         GenericAttributeValue<String> getStrategyRef();
                     @NotNull
+        @Attribute("skipFirstLine")
         GenericAttributeValue<Boolean> getSkipFirstLine();
     
     

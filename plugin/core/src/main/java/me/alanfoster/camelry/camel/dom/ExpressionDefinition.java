@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,8 +18,10 @@ import java.util.List;
 //@SubTag("expressionDefinition")
 public interface ExpressionDefinition extends DomElement  {
                     @NotNull
+        @Attribute("id")
         GenericAttributeValue<String> getId();
                     @NotNull
+        @Attribute("trim")
         GenericAttributeValue<Boolean> getTrim();
     
     

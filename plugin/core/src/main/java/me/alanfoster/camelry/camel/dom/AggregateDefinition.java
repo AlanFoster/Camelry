@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,34 +18,49 @@ import java.util.List;
 //@SubTag("aggregate")
 public interface AggregateDefinition extends ProcessorDefinition, DomElement  {
                     @NotNull
+        @Attribute("parallelProcessing")
         GenericAttributeValue<Boolean> getParallelProcessing();
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("timeoutCheckerExecutorServiceRef")
         GenericAttributeValue<String> getTimeoutCheckerExecutorServiceRef();
                     @NotNull
+        @Attribute("aggregationRepositoryRef")
         GenericAttributeValue<String> getAggregationRepositoryRef();
                     @NotNull
+        @Attribute("strategyRef")
         GenericAttributeValue<String> getStrategyRef();
                     @NotNull
+        @Attribute("completionSize")
         GenericAttributeValue<Integer> getCompletionSize();
                     @NotNull
+        @Attribute("completionInterval")
         GenericAttributeValue<Long> getCompletionInterval();
                     @NotNull
+        @Attribute("completionTimeout")
         GenericAttributeValue<Long> getCompletionTimeout();
                     @NotNull
+        @Attribute("completionFromBatchConsumer")
         GenericAttributeValue<Boolean> getCompletionFromBatchConsumer();
                     @NotNull
+        @Attribute("groupExchanges")
         GenericAttributeValue<Boolean> getGroupExchanges();
                     @NotNull
+        @Attribute("eagerCheckCompletion")
         GenericAttributeValue<Boolean> getEagerCheckCompletion();
                     @NotNull
+        @Attribute("ignoreInvalidCorrelationKeys")
         GenericAttributeValue<Boolean> getIgnoreInvalidCorrelationKeys();
                     @NotNull
+        @Attribute("closeCorrelationKeyOnCompletion")
         GenericAttributeValue<Integer> getCloseCorrelationKeyOnCompletion();
                     @NotNull
+        @Attribute("discardOnCompletionTimeout")
         GenericAttributeValue<Boolean> getDiscardOnCompletionTimeout();
                     @NotNull
+        @Attribute("forceCompletionOnStop")
         GenericAttributeValue<Boolean> getForceCompletionOnStop();
     
         

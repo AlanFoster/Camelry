@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,12 +18,16 @@ import java.util.List;
 //@SubTag("throttle")
 public interface ThrottleDefinition extends ExpressionNode, DomElement  {
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("timePeriodMillis")
         GenericAttributeValue<Long> getTimePeriodMillis();
                     @NotNull
+        @Attribute("asyncDelayed")
         GenericAttributeValue<Boolean> getAsyncDelayed();
                     @NotNull
+        @Attribute("callerRunsWhenRejected")
         GenericAttributeValue<Boolean> getCallerRunsWhenRejected();
     
     

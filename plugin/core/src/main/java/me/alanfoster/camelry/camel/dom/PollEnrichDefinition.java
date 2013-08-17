@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,12 +18,16 @@ import java.util.List;
 //@SubTag("pollEnrich")
 public interface PollEnrichDefinition extends NoOutputDefinition, DomElement  {
                     @NotNull
+        @Attribute("resourceUri")
         GenericAttributeValue<String> getResourceUri();
                     @NotNull
+        @Attribute("resourceRef")
         GenericAttributeValue<String> getResourceRef();
                     @NotNull
+        @Attribute("timeout")
         GenericAttributeValue<Long> getTimeout();
                     @NotNull
+        @Attribute("aggregationStrategyRef")
         GenericAttributeValue<String> getAggregationStrategyRef();
     
     

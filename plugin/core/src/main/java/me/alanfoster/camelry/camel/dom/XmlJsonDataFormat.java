@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,28 +18,40 @@ import java.util.List;
 //@SubTag("xmljson")
 public interface XmlJsonDataFormat extends DataFormatDefinition, DomElement  {
                     @NotNull
+        @Attribute("encoding")
         GenericAttributeValue<String> getEncoding();
                     @NotNull
+        @Attribute("elementName")
         GenericAttributeValue<String> getElementName();
                     @NotNull
+        @Attribute("arrayName")
         GenericAttributeValue<String> getArrayName();
                     @NotNull
+        @Attribute("forceTopLevelObject")
         GenericAttributeValue<Boolean> getForceTopLevelObject();
                     @NotNull
+        @Attribute("namespaceLenient")
         GenericAttributeValue<Boolean> getNamespaceLenient();
                     @NotNull
+        @Attribute("rootName")
         GenericAttributeValue<String> getRootName();
                     @NotNull
+        @Attribute("skipWhitespace")
         GenericAttributeValue<Boolean> getSkipWhitespace();
                     @NotNull
+        @Attribute("trimSpaces")
         GenericAttributeValue<Boolean> getTrimSpaces();
                     @NotNull
+        @Attribute("skipNamespaces")
         GenericAttributeValue<Boolean> getSkipNamespaces();
                     @NotNull
+        @Attribute("removeNamespacePrefixes")
         GenericAttributeValue<Boolean> getRemoveNamespacePrefixes();
                     @NotNull
+        @Attribute("expandableProperties")
         GenericAttributeValue<String> getExpandableProperties();
                     @NotNull
+        @Attribute("typeHints")
         GenericAttributeValue<String> getTypeHints();
     
     

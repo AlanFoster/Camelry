@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,24 +18,34 @@ import java.util.List;
 //@SubTag("recipientList")
 public interface RecipientListDefinition extends NoOutputExpressionNode, DomElement  {
                     @NotNull
+        @Attribute("delimiter")
         GenericAttributeValue<String> getDelimiter();
                     @NotNull
+        @Attribute("parallelProcessing")
         GenericAttributeValue<Boolean> getParallelProcessing();
                     @NotNull
+        @Attribute("strategyRef")
         GenericAttributeValue<String> getStrategyRef();
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("stopOnException")
         GenericAttributeValue<Boolean> getStopOnException();
                     @NotNull
+        @Attribute("ignoreInvalidEndpoints")
         GenericAttributeValue<Boolean> getIgnoreInvalidEndpoints();
                     @NotNull
+        @Attribute("streaming")
         GenericAttributeValue<Boolean> getStreaming();
                     @NotNull
+        @Attribute("timeout")
         GenericAttributeValue<Long> getTimeout();
                     @NotNull
+        @Attribute("onPrepareRef")
         GenericAttributeValue<String> getOnPrepareRef();
                     @NotNull
+        @Attribute("shareUnitOfWork")
         GenericAttributeValue<Boolean> getShareUnitOfWork();
     
     

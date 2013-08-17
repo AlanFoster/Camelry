@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,14 +18,19 @@ import java.util.List;
 //@SubTag("description")
 public interface DescriptionDefinition extends DomElement  {
                     @NotNull
+        @Attribute("lang")
         GenericAttributeValue<String> getLang();
                     @NotNull
+        @Attribute("layoutX")
         GenericAttributeValue<Double> getLayoutX();
                     @NotNull
+        @Attribute("layoutY")
         GenericAttributeValue<Double> getLayoutY();
                     @NotNull
+        @Attribute("layoutWidth")
         GenericAttributeValue<Double> getLayoutWidth();
                     @NotNull
+        @Attribute("layoutHeight")
         GenericAttributeValue<Double> getLayoutHeight();
     
     

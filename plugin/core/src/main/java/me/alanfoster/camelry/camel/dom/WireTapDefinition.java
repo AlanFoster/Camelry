@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,16 +18,22 @@ import java.util.List;
 //@SubTag("wireTap")
 public interface WireTapDefinition extends NoOutputDefinition, DomElement  {
                     @NotNull
+        @Attribute("uri")
         GenericAttributeValue<String> getUri();
                     @NotNull
+        @Attribute("ref")
         GenericAttributeValue<String> getRef();
                     @NotNull
+        @Attribute("newExchangeProcessorRef")
         GenericAttributeValue<String> getNewExchangeProcessorRef();
                     @NotNull
+        @Attribute("executorServiceRef")
         GenericAttributeValue<String> getExecutorServiceRef();
                     @NotNull
+        @Attribute("copy")
         GenericAttributeValue<Boolean> getCopy();
                     @NotNull
+        @Attribute("onPrepareRef")
         GenericAttributeValue<String> getOnPrepareRef();
     
         

@@ -1,7 +1,7 @@
 //
 // Note - This file was automatically generated
 // Generation spawned by 'class me.alanfoster.camelry.codegen.ScalateGenerator$'
-// Creation Date - 12 August 2013
+// Creation Date - 16 August 2013
 // Please do not manually modify this class.
 //
 package me.alanfoster.camelry.camel.dom;
@@ -18,12 +18,16 @@ import java.util.List;
 //@SubTag("export")
 public interface CamelServiceExporterDefinition extends IdentifiedType, DomElement  {
                     @NotNull
+        @Attribute("uri")
         GenericAttributeValue<String> getUri();
                     @NotNull
+        @Attribute("serviceRef")
         GenericAttributeValue<String> getServiceRef();
                     @NotNull
+        @Attribute("serviceInterface")
         GenericAttributeValue<Class> getServiceInterface();
                     @NotNull
+        @Attribute("camelContextId")
         GenericAttributeValue<String> getCamelContextId();
     
     
