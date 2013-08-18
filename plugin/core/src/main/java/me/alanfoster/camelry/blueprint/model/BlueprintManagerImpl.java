@@ -86,6 +86,7 @@ public class BlueprintManagerImpl extends BlueprintManager {
     private Set<XmlFile> getBlueprintConfigFiles(@NotNull Project project, @NotNull GlobalSearchScope scope) {
         Set<XmlFile> files = new HashSet<XmlFile>();
 
+        // TODO we should be searching for files which have a BlueprintFileDescription instace instead of this code :)
         Collection<VirtualFile> virtualFiles = FileBasedIndex.getInstance().getContainingFiles(
                 FileTypeIndex.NAME, XmlFileType.INSTANCE, scope);
 

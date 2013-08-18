@@ -54,11 +54,6 @@ public class CamelryProjectDescriptorBuilder {
             return this;
         }
 
-        public CamelryProject withOpenedFileFromTempProject(@TestDataFile @NonNls String testDataPath) {
-            fixture.configureFromTempProjectFile(testDataPath);
-            return this;
-        }
-
         public CamelryProject withOpenedFile(@TestDataFile @NonNls String testDataPath) {
             fixture.configureByFile(testDataPath);
             return this;

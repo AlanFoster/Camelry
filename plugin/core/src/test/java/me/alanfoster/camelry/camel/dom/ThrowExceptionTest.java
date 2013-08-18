@@ -27,10 +27,10 @@ public class ThrowExceptionTest extends CamelryTestSupport {
     public void testExceptionBeanVariantsOnly() {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ExceptionBeanVariantsOnly.xml"))
-                .withOpenedFile("ExceptionBeanVariantsOnly.xml")
+                .withOpenedFileFromTempProject(blueprintFiles("ExceptionBeanVariantsOnly.xml"))
                 .with(javaFiles("me.alanfoster.camelry.common", commonFile("CustomException.java"), commonFile("Person.java")));
 
-        List<String> completionVariants = myFixture.getCompletionVariants("ExceptionBeanVariantsOnly.xml");
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList(
                         "argumentException", "customException"),

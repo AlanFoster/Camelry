@@ -24,10 +24,10 @@ public class Service extends CamelryTestSupport {
     public void testServiceRefVariants() {
         CreateCamelryProject(myFixture)
                 .with(blueprintFiles("ServiceRefVariants.xml"))
-                .withOpenedFile("ServiceRefVariants.xml")
+                .withOpenedFileFromTempProject(blueprintFiles("ServiceRefVariants.xml"))
                 .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
 
-        List<String> completionVariants = myFixture.getCompletionVariants("ServiceRefVariants.xml");
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList("customString", "personService"),
                 completionVariants);

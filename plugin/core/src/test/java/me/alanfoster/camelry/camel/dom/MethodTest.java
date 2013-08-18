@@ -26,9 +26,10 @@ public class MethodTest extends CamelryTestSupport {
 
     public void testBlueprintBeanMethodCompletionSameFileWithMethodDSL() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList("one", "three", "two"),
                 completionVariants);
@@ -36,9 +37,10 @@ public class MethodTest extends CamelryTestSupport {
 
     public void testBlueprintBeanRefCompletionWithNoReferences() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences);
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Collections.EMPTY_LIST,
                 completionVariants);
@@ -47,9 +49,10 @@ public class MethodTest extends CamelryTestSupport {
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile))
-                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")));
+                .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java")))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
+        List<String> completionVariants = getSafeCompletionVariants();
 
         assertReflectionEquals(
                 Arrays.asList(
@@ -63,9 +66,10 @@ public class MethodTest extends CamelryTestSupport {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"))
                 .with(javaFiles("me.alanfoster.camelry.common", commonFile("Person.java"), commonFile("IPersonService.java")))
-                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile))
+                .withOpenedFileFromTempProject(blueprintFiles("BlueprintReferenceMethodCompletionExternalFile.xml"));
 
-        List<String> completionVariants = myFixture.getCompletionVariants("BlueprintReferenceMethodCompletionExternalFile.xml");
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList(
                         "create", "delete", "get", "getAll", "update",
@@ -79,8 +83,10 @@ public class MethodTest extends CamelryTestSupport {
      */
     public void testMethodAttributeBeanDeprecatedAnnotator() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(blueprintFiles("MethodAttributeBeanDeprecatedAnnotatorData.xml"))
-                .withOpenedFile("MethodAttributeBeanDeprecatedAnnotatorError.xml");
+                // Note, we need to copy the Error xml file over too
+                // This is because in-memory file is not considered to be a blueprint file, as it does not exist within OSGI-INF/blueprint
+                .with(blueprintFiles("MethodAttributeBeanDeprecatedAnnotatorData.xml", "MethodAttributeBeanDeprecatedAnnotatorError.xml"))
+                .withOpenedFileFromTempProject(blueprintFiles(("MethodAttributeBeanDeprecatedAnnotatorError.xml")));
 
         myFixture.enableInspections(new DeprecatedAttribtueChecker());
         myFixture.checkHighlighting(true, true, true);
@@ -93,7 +99,7 @@ public class MethodTest extends CamelryTestSupport {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles("RenameRefValueWithBlueprintPointerReference.xml"))
                 .with(javaFiles("me.alanfoster.camelry.common", commonFile("IPersonService.java")))
-                .withOpenedFileFromTempProject("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml");
+                .withOpenedFileFromTempProject(blueprintFiles("RenameRefValueWithBlueprintPointerReference.xml"));
 
         myFixture.renameElementAtCaret("newPersonServiceName");
         myFixture.checkResultByFile("OSGI-INF/blueprint/RenameRefValueWithBlueprintPointerReference.xml", "RenameRefValueWithBlueprintPointerReference_after.xml", false);

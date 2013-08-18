@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 /**
@@ -26,9 +27,10 @@ public class BeanCompletionTest extends CamelryTestSupport {
      ******************************************************************************/
     public void testBlueprintBeanRefCompletionWithinSameBlueprintFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanCompletionWithinSameBlueprintFile);
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList("one", "three", "two"),
                 completionVariants);
@@ -36,9 +38,10 @@ public class BeanCompletionTest extends CamelryTestSupport {
 
     public void testBlueprintBeanRefCompletionWithNoReferences() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanRefCompletionWithNoReferences);
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Collections.EMPTY_LIST,
                 completionVariants);
@@ -46,9 +49,10 @@ public class BeanCompletionTest extends CamelryTestSupport {
 
     public void testBlueprintBeanMethodCompletionWithinSameBlueprintFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(CamelryProjectDescriptorBuilder.blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
+                .with(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile))
+                .withOpenedFileFromTempProject(blueprintFiles(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(LanguageFiles.Camel.BlueprintBeanMethodCompletionWithinSameBlueprintFile);
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList(
                         "charAt", "charAt", "codePointAt", "codePointBefore", "codePointCount", "compareTo",
@@ -69,10 +73,12 @@ public class BeanCompletionTest extends CamelryTestSupport {
      * Blueprint Service reference Bean Reference tests
      ******************************************************************************/
     public void testBlueprintServiceReferenceRefCompletionWithinSameBlueprintFile() {
+        String fileName = getTestName(false) + ".xml";
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(CamelryProjectDescriptorBuilder.blueprintFiles(getTestName(false) + ".xml"));
+                .with(blueprintFiles(fileName))
+                .withOpenedFileFromTempProject(blueprintFiles(fileName));
 
-        List<String> completionVariants = myFixture.getCompletionVariants(getTestName(false) + ".xml");
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
                 Arrays.asList("dataSourceBar", "dataSourceFoo", "one", "three", "two"),
                 completionVariants);
@@ -80,11 +86,12 @@ public class BeanCompletionTest extends CamelryTestSupport {
 
     public void testBlueprintServiceReferenceRefCompletionWithinDifferentFile() {
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
-                .with(CamelryProjectDescriptorBuilder.blueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"));
+                .with(blueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml", "../common/BlueprintServiceReferenceExternalFile.xml"))
+                .withOpenedFileFromTempProject(blueprintFiles("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml"));
 
-        List<String> completionVariants = myFixture.getCompletionVariants("BlueprintServiceReferenceRefCompletionWithinSameBlueprintFile.xml");
+        List<String> completionVariants = getSafeCompletionVariants();
         assertReflectionEquals(
-                Arrays.asList("dataSourceBar", "dataSourceFoo", "externalReferenceOne", "externalReferenceTwo", "one", "three", "two"),
+                Arrays.asList("dataSourceBar", "dataSourceFoo", "one", "three", "two", "externalReferenceOne", "externalReferenceTwo"),
                 completionVariants);
     }
 }

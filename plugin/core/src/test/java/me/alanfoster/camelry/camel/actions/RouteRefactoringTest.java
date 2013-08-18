@@ -4,9 +4,13 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.TestInputDialog;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import junit.framework.Assert;
+import me.alanfoster.camelry.CamelryProjectDescriptorBuilder;
 import me.alanfoster.camelry.CamelryTestSupport;
 import me.alanfoster.camelry.TestHelper;
 import org.jetbrains.annotations.Nullable;
+
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.CreateCamelryProject;
+import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFiles;
 
 /**
  * Tests to ensure that route refactoring works correctly
@@ -114,7 +118,11 @@ public class RouteRefactoringTest extends CamelryTestSupport {
      */
     private void performRouteRefactoring(@Nullable final String routeUri, boolean isErrorExpected) {
         String resourceName = getTestName(false);
-        myFixture.configureByFile(resourceName + ".xml");
+
+        CreateCamelryProject(myFixture)
+                .with(blueprintFiles(resourceName + ".xml"))
+                .withOpenedFileFromTempProject(blueprintFiles(resourceName + ".xml"));
+
         // Override the route name if we don't expect a validation error
         if(!isErrorExpected) {
             Messages.setTestInputDialog(new TestInputDialog() {
