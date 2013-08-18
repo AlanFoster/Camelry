@@ -1,9 +1,38 @@
 *Note - this documentation is currently under development*
 
-Building
+Developer Setup
 ===============
 
-This plugin makes use of [Maven](http://maven.apache.org/) for dependency management and building. 
+Setting up your environment for IntelliJ plugin development is extremely easy;
+These steps should guide you through the process of getting started with IntelliJ Plugin Development.
+Be sure to fire any [questions or issues](../../issues) our way!
+
+Prerequisites
+-------------------------
+
+####Download IntelliJ
+###### 1. Download Intellij IDE
+
+If you haven't already, make sure you have installed either the Ultimate or Community Edition of [IntelliJ](http://www.jetbrains.com/idea/).
+
+
+###### 2. Download Intellij IDE sources
+
+The [IntelliJ community edition sourcecode](https://github.com/JetBrains/intellij-community) is available on GitHub.
+You will either need to git Clone or Download the sources
+
+
+###### 3. Add Intellij SDk
+
+Add a new IntelliJ project SDK. Be sure to Update the sourcepath to include your downloaded IntelliJ sources.
+
+![IntellijSDKImportSources](/documentation/setup/IntellijSDKImportSources.png "IntellijSDKImportSources")
+
+
+####Setup Maven
+
+
+This plugin currently makes use of [Maven](http://maven.apache.org/) for dependency management. You should install this 
 
 Jetbrains do not currently host publicly up-to-date dependencies for IntelliJ, therefore you must install these yourself.
 
@@ -24,44 +53,17 @@ As plugin makes use of IntelliJ GUI forms, we require an additional compile step
 
 Please follow the [ideaui-designer-maven-plugin](https://github.com/gshakhn/ideauidesigner-maven-plugin/tree/12.x) 12.x branch install instructions, which are available within the project's read-me file.
 
-###### 3. Run Maven install
-
-After you have installed the required dependencies, you should now be able to  succesfully trigger a project build with
-
-	mvn install
-
-Developer Setup
-===============
-
-Setting up your environment for IntelliJ plugin development is extremely easy;
-These steps should guide you through the process of getting started with IntelliJ Plugin Development.
-Be sure to fire any [questions or issues](../../issues) our way!
-
-
-Prerequisites
--------------------------
-
-###### 1. Download Intellij IDE
-
-If you haven't already, make sure you have installed either the Ultimate or Community Edition of [IntelliJ](http://www.jetbrains.com/idea/).
-
-###### 2. Download Intellij IDE sources
-
-The [IntelliJ community edition sourcecode](https://github.com/JetBrains/intellij-community) is available on GitHub.
-You will either need to git Clone or Download the sources
-
-###### 4. Installing Additional Developer Plugins
+####Installing Developer Plugins
 
 Add a new IntelliJ project SDK. Update the sourcepath to include your downloaded IntelliJ sources.
 
-![IntellijSDKImportSources](/documentation/setup/IntellijSDKImportSources.png "IntellijSDKImportSources")
-
-###### 3. Installing Additional Developer Plugins
 
 Developing a plugin for IntelliJ is 100% out of the box.
 
 However the following are additional plugins which will make development work easier;
 
+- [Intellij plugin development with Maven](http://plugins.jetbrains.com/plugin/7127?pr=idea) - Allows for a Maven module to be picked up as an IntelliJ plugin
+- [Scala Support](http://plugins.jetbrains.com/plugin/?id=1347) - Only required if you are updating the CodeGen module
 - [Grammar-Kit](http://plugins.jetbrains.com/plugin?pluginId=6606) - Tooling for editing BNF grammars and parser generation
 - [JFlex](http://plugins.jetbrains.com/plugin?pluginId=263) - Enables JFlex support for [lexical analysis](http://en.wikipedia.org/wiki/Lexical_analysis)
 - [PsiViewer](http://plugins.jetbrains.com/plugin/?pluginId=227) - A very nice tool which allows view in a hierarchical manner the [PSI Elements](http://confluence.jetbrains.com/display/IDEADEV/IntelliJ+IDEA+Architectural+Overview#IntelliJIDEAArchitecturalOverview-PsiElements) within a document.
@@ -74,37 +76,32 @@ However the following are additional plugins which will make development work ea
 Importing the IntelliJ project
 ---------------------
 
-###### Step 1: Import the Project
+As this plugin makes use of Maven you should make sure you have installed the pre-requiste plugin 'Intellij plugin development with Maven', which will allow for IntelliJ to pickup your plugin module succesfully.
+
+###### 1: Import the Project
 
 Select the Import Project option from the Quick Start Menu
 
 ![ImportProject](/documentation/setup/ImportProject.png "ImportProject")
 
-###### Step 2: Select Import Directory
+###### 2: Import the Maven Project
 
-Point to the root directory of your Git clone.
+Select the pom.xml file
 
 ![ImportRootDirectory](/documentation/setup/ImportRootDirectory.png "ImportRootDirectory")
 
-###### Step 3: Import Project Type
+###### 4: Select Project SDK
 
-Select Create project from existing soruces.
-This will allow IntelliJ to make use of the existing project configuration file
-
-![ExistingSources](/documentation/setup/ExistingSources.png "ExistingSources")
-
-###### Step 4: Select Project SDK
-
-Create a new Intellij IDEA SDK
+After selecting through the options you will need to create new Intellij IDEA SDK
 
 ![IntelliJSDK](/documentation/setup/IntelliJSDK.png "IntelliJSDK")
 
 *Note* - You may find it useful to also download the IntelliJ community edition source code and update your SDK's
-sourcepath, as mentioned in the Prerequisites section.
+sourcepath, as mentioned in the Pre-requisites section.
 
-###### Step 5: Create a plugin configuration
+###### 5: Create a plugin configuration
 
-Once your project has loaded you will need to add a new Plugin Configuratoin
+Once your project has loaded you will need to add a new Plugin Configuration
 
 ![ConfigurationWindow](/documentation/setup/ConfigurationWindow.png "ConfigurationWindow")
 
