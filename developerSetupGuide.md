@@ -1,9 +1,42 @@
+*Note - this documentation is currently under development*
+
+Building
+===============
+
+This plugin makes use of [Maven](http://maven.apache.org/) for dependency management and building. 
+
+Jetbrains do not currently host publicly up-to-date dependencies for IntelliJ, therefore you must install these yourself.
+
+###### 1. Install IntelliJ JARS to your Maven repo
+
+You will need to install all of IntelliJ's lib JARs contained within `${IDEA_INSTALL}/lib/*.jar` into your Maven repo. A shell script is available for this purpose, which is available [here](/install.sh). 
+
+An example of executing this Shell script is as follows
+
+
+	# First argument is the path to your IntelliJ 12 install
+	# second argument is the build number. This plugin requires 129.173
+	./install.sh "C:/Program Files (x86)/JetBrains/IntelliJ IDEA 12.1.4" "129.173"
+
+###### 2. Install ideauidesigner-maven-plugin
+
+As plugin makes use of IntelliJ GUI forms, we require an additional compile step handle this.
+
+Please follow the [ideaui-designer-maven-plugin](https://github.com/gshakhn/ideauidesigner-maven-plugin/tree/12.x) 12.x branch install instructions, which are available within the project's read-me file.
+
+###### 3. Run Maven install
+
+After you have installed the required dependencies, you should now be able to  succesfully trigger a project build with
+
+	mvn install
+
 Developer Setup
 ===============
 
 Setting up your environment for IntelliJ plugin development is extremely easy;
 These steps should guide you through the process of getting started with IntelliJ Plugin Development.
 Be sure to fire any [questions or issues](../../issues) our way!
+
 
 Prerequisites
 -------------------------
