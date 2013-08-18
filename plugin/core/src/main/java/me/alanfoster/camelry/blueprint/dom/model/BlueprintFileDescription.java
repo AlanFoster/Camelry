@@ -1,9 +1,14 @@
 package me.alanfoster.camelry.blueprint.dom.model;
 
+import com.intellij.openapi.module.Module;
 import com.intellij.openapi.util.Iconable;
+import com.intellij.psi.xml.XmlFile;
+import com.intellij.util.PathUtil;
 import com.intellij.util.xml.DomFileDescription;
 import me.alanfoster.camelry.blueprint.BlueprintConstants;
 import me.alanfoster.camelry.icons.PluginIcons;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
@@ -33,5 +38,28 @@ public class BlueprintFileDescription extends DomFileDescription<Blueprint>  {
     @Override
     public Icon getFileIcon(@Iconable.IconFlags int flags) {
         return PluginIcons.CAMEL;
+    }
+
+    /**
+     * Requires for all files to be under the `SGI-INF/bluepint` directory
+     * @param file
+     * @param module
+     * @return
+     */
+    @Override
+    public boolean isMyFile(@NotNull XmlFile file, @Nullable Module module) {
+        return isInsideOsgiInfBlueprint(file) && super.isMyFile(file, module);
+    }
+
+    /**
+     *
+     * @param xmlFile
+     * @return True if the file is contained within 'OSGI-INF/blueprint'
+     */
+    private boolean isInsideOsgiInfBlueprint(XmlFile xmlFile) {
+        String localPath = PathUtil.getLocalPath(xmlFile.getVirtualFile());
+        if(localPath == null) return false;
+        String parentPath = PathUtil.getParentPath(localPath);
+        return parentPath.endsWith("OSGI-INF\\blueprint") || parentPath.endsWith("OSGI-INF/blueprint");
     }
 }
