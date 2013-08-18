@@ -70,7 +70,7 @@ However the following are additional plugins which will make development work ea
 
 *Note* If installing Grammar-Kit, one extra step is required; You must specify the paths of `JFlex` and the `Skeleton file` to point to the IntelliJ community edition sources. The JFlex settings are available under project settings - *ctrl+alt+s*
 
-![JFlex settings](/documentation/setup/JflexSettings.png "JFlex settings")
+![JFlex settings](/documentation/setup/JFlexSettings.png "JFlex settings")
 
 
 Importing the IntelliJ project
