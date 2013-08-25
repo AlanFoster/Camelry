@@ -24,9 +24,11 @@ Check out the [currently supported](/currentlySupported.md) page too
 Getting it
 -----------
 
-Currently this project is under development, and not officially released yet!
+Camelry 0.1 has now officially been released!
+To download this plugin, simply use IntelliJ's plugin settings window and search for 'Camelry'.
 
-We are currently aiming for a 0.1 release in the near future :)
+All official releases will be available from the [Camelry Jetbrains plugin repository page](http://plugins.jetbrains.com/plugin/7302?pr=idea_ce).
+
 GitHub currently tracks all of our [planned milestones](../../issues/milestones)
 
 Contributing
