@@ -6,8 +6,10 @@
 //
 package me.alanfoster.camelry.camel.dom;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
 import com.intellij.util.xml.DomElement;
+import me.alanfoster.camelry.camel.converters.ComponentDefinitionReferenceConverter;
 import org.jetbrains.annotations.*;
 import java.util.List;
 
@@ -17,9 +19,11 @@ import java.util.List;
  */
 //@SubTag("AbstractClass")
 public interface SendDefinition extends NoOutputDefinition, DomElement  {
-                    @NotNull
         @Attribute("uri")
-        GenericAttributeValue<String> getUri();
+        @Required
+        @Convert(ComponentDefinitionReferenceConverter.class)
+        public GenericAttributeValue<PsiClass> getUri();
+
                     @NotNull
         @Attribute("ref")
         GenericAttributeValue<String> getRef();

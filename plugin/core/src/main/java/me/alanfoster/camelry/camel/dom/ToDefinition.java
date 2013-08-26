@@ -17,6 +17,7 @@ import java.util.List;
  */
 //@SubTag("to")
 public interface ToDefinition extends SendDefinition, DomElement  {
+
                     @NotNull
         @Attribute("pattern")
         GenericAttributeValue<ExchangePattern> getPattern();
