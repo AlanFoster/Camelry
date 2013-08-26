@@ -27,6 +27,8 @@ Getting it
 Camelry 0.1 has now officially been released!
 To download this plugin, simply use IntelliJ's plugin settings window and search for 'Camelry'.
 
+![Install Camelry Window](/documentation/screenshots/InstallCamelryWindow.png "Install Camelry Window")
+
 All official releases will be available from the [Camelry Jetbrains plugin repository page](http://plugins.jetbrains.com/plugin/7302?pr=idea_ce).
 
 GitHub currently tracks all of our [planned milestones](../../issues/milestones)
