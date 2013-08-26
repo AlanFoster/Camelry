@@ -45,6 +45,10 @@ public class UriTest extends CamelryTestSupport {
         performTest(null);
     }
 
+    public void testNoComponentName() {
+        performTest(null);
+    }
+
     /**
      *
      * @param expectedClassName The expected class name that we should resolve to.

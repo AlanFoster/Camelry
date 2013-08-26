@@ -21,7 +21,7 @@ import java.util.List;
 public interface SendDefinition extends NoOutputDefinition, DomElement  {
         @Attribute("uri")
         @Required
-        @Convert(ComponentDefinitionReferenceConverter.class)
+        @Convert(value = ComponentDefinitionReferenceConverter.class, soft = true)
         public GenericAttributeValue<PsiClass> getUri();
 
                     @NotNull
