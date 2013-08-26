@@ -24,26 +24,58 @@ import static me.alanfoster.camelry.CamelryProjectDescriptorBuilder.blueprintFil
  */
 public class UriTest extends CamelryTestSupport {
 
-    // TODO Add test for 'To' and 'From' definitions
-
     @Override
     public String getTestDataPath() {
         return TestHelper.getTestRoot() + "/camel/dom/uri";
     }
 
-    public void testDirectVMReference() {
+    public void testFromDirectVMReference() {
+        performTest("DirectVmComponent");
+    }
+
+    public void testToDirectVMReference() {
+        performTest("DirectVmComponent");
+    }
+
+    public void testFromPropertyInterpolation() {
+        performTest(null);
+    }
+
+    public void testToPropertyInterpolation() {
+        performTest(null);
+    }
+
+    /**
+     *
+     * @param expectedClassName The expected class name that we should resolve to.
+     *                          Null implies that no reference should be found.
+     */
+    private void performTest(String expectedClassName) {
         // We require Camel Core on our classpath
         PsiTestUtil.addLibrary(myFixture.getModule(), "camel-core", new File(TestHelper.getSourceRoot(), "/camel/camel-2.10.0").getPath(), "camel-core-2.10.0.jar");
-        String expectedClassName = "DirectVmComponent";
 
-        String testFile = "DirectVMReference.xml";
+        String testFile = getTestName(false) + ".xml";
         CamelryProjectDescriptorBuilder.CreateCamelryProject(myFixture)
                 .with(blueprintFiles(testFile))
                 .withOpenedFileFromTempProject(blueprintFiles(testFile));
 
-        PsiElement elementAtCaret = myFixture.getElementAtCaret();
+        PsiElement elementAtCaret = null;
+        try {
+            elementAtCaret = myFixture.getElementAtCaret();
+        } catch (AssertionError e) {
+            Assert.assertTrue("An unexpected AssertionError occured. This test requires for the only assert failure to be that of IntelliJ's testing framework",
+                    e.getMessage().contains("element not found in file"));
+        }
+
+        if(expectedClassName == null){
+            assertNull("There should be no resolved PsiElement for this uri", elementAtCaret);
+            return;
+        }
+
         Assert.assertTrue("URI Reference should be an instance of PsiClass", elementAtCaret instanceof PsiClass);
         String className = ((ClsClassImpl) elementAtCaret).getName();
         Assert.assertEquals("Resolved class name should be equal to that of the expected", expectedClassName, className);
     }
+
+
 }
