@@ -88,10 +88,11 @@ public class ComponentDefinitionReferenceConverter extends ResolvingConverter<Ps
 
     @Nullable
     private ComponentDefinition getComponentDefinition(@NotNull String componentString) {
-        final Pattern compile = Pattern.compile("^(?<componentName>\\w+):(.+)$");
-        final Matcher matcher = compile.matcher(componentString);
+        final Pattern pattern = Pattern.compile("([^:]+).*");
+        final Matcher matcher = pattern.matcher(componentString);
+
         if (matcher.matches()) {
-            String componentName = matcher.group("componentName");
+            String componentName = matcher.group();
             ComponentDefinition componentDefinition = new ComponentDefinition(componentName);
             return componentDefinition;
         }
