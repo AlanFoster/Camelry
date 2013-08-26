@@ -3,6 +3,7 @@ package me.alanfoster.camelry.blueprint.dom.actions;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.CommandProcessor;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.module.Module;
@@ -41,6 +42,7 @@ import static me.alanfoster.camelry.CamelryBundle.message;
  * user defined property with the value of 'new property'
  */
 public class IntroducePropertyPlaceholderRefactoring implements RefactoringActionHandler {
+    public static Logger logger = Logger.getInstance(IntroducePropertyPlaceholderRefactoring.class);
 
     /**
      *
@@ -52,7 +54,10 @@ public class IntroducePropertyPlaceholderRefactoring implements RefactoringActio
     @Override
     public void invoke(final @NotNull Project project, final Editor editor, final PsiFile psiFile, final DataContext dataContext) {
         final Module module = ModuleUtil.findModuleForPsiElement(psiFile);
-        assert module != null : "The module must not be null for invoking a refactoring - potentially we are using an in memory editor?";
+        if(module == null) {
+            logger.info("The module must not be null for invoking a refactoring - potentially we are using an in memory editor?");
+            return;
+        }
 
         boolean isValid = performValidation(project, editor, psiFile);
         if (!isValid) return;

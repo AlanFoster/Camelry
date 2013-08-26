@@ -124,7 +124,7 @@ public class ExistingPropertyReferenceAnnotator implements Annotator {
                                        @NotNull final String propertyName, @NotNull String propertyValue) {
             Module module = ModuleUtil.findModuleForPsiElement(file);
             if (module == null) {
-                logger.error("Module value was null for psifile - Possibly due to an in memory editor?");
+                logger.info("Module value was null for psifile - Possibly due to an in memory editor?");
                 return;
             }
 

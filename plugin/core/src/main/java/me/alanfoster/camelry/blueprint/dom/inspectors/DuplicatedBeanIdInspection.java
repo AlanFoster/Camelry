@@ -16,7 +16,6 @@ import me.alanfoster.camelry.blueprint.model.BlueprintManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-
 /**
  * Inspection for ensuring one bundle does not have duplicate BlueprintBean ids
  */
@@ -42,7 +41,7 @@ public class DuplicatedBeanIdInspection extends DomElementsInspection<Blueprint>
             Module module = ModuleUtil.findModuleForPsiElement(element.getXmlTag());
 
             if(module == null) {
-                logger.error("Module value was null for searchId '" + id + "' - Possibly due to an in memory editor?");
+                logger.info("Module value was null for searchId '" + id + "' - Possibly due to an in memory editor?");
                 return;
             }
 
