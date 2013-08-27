@@ -6,6 +6,7 @@
 //
 package me.alanfoster.camelry.camel.dom;
 
+import com.intellij.psi.CommonClassNames;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NotNull;
@@ -27,10 +28,10 @@ public interface OnExceptionDefinition extends ProcessorDefinition, DomElement  
         @Attribute("useOriginalMessagePolicy")
         GenericAttributeValue<Boolean> getUseOriginalMessagePolicy();
 
-
+    @ExtendClass(value = CommonClassNames.JAVA_LANG_THROWABLE, allowAbstract = true)
     @SubTagList("exception")
+    @NameValue(unique = true, referencable = false)
     List<GenericDomValue<PsiClass>> getExceptions();
-
 
                 WhenDefinition getOnWhen();
 
