@@ -576,7 +576,7 @@
 				<version>1.8</version>
                 <executions>
                     <execution>
-                        <id>add-source</id>
+                        <id>add-sources</id>
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>add-source</goal>
@@ -584,7 +584,38 @@
                         <configuration>
                             <sources>
                                 <source>${basedir}/src/main/gen</source>
+                                <!--
+                                    Note - we copy META-INF from the basedir, as the IntelliJ maven support plugin
+                                    does not function correctly if we place it into /src/main/resources
+                                -->
+                                <source>${basedir}/META-INF</source>
                             </sources>
+                        </configuration>
+                    </execution>
+
+                    <!--
+                        Note - we need to copy the META-INF from the basedir, as the IntelliJ maven support plugin
+                        does not function correctly if we place it into /src/main/resources
+                    -->
+                    <execution>
+                        <id>add-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/META-INF</directory>
+                                    <targetPath>META-INF</targetPath>
+                                    <!--
+                                        Do not copy over the readme file, as that is for developers only
+                                    -->
+                                    <excludes>
+                                        <exclude>readme.md</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
