@@ -31,6 +31,10 @@ Camel Routes can be refactored by simply selecting the required elements and inv
 
 ![Extract Route](/documentation/screenshots/ExtractRoute.png "Extract Route")
 
+##### Exception Handling
+
+![On Exception](/documentation/screenshots/OnException.png "On Exception")
+
 ##### Live Templates
 
 Live templates can be invoked with `ctrl+j` under a Camel Context or a Camel Route

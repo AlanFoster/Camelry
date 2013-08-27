@@ -49,12 +49,13 @@ Change Log
 ----------
 
 <ul>
-	<li>
-		0.1.1
-		<ul>
-			<li>Update Target Compile Version to be JDK 1.6</li>
-			<li>Improve reference finding support for `direct-vm` within from/to URI attributes.</li>
-		</ul>
+    <li>
+        0.1.1
+        <ul>
+            <li>Update Target Compile Version to be JDK 1.6</li>
+            <li>Improve reference finding support for `direct-vm` within from/to URI attributes.</li>
+            <li>Add Support for onException elements.</li>
+        </ul>
 	</li>
 	<li>
 		0.1.0
