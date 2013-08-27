@@ -131,7 +131,7 @@ public interface CamelContextFactoryBean extends AbstractCamelContextFactoryBean
 
         
                 
-        
+                @SubTagList("onException")
                 List<OnExceptionDefinition> getOnExceptions();
 
         

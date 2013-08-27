@@ -6,11 +6,11 @@
 //
 package me.alanfoster.camelry.camel.dom;
 
+import com.intellij.psi.PsiClass;
 import com.intellij.util.xml.*;
-import com.intellij.util.xml.DomElement;
-import org.jetbrains.annotations.*;
-import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 
 /**
  * @author Alan
@@ -26,14 +26,12 @@ public interface OnExceptionDefinition extends ProcessorDefinition, DomElement  
                     @NotNull
         @Attribute("useOriginalMessagePolicy")
         GenericAttributeValue<Boolean> getUseOriginalMessagePolicy();
-    
-        
-        
-                List<String> getExceptions();
 
-        
-                
-        
+
+    @SubTagList("exception")
+    List<GenericDomValue<PsiClass>> getExceptions();
+
+
                 WhenDefinition getOnWhen();
 
         
